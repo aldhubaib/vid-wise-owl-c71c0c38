@@ -113,18 +113,41 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
   // Generate mock "more" items for the modal (in real app these come from API)
   const allItems = useMemo(() => {
     if (stage.moreCount <= 0) return stage.items;
-    const extra: PipelineItem[] = Array.from({ length: stage.moreCount }, (_, i) => ({
-      id: `${stage.id}-extra-${i}`,
-      title: `${stage.label} item ${stage.items.length + i + 1}`,
-      channelId: channels[i % channels.length]?.id || "ch1",
-      videoId: `v-extra-${i}`,
-      status: "processing" as const,
-      statusDetail: "Queued",
-      timeInStage: `${Math.floor(Math.random() * 30 + 1)}m ${Math.floor(Math.random() * 59)}s`,
-      retries: Math.floor(Math.random() * 4),
-    }));
+    const arabicTitles = [
+      "رحلة إلى الجنوب", "تجربة الغوص في البحر", "مغامرة الصحراء الكبرى",
+      "أسرار المدينة القديمة", "تحدي الطبخ الشعبي", "استكشاف الكهوف المظلمة",
+      "رحلة الشتاء الباردة", "مغامرة في الغابة", "زيارة القرية المهجورة",
+      "تجربة التخييم البري", "صيد السمك في الخليج", "رحلة جبال الألب",
+      "استكشاف الأنفاق السرية", "مغامرة الجزيرة النائية", "تحدي البقاء ليلة كاملة",
+      "رحلة إلى الواحة", "أغرب الأماكن المهجورة", "تجربة الطيران الشراعي",
+      "مغامرة في الوادي العميق", "زيارة القلعة الأثرية", "رحلة البحث عن الكنز",
+      "استكشاف المنطقة الممنوعة", "تحدي الجري في الصحراء", "مغامرة الثلوج",
+      "رحلة إلى أعلى القمة", "تجربة الحياة البدوية", "زيارة السوق القديم",
+      "استكشاف الشاطئ المجهول", "مغامرة الليل في البر", "تحدي الطبخ على النار",
+    ];
+    const statuses: Array<{ status: PipelineItem["status"]; statusDetail?: string }> = [
+      { status: "waiting" },
+      { status: "queued" },
+      { status: "processing", statusDetail: "Processing..." },
+      { status: "waiting" },
+      { status: "queued" },
+    ];
+    const extra: PipelineItem[] = Array.from({ length: stage.moreCount }, (_, i) => {
+      const s = statuses[i % statuses.length];
+      return {
+        id: `${stage.id}-extra-${i}`,
+        title: arabicTitles[i % arabicTitles.length],
+        channelId: channels[i % channels.length]?.id || "ch1",
+        videoId: `v-extra-${i}`,
+        status: isFailed ? "failed" as const : s.status,
+        statusDetail: isFailed ? undefined : s.statusDetail,
+        errorReason: isFailed ? ["API quota exceeded", "Transcript unavailable", "Timeout", "Rate limited", "Network error"][i % 5] : undefined,
+        timeInStage: `${Math.floor(Math.random() * 30 + 1)}m ${Math.floor(Math.random() * 59)}s`,
+        retries: Math.floor(Math.random() * 4),
+      };
+    });
     return [...stage.items, ...extra];
-  }, [stage]);
+  }, [stage, isFailed]);
 
   const filteredItems = search
     ? allItems.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
