@@ -126,6 +126,28 @@ export default function Stories() {
           </div>
         </div>
 
+        {/* Stage filter pills */}
+        <div className="px-6 max-lg:px-4 mb-5">
+          <div className="flex items-center gap-2 flex-wrap">
+            {stages.map((s) => {
+              const count = stories.filter((st) => st.stage === s.key).length;
+              return (
+                <button
+                  key={s.key}
+                  onClick={() => { setActiveStage(s.key); setSelectedId(null); }}
+                  className={`px-4 py-1.5 rounded-full text-[12px] font-medium transition-colors ${
+                    activeStage === s.key
+                      ? "bg-foreground/10 text-foreground border border-foreground/20"
+                      : "text-dim border border-border hover:text-foreground hover:border-foreground/20"
+                  }`}
+                >
+                  {s.label} ({count})
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Two-panel layout */}
         <div className="px-6 max-lg:px-4 pb-8">
           <div className="flex gap-4 items-start">
