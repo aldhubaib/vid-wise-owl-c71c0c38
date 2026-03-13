@@ -184,11 +184,7 @@ export default function Stories() {
 
             {/* Right panel */}
             <div className="flex-1 min-w-0">
-              {!selected ? (
-                <div className="rounded-xl border border-border bg-background flex items-center justify-center" style={{ minHeight: "400px" }}>
-                  <span className="text-[12px] text-dim font-mono">Select a story to view details</span>
-                </div>
-              ) : (
+              {!selected ? null : (
                 <div className="rounded-xl border border-border bg-background overflow-hidden">
                   {/* Detail header */}
                   <div className="px-5 py-4 border-b border-border">
