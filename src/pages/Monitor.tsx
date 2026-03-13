@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Circle, Pause, RotateCw, Search, ChevronDown, ArrowUpRight } from "lucide-react";
 import { monitorHealth, monitorCadence, monitorQuota, monitorChannels } from "@/data/monitorMock";
 
-const filterTabs = ["All", "Due today", "Issues"];
+const filterTabs = ["All", "Active", "Regular", "Slow", "Inactive"];
 
 export default function Monitor() {
   const navigate = useNavigate();
