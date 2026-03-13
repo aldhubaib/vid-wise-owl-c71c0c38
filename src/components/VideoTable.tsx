@@ -46,7 +46,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
               >
                 <td className="py-2.5 px-4 border-b border-border">
                   <div className="flex items-center gap-3">
-                    <div className="relative w-12 h-8 rounded bg-elevated shrink-0 overflow-hidden">
+                    <div className="w-12 h-8 rounded bg-elevated shrink-0 overflow-hidden">
                       {v.thumbnail ? (
                         <img src={v.thumbnail} alt="" className="w-full h-full object-cover" />
                       ) : (
@@ -54,15 +54,6 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                           <Play className="w-3 h-3 text-dim" />
                         </div>
                       )}
-                      <span className={`absolute -top-0.5 -left-0.5 w-3.5 h-3.5 rounded-full flex items-center justify-center ${
-                        isShort ? "bg-purple" : "bg-sensor"
-                      }`}>
-                        {isShort ? (
-                          <Zap className="w-2 h-2 text-white" />
-                        ) : (
-                          <Play className="w-2 h-2 text-white" />
-                        )}
-                      </span>
                     </div>
                     <span className="text-[13px] font-medium max-w-[320px] whitespace-nowrap overflow-hidden text-ellipsis block text-foreground" dir="rtl">
                       {v.title}
