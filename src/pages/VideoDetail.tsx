@@ -127,13 +127,9 @@ export default function VideoDetail() {
               <div>
                 {/* Summaries in table container */}
                 <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
-                  <div className="bg-background px-4 py-3 border-b border-border hover:bg-[#0d0d10] transition-colors">
-                    <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-1.5">Summary (AR)</div>
-                    <p className="text-sm leading-relaxed text-sensor" dir="rtl" style={{ textAlign: "right" }}>{a.summary}</p>
-                  </div>
                   <div className="bg-background px-4 py-3 hover:bg-[#0d0d10] transition-colors">
-                    <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-1.5">Summary (EN)</div>
-                    <p className="text-sm leading-relaxed text-sensor">{a.summaryEn}</p>
+                    <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-1.5">Summary</div>
+                    <p className="text-sm leading-relaxed text-sensor" dir="rtl" style={{ textAlign: "right" }}>{a.summary}</p>
                   </div>
                 </div>
 
