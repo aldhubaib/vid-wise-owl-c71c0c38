@@ -25,8 +25,8 @@ export default function Login() {
   const col2 = [s3, s6, s5, s1, s3, s6, s5, s1];
 
   return (
-    <div className="flex min-h-screen max-h-screen overflow-hidden bg-background">
-      <div className="hidden lg:flex w-[410px] min-w-[410px] relative overflow-hidden">
+    <div className="grid lg:grid-cols-3 min-h-screen max-h-screen overflow-hidden bg-background">
+      <div className="hidden lg:flex relative overflow-hidden">
         {/* Dark overlay for depth */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background z-20 pointer-events-none" />
         <div className="absolute inset-0 bg-background/30 z-10 pointer-events-none" />
@@ -66,7 +66,7 @@ export default function Login() {
       </div>
 
       {/* Right — Login form */}
-      <div className="flex-1 flex items-center justify-center relative">
+      <div className="lg:col-span-2 flex items-center justify-center relative">
         <div className="absolute inset-0 pointer-events-none" style={{
           background: "radial-gradient(ellipse 80% 60% at 50% -10%, hsl(var(--primary) / 0.06) 0%, transparent 60%)",
         }} />
