@@ -117,6 +117,7 @@ export default function Channels() {
                     <span className="text-[13px] font-medium text-foreground truncate" dir="rtl">
                       {ch.name}
                     </span>
+                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${ch.type === "ours" ? "bg-primary" : "bg-orange"}`} title={ch.type === "ours" ? "Ours" : "Competition"} />
                   </div>
                   <div className="text-[11px] text-dim font-mono">{ch.handle}</div>
                 </div>
