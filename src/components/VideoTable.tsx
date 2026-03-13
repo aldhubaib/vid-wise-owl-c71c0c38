@@ -1,23 +1,16 @@
 import type { Video } from "@/data/mock";
-import { Eye, Play } from "lucide-react";
+import { Eye, Play, CheckCircle2, XCircle, Loader2, Clock } from "lucide-react";
 
 interface VideoTableProps {
   videos: Video[];
   onVideoClick: (videoId: string) => void;
 }
 
-const statusClass: Record<string, string> = {
-  done: "bg-success/10 text-success",
-  failed: "bg-destructive/10 text-destructive",
-  pending: "bg-elevated text-dim",
-  analyzing: "bg-blue/10 text-blue",
-};
-
-const statusLabel: Record<string, string> = {
-  done: "Done",
-  failed: "Failed",
-  pending: "Pending",
-  analyzing: "Running",
+const statusIcon: Record<string, { icon: React.ElementType; className: string; title: string }> = {
+  done: { icon: CheckCircle2, className: "text-success", title: "Done" },
+  failed: { icon: XCircle, className: "text-destructive", title: "Failed" },
+  pending: { icon: Clock, className: "text-dim", title: "Pending" },
+  analyzing: { icon: Loader2, className: "text-blue animate-spin", title: "Analyzing" },
 };
 
 export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
@@ -62,9 +55,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.likes}</td>
                 <td className="py-2.5 px-3 border-b border-border text-[11px] font-mono text-dim">{v.date}</td>
                 <td className="py-2.5 px-3 border-b border-border">
-                  <span className={`inline-flex items-center py-0.5 px-2 rounded text-[10px] font-mono font-medium whitespace-nowrap ${statusClass[v.status]}`}>
-                    {statusLabel[v.status]}
-                  </span>
+                  {(() => { const s = statusIcon[v.status]; return <s.icon className={`w-4 h-4 ${s.className}`} title={s.title} />; })()}
                 </td>
               </tr>
             ))}
@@ -96,9 +87,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                   <Eye className="w-2.5 h-2.5" />{v.views}
                 </span>
                 <span className="text-[10px] text-dim">{v.date}</span>
-                <span className={`inline-flex items-center py-0.5 px-1.5 rounded text-[9px] font-mono font-medium ${statusClass[v.status]}`}>
-                  {statusLabel[v.status]}
-                </span>
+                {(() => { const s = statusIcon[v.status]; return <s.icon className={`w-3.5 h-3.5 ${s.className}`} title={s.title} />; })()}
               </div>
             </div>
           </div>
