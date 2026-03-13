@@ -215,12 +215,12 @@ export const videos: Video[] = [
     date: "2026-03-08", duration: "18:42", status: "done",
     viewsRaw: 1200000, likesRaw: 45000, commentsRaw: 2300, thumbnail: thumbV1,
     pipeline: [
-      { name: "Transcription", status: "done", time: "2m 14s" },
-      { name: "Translation", status: "done", time: "1m 32s" },
-      { name: "Sentiment", status: "done", time: "3m 08s" },
-      { name: "Topics", status: "done", time: "1m 45s" },
-      { name: "Comments", status: "done", time: "4m 22s" },
-      { name: "Viral Score", status: "done", time: "0m 58s" },
+      { name: "Transcription", status: "done", time: "2m 14s", retries: 1 },
+      { name: "Translation", status: "done", time: "1m 32s", retries: 1 },
+      { name: "Sentiment", status: "done", time: "3m 08s", retries: 2 },
+      { name: "Topics", status: "done", time: "1m 45s", retries: 1 },
+      { name: "Comments", status: "done", time: "4m 22s", retries: 1 },
+      { name: "Viral Score", status: "done", time: "0m 58s", retries: 1 },
     ],
   },
   {
