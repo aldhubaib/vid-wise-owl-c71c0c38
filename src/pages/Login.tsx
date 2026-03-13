@@ -66,7 +66,7 @@ export default function Login() {
       </div>
 
       {/* Right — Login form */}
-      <div className="lg:col-span-2 flex items-center justify-center relative">
+      <div className="lg:col-span-2 flex items-center justify-center relative min-h-screen lg:min-h-0">
         <div className="absolute inset-0 pointer-events-none" style={{
           background: "radial-gradient(ellipse 80% 60% at 50% -10%, hsl(var(--primary) / 0.06) 0%, transparent 60%)",
         }} />
