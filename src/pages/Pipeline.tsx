@@ -1,4 +1,5 @@
-import { RotateCw, Pause, Circle, ChevronDown, AlertTriangle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { RotateCw, Pause, Circle, ChevronDown, AlertTriangle, ArrowUpRight } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { channels } from "@/data/mock";
 import { pipelineStats, pipelineStages, type PipelineStageData, type PipelineItem } from "@/data/pipelineMock";
