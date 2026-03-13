@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import type { Channel } from "@/data/mock";
+import { toast } from "sonner";
 import { RefreshCw, Play, Trash2, Calendar, Hash, TrendingUp, X, Film, Zap, Users, Eye, CircleDot, Clock, Timer } from "lucide-react";
 
 interface ChannelRightPanelProps {
@@ -59,6 +60,14 @@ function BrandedHooksSection() {
           placeholder="e.g. Don't forget to like and subscribe!"
         />
       </div>
+      <button
+        onClick={() => {
+          toast.success("Branded hooks saved");
+        }}
+        className="w-full py-2 text-[12px] font-medium rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+      >
+        Save
+      </button>
     </div>
   );
 }
