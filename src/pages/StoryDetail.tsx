@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft } from "lucide-react";
+import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 import { storiesMock, Story } from "@/data/storiesMock";
 
@@ -152,7 +152,11 @@ export default function StoryDetail() {
                   </div>
                   <div className="space-y-1">
                     {likedStories.map((s, i) => (
-                      <div key={s.id} className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12px] ${s.id === id ? "bg-surface text-foreground" : "text-dim"}`}>
+                      <button
+                        key={s.id}
+                        onClick={() => navigate(`/story/${s.id}`)}
+                        className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12px] hover:bg-[#0d0d10] transition-colors group cursor-pointer ${s.id === id ? "bg-[#0d0d10] text-foreground" : "text-dim"}`}
+                      >
                         <span className="font-mono w-5">#{i + 1}</span>
                         {s.isFirstMover ? (
                           <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-success/15 text-success shrink-0">1st</span>
@@ -161,7 +165,8 @@ export default function StoryDetail() {
                         ) : null}
                         <span className="flex-1 truncate text-right">{s.title}</span>
                         <span className="font-mono font-medium">{s.totalScore}</span>
-                      </div>
+                        <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                      </button>
                     ))}
                   </div>
                 </div>
