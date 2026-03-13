@@ -14,10 +14,7 @@ export default function Channels() {
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterType>("ours");
 
-  const filteredChannels = useMemo(
-    () => channels.filter((ch) => ch.type === filter),
-    [channels, filter]
-  );
+  // Show all channels, toggle only affects add type
 
   const handleAdd = () => {
     const val = inputValue.trim();
