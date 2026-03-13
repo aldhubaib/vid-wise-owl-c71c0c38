@@ -59,7 +59,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
   return (
     <div className={`flex flex-col h-full bg-[#080808] transition-all duration-200 ${isMobile ? "" : `${sidebarWidth} sticky top-0 h-screen`}`}>
       {/* Brand / Project Switcher */}
-      <div className="relative px-3 h-12 flex items-center justify-between shrink-0 border-[#080808]" ref={switcherRef}>
+      <div className="relative px-3 h-12 flex items-center justify-between shrink-0" ref={switcherRef}>
         {!collapsed ? (
           <button
             onClick={() => setSwitcherOpen(!switcherOpen)}
@@ -79,6 +79,23 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
               </button>
             </TooltipTrigger>
             <TooltipContent side="right">Falak</TooltipContent>
+          </Tooltip>
+        )}
+
+        {/* Pin toggle (desktop, expanded only) */}
+        {!isMobile && !collapsed && onTogglePin && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={onTogglePin}
+                className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
+                  pinned ? "text-blue hover:bg-elevated/60" : "text-dim hover:bg-elevated/60 hover:text-sensor"
+                }`}
+              >
+                {pinned ? <Pin className="w-3.5 h-3.5" strokeWidth={1.5} /> : <PinOff className="w-3.5 h-3.5" strokeWidth={1.5} />}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="right">{pinned ? "Unpin sidebar" : "Pin sidebar"}</TooltipContent>
           </Tooltip>
         )}
 
@@ -194,25 +211,6 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
           return btn;
         })}
       </nav>
-
-      {/* Pin toggle (desktop only, visible when expanded) */}
-      {!isMobile && !collapsed && onTogglePin && (
-        <div className="px-2 py-1.5 bg-[#080808] flex justify-end">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={onTogglePin}
-                className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
-                  pinned ? "text-blue hover:bg-elevated/60" : "text-dim hover:bg-elevated/60 hover:text-sensor"
-                }`}
-              >
-                {pinned ? <Pin className="w-3.5 h-3.5" strokeWidth={1.5} /> : <PinOff className="w-3.5 h-3.5" strokeWidth={1.5} />}
-              </button>
-            </TooltipTrigger>
-            <TooltipContent side="right">{pinned ? "Unpin sidebar" : "Pin sidebar"}</TooltipContent>
-          </Tooltip>
-        </div>
-      )}
 
       {/* User */}
       <button
