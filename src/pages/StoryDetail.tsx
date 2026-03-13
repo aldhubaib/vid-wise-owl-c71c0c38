@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight } from "lucide-react";
+import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import { storiesMock, Story } from "@/data/storiesMock";
+import { channels } from "@/data/mock";
 
 type Stage = "suggestion" | "liked" | "approved" | "filmed" | "publish" | "done";
 
@@ -46,6 +47,7 @@ export default function StoryDetail() {
   const navigate = useNavigate();
   const [stories, setStories] = useState<Story[]>(storiesMock);
   const [youtubeInput, setYoutubeInput] = useState("");
+  const [selectedChannel, setSelectedChannel] = useState<string>("");
 
   const story = stories.find((s) => s.id === id);
   const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
@@ -182,8 +184,32 @@ export default function StoryDetail() {
                     })}
                   </div>
                 </div>
+                {/* Channel selector */}
+                <div className="rounded-xl bg-background p-5">
+                  <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Assign to Channel</div>
+                  <div className="relative">
+                    <select
+                      value={selectedChannel}
+                      onChange={(e) => setSelectedChannel(e.target.value)}
+                      className="w-full appearance-none px-4 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-medium focus:outline-none focus:border-primary/40 cursor-pointer pr-10"
+                    >
+                      <option value="" disabled>Select one of your channels…</option>
+                      {channels.filter((c) => c.type === "ours").filter((c, i, arr) => arr.findIndex((x) => x.id === c.id) === i).map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dim pointer-events-none" />
+                  </div>
+                </div>
+
                 <div className="flex gap-2">
-                  <button onClick={() => moveStory("approved")} className="flex-1 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity">
+                  <button
+                    onClick={() => {
+                      if (!selectedChannel) { toast.error("Please select a channel first"); return; }
+                      moveStory("approved");
+                    }}
+                    className="flex-1 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
+                  >
                     Send to Production
                   </button>
                   <button onClick={() => moveStory("suggestion")} className="flex-1 px-4 py-2.5 text-[13px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors">
