@@ -51,22 +51,20 @@ export default function Channels() {
         <div className="px-6 pt-5 pb-1 max-md:px-4">
           <div className="flex gap-2 max-md:flex-col items-start">
             {/* Type selector */}
-            <div className="flex items-center bg-background border border-border p-0.5 shrink-0" style={{ borderRadius: '8px' }}>
+            <div className="flex items-center bg-elevated rounded-full p-0.5 shrink-0">
               <button
-                onClick={() => setAddType("ours")}
-                className={`px-3 py-2 text-[12px] font-medium transition-colors ${
-                  addType === "ours" ? "bg-elevated text-foreground" : "text-dim hover:text-sensor"
+                onClick={() => setFilter("ours")}
+                className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors ${
+                  filter === "ours" ? "bg-surface text-foreground" : "text-dim hover:text-sensor"
                 }`}
-                style={{ borderRadius: '6px' }}
               >
                 Ours
               </button>
               <button
-                onClick={() => setAddType("competition")}
-                className={`px-3 py-2 text-[12px] font-medium transition-colors ${
-                  addType === "competition" ? "bg-elevated text-foreground" : "text-dim hover:text-sensor"
+                onClick={() => setFilter("competition")}
+                className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors ${
+                  filter === "competition" ? "bg-surface text-foreground" : "text-dim hover:text-sensor"
                 }`}
-                style={{ borderRadius: '6px' }}
               >
                 Competition
               </button>
