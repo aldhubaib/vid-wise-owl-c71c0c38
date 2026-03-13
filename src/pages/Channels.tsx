@@ -175,9 +175,6 @@ export default function Channels() {
                   <button className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
                     <RefreshCw className="w-3.5 h-3.5" />
                   </button>
-                  <button className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
-                    <RefreshCw className="w-3.5 h-3.5" />
-                  </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); setDeleteTarget(ch.id); }}
                     className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-destructive hover:bg-destructive/10 transition-colors"
