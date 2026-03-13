@@ -315,7 +315,7 @@ export default function VideoDetail() {
         </div>
 
         {/* Popover panel */}
-        <VideoRightPanel video={video} visible={panelVisible} onClose={closePanel} pipeline={a.pipeline} />
+        <VideoRightPanel video={video} visible={panelVisible} onClose={closePanel} pipeline={video.pipeline} />
       </div>
     </div>
   );
