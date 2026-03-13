@@ -439,7 +439,7 @@ function ChannelAnalysisSection() {
         {ca.metrics.map((m, i) => {
           const isWinning = m.tagColor === "success";
           return (
-            <div key={m.label} className={`grid grid-cols-[1fr_100px_100px_40px] gap-0 px-5 py-3.5 items-center ${i < ca.metrics.length - 1 ? "border-b border-border" : ""}`}>
+            <div key={m.label} className={`grid grid-cols-[1fr_100px_120px_50px] gap-4 px-5 py-3.5 items-center ${i < ca.metrics.length - 1 ? "border-b border-border" : ""}`}>
               <span className="text-[13px] font-medium">{m.label}</span>
               <span className={`text-[13px] font-mono font-semibold text-right ${isWinning ? "text-success" : "text-blue"}`}>{m.you.value}</span>
               <span className="text-[13px] font-mono text-dim text-right">{m.them.value}</span>
