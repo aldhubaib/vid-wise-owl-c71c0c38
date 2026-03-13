@@ -1,5 +1,5 @@
 import type { Video } from "@/data/mock";
-import { Eye, Play, CheckCircle2, XCircle, Loader2, Clock, ArrowUpRight } from "lucide-react";
+import { Eye, Play, CheckCircle2, XCircle, Loader2, Clock, ArrowUpRight, Monitor, Smartphone } from "lucide-react";
 
 interface VideoTableProps {
   videos: Video[];
