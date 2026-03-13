@@ -131,7 +131,7 @@ export default function Stories() {
         <div className="px-6 max-lg:px-4 pb-8">
           <div className="flex gap-4 items-start">
             {/* Left panel: story list */}
-            <div className="w-[380px] min-w-[380px] max-lg:w-[320px] max-lg:min-w-[320px] rounded-xl border border-border overflow-hidden flex flex-col" style={{ maxHeight: "calc(100vh - 250px)" }}>
+            <div className={`${selected ? "w-[380px] min-w-[380px] max-lg:w-[320px] max-lg:min-w-[320px]" : "w-full"} rounded-xl border border-border overflow-hidden flex flex-col`} style={{ maxHeight: "calc(100vh - 250px)" }}>
               {/* Header */}
               <div className="px-4 py-3 bg-background shrink-0 flex items-center justify-between">
                 <div className="flex items-center gap-2">
