@@ -5,14 +5,14 @@ import { ChannelRightPanel } from "@/components/ChannelRightPanel";
 import { VideoTable } from "@/components/VideoTable";
 import { ArrowLeft, PanelRightClose, PanelRight } from "lucide-react";
 
-const filterTabs = ["All Videos", "Videos", "Shorts", "Analyzed", "Failed"];
+const filterTabs = ["All", "Videos", "Shorts", "Analyzing", "Done", "Failed"];
 
 export default function ChannelDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const channel = channels.find((c) => c.id === id);
   const channelVideos = videos.filter((v) => v.channelId === id);
-  const [activeFilter, setActiveFilter] = useState("All Videos");
+  const [activeFilter, setActiveFilter] = useState("All");
   const [panelVisible, setPanelVisible] = useState(true);
 
   if (!channel) {
@@ -20,10 +20,11 @@ export default function ChannelDetail() {
   }
 
   const filteredVideos = channelVideos.filter((v) => {
-    if (activeFilter === "All Videos") return true;
+    if (activeFilter === "All") return true;
     if (activeFilter === "Videos") return v.type === "video";
     if (activeFilter === "Shorts") return v.type === "short";
-    if (activeFilter === "Analyzed") return v.status === "done";
+    if (activeFilter === "Analyzing") return v.status === "analyzing";
+    if (activeFilter === "Done") return v.status === "done";
     if (activeFilter === "Failed") return v.status === "failed";
     return true;
   });
