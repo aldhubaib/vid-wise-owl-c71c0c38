@@ -76,13 +76,13 @@ export default function Pipeline() {
       {/* Stage columns */}
       <div className="flex-1 px-6 pb-8 max-lg:px-4 overflow-x-auto">
         {/* Top row: first 3 stages */}
-        <div className="grid grid-cols-3 gap-4 mb-4 max-lg:grid-cols-1">
+        <div className="grid grid-cols-3 gap-4 mb-4 max-lg:grid-cols-1 items-start">
           {pipelineStages.slice(0, 3).map((stage) => (
             <StageColumn key={stage.id} stage={stage} />
           ))}
         </div>
         {/* Bottom row: analysis + failed */}
-        <div className="grid grid-cols-2 gap-4 max-lg:grid-cols-1">
+        <div className="grid grid-cols-2 gap-4 max-lg:grid-cols-1 items-start">
           {pipelineStages.slice(3).map((stage) => (
             <StageColumn key={stage.id} stage={stage} />
           ))}
