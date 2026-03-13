@@ -53,7 +53,7 @@ export default function Monitor() {
         {/* Cards row */}
         <div className="px-6 pt-5 max-lg:px-4 grid grid-cols-2 max-lg:grid-cols-1 gap-4 mb-5">
           {/* Channel Health */}
-          <div className="rounded-xl border border-border overflow-hidden">
+          <div className="rounded-xl bg-background overflow-hidden">
             <div className="px-4 py-3">
               <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Channel Health</div>
               <div className="grid grid-cols-4 gap-0">
