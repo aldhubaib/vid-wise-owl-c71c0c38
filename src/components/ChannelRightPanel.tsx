@@ -108,18 +108,15 @@ export function ChannelRightPanel({ channel, visible, onClose, videoCount, short
       </div>
 
       {/* Actions */}
-      <div className="px-4 py-3 border-t border-border space-y-1.5">
-        <button className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-md text-[11px] font-medium bg-elevated border border-border text-sensor cursor-pointer transition-all hover:bg-border hover:text-foreground">
-          <RefreshCw className="w-3 h-3" />
-          Sync Now
+      <div className="px-4 py-3 border-t border-border flex items-center justify-center gap-2">
+        <button title="Sync Now" className="w-9 h-9 rounded-lg flex items-center justify-center bg-elevated border border-border text-sensor cursor-pointer transition-all hover:bg-border hover:text-foreground">
+          <RefreshCw className="w-4 h-4" />
         </button>
-        <button className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-md text-[11px] font-medium bg-primary/10 border border-primary/15 text-primary cursor-pointer transition-all hover:bg-primary/15">
-          <Play className="w-3 h-3" />
-          Analyze All
+        <button title="Analyze All" className="w-9 h-9 rounded-lg flex items-center justify-center bg-primary/10 border border-primary/15 text-primary cursor-pointer transition-all hover:bg-primary/15">
+          <Play className="w-4 h-4" />
         </button>
-        <button className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-md text-[11px] font-medium bg-transparent border border-destructive/15 text-destructive cursor-pointer transition-all hover:bg-destructive/[0.06]">
-          <Trash2 className="w-3 h-3" />
-          Remove
+        <button title="Remove Channel" className="w-9 h-9 rounded-lg flex items-center justify-center bg-transparent border border-destructive/15 text-destructive cursor-pointer transition-all hover:bg-destructive/[0.06]">
+          <Trash2 className="w-4 h-4" />
         </button>
       </div>
     </div>
