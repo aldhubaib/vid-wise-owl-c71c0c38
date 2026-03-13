@@ -36,7 +36,7 @@ export default function Pipeline() {
       <div className="px-6 max-lg:px-4 mb-5 pt-5">
         <div className="flex rounded-xl overflow-hidden">
           {/* Total */}
-          <div className="px-5 py-4 bg-background border-r border-border min-w-[140px]">
+          <div className="px-5 py-4 bg-background border-r border-background min-w-[140px]">
             <div className="text-2xl font-semibold font-mono tracking-tight">{s.totalVideos}</div>
             <div className="text-[10px] text-dim font-mono uppercase tracking-wider mt-1">Total Videos</div>
             <div className="flex items-center gap-2 mt-2 text-[11px] text-dim font-mono">
