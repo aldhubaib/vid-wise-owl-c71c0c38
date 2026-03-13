@@ -96,9 +96,9 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
   const isFailed = stage.id === "failed";
 
   return (
-    <div className="rounded-xl border border-border overflow-hidden">
+    <div className="rounded-xl border border-border overflow-hidden flex flex-col h-[420px]">
       {/* Stage header */}
-      <div className="px-4 py-3 bg-background">
+      <div className="px-4 py-3 bg-background shrink-0">
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-2">
             {stage.number > 0 && (
@@ -126,21 +126,21 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
       </div>
 
       {/* Items */}
-      <div className="bg-background">
+      <div className="flex-1 overflow-auto bg-background">
         {stage.items.map((item) => (
           <PipelineItemRow key={item.id} item={item} isFailed={isFailed} />
         ))}
-
-        {/* More count */}
-        {stage.moreCount > 0 && (
-          <div className="px-4 py-3 border-t border-border">
-            <button className="flex items-center gap-1.5 text-[12px] text-dim font-mono hover:text-sensor transition-colors">
-              <ChevronDown className="w-3 h-3" />
-              +{stage.moreCount} more
-            </button>
-          </div>
-        )}
       </div>
+
+      {/* More count - pinned to bottom */}
+      {stage.moreCount > 0 && (
+        <div className="px-4 py-3 border-t border-border bg-background shrink-0">
+          <button className="flex items-center gap-1.5 text-[12px] text-dim font-mono hover:text-sensor transition-colors">
+            <ChevronDown className="w-3 h-3" />
+            +{stage.moreCount} more
+          </button>
+        </div>
+      )}
     </div>
   );
 }
