@@ -120,8 +120,8 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
       videoId: `v-extra-${i}`,
       status: "processing" as const,
       statusDetail: "Queued",
-      timeInStage: `${Math.floor(Math.random() * 30)}m`,
-      retries: 0,
+      timeInStage: `${Math.floor(Math.random() * 30 + 1)}m ${Math.floor(Math.random() * 59)}s`,
+      retries: Math.floor(Math.random() * 4),
     }));
     return [...stage.items, ...extra];
   }, [stage]);
