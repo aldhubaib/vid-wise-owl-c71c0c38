@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 import { storiesMock, Story } from "@/data/storiesMock";
