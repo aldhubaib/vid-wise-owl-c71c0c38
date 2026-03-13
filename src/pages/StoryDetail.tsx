@@ -160,6 +160,11 @@ export default function StoryDetail() {
                     {likedStories.map((s, i) => (
                       <div key={s.id} className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12px] ${s.id === id ? "bg-surface text-foreground" : "text-dim"}`}>
                         <span className="font-mono w-5">#{i + 1}</span>
+                        {s.isFirstMover ? (
+                          <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-success/15 text-success shrink-0">1st</span>
+                        ) : s.isLate ? (
+                          <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-orange/15 text-orange shrink-0">Late</span>
+                        ) : null}
                         <span className="flex-1 truncate text-right">{s.title}</span>
                         <span className="font-mono font-medium">{s.totalScore}</span>
                       </div>
