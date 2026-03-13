@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { RotateCw, Pause, Circle, ChevronDown, AlertTriangle, ArrowUpRight } from "lucide-react";
+import { RotateCw, Pause, Circle, ChevronDown, AlertTriangle, ArrowUpRight, Search, X } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { channels } from "@/data/mock";
 import { pipelineStats, pipelineStages, type PipelineStageData, type PipelineItem } from "@/data/pipelineMock";
 
