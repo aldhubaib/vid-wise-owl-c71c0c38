@@ -298,7 +298,7 @@ export default function Settings() {
                           </button>
                           <button
                             onClick={() => handleClear(api.id)}
-                            className="w-10 h-10 rounded-xl flex items-center justify-center bg-destructive/15 text-destructive hover:bg-destructive/25 transition-colors shrink-0"
+                            className="w-10 h-10 rounded-full flex items-center justify-center bg-destructive/15 text-destructive hover:bg-destructive/25 transition-colors shrink-0"
                           >
                             <X className="w-4 h-4" />
                           </button>
