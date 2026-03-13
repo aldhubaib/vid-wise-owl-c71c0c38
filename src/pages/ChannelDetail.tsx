@@ -66,7 +66,7 @@ export default function ChannelDetail() {
         {/* Main content */}
         <div>
           {/* Hero */}
-          <div className="px-6 py-5 flex items-start gap-3.5 max-md:px-4">
+          <div className="px-6 py-5 flex items-start gap-3.5 max-lg:px-4">
             <img
               src={channel.avatarImg}
               alt={channel.name}
