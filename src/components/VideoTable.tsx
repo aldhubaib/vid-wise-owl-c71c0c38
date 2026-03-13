@@ -47,15 +47,15 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                 <td className="py-2.5 px-4 border-b border-border">
                   <div className="flex items-center gap-3">
                     <div className="relative w-11 h-7 rounded bg-elevated shrink-0 flex items-center justify-center">
-                      {isShort ? (
-                        <Zap className="w-3 h-3 text-purple" />
-                      ) : (
-                        <Play className="w-3 h-3 text-dim" />
-                      )}
-                      <span className={`absolute -bottom-1 -right-1 text-[7px] font-mono font-bold px-0.5 rounded ${
-                        isShort ? "bg-purple text-white" : "bg-dim/80 text-white"
+                      <Play className="w-3 h-3 text-dim" />
+                      <span className={`absolute -top-1 -left-1 w-3.5 h-3.5 rounded-full flex items-center justify-center ${
+                        isShort ? "bg-purple" : "bg-sensor"
                       }`}>
-                        {isShort ? "S" : "V"}
+                        {isShort ? (
+                          <Zap className="w-2 h-2 text-white" />
+                        ) : (
+                          <Play className="w-2 h-2 text-white" />
+                        )}
                       </span>
                     </div>
                     <span className="text-[13px] font-medium max-w-[320px] whitespace-nowrap overflow-hidden text-ellipsis block text-foreground" dir="rtl">
