@@ -54,7 +54,7 @@ export default function Stories() {
       {/* Top bar — matches Pipeline/Monitor */}
       <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
         <div className="flex items-center gap-3">
-          <h1 className="text-sm font-semibold">Stories</h1>
+          <h1 className="text-sm font-semibold">AI Intelligence</h1>
           <span className="text-[11px] text-dim font-mono">content pipeline — AI-powered story discovery</span>
         </div>
         <div className="flex items-center gap-2">

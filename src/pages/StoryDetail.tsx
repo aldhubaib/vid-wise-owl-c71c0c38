@@ -80,7 +80,7 @@ export default function StoryDetail() {
         <div className="flex items-center gap-3">
           <button onClick={() => navigate("/stories")} className="flex items-center gap-2 text-[13px] text-dim hover:text-foreground transition-colors">
             <ArrowLeft className="w-4 h-4" />
-            Stories
+            AI Intelligence
           </button>
           <span className="text-[11px] text-dim font-mono">/</span>
           <span className="text-[13px] font-medium truncate max-w-[400px]">{story.title}</span>
