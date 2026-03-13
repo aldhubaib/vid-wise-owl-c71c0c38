@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import type { Channel } from "@/data/mock";
 import { RefreshCw, Play, Trash2, Calendar, Hash, TrendingUp, X, Film, Zap, Users, Eye, CircleDot, Clock, Timer } from "lucide-react";
 
