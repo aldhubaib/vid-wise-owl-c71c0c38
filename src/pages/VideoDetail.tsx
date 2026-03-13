@@ -71,8 +71,8 @@ export default function VideoDetail() {
                 </h1>
 
                 {/* Metadata grid */}
-                <div className="grid grid-cols-3 gap-3 mt-auto">
-                  <div className="rounded-lg bg-elevated/50 border border-border/50 px-3 py-2.5">
+                <div className="flex items-center gap-0 mt-auto">
+                  <div className="px-3 py-2">
                     <div className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1">Status</div>
                     <div className="flex items-center gap-1.5">
                       <span className={`inline-flex ${
@@ -90,7 +90,8 @@ export default function VideoDetail() {
                       </span>
                     </div>
                   </div>
-                  <div className="rounded-lg bg-elevated/50 border border-border/50 px-3 py-2.5">
+                  <span className="w-px h-8 bg-border" />
+                  <div className="px-3 py-2">
                     <div className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1">Type</div>
                     <div className="flex items-center gap-1.5">
                       <span className="text-dim">
@@ -99,7 +100,8 @@ export default function VideoDetail() {
                       <span className="text-[12px] text-sensor font-medium">{video.type === "short" ? "Short" : "Video"}</span>
                     </div>
                   </div>
-                  <div className="rounded-lg bg-elevated/50 border border-border/50 px-3 py-2.5">
+                  <span className="w-px h-8 bg-border" />
+                  <div className="px-3 py-2">
                     <div className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1">Published</div>
                     <div className="flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5 text-dim" />
