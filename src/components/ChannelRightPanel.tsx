@@ -32,6 +32,37 @@ const buildRows = (channel: Channel, videoCount?: number, shortCount?: number): 
   { icon: Timer, label: "Next sync", value: "Today · 7:59 AM" },
 ];
 
+function BrandedHooksSection() {
+  const [hookStart, setHookStart] = useState("");
+  const [hookEnd, setHookEnd] = useState("");
+
+  return (
+    <div className="px-4 py-3 border-t border-border space-y-2.5">
+      <span className="text-[11px] text-dim font-mono uppercase tracking-widest">Branded Hooks</span>
+      <div>
+        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1 block">Start Hook</label>
+        <input
+          type="text"
+          value={hookStart}
+          onChange={(e) => setHookStart(e.target.value)}
+          className="w-full px-2.5 py-2 text-[12px] bg-elevated border border-border rounded-lg text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40"
+          placeholder="e.g. Hey everyone, welcome back to..."
+        />
+      </div>
+      <div>
+        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1 block">End Hook</label>
+        <input
+          type="text"
+          value={hookEnd}
+          onChange={(e) => setHookEnd(e.target.value)}
+          className="w-full px-2.5 py-2 text-[12px] bg-elevated border border-border rounded-lg text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40"
+          placeholder="e.g. Don't forget to like and subscribe!"
+        />
+      </div>
+    </div>
+  );
+}
+
 export function ChannelRightPanel({ channel, visible, onClose, videoCount, shortCount, onTypeChange }: ChannelRightPanelProps) {
   const ref = useRef<HTMLDivElement>(null);
 
