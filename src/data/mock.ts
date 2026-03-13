@@ -10,6 +10,7 @@ export interface Channel {
   name: string;
   handle: string;
   avatar: string;
+  avatarImg: string;
   subscribers: string;
   views: string;
   videos: string;
