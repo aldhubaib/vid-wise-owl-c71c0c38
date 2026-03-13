@@ -50,6 +50,7 @@ export const channels: Channel[] = [
     name: "منص بن سعيد",
     handle: "@dqh1",
     avatar: "م",
+    avatarImg: avatarCh1,
     subscribers: "607K",
     views: "37.6M",
     videos: "126",
