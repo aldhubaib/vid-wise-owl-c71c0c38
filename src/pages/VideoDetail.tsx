@@ -66,7 +66,7 @@ export default function VideoDetail() {
                 {video.title}
               </h1>
               <div className="flex gap-1.5 flex-wrap mt-1.5">
-                <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium ${
+                <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium ${
                   video.status === "done" ? "bg-success/10 text-success" :
                   video.status === "failed" ? "bg-destructive/10 text-destructive" :
                   video.status === "analyzing" ? "bg-blue/10 text-blue" :
@@ -74,12 +74,12 @@ export default function VideoDetail() {
                 }`}>
                   {video.status === "done" ? "Complete" : video.status === "failed" ? "Failed" : video.status === "analyzing" ? "Analyzing" : "Pending"}
                 </span>
-                <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium ${
+                <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium ${
                   video.type === "short" ? "bg-purple/10 text-purple" : "bg-elevated text-dim"
                 }`}>
                   {video.type === "short" ? "Short" : "Video"}
                 </span>
-                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-elevated text-dim">
+                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-elevated text-dim">
                   {video.date}
                 </span>
               </div>
