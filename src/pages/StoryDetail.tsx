@@ -210,7 +210,7 @@ export default function StoryDetail() {
                     }}
                     className="flex-1 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
                   >
-                    Send to Production
+                    Approve
                   </button>
                   <button onClick={() => moveStory("suggestion")} className="flex-1 px-4 py-2.5 text-[13px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors">
                     Pass
