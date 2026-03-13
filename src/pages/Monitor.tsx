@@ -70,7 +70,7 @@ export default function Monitor() {
                 ))}
               </div>
             </div>
-            <div className="border-t border-border px-4 py-3">
+            <div className="px-4 py-3">
               <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2.5">Check Cadence (Auto-learned)</div>
               {monitorCadence.map((c) => {
                 const dotColor = c.color === "success" ? "bg-success" : c.color === "blue" ? "bg-blue" : c.color === "dim" ? "bg-dim" : "";
