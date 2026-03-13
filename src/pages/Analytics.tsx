@@ -13,7 +13,7 @@ import {
   type FieldTab,
   type InsightType,
 } from "@/data/analyticsMock";
-import { Star, Circle, CheckCircle, XCircle, ChevronDown } from "lucide-react";
+import { Star, Circle, CheckCircle, XCircle, ChevronDown, ArrowUpRight } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 const periodTabs = ["30d", "90d", "12m"];
