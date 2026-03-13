@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { LayoutGrid, GitBranch, Circle, TrendingUp, AlignJustify, CircleDot, Settings, ChevronDown, Check, Pencil, Plus, Activity, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -34,6 +35,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
   const location = useLocation();
   const navigate = useNavigate();
   const [switcherOpen, setSwitcherOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
   const switcherRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => {
@@ -206,7 +208,10 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
       )}
 
       {/* User */}
-      <div className={`px-3 py-3 flex items-center gap-2.5 bg-[#080808] ${collapsed ? "justify-center" : ""}`}>
+      <button
+        onClick={() => setLogoutOpen(true)}
+        className={`px-3 py-3 flex items-center gap-2.5 bg-[#080808] hover:bg-elevated/60 transition-colors w-full text-left ${collapsed ? "justify-center" : ""}`}
+      >
         <div className="w-7 h-7 rounded-full bg-primary/15 flex items-center justify-center text-[11px] font-semibold text-primary shrink-0">
           A
         </div>
@@ -216,7 +221,33 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
             <div className="text-[11px] text-dim truncate">a@falak.io</div>
           </div>
         )}
-      </div>
+      </button>
+
+      {/* Logout dialog */}
+      <Dialog open={logoutOpen} onOpenChange={setLogoutOpen}>
+        <DialogContent className="sm:max-w-[360px] bg-background border-border">
+          <DialogHeader>
+            <DialogTitle className="text-[15px]">Sign out</DialogTitle>
+            <DialogDescription className="text-[12px] text-dim">
+              Are you sure you want to sign out of your account?
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex gap-2 mt-2">
+            <button
+              onClick={() => setLogoutOpen(false)}
+              className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => navigate("/login")}
+              className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full bg-destructive text-destructive-foreground hover:opacity-90 transition-opacity"
+            >
+              Sign out
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
