@@ -120,7 +120,7 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
             All
           </button>
         </div>
-        <div className="text-[11px] text-dim font-mono">{stage.subtitle}</div>
+        
         <div className="mt-2 h-px bg-border" />
       </div>
 
