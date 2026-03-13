@@ -31,7 +31,9 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
         </div>
         <span className="font-semibold text-[13px] text-foreground">Falak</span>
         {!isMobile &&
-        <span className="text-[10px] font-mono text-dim ml-auto">v2.0</span>
+        <button className="ml-auto w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-sensor hover:bg-elevated transition-colors">
+          <Search className="w-3.5 h-3.5" />
+        </button>
         }
       </div>
 
@@ -43,15 +45,6 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
           ✕
         </button>
       }
-
-      {/* Search hint */}
-      <div className="px-3 pt-3 pb-1">
-        <div className="flex items-center gap-2 px-2.5 py-[6px] rounded-md bg-surface border border-border text-dim text-[12px] cursor-pointer hover:border-sensor/20 transition-colors">
-          <Search className="w-3.5 h-3.5" />
-          <span>Search...</span>
-          <span className="ml-auto text-[10px] font-mono border border-border rounded px-1 py-px">⌘K</span>
-        </div>
-      </div>
 
       {/* Nav */}
       <nav className="flex-1 py-1.5 px-2 bg-[#080808]">
