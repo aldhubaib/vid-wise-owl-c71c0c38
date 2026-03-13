@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import type { Channel } from "@/data/mock";
+import { toast } from "sonner";
 import { RefreshCw, Play, Trash2, Calendar, Hash, TrendingUp, X, Film, Zap, Users, Eye, CircleDot, Clock, Timer } from "lucide-react";
 
 interface ChannelRightPanelProps {
