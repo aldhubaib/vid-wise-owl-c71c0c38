@@ -25,8 +25,7 @@ export default function Login() {
   const col2 = [s3, s6, s5, s1, s3, s6, s5, s1];
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Left — Animated stories grid */}
+    <div className="flex min-h-screen max-h-screen overflow-hidden bg-background">
       <div className="hidden lg:flex flex-1 relative overflow-hidden">
         {/* Dark overlay for depth */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background z-20 pointer-events-none" />
