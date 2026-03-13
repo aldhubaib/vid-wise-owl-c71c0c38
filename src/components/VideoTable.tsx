@@ -1,5 +1,5 @@
 import type { Video } from "@/data/mock";
-import { Eye, Play, CheckCircle2, XCircle, Loader2, Clock, ArrowUpRight } from "lucide-react";
+import { Eye, Play, CheckCircle2, XCircle, Loader2, Clock, ArrowUpRight, Monitor, Smartphone } from "lucide-react";
 
 interface VideoTableProps {
   videos: Video[];
@@ -22,6 +22,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
           <thead>
             <tr className="bg-elevated/40">
               <th className="text-[11px] text-dim font-medium py-2.5 px-4 text-left border-b border-border">Title</th>
+              <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border w-10">Type</th>
               <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Views</th>
               <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Likes</th>
               <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Date</th>
@@ -51,6 +52,14 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                     </span>
                     <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </div>
+                </td>
+                <td className="py-2.5 px-3 border-b border-border">
+                  <span title={v.type === "short" ? "Short" : "Video"}>
+                    {v.type === "short"
+                      ? <Smartphone className="w-3.5 h-3.5 text-dim" />
+                      : <Monitor className="w-3.5 h-3.5 text-dim" />
+                    }
+                  </span>
                 </td>
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.views}</td>
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.likes}</td>
