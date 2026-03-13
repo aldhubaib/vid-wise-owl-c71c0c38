@@ -4,8 +4,7 @@ export type PipelineItemStatus = "processing" | "waiting" | "queued" | "failed";
 export interface PipelineItem {
   id: string;
   title: string;
-  channelAvatar: string;
-  channelHandle: string;
+  channelId: string;
   status: PipelineItemStatus;
   statusDetail?: string;
   timeInStage?: string;
