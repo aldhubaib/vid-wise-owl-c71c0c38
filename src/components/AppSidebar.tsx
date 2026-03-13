@@ -49,7 +49,7 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
   }, []);
 
   return (
-    <div className={`flex flex-col h-full bg-background ${isMobile ? "" : "w-[220px] min-w-[220px] border-r border-border sticky top-0 h-screen"}`}>
+    <div className={`flex flex-col h-full bg-background ${isMobile ? "" : "w-[220px] min-w-[220px] sticky top-0 h-screen"}`}>
       {/* Brand / Project Switcher */}
       <div className="relative px-4 h-12 flex items-center justify-between shrink-0" ref={switcherRef}>
         <button
