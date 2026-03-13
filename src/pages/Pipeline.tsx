@@ -48,7 +48,7 @@ export default function Pipeline() {
           {s.stages.map((stage) => {
             const colorClass = stage.color === "orange" ? "text-orange" : stage.color === "blue" ? "text-blue" : stage.color === "purple" ? "text-purple" : stage.color === "success" ? "text-success" : stage.color === "destructive" ? "text-destructive" : "text-primary";
             return (
-            <div key={stage.label} className="flex-1 px-5 py-4 bg-background border-r border-border last:border-r-0">
+            <div key={stage.label} className="flex-1 px-5 py-4 bg-background border-r border-background last:border-r-0">
               <div className="flex items-baseline gap-2">
                 <span className={`text-2xl font-semibold font-mono tracking-tight ${colorClass}`}>{stage.count}</span>
                 {stage.eta && (
