@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { LayoutGrid, GitBranch, Circle, TrendingUp, AlignJustify, CircleDot, Settings, ChevronDown, Check, Pencil, Plus, Activity, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
