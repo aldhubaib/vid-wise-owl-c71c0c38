@@ -9,6 +9,7 @@ import VideoDetail from "./pages/VideoDetail";
 import Pipeline from "./pages/Pipeline";
 import Monitor from "./pages/Monitor";
 import Analytics from "./pages/Analytics";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/pipeline" element={<Pipeline />} />
             <Route path="/monitor" element={<Monitor />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/admin" element={<Admin />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
