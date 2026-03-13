@@ -4,11 +4,14 @@ import avatarCh4 from "@/assets/avatars/ch4.jpg";
 import avatarCh5 from "@/assets/avatars/ch5.jpg";
 import avatarCh6 from "@/assets/avatars/ch6.jpg";
 
+export type ChannelStatus = "active" | "regular" | "slow" | "inactive";
+
 export interface MonitorChannel {
   id: string;
   name: string;
   handle: string;
   avatar: string;
+  status: ChannelStatus;
   lastCheck: string;
   newVideos?: string;
   lastVideo: string;
