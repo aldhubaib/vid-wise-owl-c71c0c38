@@ -127,7 +127,7 @@ export default function Stories() {
               return (
                 <button
                   key={s.key}
-                  onClick={() => { setActiveStage(s.key); setSelectedId(null); }}
+                  onClick={() => { setActiveStage(s.key); }}
                   className={`px-4 py-1.5 rounded-full text-[12px] font-medium transition-colors ${
                     activeStage === s.key
                       ? "bg-foreground/10 text-foreground border border-foreground/20"
