@@ -55,62 +55,67 @@ export default function VideoDetail() {
         <div>
           {/* Hero */}
           <div className="px-6 py-6 max-lg:px-4">
-            {video.thumbnail && (
-              <div className="relative w-full max-w-md rounded-xl overflow-hidden mb-5">
+            <div className="rounded-xl overflow-hidden border border-border flex max-md:flex-col">
+              {/* Thumbnail left */}
+              <div className="relative w-[420px] max-md:w-full shrink-0">
                 <img
                   src={video.thumbnail}
                   alt=""
-                  className="w-full aspect-video object-cover"
+                  className="w-full h-full object-cover aspect-video"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
               </div>
-            )}
-            <h1 className="text-xl font-semibold tracking-tight mb-3 max-lg:text-lg" dir="rtl">
-              {video.title}
-            </h1>
-            <div className="flex items-center gap-3 text-dim">
-              <TooltipProvider delayDuration={200}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className={`inline-flex items-center justify-center ${
-                      video.status === "done" ? "text-success" :
-                      video.status === "failed" ? "text-destructive" :
-                      video.status === "analyzing" ? "text-blue" : "text-dim"
-                    }`}>
-                      {video.status === "done" ? <CheckCircle2 className="w-4 h-4" /> :
-                       video.status === "failed" ? <XCircle className="w-4 h-4" /> :
-                       video.status === "analyzing" ? <Loader2 className="w-4 h-4 animate-spin" /> :
-                       <Clock className="w-4 h-4" />}
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    {video.status === "done" ? "Complete" : video.status === "failed" ? "Failed" : video.status === "analyzing" ? "Analyzing" : "Pending"}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <span className="w-px h-3.5 bg-border" />
-              <TooltipProvider delayDuration={200}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="inline-flex items-center justify-center text-dim">
-                      {video.type === "short" ? <Zap className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>{video.type === "short" ? "Short" : "Video"}</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <span className="w-px h-3.5 bg-border" />
-              <TooltipProvider delayDuration={200}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="inline-flex items-center gap-1.5 text-[12px] font-mono text-dim">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {video.date}
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>Published date</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              {/* Info right */}
+              <div className="flex-1 flex flex-col justify-between p-5 bg-background">
+                <div>
+                  <h1 className="text-lg font-semibold tracking-tight mb-4 max-lg:text-base" dir="rtl" style={{ textAlign: "right" }}>
+                    {video.title}
+                  </h1>
+                </div>
+                <div className="flex items-center gap-3 text-dim">
+                  <TooltipProvider delayDuration={200}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className={`inline-flex items-center justify-center ${
+                          video.status === "done" ? "text-success" :
+                          video.status === "failed" ? "text-destructive" :
+                          video.status === "analyzing" ? "text-blue" : "text-dim"
+                        }`}>
+                          {video.status === "done" ? <CheckCircle2 className="w-4 h-4" /> :
+                           video.status === "failed" ? <XCircle className="w-4 h-4" /> :
+                           video.status === "analyzing" ? <Loader2 className="w-4 h-4 animate-spin" /> :
+                           <Clock className="w-4 h-4" />}
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        {video.status === "done" ? "Complete" : video.status === "failed" ? "Failed" : video.status === "analyzing" ? "Analyzing" : "Pending"}
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <span className="w-px h-3.5 bg-border" />
+                  <TooltipProvider delayDuration={200}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex items-center justify-center text-dim">
+                          {video.type === "short" ? <Zap className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>{video.type === "short" ? "Short" : "Video"}</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <span className="w-px h-3.5 bg-border" />
+                  <TooltipProvider delayDuration={200}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex items-center gap-1.5 text-[12px] font-mono text-dim">
+                          <Calendar className="w-3.5 h-3.5" />
+                          {video.date}
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>Published date</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </div>
             </div>
           </div>
 
