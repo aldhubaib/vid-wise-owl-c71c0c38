@@ -211,13 +211,10 @@ export default function Monitor() {
                     <span className="text-[11px] text-dim font-mono">{ch.handle}</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <span className={`w-2 h-2 rounded-full ${
+                <div className="flex items-center justify-center">
+                  <span className={`w-2.5 h-2.5 rounded-full ${
                     ch.status === "active" ? "bg-success" : ch.status === "regular" ? "bg-blue" : ch.status === "slow" ? "bg-orange" : "bg-destructive"
                   }`} />
-                  <span className={`text-[11px] font-mono capitalize ${
-                    ch.status === "active" ? "text-success" : ch.status === "regular" ? "text-blue" : ch.status === "slow" ? "text-orange" : "text-destructive"
-                  }`}>{ch.status}</span>
                 </div>
                 <span className="text-[12px] text-dim font-mono">{ch.lastCheck}</span>
                 <span className={`text-[12px] font-mono ${ch.newVideos ? "text-orange" : "text-dim"}`}>
