@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { LayoutGrid, GitBranch, Shield, Settings, Search } from "lucide-react";
+import { LayoutGrid, GitBranch, Shield, Settings, Search, ChevronDown } from "lucide-react";
 
 const navItems = [
 { icon: LayoutGrid, label: "Channels", path: "/" },
@@ -25,11 +25,14 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
   return (
     <div className={`flex flex-col h-full bg-background ${isMobile ? "" : "w-[220px] min-w-[220px] border-r border-border sticky top-0 h-screen"}`}>
       {/* Brand */}
-      <div className="flex items-center gap-2.5 px-4 h-12 border-b border-border shrink-0">
-        <div className="w-5 h-5 rounded bg-primary/20 flex items-center justify-center">
-          <div className="w-2 h-2 rounded-sm bg-primary" />
-        </div>
-        <span className="font-semibold text-[13px] text-foreground">Falak</span>
+      <div className="flex items-center justify-between px-4 h-12 border-b border-border shrink-0">
+        <button className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+          <div className="w-7 h-7 rounded-full bg-foreground/10 flex items-center justify-center">
+            <span className="text-[11px] font-bold text-primary">f.</span>
+          </div>
+          <span className="font-semibold text-[13px] text-foreground">Falak</span>
+          <ChevronDown className="w-3 h-3 text-dim" />
+        </button>
         {!isMobile &&
         <button className="ml-auto w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-sensor hover:bg-elevated transition-colors">
           <Search className="w-3.5 h-3.5" />
