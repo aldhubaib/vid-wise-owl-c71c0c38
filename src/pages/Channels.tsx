@@ -103,16 +103,12 @@ export default function Channels() {
 
         {/* Channel list */}
         <div className="px-6 py-4 max-md:px-4">
-          <div className="grid grid-cols-1 overflow-hidden">
+          <div className="rounded-lg overflow-hidden border border-border">
             {filteredChannels.map((ch, index) => {
-              const isFirst = index === 0;
-              const isLast = index === filteredChannels.length - 1;
               return (
               <div
                 key={ch.id}
-                className={`bg-elevated/30 flex items-center gap-3 px-4 py-3 hover:bg-elevated/60 transition-colors group border-b border-border last:border-b-0 ${
-                  isFirst ? "rounded-tl-lg rounded-tr-lg" : ""
-                } ${isLast ? "rounded-bl-lg rounded-br-lg" : ""}`}
+                className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-elevated/50 transition-colors group border-b border-border last:border-b-0"
               >
                 {/* Avatar */}
                 <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover shrink-0" />
