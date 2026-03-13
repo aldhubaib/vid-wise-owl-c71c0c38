@@ -72,19 +72,26 @@ export default function Monitor() {
             </div>
             <div className="border-t border-border px-4 py-3">
               <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2.5">Check Cadence (Auto-learned)</div>
-              {monitorCadence.map((c) => (
-                <div key={c.label} className="flex items-center justify-between py-1.5">
-                  <div className="flex items-center gap-2">
-                    <span className={`w-2 h-2 rounded-full bg-${c.color}`} />
-                    <span className="text-[12px] text-sensor font-medium">{c.label}</span>
-                    <span className="text-[11px] text-dim font-mono">{c.desc}</span>
+              {monitorCadence.map((c) => {
+                const dotColor = c.color === "success" ? "bg-success" : c.color === "blue" ? "bg-blue" : c.color === "dim" ? "bg-dim" : "";
+                return (
+                  <div key={c.label} className="flex items-center justify-between py-1.5">
+                    <div className="flex items-center gap-2">
+                      {dotColor ? (
+                        <span className={`w-2 h-2 rounded-full ${dotColor}`} />
+                      ) : (
+                        <span className="w-2" />
+                      )}
+                      <span className="text-[12px] text-sensor font-medium">{c.label}</span>
+                      <span className="text-[11px] text-dim font-mono">{c.desc}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-[11px] font-mono text-dim">
+                      <span>{c.channels} ch</span>
+                      <span>{c.freq}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 text-[11px] font-mono text-dim">
-                    <span>{c.channels} ch</span>
-                    <span>{c.freq}</span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
