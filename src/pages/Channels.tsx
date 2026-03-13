@@ -9,7 +9,7 @@ type FilterType = "ours" | "competition";
 
 export default function Channels() {
   const navigate = useNavigate();
-  const [channels] = useState(mockChannels);
+  const [channels, setChannels] = useState(mockChannels);
   const [inputValue, setInputValue] = useState("");
   const [inputError, setInputError] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
@@ -31,6 +31,30 @@ export default function Channels() {
       setInputError("This channel is already tracked");
       return;
     }
+    const newChannel: typeof channels[number] = {
+      id: `ch-${Date.now()}`,
+      name: val.replace("@", ""),
+      handle: val.startsWith("@") ? val : `@${val}`,
+      avatar: val.replace("@", "").charAt(0).toUpperCase(),
+      avatarImg: "/placeholder.svg",
+      type: filter as "ours" | "competition",
+      subscribers: "0",
+      views: "0",
+      videos: "0",
+      subscribersRaw: 0,
+      viewsRaw: 0,
+      videosRaw: 0,
+      lastSynced: new Date().toISOString(),
+      active: true,
+      joinedDate: new Date().toISOString(),
+      country: "",
+      avgViews: "0",
+      engRate: "0%",
+      topCategory: "",
+      growthSubs: "0%",
+      growthViews: "0%",
+    };
+    setChannels((prev) => [...prev, newChannel]);
     setInputValue("");
     setInputError("");
   };
