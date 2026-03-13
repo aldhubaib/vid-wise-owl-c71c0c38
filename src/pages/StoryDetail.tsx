@@ -50,6 +50,7 @@ export default function StoryDetail() {
   const [selectedChannel, setSelectedChannel] = useState<string>("");
   const [longScriptInput, setLongScriptInput] = useState("");
   const [shortScriptInput, setShortScriptInput] = useState("");
+  const [channelDropOpen, setChannelDropOpen] = useState(false);
 
   const story = stories.find((s) => s.id === id);
   const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
@@ -189,23 +190,44 @@ export default function StoryDetail() {
                 {/* Channel selector */}
                 <div className="rounded-xl bg-background p-5">
                   <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Assign to Channel</div>
-                  <div className="space-y-1.5">
-                    {channels.filter((c) => c.type === "ours").filter((c, i, arr) => arr.findIndex((x) => x.id === c.id) === i).map((c) => (
-                      <button
-                        key={c.id}
-                        onClick={() => setSelectedChannel(c.id)}
-                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] transition-colors ${
-                          selectedChannel === c.id
-                            ? "bg-blue/10 border border-blue/30"
-                            : "bg-surface border border-transparent hover:border-border"
-                        }`}
-                      >
-                        <img src={c.avatarImg} alt={c.name} className="w-7 h-7 rounded-full object-cover shrink-0" />
-                        <span className="font-medium text-right flex-1">{c.name}</span>
-                        {selectedChannel === c.id && <Check className="w-4 h-4 text-blue shrink-0" />}
-                      </button>
-                    ))}
-                  </div>
+                  {(() => {
+                    const ourChannels = channels.filter((c) => c.type === "ours").filter((c, i, arr) => arr.findIndex((x) => x.id === c.id) === i);
+                    const selected = ourChannels.find((c) => c.id === selectedChannel);
+                    const [dropOpen, setDropOpen] = [channelDropOpen, setChannelDropOpen];
+                    return (
+                      <div className="relative">
+                        <button
+                          onClick={() => setDropOpen(!dropOpen)}
+                          className="w-full flex items-center gap-3 px-4 py-2.5 bg-surface border border-border rounded-full text-[13px] font-medium focus:outline-none focus:border-primary/40"
+                        >
+                          {selected ? (
+                            <>
+                              <img src={selected.avatarImg} alt={selected.name} className="w-6 h-6 rounded-full object-cover shrink-0" />
+                              <span className="flex-1 text-right">{selected.name}</span>
+                            </>
+                          ) : (
+                            <span className="flex-1 text-right text-dim">Select one of your channels…</span>
+                          )}
+                          <ChevronDown className={`w-4 h-4 text-dim shrink-0 transition-transform ${dropOpen ? "rotate-180" : ""}`} />
+                        </button>
+                        {dropOpen && (
+                          <div className="absolute z-10 mt-1.5 w-full rounded-xl bg-elevated border border-border overflow-hidden shadow-lg">
+                            {ourChannels.map((c) => (
+                              <button
+                                key={c.id}
+                                onClick={() => { setSelectedChannel(c.id); setDropOpen(false); }}
+                                className={`w-full flex items-center gap-3 px-4 py-2.5 text-[13px] transition-colors hover:bg-surface ${selectedChannel === c.id ? "bg-blue/10" : ""}`}
+                              >
+                                <img src={c.avatarImg} alt={c.name} className="w-6 h-6 rounded-full object-cover shrink-0" />
+                                <span className="flex-1 text-right font-medium">{c.name}</span>
+                                {selectedChannel === c.id && <Check className="w-3.5 h-3.5 text-blue shrink-0" />}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 {/* Script inputs */}
