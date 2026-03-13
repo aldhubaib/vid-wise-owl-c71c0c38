@@ -32,7 +32,7 @@ export default function Login() {
         <div className="absolute inset-0 bg-background/30 z-10 pointer-events-none" />
 
         <div className="flex gap-3 p-3 w-full h-full">
-          {[col1, col2, col3].map((col, colIdx) => (
+          {[col1, col2].map((col, colIdx) => (
             <div key={colIdx} className="flex-1 overflow-hidden relative">
               <div
                 className={`flex flex-col gap-3 ${
