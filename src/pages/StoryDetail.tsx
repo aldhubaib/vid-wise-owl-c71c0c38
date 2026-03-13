@@ -152,9 +152,10 @@ export default function StoryDetail() {
                   </div>
                   <div className="space-y-1">
                     {likedStories.map((s, i) => (
-                      <div
+                      <Link
                         key={s.id}
-                        className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-[12px] hover:bg-[#0d0d10] transition-colors ${s.id === id ? "bg-[#0d0d10] text-foreground" : "text-dim"}`}
+                        to={`/story/${s.id}`}
+                        className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-[12px] hover:bg-[#0d0d10] transition-colors group ${s.id === id ? "bg-[#0d0d10] text-foreground" : "text-dim"}`}
                       >
                         <span className="font-mono w-5">#{i + 1}</span>
                         {s.isFirstMover ? (
@@ -162,15 +163,10 @@ export default function StoryDetail() {
                         ) : s.isLate ? (
                           <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-orange/15 text-orange shrink-0">Late</span>
                         ) : null}
-                        <Link
-                          to={`/story/${s.id}`}
-                          className="flex-1 min-w-0 flex items-center justify-end gap-1 hover:text-foreground transition-colors group"
-                        >
-                          <span className="truncate text-right">{s.title}</span>
-                          <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                        </Link>
+                        <span className="flex-1 truncate text-right hover:text-foreground transition-colors">{s.title}</span>
                         <span className="font-mono font-medium">{s.totalScore}</span>
-                      </div>
+                        <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                      </Link>
                     ))}
                   </div>
                 </div>
