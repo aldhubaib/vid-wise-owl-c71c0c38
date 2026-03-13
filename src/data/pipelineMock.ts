@@ -1,0 +1,120 @@
+export type PipelineStage = "import" | "transcribe" | "comments" | "analysis" | "failed";
+export type PipelineItemStatus = "processing" | "waiting" | "queued" | "failed";
+
+export interface PipelineItem {
+  id: string;
+  title: string;
+  channelAvatar: string;
+  channelHandle: string;
+  status: PipelineItemStatus;
+  statusDetail?: string;
+  timeInStage?: string;
+  retries: number;
+  progress?: string; // e.g. "100 / 100"
+  errorReason?: string;
+}
+
+export interface PipelineStageData {
+  id: PipelineStage;
+  number: number;
+  label: string;
+  subtitle: string;
+  count: number;
+  items: PipelineItem[];
+  moreCount: number;
+}
+
+export interface PipelineStats {
+  totalVideos: number;
+  inPipeline: number;
+  done: number;
+  stages: {
+    label: string;
+    count: number;
+    color: "orange" | "blue" | "purple" | "success" | "primary" | "destructive";
+    active: number;
+    remaining: number;
+    eta?: string;
+  }[];
+  failed: { count: number; needsRetry: string; errors: string };
+}
+
+export const pipelineStats: PipelineStats = {
+  totalVideos: 282,
+  inPipeline: 227,
+  done: 55,
+  stages: [
+    { label: "IMPORTED", count: 48, color: "orange", active: 3, remaining: 234, eta: "~4h 20m" },
+    { label: "TRANSCRIBED", count: 62, color: "blue", active: 2, remaining: 220, eta: "~6h 10m" },
+    { label: "COMMENTS", count: 71, color: "purple", active: 1, remaining: 211, eta: "~3h 45m" },
+    { label: "ANALYZING", count: 38, color: "success", active: 1, remaining: 244, eta: "~8h 30m" },
+  ],
+  failed: { count: 8, needsRetry: "needs retry", errors: "8 errors" },
+};
+
+export const pipelineStages: PipelineStageData[] = [
+  {
+    id: "import",
+    number: 1,
+    label: "Import",
+    subtitle: "YouTube metadata · API",
+    count: 48,
+    moreCount: 45,
+    items: [
+      { id: "pi1", title: "فيديو جديد في قناة بدر", channelAvatar: "ب", channelHandle: "@badr3", status: "processing", statusDetail: "Fetching...", timeInStage: "18m 23s in stage", retries: 1 },
+      { id: "pi2", title: "رحلة الجبال الشمالية", channelAvatar: "ب", channelHandle: "@badr3", status: "queued", timeInStage: "20m 10s waiting", retries: 1 },
+      { id: "pi3", title: "تجربة الطبيخ السعودي", channelAvatar: "F", channelHandle: "@fun213", status: "queued", timeInStage: "20m 47s waiting", retries: 1 },
+    ],
+  },
+  {
+    id: "transcribe",
+    number: 2,
+    label: "Transcribe",
+    subtitle: "youtube-transcript.io",
+    count: 62,
+    moreCount: 59,
+    items: [
+      { id: "pt1", title: "أسرار قرية الأشباح", channelAvatar: "ب", channelHandle: "@badr3", status: "processing", statusDetail: "Processing...", timeInStage: "17m 16s in stage", retries: 1 },
+      { id: "pt2", title: "مغامرة في الصحراء", channelAvatar: "ب", channelHandle: "@badr3", status: "processing", statusDetail: "Processing...", timeInStage: "20m 01s in stage", retries: 2 },
+      { id: "pt3", title: "ليلة في الوادي المجهول", channelAvatar: "T", channelHandle: "@tariq", status: "waiting", timeInStage: "34m 49s waiting", retries: 3 },
+    ],
+  },
+  {
+    id: "comments",
+    number: 3,
+    label: "Comments",
+    subtitle: "Top 100 · YouTube API",
+    count: 71,
+    moreCount: 68,
+    items: [
+      { id: "pc1", title: "استكشاف القلعة التاريخية", channelAvatar: "ب", channelHandle: "@badr3", status: "processing", progress: "100 / 100", timeInStage: "16m 53s in stage", retries: 1 },
+      { id: "pc2", title: "رحلة إلى الشمال", channelAvatar: "M", channelHandle: "@mghandi", status: "waiting", timeInStage: "22m 20s waiting", retries: 1 },
+      { id: "pc3", title: "تحدي الطبخ في البر", channelAvatar: "F", channelHandle: "@fun213", status: "waiting", timeInStage: "38m 14s waiting", retries: 2 },
+    ],
+  },
+  {
+    id: "analysis",
+    number: 4,
+    label: "AI Analysis",
+    subtitle: "Haiku · Sonnet",
+    count: 38,
+    moreCount: 36,
+    items: [
+      { id: "pa1", title: "رحلة إلى قرية الأشباح", channelAvatar: "ب", channelHandle: "@badr3", status: "processing", statusDetail: "Part B · Sonnet", timeInStage: "21m 38s in stage", retries: 2 },
+      { id: "pa2", title: "اغرب مكان زرته", channelAvatar: "ب", channelHandle: "@badr3", status: "waiting", timeInStage: "25m 27s waiting", retries: 1 },
+    ],
+  },
+  {
+    id: "failed",
+    number: 0,
+    label: "Failed",
+    subtitle: "Transcript unavailable (5) · API quota (2) · Timeout (1)",
+    count: 8,
+    moreCount: 5,
+    items: [
+      { id: "pf1", title: "تحدي البقاء في المنزل المسكون", channelAvatar: "ب", channelHandle: "@badr3", status: "failed", errorReason: "API quota exceeded", timeInStage: "Stuck 2h 14m", retries: 3 },
+      { id: "pf2", title: "صوت غريب في المنطقة المهجورة", channelAvatar: "ب", channelHandle: "@badr3", status: "failed", errorReason: "Transcript unavailable", timeInStage: "Stuck 45m", retries: 3 },
+      { id: "pf3", title: "رحلة إلى الجزيرة الغامضة", channelAvatar: "ب", channelHandle: "@badr3", status: "failed", errorReason: "Transcript unavailable", timeInStage: "Stuck 1h 02m", retries: 2 },
+    ],
+  },
+];
