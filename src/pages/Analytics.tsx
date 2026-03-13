@@ -427,11 +427,11 @@ function ChannelAnalysisSection() {
         <div className="grid grid-cols-[1fr_100px_120px_50px] gap-4 px-5 py-3 bg-surface/30 border-b border-border">
           <span className="text-[10px] text-dim font-mono uppercase tracking-widest">METRIC</span>
           <div className="flex items-center gap-1.5 justify-end">
-            {getAvatarForDropdown(yourChannel) && <img src={getAvatarForDropdown(yourChannel)!} alt="" className="w-4 h-4 rounded-full object-cover" />}
+            <ChannelAvatar name={yourChannel} size="sm" />
             <span className="text-[10px] text-blue font-mono uppercase tracking-widest">You</span>
           </div>
           <div className="flex items-center gap-1.5 justify-end">
-            {getAvatarForDropdown(competitor) && <img src={getAvatarForDropdown(competitor)!} alt="" className="w-4 h-4 rounded-full object-cover" />}
+            <ChannelAvatar name={competitor} size="sm" />
             <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Competitor</span>
           </div>
           <span className="text-[10px] text-dim font-mono uppercase tracking-widest text-right">STATUS</span>
