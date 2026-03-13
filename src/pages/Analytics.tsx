@@ -431,7 +431,7 @@ function ChannelAnalysisSection() {
             {getAvatarForDropdown(competitor) && <img src={getAvatarForDropdown(competitor)!} alt="" className="w-4 h-4 rounded-full object-cover" />}
             <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Competitor</span>
           </div>
-          <span />
+          <span className="text-[10px] text-dim font-mono uppercase tracking-widest text-right">STATUS</span>
         </div>
         {ca.metrics.map((m, i) => {
           const isWinning = m.tagColor === "success";
