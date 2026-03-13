@@ -6,18 +6,11 @@ interface VideoTableProps {
   onVideoClick: (videoId: string) => void;
 }
 
-const statusClass: Record<string, string> = {
-  done: "bg-success/10 text-success",
-  failed: "bg-destructive/10 text-destructive",
-  pending: "bg-elevated text-dim",
-  analyzing: "bg-blue/10 text-blue",
-};
-
-const statusLabel: Record<string, string> = {
-  done: "Done",
-  failed: "Failed",
-  pending: "Pending",
-  analyzing: "Running",
+const statusIcon: Record<string, { icon: React.ElementType; className: string; title: string }> = {
+  done: { icon: CheckCircle2, className: "text-success", title: "Done" },
+  failed: { icon: XCircle, className: "text-destructive", title: "Failed" },
+  pending: { icon: Clock, className: "text-dim", title: "Pending" },
+  analyzing: { icon: Loader2, className: "text-blue animate-spin", title: "Analyzing" },
 };
 
 export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
