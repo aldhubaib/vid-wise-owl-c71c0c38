@@ -1,85 +1,94 @@
-import type { Video } from "@/data/mock";
-import { RotateCcw, ExternalLink } from "lucide-react";
-
-interface PipelineStep {
-  name: string;
-  status: "done" | "failed" | "waiting";
-  time: string;
-}
+import { useRef, useEffect } from "react";
+import type { Video, PipelineStep } from "@/data/mock";
+import { X, Eye, Heart, MessageCircle, Clock, Calendar, Film, RefreshCw, ExternalLink } from "lucide-react";
 
 interface VideoRightPanelProps {
   video: Video;
   visible: boolean;
+  onClose: () => void;
   pipeline: PipelineStep[];
 }
 
-export function VideoRightPanel({ video, visible, pipeline }: VideoRightPanelProps) {
+export function VideoRightPanel({ video, visible, onClose, pipeline }: VideoRightPanelProps) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!visible) return;
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [visible, onClose]);
+
+  if (!visible) return null;
+
+  const infoRows = [
+    { icon: Eye, label: "Views", value: video.views },
+    { icon: Heart, label: "Likes", value: video.likes },
+    { icon: MessageCircle, label: "Comments", value: video.comments },
+    { icon: Clock, label: "Duration", value: video.duration },
+    { icon: Calendar, label: "Published", value: video.date },
+    { icon: Film, label: "Type", value: video.type },
+  ];
+
   return (
     <div
-      className={`fixed top-12 right-0 w-[300px] h-[calc(100vh-48px)] overflow-y-auto bg-background border-l border-border px-5 py-6 transition-transform duration-200 ease-out z-50 hidden md:block ${
-        visible ? "translate-x-0" : "translate-x-full"
-      }`}
+      ref={ref}
+      className="absolute top-2 right-2 w-[260px] rounded-xl bg-surface border border-border shadow-xl shadow-black/30 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150"
     >
-      <h3 className="text-[11px] text-dim font-mono uppercase tracking-widest mb-4">
-        Video Info
-      </h3>
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+        <span className="text-[11px] text-dim font-mono uppercase tracking-widest">Video Info</span>
+        <button onClick={onClose} className="w-5 h-5 rounded flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
+          <X className="w-3 h-3" />
+        </button>
+      </div>
 
-      {[
-        { key: "Views", val: video.views },
-        { key: "Likes", val: video.likes },
-        { key: "Comments", val: video.comments },
-        { key: "Duration", val: video.duration },
-        { key: "Published", val: video.date },
-        { key: "Type", val: video.type },
-      ].map((row) => (
-        <div key={row.key} className="flex justify-between items-center py-2 border-b border-border last:border-b-0">
-          <span className="text-[12px] text-dim">{row.key}</span>
-          <span className="text-[12px] font-mono text-sensor text-right">{row.val}</span>
-        </div>
-      ))}
-
-      <div className="h-px bg-border my-5" />
-
-      {/* Analysis Pipeline */}
-      <h4 className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">
-        Pipeline
-      </h4>
-
-      <div className="relative pl-5">
-        <div className="absolute left-[5px] top-2 bottom-2 w-px bg-border" />
-        {pipeline.map((step, i) => (
-          <div key={i} className="relative pb-3.5 last:pb-0">
-            <div className={`absolute -left-[19px] top-1 w-2.5 h-2.5 rounded-full border-2 border-background ${
-              step.status === "done"
-                ? "bg-primary ring-[3px] ring-primary/10"
-                : step.status === "failed"
-                ? "bg-destructive ring-[3px] ring-destructive/10"
-                : "bg-dim"
-            }`} />
-            <div className={`text-[12px] font-medium ${step.status === "failed" ? "text-destructive" : "text-sensor"}`}>
-              {step.name}
+      {/* Info rows */}
+      <div className="px-4 py-3 space-y-0">
+        {infoRows.map((row) => (
+          <div key={row.label} className="flex items-center justify-between py-1.5">
+            <div className="flex items-center gap-1.5">
+              <row.icon className="w-3 h-3 text-dim" />
+              <span className="text-[11px] text-dim">{row.label}</span>
             </div>
-            <div className={`text-[10px] font-mono ${step.status === "failed" ? "text-destructive/60" : "text-dim"}`}>
-              {step.time}
-            </div>
+            <span className="text-[12px] font-mono font-medium text-foreground">{row.value}</span>
           </div>
         ))}
       </div>
 
-      <div className="h-px bg-border my-5" />
+      {/* Pipeline */}
+      <div className="px-4 py-3 border-t border-border">
+        <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2">Pipeline</div>
+        <div className="space-y-1">
+          {pipeline.map((step) => (
+            <div key={step.name} className="flex items-center justify-between py-1">
+              <div className="flex items-center gap-1.5">
+                <div className={`w-1.5 h-1.5 rounded-full ${
+                  step.status === "done" ? "bg-success" :
+                  step.status === "failed" ? "bg-destructive" :
+                  step.status === "running" ? "bg-blue animate-pulse" : "bg-dim/30"
+                }`} />
+                <span className={`text-[11px] ${step.status === "failed" ? "text-destructive" : "text-sensor"}`}>{step.name}</span>
+              </div>
+              <span className={`text-[10px] font-mono ${step.status === "failed" ? "text-destructive/60" : "text-dim"}`}>
+                {step.time || (step.status === "waiting" ? "—" : "...")}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
 
-      <h4 className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">
-        Actions
-      </h4>
-
-      <button className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md text-[12px] font-medium bg-primary/10 border border-primary/15 text-primary cursor-pointer transition-all hover:bg-primary/15 mb-1.5">
-        <RotateCcw className="w-3.5 h-3.5" />
-        Re-analyze
-      </button>
-      <button className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md text-[12px] font-medium bg-elevated border border-border text-sensor cursor-pointer transition-all hover:bg-border hover:text-foreground">
-        <ExternalLink className="w-3.5 h-3.5" />
-        Open on YouTube
-      </button>
+      {/* Actions */}
+      <div className="px-4 py-3 border-t border-border flex items-center justify-between">
+        <button title="Re-analyze" className="w-10 h-10 rounded-full flex items-center justify-center bg-primary/10 border border-primary/15 text-primary cursor-pointer transition-all hover:bg-primary/15">
+          <RefreshCw className="w-4 h-4" />
+        </button>
+        <button title="Open on YouTube" className="w-10 h-10 rounded-full flex items-center justify-center bg-elevated border border-border text-sensor cursor-pointer transition-all hover:bg-border hover:text-foreground">
+          <ExternalLink className="w-4 h-4" />
+        </button>
+      </div>
     </div>
   );
 }
