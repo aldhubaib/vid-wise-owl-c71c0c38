@@ -72,9 +72,9 @@ export default function Channels() {
 
       <div className="flex-1 overflow-auto">
         {/* Add channel */}
-        <div className="px-6 pt-5 max-md:px-4">
-          <div className="bg-surface p-4">
-            <div className="flex gap-2 max-md:flex-col">
+        <div className="px-6 pt-5 pb-1 max-md:px-4">
+          <div className="flex gap-2 max-md:flex-col">
+            <div className="flex-1 relative">
               <input
                 type="text"
                 value={inputValue}
@@ -82,23 +82,25 @@ export default function Channels() {
                   setInputValue(e.target.value);
                   setInputError("");
                 }}
-                placeholder="Add channel — @handle or channel ID..."
-                className={`flex-1 px-3 py-2 bg-elevated border rounded-md text-foreground text-[13px] font-sans outline-none transition-colors placeholder:text-dim min-w-0 ${
-                  inputError ? "border-destructive/50" : "border-border focus:border-sensor/30"
+                placeholder="@handle or channel ID..."
+                className={`w-full pl-3 pr-3 py-2 bg-background border text-foreground text-[13px] font-sans outline-none transition-colors placeholder:text-dim ${
+                  inputError ? "border-destructive/50" : "border-border focus:border-[#2a2a2e]"
                 }`}
+                style={{ borderRadius: '8px' }}
               />
-              <button
-                onClick={handleAdd}
-                className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-[13px] font-medium cursor-pointer whitespace-nowrap shrink-0 hover:opacity-90 transition-opacity flex items-center gap-1.5 max-md:w-full max-md:justify-center"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                Add Channel
-              </button>
             </div>
-            {inputError && (
-              <p className="text-[11px] mt-2 text-destructive">{inputError}</p>
-            )}
+            <button
+              onClick={handleAdd}
+              className="px-4 py-2 bg-foreground text-background text-[13px] font-medium cursor-pointer whitespace-nowrap shrink-0 hover:opacity-90 transition-opacity flex items-center gap-1.5 max-md:w-full max-md:justify-center"
+              style={{ borderRadius: '8px' }}
+            >
+              <Plus className="w-3.5 h-3.5" />
+              Add
+            </button>
           </div>
+          {inputError && (
+            <p className="text-[11px] mt-1.5 text-destructive">{inputError}</p>
+          )}
         </div>
 
         {/* Channel list */}
