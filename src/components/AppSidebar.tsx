@@ -82,6 +82,23 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
           </Tooltip>
         )}
 
+        {/* Pin toggle (desktop, expanded only) */}
+        {!isMobile && !collapsed && onTogglePin && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={onTogglePin}
+                className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
+                  pinned ? "text-blue hover:bg-elevated/60" : "text-dim hover:bg-elevated/60 hover:text-sensor"
+                }`}
+              >
+                {pinned ? <Pin className="w-3.5 h-3.5" strokeWidth={1.5} /> : <PinOff className="w-3.5 h-3.5" strokeWidth={1.5} />}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="right">{pinned ? "Unpin sidebar" : "Pin sidebar"}</TooltipContent>
+          </Tooltip>
+        )}
+
         {/* Dropdown */}
         {switcherOpen && !collapsed && (
           <div className="absolute top-full left-2 right-2 mt-1 bg-background border border-border rounded-xl shadow-lg z-50 overflow-hidden">
