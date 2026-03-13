@@ -141,7 +141,7 @@ export default function Admin() {
                   className="w-full pl-9 pr-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40"
                 />
               </div>
-              <button className="px-5 py-2.5 text-[13px] font-semibold bg-primary text-primary-foreground rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap">
+              <button className="px-5 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap">
                 + Add
               </button>
             </div>
