@@ -133,7 +133,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
             ))}
             <div className="border-t border-border mt-1.5 pt-1.5">
               <button
-                onClick={() => { setSwitcherOpen(false); setEditName(projectName); setEditHookStart(projectHookStart); setEditHookEnd(projectHookEnd); setEditOpen(true); }}
+                onClick={() => { setSwitcherOpen(false); setEditName(projectName); setEditHookStart(projectHookStart); setEditHookEnd(projectHookEnd); setEditImage(projectImage); setEditOpen(true); }}
                 className="w-full flex items-center gap-2.5 px-3 py-2 rounded-full text-[13px] text-dim hover:text-sensor hover:bg-elevated/60 transition-colors"
               >
                 <Pencil className="w-3.5 h-3.5" />
