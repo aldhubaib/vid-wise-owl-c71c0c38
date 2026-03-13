@@ -55,6 +55,11 @@ export default function StoryDetail() {
   const [openingHookInput, setOpeningHookInput] = useState("");
   const [brandedHookStartInput, setBrandedHookStartInput] = useState("");
   const [brandedHookEndInput, setBrandedHookEndInput] = useState("");
+  const [scriptTab, setScriptTab] = useState<"long" | "short">("long");
+  const [shortSuggestedTitleInput, setShortSuggestedTitleInput] = useState("");
+  const [shortOpeningHookInput, setShortOpeningHookInput] = useState("");
+  const [shortBrandedHookStartInput, setShortBrandedHookStartInput] = useState("");
+  const [shortBrandedHookEndInput, setShortBrandedHookEndInput] = useState("");
 
   const story = stories.find((s) => s.id === id);
   const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
@@ -237,7 +242,31 @@ export default function StoryDetail() {
                 {/* Script inputs */}
                 <div className="rounded-xl bg-background p-5 space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Scripts</div>
+                    <div className="flex items-center gap-3">
+                      <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Scripts</div>
+                      <div className="flex rounded-full overflow-hidden border border-border">
+                        <button
+                          onClick={() => setScriptTab("long")}
+                          className={`px-3 py-1 text-[11px] font-medium transition-colors ${
+                            scriptTab === "long"
+                              ? "bg-blue/15 text-blue"
+                              : "bg-elevated text-dim hover:text-sensor"
+                          }`}
+                        >
+                          Long
+                        </button>
+                        <button
+                          onClick={() => setScriptTab("short")}
+                          className={`px-3 py-1 text-[11px] font-medium transition-colors border-l border-border ${
+                            scriptTab === "short"
+                              ? "bg-blue/15 text-blue"
+                              : "bg-elevated text-dim hover:text-sensor"
+                          }`}
+                        >
+                          Short
+                        </button>
+                      </div>
+                    </div>
                     <button
                       onClick={() => toast("AI script generation coming soon…")}
                       className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold text-blue bg-blue/10 rounded-full hover:bg-blue/20 transition-colors"
@@ -246,56 +275,54 @@ export default function StoryDetail() {
                       Generate with AI
                     </button>
                   </div>
-                  <div>
-                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Suggested Title</label>
-                    <input
-                      type="text"
-                      value={suggestedTitleInput}
-                      onChange={(e) => setSuggestedTitleInput(e.target.value)}
-                      placeholder="عنوان الفيديو المقترح..."
-                      className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Opening Hook (first 10 sec)</label>
-                    <input
-                      type="text"
-                      value={openingHookInput}
-                      onChange={(e) => setOpeningHookInput(e.target.value)}
-                      placeholder="الجملة الأولى التي تجذب المشاهد..."
-                      className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook Start</label>
-                    <input
-                      type="text"
-                      value={brandedHookStartInput}
-                      onChange={(e) => setBrandedHookStartInput(e.target.value)}
-                      placeholder="e.g. أهلاً وسهلاً بكم في قناة..."
-                      className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Long Script (20–40 min) — with timestamps</label>
-                    <textarea
-                      value={longScriptInput}
-                      onChange={(e) => setLongScriptInput(e.target.value)}
-                      placeholder="00:00 مقدمة&#10;01:30 القصة تبدأ..."
-                      rows={5}
-                      className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook End</label>
-                    <input
-                      type="text"
-                      value={brandedHookEndInput}
-                      onChange={(e) => setBrandedHookEndInput(e.target.value)}
-                      placeholder="e.g. لا تنسوا الاشتراك وتفعيل الجرس..."
-                      className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right"
-                    />
-                  </div>
+
+                  {scriptTab === "long" ? (
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Suggested Title</label>
+                        <input type="text" value={suggestedTitleInput} onChange={(e) => setSuggestedTitleInput(e.target.value)} placeholder="عنوان الفيديو المقترح..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Opening Hook (first 10 sec)</label>
+                        <input type="text" value={openingHookInput} onChange={(e) => setOpeningHookInput(e.target.value)} placeholder="الجملة الأولى التي تجذب المشاهد..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook Start</label>
+                        <input type="text" value={brandedHookStartInput} onChange={(e) => setBrandedHookStartInput(e.target.value)} placeholder="e.g. أهلاً وسهلاً بكم في قناة..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Script (20–40 min) — with timestamps</label>
+                        <textarea value={longScriptInput} onChange={(e) => setLongScriptInput(e.target.value)} placeholder="00:00 مقدمة&#10;01:30 القصة تبدأ..." rows={5} className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook End</label>
+                        <input type="text" value={brandedHookEndInput} onChange={(e) => setBrandedHookEndInput(e.target.value)} placeholder="e.g. لا تنسوا الاشتراك وتفعيل الجرس..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Suggested Title</label>
+                        <input type="text" value={shortSuggestedTitleInput} onChange={(e) => setShortSuggestedTitleInput(e.target.value)} placeholder="عنوان الشورت المقترح..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Opening Hook (first 10 sec)</label>
+                        <input type="text" value={shortOpeningHookInput} onChange={(e) => setShortOpeningHookInput(e.target.value)} placeholder="الجملة الأولى التي تجذب المشاهد..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook Start</label>
+                        <input type="text" value={shortBrandedHookStartInput} onChange={(e) => setShortBrandedHookStartInput(e.target.value)} placeholder="e.g. أهلاً وسهلاً بكم في قناة..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Script (1–2 min) — with timestamps</label>
+                        <textarea value={shortScriptInput} onChange={(e) => setShortScriptInput(e.target.value)} placeholder="00:00 هوك&#10;00:15 المحتوى..." rows={3} className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y" />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook End</label>
+                        <input type="text" value={shortBrandedHookEndInput} onChange={(e) => setShortBrandedHookEndInput(e.target.value)} placeholder="e.g. لا تنسوا الاشتراك وتفعيل الجرس..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {(() => {
