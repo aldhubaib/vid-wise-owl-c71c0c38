@@ -247,6 +247,36 @@ export default function StoryDetail() {
                     </button>
                   </div>
                   <div>
+                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Suggested Title</label>
+                    <input
+                      type="text"
+                      value={suggestedTitleInput}
+                      onChange={(e) => setSuggestedTitleInput(e.target.value)}
+                      placeholder="عنوان الفيديو المقترح..."
+                      className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Opening Hook (first 10 sec)</label>
+                    <input
+                      type="text"
+                      value={openingHookInput}
+                      onChange={(e) => setOpeningHookInput(e.target.value)}
+                      placeholder="الجملة الأولى التي تجذب المشاهد..."
+                      className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook Start</label>
+                    <input
+                      type="text"
+                      value={brandedHookStartInput}
+                      onChange={(e) => setBrandedHookStartInput(e.target.value)}
+                      placeholder="e.g. أهلاً وسهلاً بكم في قناة..."
+                      className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right"
+                    />
+                  </div>
+                  <div>
                     <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Long Script (20–40 min) — with timestamps</label>
                     <textarea
                       value={longScriptInput}
@@ -257,13 +287,13 @@ export default function StoryDetail() {
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Short Script (1–2 min) — with timestamps</label>
-                    <textarea
-                      value={shortScriptInput}
-                      onChange={(e) => setShortScriptInput(e.target.value)}
-                      placeholder="00:00 هوك&#10;00:15 المحتوى..."
-                      rows={3}
-                      className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y"
+                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook End</label>
+                    <input
+                      type="text"
+                      value={brandedHookEndInput}
+                      onChange={(e) => setBrandedHookEndInput(e.target.value)}
+                      placeholder="e.g. لا تنسوا الاشتراك وتفعيل الجرس..."
+                      className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right"
                     />
                   </div>
                 </div>
