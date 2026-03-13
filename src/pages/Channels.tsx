@@ -104,14 +104,6 @@ export default function Channels() {
                 key={ch.id}
                 className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-[#0d0d10] transition-colors group border-b border-border last:border-b-0"
               >
-                {/* Type icon */}
-                <div className="shrink-0" title={ch.type === "ours" ? "Ours" : "Competition"}>
-                  {ch.type === "ours" ? (
-                    <Star className="w-3.5 h-3.5 text-primary" />
-                  ) : (
-                    <Swords className="w-3.5 h-3.5 text-orange" />
-                  )}
-                </div>
 
                 {/* Avatar */}
                 <div className="relative shrink-0">
