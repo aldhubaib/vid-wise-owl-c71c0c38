@@ -48,7 +48,7 @@ export function AppLayout() {
       </div>
 
       {/* Main content */}
-      <main className="flex-1 min-w-0 md:pt-0 pt-12 bg-[#1c1c1e] md:rounded-l-2xl md:my-0 relative z-10">
+      <main className="flex-1 min-w-0 md:pt-0 pt-12 bg-surface md:rounded-l-2xl relative z-10">
         <Outlet />
       </main>
     </div>
