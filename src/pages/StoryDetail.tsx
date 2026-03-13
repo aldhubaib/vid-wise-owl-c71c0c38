@@ -114,25 +114,17 @@ export default function StoryDetail() {
           {/* AI Analysis */}
           {story.aiAnalysis && (
             <div className="rounded-xl bg-background p-5">
-              <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">AI Analysis</div>
+              <div className="flex items-center gap-2 mb-3">
+                <div className="text-[10px] text-dim font-mono uppercase tracking-widest">AI Analysis</div>
+                {story.isFirstMover ? (
+                  <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-success/15 text-success">1st</span>
+                ) : story.isLate ? (
+                  <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-orange/15 text-orange">Late</span>
+                ) : null}
+              </div>
               <p className="text-[13px] text-sensor leading-relaxed text-right">{story.aiAnalysis}</p>
             </div>
           )}
-
-          {/* Badge */}
-          <div className="rounded-xl bg-background px-5 py-4">
-            {story.isFirstMover ? (
-              <div className="flex items-center gap-2.5">
-                <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-success/15 text-success shrink-0">1st</span>
-                <span className="text-[12px] text-success font-medium">First Mover — No competitor has covered this story yet</span>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2.5">
-                <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-orange/15 text-orange shrink-0">Late</span>
-                <span className="text-[12px] text-orange font-medium">Late — competitors have already covered this story</span>
-              </div>
-            )}
-          </div>
 
           {/* Stage-specific content */}
           <div className="space-y-5">
