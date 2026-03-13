@@ -290,9 +290,9 @@ export const videos: Video[] = [
     date: "2026-02-20", duration: "45:30", status: "failed",
     viewsRaw: 670000, likesRaw: 28000, commentsRaw: 1500, thumbnail: thumbV6,
     pipeline: [
-      { name: "Transcription", status: "done", time: "5m 12s" },
-      { name: "Translation", status: "done", time: "3m 48s" },
-      { name: "Sentiment", status: "failed" },
+      { name: "Transcription", status: "done", time: "5m 12s", retries: 2 },
+      { name: "Translation", status: "done", time: "3m 48s", retries: 1 },
+      { name: "Sentiment", status: "failed", retries: 3 },
       { name: "Topics", status: "waiting" },
       { name: "Comments", status: "waiting" },
       { name: "Viral Score", status: "waiting" },
