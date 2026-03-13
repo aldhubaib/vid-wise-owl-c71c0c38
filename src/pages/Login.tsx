@@ -22,7 +22,7 @@ export default function Login() {
   const col2 = [s3, s6, s5, s1, s3, s6, s5, s1];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-screen overflow-hidden bg-[#080808]">
       {/* Left — Scrolling stories (1/3) */}
       <div className="hidden lg:block w-1/3 relative overflow-hidden">
         <div className="absolute inset-0 bg-background/20 z-10 pointer-events-none" />
