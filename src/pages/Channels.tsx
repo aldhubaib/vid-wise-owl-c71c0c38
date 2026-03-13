@@ -63,17 +63,12 @@ export default function Channels() {
 
         {/* Channel list */}
         <div className="px-6 py-4 max-md:px-4">
-          <div className="grid grid-cols-1 gap-px bg-border border border-border rounded-lg overflow-hidden">
+          <div className="grid grid-cols-1 gap-px bg-border overflow-hidden">
             {channels.map((ch) =>
             <div
               key={ch.id}
-              className="bg-surface flex items-center gap-4 px-4 py-3.5 hover:bg-elevated/50 transition-colors group">
+              className="bg-background flex items-center gap-4 px-4 py-3 hover:bg-elevated/40 transition-colors group">
               
-                {/* Avatar */}
-                <div className="w-9 h-9 rounded-full bg-elevated border border-border shrink-0 flex items-center justify-center text-sm font-medium text-sensor">
-                  {ch.avatar}
-                </div>
-
                 {/* Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
