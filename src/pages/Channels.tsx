@@ -13,6 +13,7 @@ export default function Channels() {
   const [inputError, setInputError] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterType>("ours");
+  const [addType, setAddType] = useState<FilterType>("ours");
 
   const filteredChannels = useMemo(
     () => channels.filter((ch) => ch.type === filter),
