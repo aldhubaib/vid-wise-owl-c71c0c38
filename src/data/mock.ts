@@ -35,6 +35,8 @@ export interface Channel {
   topCategory: string;
   growthSubs: string;
   growthViews: string;
+  startHook?: string;
+  endHook?: string;
 }
 
 export const PIPELINE_STEPS = ["Transcription", "Translation", "Sentiment", "Topics", "Comments", "Viral Score"] as const;
