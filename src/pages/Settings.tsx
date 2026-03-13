@@ -171,7 +171,7 @@ export default function Settings() {
 
   const getStatus = (api: ApiKey) => {
     if (api.multiKey) return api.keys.length > 0;
-    return !!api.value;
+    return !!(api as SingleApiKey).value;
   };
 
   return (
