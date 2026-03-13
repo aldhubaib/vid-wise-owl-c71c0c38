@@ -1,23 +1,27 @@
 import { useRef, useEffect } from "react";
 import type { Channel } from "@/data/mock";
-import { RefreshCw, Play, Trash2, Globe, Calendar, Hash, TrendingUp, Eye, Sparkles, X } from "lucide-react";
+import { RefreshCw, Play, Trash2, Globe, Calendar, Hash, TrendingUp, Eye, Sparkles, X, Film, Zap } from "lucide-react";
 
 interface ChannelRightPanelProps {
   channel: Channel;
   visible: boolean;
   onClose: () => void;
+  videoCount?: number;
+  shortCount?: number;
 }
 
-const infoRows = (channel: Channel) => [
+const infoRows = (channel: Channel, videoCount?: number, shortCount?: number) => [
   { icon: Hash, label: "Handle", value: channel.handle },
   { icon: Globe, label: "Country", value: channel.country },
   { icon: Calendar, label: "Joined", value: channel.joinedDate },
   { icon: Sparkles, label: "Category", value: channel.topCategory },
+  { icon: Film, label: "Videos", value: String(videoCount ?? 0) },
+  { icon: Zap, label: "Shorts", value: String(shortCount ?? 0) },
   { icon: TrendingUp, label: "Eng. Rate", value: channel.engRate, highlight: true },
   { icon: Eye, label: "Avg Views", value: channel.avgViews, highlight: true },
 ];
 
-export function ChannelRightPanel({ channel, visible, onClose }: ChannelRightPanelProps) {
+export function ChannelRightPanel({ channel, visible, onClose, videoCount, shortCount }: ChannelRightPanelProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,7 +50,7 @@ export function ChannelRightPanel({ channel, visible, onClose }: ChannelRightPan
 
       {/* Info rows */}
       <div className="px-4 py-3 space-y-0">
-        {infoRows(channel).map((row) => (
+        {infoRows(channel, videoCount, shortCount).map((row) => (
           <div key={row.label} className="flex items-center justify-between py-1.5">
             <div className="flex items-center gap-1.5">
               <row.icon className="w-3 h-3 text-dim" />

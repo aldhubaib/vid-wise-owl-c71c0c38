@@ -138,7 +138,7 @@ export default function ChannelDetail() {
         </div>
 
         {/* Popover panel */}
-        <ChannelRightPanel channel={channel} visible={panelVisible} onClose={closePanel} />
+        <ChannelRightPanel channel={channel} visible={panelVisible} onClose={closePanel} videoCount={channelVideos.filter(v => v.type === "video").length} shortCount={channelVideos.filter(v => v.type === "short").length} />
       </div>
     </div>
   );
