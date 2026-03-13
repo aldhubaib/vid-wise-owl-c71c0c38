@@ -5,12 +5,13 @@ import { Menu } from "lucide-react";
 
 export function AppLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <div className="flex min-h-screen">
       {/* Desktop sidebar */}
       <div className="hidden md:flex">
-        <AppSidebar />
+        <AppSidebar collapsed={collapsed} onToggleCollapse={() => setCollapsed(!collapsed)} />
       </div>
 
       {/* Mobile header */}
