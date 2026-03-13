@@ -35,6 +35,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
   const location = useLocation();
   const navigate = useNavigate();
   const [switcherOpen, setSwitcherOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
   const switcherRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => {
