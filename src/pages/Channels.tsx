@@ -9,7 +9,7 @@ type FilterType = "ours" | "competition";
 
 export default function Channels() {
   const navigate = useNavigate();
-  const [channels] = useState(mockChannels);
+  const [channels, setChannels] = useState(mockChannels);
   const [inputValue, setInputValue] = useState("");
   const [inputError, setInputError] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
