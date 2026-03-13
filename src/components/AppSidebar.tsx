@@ -267,22 +267,47 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
 
       {/* Edit project dialog */}
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
-        <DialogContent className="sm:max-w-[360px] bg-background border-border">
+        <DialogContent className="sm:max-w-[400px] bg-background border-border">
           <DialogHeader>
             <DialogTitle className="text-[15px]">Edit project</DialogTitle>
             <DialogDescription className="text-[12px] text-dim">
-              Rename the current project.
+              Update project name and branded hook lines.
             </DialogDescription>
           </DialogHeader>
-          <input
-            type="text"
-            value={editName}
-            onChange={(e) => setEditName(e.target.value)}
-            className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40 mt-1"
-            placeholder="Project name"
-            autoFocus
-          />
-          <div className="flex gap-2 mt-2">
+          <div className="space-y-3 mt-1">
+            <div>
+              <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Project name</label>
+              <input
+                type="text"
+                value={editName}
+                onChange={(e) => setEditName(e.target.value)}
+                className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40"
+                placeholder="Project name"
+                autoFocus
+              />
+            </div>
+            <div>
+              <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded hook — Starting</label>
+              <input
+                type="text"
+                value={editHookStart}
+                onChange={(e) => setEditHookStart(e.target.value)}
+                className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40"
+                placeholder="e.g. Hey everyone, welcome back to..."
+              />
+            </div>
+            <div>
+              <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded hook — Ending</label>
+              <input
+                type="text"
+                value={editHookEnd}
+                onChange={(e) => setEditHookEnd(e.target.value)}
+                className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40"
+                placeholder="e.g. Don't forget to like and subscribe!"
+              />
+            </div>
+          </div>
+          <div className="flex gap-2 mt-3">
             <button
               onClick={() => setEditOpen(false)}
               className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors"
@@ -290,10 +315,81 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
               Cancel
             </button>
             <button
-              onClick={() => { setProjectName(editName.trim() || projectName); setEditOpen(false); }}
+              onClick={() => {
+                setProjectName(editName.trim() || projectName);
+                setProjectHookStart(editHookStart);
+                setProjectHookEnd(editHookEnd);
+                setEditOpen(false);
+              }}
               className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
             >
               Save
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* New project dialog */}
+      <Dialog open={newOpen} onOpenChange={setNewOpen}>
+        <DialogContent className="sm:max-w-[400px] bg-background border-border">
+          <DialogHeader>
+            <DialogTitle className="text-[15px]">New project</DialogTitle>
+            <DialogDescription className="text-[12px] text-dim">
+              Create a new project with branded hook lines.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 mt-1">
+            <div>
+              <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Project name</label>
+              <input
+                type="text"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40"
+                placeholder="Project name"
+                autoFocus
+              />
+            </div>
+            <div>
+              <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded hook — Starting</label>
+              <input
+                type="text"
+                value={newHookStart}
+                onChange={(e) => setNewHookStart(e.target.value)}
+                className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40"
+                placeholder="e.g. Hey everyone, welcome back to..."
+              />
+            </div>
+            <div>
+              <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded hook — Ending</label>
+              <input
+                type="text"
+                value={newHookEnd}
+                onChange={(e) => setNewHookEnd(e.target.value)}
+                className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40"
+                placeholder="e.g. Don't forget to like and subscribe!"
+              />
+            </div>
+          </div>
+          <div className="flex gap-2 mt-3">
+            <button
+              onClick={() => setNewOpen(false)}
+              className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                if (newName.trim()) {
+                  setProjectName(newName.trim());
+                  setProjectHookStart(newHookStart);
+                  setProjectHookEnd(newHookEnd);
+                }
+                setNewOpen(false);
+              }}
+              className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+            >
+              Create
             </button>
           </div>
         </DialogContent>
