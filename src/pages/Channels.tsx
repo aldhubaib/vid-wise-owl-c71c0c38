@@ -103,13 +103,13 @@ export default function Channels() {
                 className={`w-full pl-3 pr-3 py-2 bg-background border text-foreground text-[13px] font-sans outline-none transition-colors placeholder:text-dim ${
                   inputError ? "border-destructive/50" : "border-border focus:border-[#2a2a2e]"
                 }`}
-                style={{ borderRadius: '8px' }}
+                style={{ borderRadius: '20px' }}
               />
             </div>
             <button
               onClick={handleAdd}
               className="px-4 py-2 bg-[rgb(30,81,233)] text-white text-[13px] font-medium cursor-pointer whitespace-nowrap shrink-0 hover:opacity-90 transition-opacity flex items-center gap-1.5 max-md:w-full max-md:justify-center"
-              style={{ borderRadius: '8px' }}
+              style={{ borderRadius: '20px' }}
             >
               <Plus className="w-3.5 h-3.5" />
               Add
@@ -172,12 +172,12 @@ export default function Channels() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
+                  <button className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
                     <RefreshCw className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); setDeleteTarget(ch.id); }}
-                    className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-destructive hover:bg-destructive/10 transition-colors"
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-destructive hover:bg-destructive/10 transition-colors"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>

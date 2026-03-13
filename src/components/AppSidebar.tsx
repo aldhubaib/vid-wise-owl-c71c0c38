@@ -118,7 +118,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
       {isMobile && (
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 w-7 h-7 rounded flex items-center justify-center text-dim text-sm hover:text-sensor hover:bg-elevated transition-colors"
+          className="absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center text-dim text-sm hover:text-sensor hover:bg-elevated transition-colors"
         >
           ✕
         </button>

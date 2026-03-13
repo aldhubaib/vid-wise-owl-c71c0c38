@@ -43,7 +43,7 @@ export default function VideoDetail() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setPanelVisible(!panelVisible)}
-            className="w-8 h-8 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
           >
             <Info className="w-4 h-4" />
           </button>
@@ -55,10 +55,10 @@ export default function VideoDetail() {
           {/* Hero */}
           <div className="px-6 py-5 flex items-start gap-3.5 max-lg:px-4">
             {video.thumbnail && (
-              <img
+                <img
                 src={video.thumbnail}
                 alt=""
-                className="w-16 h-10 rounded object-cover shrink-0"
+                className="w-16 h-10 rounded-lg object-cover shrink-0"
               />
             )}
             <div className="flex-1 min-w-0">
@@ -66,7 +66,7 @@ export default function VideoDetail() {
                 {video.title}
               </h1>
               <div className="flex gap-1.5 flex-wrap mt-1.5">
-                <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium ${
+                <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium ${
                   video.status === "done" ? "bg-success/10 text-success" :
                   video.status === "failed" ? "bg-destructive/10 text-destructive" :
                   video.status === "analyzing" ? "bg-blue/10 text-blue" :
@@ -74,12 +74,12 @@ export default function VideoDetail() {
                 }`}>
                   {video.status === "done" ? "Complete" : video.status === "failed" ? "Failed" : video.status === "analyzing" ? "Analyzing" : "Pending"}
                 </span>
-                <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium ${
+                <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium ${
                   video.type === "short" ? "bg-purple/10 text-purple" : "bg-elevated text-dim"
                 }`}>
                   {video.type === "short" ? "Short" : "Video"}
                 </span>
-                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-elevated text-dim">
+                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-elevated text-dim">
                   {video.date}
                 </span>
               </div>
@@ -137,14 +137,14 @@ export default function VideoDetail() {
                 <SectionDivider label="Topics" />
                 <div className="flex flex-wrap gap-1.5 mb-5">
                   {a.topics.map((t) => (
-                    <span key={t} className="py-1 px-2.5 rounded-md bg-primary/10 border border-primary/15 text-primary text-xs font-mono">{t}</span>
+                    <span key={t} className="py-1 px-2.5 rounded-full bg-primary/10 border border-primary/15 text-primary text-xs font-mono">{t}</span>
                   ))}
                 </div>
 
                 <SectionDivider label="Keywords" />
                 <div className="flex flex-wrap gap-1.5">
                   {a.keywords.map((k) => (
-                    <span key={k} className="py-1 px-2.5 rounded-md bg-elevated border border-border text-sensor text-xs font-mono">{k}</span>
+                    <span key={k} className="py-1 px-2.5 rounded-full bg-elevated border border-border text-sensor text-xs font-mono">{k}</span>
                   ))}
                 </div>
               </div>
@@ -184,7 +184,7 @@ export default function VideoDetail() {
                   {a.questions.map((q) => (
                     <div key={q.text} className="bg-surface border border-border rounded-lg px-3.5 py-2.5 flex items-center justify-between gap-3">
                       <span className="text-[13px] flex-1" dir="rtl">{q.text}</span>
-                      <span className="text-[11px] text-dim font-mono bg-elevated py-0.5 px-2 rounded whitespace-nowrap">{q.count}</span>
+                      <span className="text-[11px] text-dim font-mono bg-elevated py-0.5 px-2 rounded-full whitespace-nowrap">{q.count}</span>
                     </div>
                   ))}
                 </div>
@@ -241,7 +241,7 @@ export default function VideoDetail() {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] text-dim font-mono">♥ {c.likes}</span>
-                      <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-medium font-mono ${
+                      <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-medium font-mono ${
                         c.sentiment === "positive" ? "bg-success/10 text-success" :
                         c.sentiment === "question" ? "bg-blue/10 text-blue" :
                         "bg-elevated text-dim"
@@ -291,7 +291,7 @@ export default function VideoDetail() {
                       <div className="bg-surface border border-border rounded-lg overflow-hidden">
                         <div className="flex items-center gap-2.5 px-3.5 py-2.5">
                           <span className="text-[13px] font-medium flex-1">{item.name}</span>
-                          <span className={`text-[10px] font-medium py-0.5 px-2 rounded font-mono ${
+                          <span className={`text-[10px] font-medium py-0.5 px-2 rounded-full font-mono ${
                             item.status === "success"
                               ? "bg-success/10 text-success"
                               : "bg-destructive/10 text-destructive"

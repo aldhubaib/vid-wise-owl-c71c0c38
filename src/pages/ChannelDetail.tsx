@@ -55,7 +55,7 @@ export default function ChannelDetail() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setPanelVisible(!panelVisible)}
-            className="w-8 h-8 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
           >
             <Info className="w-4 h-4" />
           </button>
@@ -85,13 +85,13 @@ export default function ChannelDetail() {
                 {channel.handle}
               </a>
               <div className="flex gap-1.5 flex-wrap">
-                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-success/10 text-success">
+                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-success/10 text-success">
                   Active
                 </span>
-                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-primary/10 text-primary">
+                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-primary/10 text-primary">
                   {channel.country}
                 </span>
-                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-elevated text-dim">
+                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-elevated text-dim">
                   Since {channel.joinedDate}
                 </span>
               </div>

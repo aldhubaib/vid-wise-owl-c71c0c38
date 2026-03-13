@@ -20,8 +20,8 @@ export default function Login() {
 
       <div className="relative z-10 w-full max-w-[380px] mx-4">
         <div className="flex flex-col items-center mb-8">
-          <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center mb-5">
-            <div className="w-4 h-4 rounded bg-primary" />
+          <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center mb-5">
+            <div className="w-4 h-4 rounded-lg bg-primary" />
           </div>
           <h1 className="text-xl font-semibold tracking-tight mb-2 text-center">
             Sign in to Falak
@@ -31,11 +31,11 @@ export default function Login() {
           </p>
         </div>
 
-        <div className="bg-surface border border-border rounded-lg p-6">
+        <div className="bg-surface border border-border rounded-2xl p-6">
           <button
             onClick={handleLogin}
             disabled={loading}
-            className={`w-full flex items-center justify-center gap-2.5 py-2.5 px-4 bg-elevated border border-border rounded-md text-foreground text-[13px] font-medium transition-all hover:bg-border hover:border-sensor/20 ${
+            className={`w-full flex items-center justify-center gap-2.5 py-2.5 px-4 bg-elevated border border-border rounded-xl text-foreground text-[13px] font-medium transition-all hover:bg-border hover:border-sensor/20 ${
               loading ? "opacity-60 cursor-not-allowed pointer-events-none" : "cursor-pointer"
             }`}
           >
@@ -54,7 +54,7 @@ export default function Login() {
 
           <div className="h-px bg-border my-5" />
 
-          <div className="bg-primary/[0.06] border border-primary/10 rounded-md p-3 flex items-start gap-2.5">
+          <div className="bg-primary/[0.06] border border-primary/10 rounded-xl p-3 flex items-start gap-2.5">
             <div className="w-4 h-4 rounded-full bg-primary/20 flex items-center justify-center shrink-0 mt-0.5">
               <div className="w-1.5 h-1.5 rounded-full bg-primary" />
             </div>
