@@ -136,41 +136,21 @@ export default function ChannelDetail() {
                 Failed: channelVideos.filter(v => v.status === "failed").length,
               };
               return (
-                <>
-                  {/* Desktop: pill bar */}
-                  <div className="hidden sm:flex items-center bg-elevated rounded-full p-0.5 w-fit mb-4">
-                    {filterTabs.map((tab) => (
-                      <button
-                        key={tab}
-                        onClick={() => setActiveFilter(tab)}
-                        className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap ${
-                          activeFilter === tab
-                            ? "bg-surface text-foreground"
-                            : "text-dim hover:text-sensor"
-                        }`}
-                      >
-                        {tab} <span className="text-[11px] opacity-60">({counts[tab]})</span>
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Mobile: wrapped grid */}
-                  <div className="flex sm:hidden flex-wrap gap-1.5 mb-4">
-                    {filterTabs.map((tab) => (
-                      <button
-                        key={tab}
-                        onClick={() => setActiveFilter(tab)}
-                        className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border ${
-                          activeFilter === tab
-                            ? "bg-surface text-foreground border-border"
-                            : "bg-transparent text-dim border-border/50 hover:text-sensor hover:border-border"
-                        }`}
-                      >
-                        {tab} <span className="text-[11px] opacity-60">({counts[tab]})</span>
-                      </button>
-                    ))}
-                  </div>
-                </>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {filterTabs.map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveFilter(tab)}
+                      className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border ${
+                        activeFilter === tab
+                          ? "bg-surface text-foreground border-border"
+                          : "bg-transparent text-dim border-border/50 hover:text-sensor hover:border-border"
+                      }`}
+                    >
+                      {tab} <span className="text-[11px] opacity-60">({counts[tab]})</span>
+                    </button>
+                  ))}
+                </div>
               );
             })()}
 
