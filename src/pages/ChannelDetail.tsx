@@ -49,7 +49,6 @@ export default function ChannelDetail() {
           Channels
         </button>
         <div className="flex items-center gap-2">
-          <span className="text-[13px] font-medium text-foreground hidden sm:block" dir="rtl">{channel.name}</span>
           <button
             onClick={() => setPanelVisible(!panelVisible)}
             className="w-8 h-8 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors hidden md:flex"
