@@ -103,11 +103,16 @@ export default function Channels() {
 
         {/* Channel list */}
         <div className="px-6 py-4 max-md:px-4">
-          <div className="grid grid-cols-1 gap-px bg-border overflow-hidden">
-            {filteredChannels.map((ch) => (
+          <div className="grid grid-cols-1 overflow-hidden">
+            {filteredChannels.map((ch, index) => {
+              const isFirst = index === 0;
+              const isLast = index === filteredChannels.length - 1;
+              return (
               <div
                 key={ch.id}
-                className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-elevated/40 transition-colors group"
+                className={`bg-elevated/30 flex items-center gap-3 px-4 py-3 hover:bg-elevated/60 transition-colors group border-b border-border last:border-b-0 ${
+                  isFirst ? "rounded-tl-lg rounded-tr-lg" : ""
+                } ${isLast ? "rounded-bl-lg rounded-br-lg" : ""}`}
               >
                 {/* Avatar */}
                 <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover shrink-0" />
@@ -158,7 +163,8 @@ export default function Channels() {
                   </button>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
