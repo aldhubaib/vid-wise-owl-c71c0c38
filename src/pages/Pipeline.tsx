@@ -205,7 +205,7 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
 
       {/* All items modal */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col bg-[#070707] border-0 p-0 gap-0 rounded-xl overflow-hidden shadow-2xl">
+        <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col bg-[#070707] border-0 p-0 gap-0 !rounded-xl overflow-hidden shadow-2xl">
           <DialogHeader className="px-6 pt-6 pb-3 shrink-0">
             <DialogTitle className="text-[15px] font-semibold flex items-center gap-2">
               {stage.label}
