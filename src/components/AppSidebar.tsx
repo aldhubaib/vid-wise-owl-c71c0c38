@@ -2,11 +2,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { LayoutGrid, GitBranch, Shield, Settings, Search } from "lucide-react";
 
 const navItems = [
-  { icon: LayoutGrid, label: "Channels", path: "/" },
-  { icon: GitBranch, label: "Pipeline", path: "/pipeline" },
-  { icon: Shield, label: "Access Control", path: "/access" },
-  { icon: Settings, label: "Settings", path: "/settings" },
-];
+{ icon: LayoutGrid, label: "Channels", path: "/" },
+{ icon: GitBranch, label: "Pipeline", path: "/pipeline" },
+{ icon: Shield, label: "Access Control", path: "/access" },
+{ icon: Settings, label: "Settings", path: "/settings" }];
+
 
 interface AppSidebarProps {
   onClose?: () => void;
@@ -30,19 +30,19 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
           <div className="w-2 h-2 rounded-sm bg-primary" />
         </div>
         <span className="font-semibold text-[13px] text-foreground">Falak</span>
-        {!isMobile && (
-          <span className="text-[10px] font-mono text-dim ml-auto">v2.0</span>
-        )}
+        {!isMobile &&
+        <span className="text-[10px] font-mono text-dim ml-auto">v2.0</span>
+        }
       </div>
 
-      {isMobile && (
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 w-7 h-7 rounded flex items-center justify-center text-dim text-sm hover:text-sensor hover:bg-elevated transition-colors"
-        >
+      {isMobile &&
+      <button
+        onClick={onClose}
+        className="absolute top-3 right-3 w-7 h-7 rounded flex items-center justify-center text-dim text-sm hover:text-sensor hover:bg-elevated transition-colors">
+        
           ✕
         </button>
-      )}
+      }
 
       {/* Search hint */}
       <div className="px-3 pt-3 pb-1">
@@ -54,7 +54,7 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 py-1.5 px-2">
+      <nav className="flex-1 py-1.5 px-2 bg-[#080808]">
         {navItems.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.path);
@@ -66,15 +66,15 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
                 onClose?.();
               }}
               className={`w-full flex items-center gap-2.5 px-2.5 py-[7px] rounded-md text-[13px] font-medium transition-colors mb-0.5 ${
-                active
-                  ? "bg-elevated text-foreground"
-                  : "text-dim hover:bg-surface hover:text-sensor"
-              }`}
-            >
+              active ?
+              "bg-elevated text-foreground" :
+              "text-dim hover:bg-surface hover:text-sensor"}`
+              }>
+              
               <Icon className="w-4 h-4" strokeWidth={1.5} />
               {item.label}
-            </button>
-          );
+            </button>);
+
         })}
       </nav>
 
@@ -88,6 +88,6 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
           <div className="text-[11px] text-dim truncate">a@falak.io</div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
