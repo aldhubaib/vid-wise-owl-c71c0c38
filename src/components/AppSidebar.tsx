@@ -38,8 +38,16 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
   const [switcherOpen, setSwitcherOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [newOpen, setNewOpen] = useState(false);
   const [editName, setEditName] = useState("Falak");
+  const [editHookStart, setEditHookStart] = useState("");
+  const [editHookEnd, setEditHookEnd] = useState("");
+  const [newName, setNewName] = useState("");
+  const [newHookStart, setNewHookStart] = useState("");
+  const [newHookEnd, setNewHookEnd] = useState("");
   const [projectName, setProjectName] = useState("Falak");
+  const [projectHookStart, setProjectHookStart] = useState("");
+  const [projectHookEnd, setProjectHookEnd] = useState("");
   const switcherRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => {
