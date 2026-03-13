@@ -120,7 +120,7 @@ export default function ChannelDetail() {
           </div>
 
           {/* Videos section */}
-          <div className="px-6 py-5 pb-16 max-md:px-4 max-md:pb-20">
+          <div className="px-6 py-5 pb-16 max-lg:px-4 max-lg:pb-20">
             <div className="flex items-center justify-between mb-3">
               <span className="text-[12px] text-dim font-medium">Recent Videos</span>
             </div>
