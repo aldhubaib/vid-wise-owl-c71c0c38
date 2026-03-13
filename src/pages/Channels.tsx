@@ -103,7 +103,7 @@ export default function Channels() {
 
         {/* Channel list */}
         <div className="px-6 py-4 max-md:px-4">
-          <div className="rounded-lg overflow-hidden border border-border">
+          <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
             {filteredChannels.map((ch, index) => {
               return (
               <div
