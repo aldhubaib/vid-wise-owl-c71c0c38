@@ -141,6 +141,8 @@ export const channels: Channel[] = [
     topCategory: "Comedy",
     growthSubs: "+1.8%",
     growthViews: "+3.9%",
+    startHook: "مرحباً يا جماعة، أنا طارق العلي وعندي لكم قصة...",
+    endHook: "شاركوني رأيكم في التعليقات وشوفوا الفيديو اللي فوق!",
   },
   {
     id: "ch4",
