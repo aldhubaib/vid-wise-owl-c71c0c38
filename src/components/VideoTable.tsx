@@ -38,7 +38,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
               >
                 <td className="py-2.5 px-4 border-b border-border">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-8 rounded bg-elevated shrink-0 overflow-hidden">
+                    <div className="w-12 h-8 rounded-lg bg-elevated shrink-0 overflow-hidden">
                       {v.thumbnail ? (
                         <img src={v.thumbnail} alt="" className="w-full h-full object-cover" />
                       ) : (
