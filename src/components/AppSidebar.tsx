@@ -158,9 +158,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
           return btn;
         })}
 
-        {!collapsed && (
-          <div className="mt-4 mb-1 px-2.5 text-[10px] font-medium text-dim uppercase tracking-wider">Admin</div>
-        )}
+        {!collapsed && <div className="mt-4" />}
         {collapsed && <div className="mt-4" />}
         {adminItems.map((item) => {
           const Icon = item.icon;
