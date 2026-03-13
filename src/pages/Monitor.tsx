@@ -64,12 +64,13 @@ export default function Monitor() {
           <div className="rounded-xl bg-background overflow-hidden">
             <div className="px-4 py-3">
               <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Channel Health</div>
-              <div className="grid grid-cols-4 gap-0">
+              <div className="grid grid-cols-5 gap-0">
                 {[
                   { val: monitorHealth.total, label: "TOTAL", color: "" },
                   { val: monitorHealth.healthy, label: "ACTIVE", color: "text-success" },
                   { val: monitorHealth.inactive, label: "REGULAR", color: "text-orange" },
-                  { val: monitorHealth.gone, label: "GONE", color: "text-destructive" },
+                  { val: monitorHealth.gone, label: "SLOW", color: "text-destructive" },
+                  { val: 4, label: "INACTIVE", color: "text-dim" },
                 ].map((s) => (
                   <div key={s.label}>
                     <div className={`text-xl font-semibold font-mono tracking-tight ${s.color}`}>{s.val}</div>
