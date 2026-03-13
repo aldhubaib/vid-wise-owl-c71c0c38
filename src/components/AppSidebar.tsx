@@ -32,7 +32,7 @@ interface AppSidebarProps {
   onTogglePin?: () => void;
 }
 
-export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleCollapse }: AppSidebarProps) {
+export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = false, onTogglePin }: AppSidebarProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const [switcherOpen, setSwitcherOpen] = useState(false);
