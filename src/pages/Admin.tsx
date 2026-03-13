@@ -104,18 +104,14 @@ export default function Admin() {
       <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
         <div className="flex items-center gap-3">
           <h1 className="text-sm font-semibold">Access Control</h1>
-          <span className="text-[11px] text-dim font-mono">{users.length} users</span>
+          <span className="text-[11px] text-dim font-mono">
+            Manage which users can log in and what they can do inside Falak.
+          </span>
         </div>
       </div>
 
       <div className="flex-1 overflow-auto">
-        <div className="max-w-[1100px] mx-auto px-6 py-6 max-lg:px-4 space-y-5">
-          {/* Description */}
-          <div>
-            <p className="text-[13px] text-dim">
-              Manage which users can log in and what they can do inside Falak.
-            </p>
-          </div>
+        <div className="px-6 pt-5 max-lg:px-4 space-y-5">
 
           {/* Owner notice */}
           <div className="rounded-xl bg-blue/5 border border-blue/15 px-5 py-4 flex items-start gap-3.5">
