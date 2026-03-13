@@ -5,13 +5,24 @@ import { Menu } from "lucide-react";
 
 export function AppLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  const expanded = pinned || hovered;
 
   return (
     <div className="flex min-h-screen">
       {/* Desktop sidebar */}
-      <div className="hidden lg:flex">
-        <AppSidebar collapsed={collapsed} onToggleCollapse={() => setCollapsed(!collapsed)} />
+      <div
+        className="hidden lg:flex"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <AppSidebar
+          collapsed={!expanded}
+          pinned={pinned}
+          onTogglePin={() => setPinned(!pinned)}
+        />
       </div>
 
       {/* Mobile/Tablet header */}
