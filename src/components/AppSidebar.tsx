@@ -276,7 +276,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
           <DialogHeader>
             <DialogTitle className="text-[15px]">Edit project</DialogTitle>
             <DialogDescription className="text-[12px] text-dim">
-              Update project name and branded hook lines.
+              Update project name.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-3 mt-1">
