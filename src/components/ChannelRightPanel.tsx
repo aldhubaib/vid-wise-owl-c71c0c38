@@ -32,7 +32,7 @@ const buildRows = (channel: Channel, videoCount?: number, shortCount?: number): 
   { icon: Timer, label: "Next sync", value: "Today · 7:59 AM" },
 ];
 
-export function ChannelRightPanel({ channel, visible, onClose, videoCount, shortCount }: ChannelRightPanelProps) {
+export function ChannelRightPanel({ channel, visible, onClose, videoCount, shortCount, onTypeChange }: ChannelRightPanelProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
