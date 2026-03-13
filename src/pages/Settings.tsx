@@ -262,7 +262,7 @@ export default function Settings() {
                       <div className="flex items-center gap-2.5 max-sm:flex-col max-sm:items-stretch">
                         <input
                           type="text"
-                          value={editingValues[api.id] !== undefined ? editingValues[api.id] : api.value}
+                          value={editingValues[api.id] !== undefined ? editingValues[api.id] : (api as SingleApiKey).value}
                           onChange={(e) => setEditingValues((p) => ({ ...p, [api.id]: e.target.value }))}
                           placeholder="Paste your API key..."
                           className="flex-1 px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40"
