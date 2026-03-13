@@ -136,6 +136,11 @@ export default function Settings() {
     setApiKeys((prev) =>
       prev.map((k) => (k.id === id && !k.multiKey ? { ...k, value: "" } : k))
     );
+    setEditingValues((prev) => {
+      const n = { ...prev };
+      delete n[id];
+      return n;
+    });
     toast("Key cleared");
   };
 
