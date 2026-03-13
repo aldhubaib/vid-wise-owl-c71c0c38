@@ -195,19 +195,21 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
         })}
       </nav>
 
-      {/* Collapse toggle (desktop only) */}
-      {!isMobile && onToggleCollapse && (
+      {/* Pin toggle (desktop only, visible when expanded) */}
+      {!isMobile && !collapsed && onTogglePin && (
         <div className="px-2 py-1.5 bg-[#080808] flex justify-end">
           <Tooltip>
             <TooltipTrigger asChild>
               <button
-                onClick={onToggleCollapse}
-                className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:bg-elevated/60 hover:text-sensor transition-colors"
+                onClick={onTogglePin}
+                className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
+                  pinned ? "text-blue hover:bg-elevated/60" : "text-dim hover:bg-elevated/60 hover:text-sensor"
+                }`}
               >
-                {collapsed ? <ChevronsRight className="w-3.5 h-3.5" strokeWidth={1.5} /> : <ChevronsLeft className="w-3.5 h-3.5" strokeWidth={1.5} />}
+                {pinned ? <Pin className="w-3.5 h-3.5" strokeWidth={1.5} /> : <PinOff className="w-3.5 h-3.5" strokeWidth={1.5} />}
               </button>
             </TooltipTrigger>
-            <TooltipContent side="right">{collapsed ? "Expand" : "Collapse"}</TooltipContent>
+            <TooltipContent side="right">{pinned ? "Unpin sidebar" : "Pin sidebar"}</TooltipContent>
           </Tooltip>
         </div>
       )}
