@@ -56,7 +56,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
   const sidebarWidth = collapsed ? "w-[56px] min-w-[56px]" : "w-[220px] min-w-[220px]";
 
   return (
-    <div className={`flex flex-col h-full bg-background transition-all duration-200 ${isMobile ? "" : `${sidebarWidth} sticky top-0 h-screen`}`}>
+    <div className={`flex flex-col h-full bg-[#080808] transition-all duration-200 ${isMobile ? "" : `${sidebarWidth} sticky top-0 h-screen`}`}>
       {/* Brand / Project Switcher */}
       <div className="relative px-3 h-12 flex items-center justify-between shrink-0 border-[#080808]" ref={switcherRef}>
         {!collapsed ? (
