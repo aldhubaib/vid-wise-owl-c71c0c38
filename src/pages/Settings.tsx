@@ -254,7 +254,7 @@ export default function Settings() {
                           />
                           <button
                             onClick={() => handleAddKey(api.id)}
-                            className="px-5 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap"
+                            className="px-5 py-2.5 text-[13px] font-semibold bg-primary text-primary-foreground rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap"
                           >
                             Add Key
                           </button>
