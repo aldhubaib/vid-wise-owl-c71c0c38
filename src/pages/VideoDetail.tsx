@@ -4,7 +4,7 @@ import { videos, channels, videoAnalysis } from "@/data/mock";
 import { VideoRightPanel } from "@/components/VideoRightPanel";
 import { ArrowLeft, Info } from "lucide-react";
 
-const tabList = ["Overview", "Sentiment", "Viral", "Comments", "Ideas", "Pipeline", "History"];
+const tabList = ["Overview", "Sentiment", "Viral", "Comments", "Pipeline", "History"];
 
 export default function VideoDetail() {
   const { id } = useParams();
