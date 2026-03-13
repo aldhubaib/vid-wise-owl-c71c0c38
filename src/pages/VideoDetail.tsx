@@ -199,16 +199,6 @@ export default function VideoDetail() {
                     ))}
                   </div>
                 </div>
-
-                <SectionDivider label="Key Moments" />
-                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
-                  {a.moments.map((m) => (
-                    <div key={m.time} className="flex gap-3 items-start bg-background px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
-                      <span className="text-[11px] text-primary font-mono whitespace-nowrap pt-0.5">{m.time}</span>
-                      <span className="text-[13px] leading-relaxed text-sensor" dir="rtl">{m.text}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
             )}
 
