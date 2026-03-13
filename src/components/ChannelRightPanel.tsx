@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import type { Channel } from "@/data/mock";
-import { RefreshCw, Play, Trash2, Globe, Calendar, Hash, TrendingUp, Eye, Sparkles, X, Film, Zap } from "lucide-react";
+import { RefreshCw, Play, Trash2, Calendar, Hash, TrendingUp, X, Film, Zap, Users, Eye, CircleDot, Clock, Timer } from "lucide-react";
 
 interface ChannelRightPanelProps {
   channel: Channel;
@@ -10,15 +10,25 @@ interface ChannelRightPanelProps {
   shortCount?: number;
 }
 
-const infoRows = (channel: Channel, videoCount?: number, shortCount?: number) => [
+interface InfoRow {
+  icon: React.ElementType;
+  label: string;
+  value: string;
+  highlight?: boolean;
+  status?: boolean;
+}
+
+const buildRows = (channel: Channel, videoCount?: number, shortCount?: number): InfoRow[] => [
   { icon: Hash, label: "Handle", value: channel.handle },
-  { icon: Globe, label: "Country", value: channel.country },
-  { icon: Calendar, label: "Joined", value: channel.joinedDate },
-  { icon: Sparkles, label: "Category", value: channel.topCategory },
+  { icon: Calendar, label: "Added", value: "Jan 15, 2026" },
   { icon: Film, label: "Videos", value: String(videoCount ?? 0) },
   { icon: Zap, label: "Shorts", value: String(shortCount ?? 0) },
-  { icon: TrendingUp, label: "Eng. Rate", value: channel.engRate, highlight: true },
-  { icon: Eye, label: "Avg Views", value: channel.avgViews, highlight: true },
+  { icon: Users, label: "Subscribers", value: channel.subscribers },
+  { icon: Eye, label: "Total Views", value: channel.views },
+  { icon: TrendingUp, label: "Engagement", value: `${channel.engRate} ↑`, highlight: true },
+  { icon: CircleDot, label: "Status", value: "● Active", status: true },
+  { icon: Clock, label: "Last sync", value: channel.lastSynced.includes(",") ? `Today · ${channel.lastSynced.split(", ")[1]}` : channel.lastSynced },
+  { icon: Timer, label: "Next sync", value: "Today · 7:59 AM" },
 ];
 
 export function ChannelRightPanel({ channel, visible, onClose, videoCount, shortCount }: ChannelRightPanelProps) {
@@ -35,6 +45,8 @@ export function ChannelRightPanel({ channel, visible, onClose, videoCount, short
 
   if (!visible) return null;
 
+  const rows = buildRows(channel, videoCount, shortCount);
+
   return (
     <div
       ref={ref}
@@ -50,13 +62,15 @@ export function ChannelRightPanel({ channel, visible, onClose, videoCount, short
 
       {/* Info rows */}
       <div className="px-4 py-3 space-y-0">
-        {infoRows(channel, videoCount, shortCount).map((row) => (
+        {rows.map((row) => (
           <div key={row.label} className="flex items-center justify-between py-1.5">
             <div className="flex items-center gap-1.5">
               <row.icon className="w-3 h-3 text-dim" />
               <span className="text-[11px] text-dim">{row.label}</span>
             </div>
-            <span className={`text-[12px] font-mono font-medium ${row.highlight ? "text-primary" : "text-foreground"}`}>
+            <span className={`text-[12px] font-mono font-medium ${
+              row.status ? "text-success" : row.highlight ? "text-primary" : "text-foreground"
+            }`}>
               {row.value}
             </span>
           </div>
