@@ -42,12 +42,17 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
   const [editName, setEditName] = useState("Falak");
   const [editHookStart, setEditHookStart] = useState("");
   const [editHookEnd, setEditHookEnd] = useState("");
+  const [editImage, setEditImage] = useState<string | null>(null);
   const [newName, setNewName] = useState("");
   const [newHookStart, setNewHookStart] = useState("");
   const [newHookEnd, setNewHookEnd] = useState("");
+  const [newImage, setNewImage] = useState<string | null>(null);
   const [projectName, setProjectName] = useState("Falak");
   const [projectHookStart, setProjectHookStart] = useState("");
   const [projectHookEnd, setProjectHookEnd] = useState("");
+  const [projectImage, setProjectImage] = useState<string | null>(null);
+  const editFileRef = useRef<HTMLInputElement>(null);
+  const newFileRef = useRef<HTMLInputElement>(null);
   const switcherRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => {
