@@ -62,10 +62,10 @@ function MiniScores({ story }: { story: Story }) {
 }
 
 export default function Stories() {
-  const [stories, setStories] = useState<Story[]>(storiesMock);
+  const navigate = useNavigate();
+  const [stories] = useState<Story[]>(storiesMock);
   const [activeStage, setActiveStage] = useState<Stage>("suggestion");
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [youtubeInput, setYoutubeInput] = useState("");
+
 
   const stageStories = stories.filter((s) => s.stage === activeStage);
   const selected = stories.find((s) => s.id === selectedId && s.stage === activeStage) || null;
