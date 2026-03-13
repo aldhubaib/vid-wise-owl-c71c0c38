@@ -4,11 +4,14 @@ import avatarCh4 from "@/assets/avatars/ch4.jpg";
 import avatarCh5 from "@/assets/avatars/ch5.jpg";
 import avatarCh6 from "@/assets/avatars/ch6.jpg";
 
+export type ChannelStatus = "active" | "regular" | "slow" | "inactive";
+
 export interface MonitorChannel {
   id: string;
   name: string;
   handle: string;
   avatar: string;
+  status: ChannelStatus;
   lastCheck: string;
   newVideos?: string;
   lastVideo: string;
@@ -48,13 +51,13 @@ export const monitorQuota = {
 };
 
 export const monitorChannels: MonitorChannel[] = [
-  { id: "ch2", name: "قرية العجائب", handle: "@badr3", avatar: avatarCh2, lastCheck: "now", lastVideo: "2h ago", nextCheck: "in 2d", cadence: "2d", cadenceType: "auto", override: "Auto" },
-  { id: "fun213", name: "Fun Channel", handle: "@fun213", avatar: avatarCh6, lastCheck: "8m ago", newVideos: "+3 new", lastVideo: "5h ago", nextCheck: "in 23h", cadence: "1d", cadenceType: "owned", override: "locked" },
-  { id: "funqa3e", name: "فن كوميدي", handle: "@funqa3e", avatar: avatarCh4, lastCheck: "15m ago", lastVideo: "1d ago", nextCheck: "in 23h", cadence: "1d", cadenceType: "owned", override: "locked" },
-  { id: "saud", name: "سعود الرياضي", handle: "@saud_sport", avatar: avatarCh5, lastCheck: "31m ago", lastVideo: "3d ago", nextCheck: "in 4d 12h", cadence: "5d", cadenceType: "auto", override: "Auto" },
-  { id: "nawaf", name: "نواف الإبداع", handle: "@nawaf", avatar: avatarCh6, lastCheck: "1h ago", lastVideo: "1d ago", nextCheck: "in 1d", cadence: "2d", cadenceType: "auto", override: "Auto" },
-  { id: "reem", name: "ريم الإبداعية", handle: "@reem_cr", avatar: avatarCh4, lastCheck: "2h ago", newVideos: "+1 new", lastVideo: "6d ago", nextCheck: "in 3d", cadence: "5d", cadenceType: "auto", override: "Auto" },
-  { id: "ch3", name: "طارق التقني", handle: "@tariq", avatar: avatarCh3, lastCheck: "3h ago", lastVideo: "47d ago", nextCheck: "in 17d", cadence: "20d", cadenceType: "auto", override: "Auto", isStale: true },
-  { id: "ahmed", name: "أحمد الرحالة", handle: "@ahmed_t", avatar: avatarCh5, lastCheck: "4h ago", lastVideo: "22d ago", nextCheck: "in 6d", cadence: "10d", cadenceType: "auto", override: "Auto", isStale: true },
-  { id: "khstudio", name: "خالد ستوديو", handle: "@khstud1o", avatar: avatarCh3, lastCheck: "5h ago", lastVideo: "35d ago", nextCheck: "in 15d", cadence: "20d", cadenceType: "auto", override: "Auto", isStale: true },
+  { id: "ch2", name: "قرية العجائب", handle: "@badr3", avatar: avatarCh2, status: "active", lastCheck: "now", lastVideo: "2h ago", nextCheck: "in 2d", cadence: "2d", cadenceType: "auto", override: "Auto" },
+  { id: "fun213", name: "Fun Channel", handle: "@fun213", avatar: avatarCh6, status: "active", lastCheck: "8m ago", newVideos: "+3 new", lastVideo: "5h ago", nextCheck: "in 23h", cadence: "1d", cadenceType: "owned", override: "locked" },
+  { id: "funqa3e", name: "فن كوميدي", handle: "@funqa3e", avatar: avatarCh4, status: "active", lastCheck: "15m ago", lastVideo: "1d ago", nextCheck: "in 23h", cadence: "1d", cadenceType: "owned", override: "locked" },
+  { id: "saud", name: "سعود الرياضي", handle: "@saud_sport", avatar: avatarCh5, status: "regular", lastCheck: "31m ago", lastVideo: "3d ago", nextCheck: "in 4d 12h", cadence: "5d", cadenceType: "auto", override: "Auto" },
+  { id: "nawaf", name: "نواف الإبداع", handle: "@nawaf", avatar: avatarCh6, status: "active", lastCheck: "1h ago", lastVideo: "1d ago", nextCheck: "in 1d", cadence: "2d", cadenceType: "auto", override: "Auto" },
+  { id: "reem", name: "ريم الإبداعية", handle: "@reem_cr", avatar: avatarCh4, status: "regular", lastCheck: "2h ago", newVideos: "+1 new", lastVideo: "6d ago", nextCheck: "in 3d", cadence: "5d", cadenceType: "auto", override: "Auto" },
+  { id: "ch3", name: "طارق التقني", handle: "@tariq", avatar: avatarCh3, status: "inactive", lastCheck: "3h ago", lastVideo: "47d ago", nextCheck: "in 17d", cadence: "20d", cadenceType: "auto", override: "Auto", isStale: true },
+  { id: "ahmed", name: "أحمد الرحالة", handle: "@ahmed_t", avatar: avatarCh5, status: "slow", lastCheck: "4h ago", lastVideo: "22d ago", nextCheck: "in 6d", cadence: "10d", cadenceType: "auto", override: "Auto", isStale: true },
+  { id: "khstudio", name: "خالد ستوديو", handle: "@khstud1o", avatar: avatarCh3, status: "inactive", lastCheck: "5h ago", lastVideo: "35d ago", nextCheck: "in 15d", cadence: "20d", cadenceType: "auto", override: "Auto", isStale: true },
 ];
