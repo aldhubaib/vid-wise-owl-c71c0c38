@@ -199,7 +199,7 @@ export default function Monitor() {
               <div
                 key={ch.id}
                 onClick={() => navigate(`/channel/${ch.id}`)}
-                className="grid grid-cols-[1fr_90px_90px_90px_90px_80px_80px] px-4 py-3 bg-background border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors cursor-pointer group items-center"
+                className="grid grid-cols-[1fr_70px_90px_90px_90px_90px_80px_80px] px-4 py-3 bg-background border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors cursor-pointer group items-center"
               >
                 <div className="flex items-center gap-2.5">
                   <img src={ch.avatar} alt="" className="w-7 h-7 rounded-full object-cover shrink-0" />
@@ -210,6 +210,14 @@ export default function Monitor() {
                     </div>
                     <span className="text-[11px] text-dim font-mono">{ch.handle}</span>
                   </div>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className={`w-2 h-2 rounded-full ${
+                    ch.status === "active" ? "bg-success" : ch.status === "regular" ? "bg-blue" : ch.status === "slow" ? "bg-orange" : "bg-destructive"
+                  }`} />
+                  <span className={`text-[11px] font-mono capitalize ${
+                    ch.status === "active" ? "text-success" : ch.status === "regular" ? "text-blue" : ch.status === "slow" ? "text-orange" : "text-destructive"
+                  }`}>{ch.status}</span>
                 </div>
                 <span className="text-[12px] text-dim font-mono">{ch.lastCheck}</span>
                 <span className={`text-[12px] font-mono ${ch.newVideos ? "text-orange" : "text-dim"}`}>
