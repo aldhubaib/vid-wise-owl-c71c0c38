@@ -70,12 +70,9 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
               <button
                 key={project.id}
                 onClick={() => setSwitcherOpen(false)}
-                className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] hover:bg-surface transition-colors"
+                className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] hover:bg-background transition-colors"
               >
-                <div className="w-6 h-6 rounded-full bg-foreground/10 flex items-center justify-center shrink-0">
-                  <span className="text-[10px] font-bold text-primary">{project.initial}</span>
-                </div>
-                <span className={`flex-1 text-left truncate ${project.active ? "text-foreground font-medium" : "text-sensor"}`}>
+                <span className={`flex-1 text-left truncate ${project.active ? "text-foreground font-medium" : "text-dim"}`}>
                   {project.name}
                 </span>
                 {project.active && <Check className="w-3.5 h-3.5 text-primary shrink-0" />}
