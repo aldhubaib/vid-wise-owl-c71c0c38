@@ -5,6 +5,7 @@ export interface PipelineItem {
   id: string;
   title: string;
   channelId: string;
+  videoId?: string;
   status: PipelineItemStatus;
   statusDetail?: string;
   timeInStage?: string;
