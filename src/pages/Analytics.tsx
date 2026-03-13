@@ -21,11 +21,11 @@ const fieldTabs: FieldTab[] = ["Subscribers", "Engagement", "Views", "Upload rat
 const trendTabs = ["Videos", "Views", "Likes", "Subscribers"];
 
 const insightColors: Record<InsightType, string> = {
-  EFFICIENCY: "text-purple border-purple",
-  OPPORTUNITY: "text-orange border-orange",
-  THREAT: "text-destructive border-destructive",
-  MARKET: "text-success border-success",
-  SIGNAL: "text-orange border-orange",
+  EFFICIENCY: "text-purple bg-purple/10",
+  OPPORTUNITY: "text-orange bg-orange/10",
+  THREAT: "text-destructive bg-destructive/10",
+  MARKET: "text-success bg-success/10",
+  SIGNAL: "text-orange bg-orange/10",
 };
 
 export default function Analytics() {
@@ -248,7 +248,7 @@ export default function Analytics() {
             {keyInsights.map((insight, i) => (
               <div key={i} className="px-5 py-4 border-t border-border">
                 <div className="flex items-start gap-3">
-                  <span className={`text-[10px] font-mono font-semibold px-2 py-0.5 border rounded shrink-0 mt-0.5 ${insightColors[insight.type]}`}>
+                  <span className={`text-[10px] font-mono font-semibold px-2.5 py-1 rounded-full shrink-0 mt-0.5 ${insightColors[insight.type]}`}>
                     {insight.type}
                   </span>
                   <div>
