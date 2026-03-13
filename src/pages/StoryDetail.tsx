@@ -288,21 +288,30 @@ export default function StoryDetail() {
                     <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{story.suggestedTitle}</div>
                   </div>
 
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Opening Hook (first 10 sec)</span>
-                      {story.openingHook && <CopyBtn text={story.openingHook} />}
-                    </div>
-                    <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{story.openingHook}</div>
-                  </div>
+                  {(() => {
+                    const ch = channels.find((c) => c.id === story.channelId);
+                    const openingHook = ch?.startHook || story.openingHook;
+                    const endingHook = ch?.endHook || story.endingHook;
+                    return (
+                      <>
+                        <div>
+                          <div className="flex items-center justify-between mb-1.5">
+                            <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Opening Hook (first 10 sec)</span>
+                            {openingHook && <CopyBtn text={openingHook} />}
+                          </div>
+                          <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{openingHook}</div>
+                        </div>
 
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Ending Hook</span>
-                      {story.endingHook && <CopyBtn text={story.endingHook} />}
-                    </div>
-                    <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{story.endingHook}</div>
-                  </div>
+                        <div>
+                          <div className="flex items-center justify-between mb-1.5">
+                            <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Ending Hook</span>
+                            {endingHook && <CopyBtn text={endingHook} />}
+                          </div>
+                          <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{endingHook}</div>
+                        </div>
+                      </>
+                    );
+                  })()}
 
                   {story.script && (
                     <div>
