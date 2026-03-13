@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { channels as mockChannels } from "@/data/mock";
 import { DeleteChannelModal } from "@/components/DeleteChannelModal";
-import { Plus, ExternalLink, RefreshCw, X, Users, Eye, PlayCircle } from "lucide-react";
+import { Plus, ArrowUpRight, RefreshCw, X, Users, Eye, PlayCircle } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
 type FilterType = "ours" | "competition";
@@ -146,7 +146,7 @@ export default function Channels() {
                     >
                       {ch.name}
                     </span>
-                    <ExternalLink className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                    <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] text-dim font-mono">{ch.handle}</span>
