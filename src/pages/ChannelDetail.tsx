@@ -61,7 +61,7 @@ export default function ChannelDetail() {
 
       <div className="flex-1 relative overflow-auto">
         {/* Main content */}
-        <div className={`transition-[margin] duration-200 ease-out ${panelVisible ? "md:mr-[300px]" : ""}`}>
+        <div>
           {/* Hero */}
           <div className="px-6 py-5 flex items-start gap-3.5 max-md:px-4">
             <img
@@ -137,8 +137,8 @@ export default function ChannelDetail() {
           </div>
         </div>
 
-        {/* Right panel */}
-        <ChannelRightPanel channel={channel} visible={panelVisible} />
+        {/* Popover panel */}
+        <ChannelRightPanel channel={channel} visible={panelVisible} onClose={closePanel} />
       </div>
     </div>
   );
