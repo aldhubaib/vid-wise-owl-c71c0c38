@@ -146,10 +146,14 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
 }
 
 function PipelineItemRow({ item, isFailed }: { item: PipelineItem; isFailed: boolean }) {
+  const navigate = useNavigate();
   const channel = channels.find((c) => c.id === item.channelId);
 
   return (
-    <div className="px-4 py-3 border-t border-border hover:bg-surface/50 transition-colors">
+    <div
+      onClick={() => item.videoId && navigate(`/video/${item.videoId}`)}
+      className={`px-4 py-3 border-t border-border hover:bg-surface/50 transition-colors group ${item.videoId ? "cursor-pointer" : ""}`}
+    >
       <div className="flex items-start justify-between mb-2">
         {/* Left: channel avatar + status */}
         <div className="flex items-center gap-2 min-w-0">
