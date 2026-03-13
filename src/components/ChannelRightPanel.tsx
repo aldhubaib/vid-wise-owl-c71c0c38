@@ -107,6 +107,11 @@ export function ChannelRightPanel({ channel, visible, onClose, videoCount, short
         </div>
       </div>
 
+      {/* Branded Hooks — only for "ours" channels */}
+      {channel.type === "ours" && (
+        <BrandedHooksSection />
+      )}
+
       {/* Actions */}
       <div className="px-4 py-3 border-t border-border flex items-center justify-between">
         <button title="Sync Now" className="w-10 h-10 rounded-full flex items-center justify-center bg-elevated border border-border text-sensor cursor-pointer transition-all hover:bg-border hover:text-foreground">
