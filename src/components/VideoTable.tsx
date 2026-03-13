@@ -22,6 +22,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
           <thead>
             <tr className="bg-elevated/40">
               <th className="text-[11px] text-dim font-medium py-2.5 px-4 text-left border-b border-border">Title</th>
+              <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border w-10">Type</th>
               <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Views</th>
               <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Likes</th>
               <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Date</th>
