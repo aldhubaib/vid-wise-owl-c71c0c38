@@ -138,10 +138,15 @@ export default function Channels() {
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-[13px] font-medium text-foreground truncate" dir="rtl">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span
+                      className="text-[13px] font-medium text-foreground truncate cursor-pointer hover:underline"
+                      dir="rtl"
+                      onClick={() => navigate(`/channel/${ch.id}`)}
+                    >
                       {ch.name}
                     </span>
+                    <ExternalLink className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] text-dim font-mono">{ch.handle}</span>
@@ -167,11 +172,8 @@ export default function Channels() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button
-                    onClick={() => navigate(`/channel/${ch.id}`)}
-                    className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5" />
+                  <button className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
+                    <RefreshCw className="w-3.5 h-3.5" />
                   </button>
                   <button className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
                     <RefreshCw className="w-3.5 h-3.5" />
