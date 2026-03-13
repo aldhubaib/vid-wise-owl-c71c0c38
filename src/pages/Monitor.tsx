@@ -38,7 +38,7 @@ export default function Monitor() {
         <div className="flex items-center gap-3">
           <h1 className="text-sm font-semibold">Monitor</h1>
           <span className="text-[11px] text-dim font-mono">
-            Now checking @badr3 · 32 / 47 due today · API quota resets in {q.resetsIn}
+            {filtered.length} channels
           </span>
         </div>
         <div className="flex items-center gap-2">
