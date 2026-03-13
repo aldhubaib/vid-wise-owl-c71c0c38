@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { RotateCw, Pause, Circle, ChevronDown, AlertTriangle, ArrowUpRight } from "lucide-react";
+import { RotateCw, Pause, Circle, ChevronDown, AlertTriangle, ArrowUpRight, Search, X } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { channels } from "@/data/mock";
 import { pipelineStats, pipelineStages, type PipelineStageData, type PipelineItem } from "@/data/pipelineMock";
 
@@ -106,54 +107,133 @@ export default function Pipeline() {
 
 function StageColumn({ stage }: { stage: PipelineStageData }) {
   const isFailed = stage.id === "failed";
+  const [modalOpen, setModalOpen] = useState(false);
+  const [search, setSearch] = useState("");
+
+  // Generate mock "more" items for the modal (in real app these come from API)
+  const allItems = useMemo(() => {
+    if (stage.moreCount <= 0) return stage.items;
+    const extra: PipelineItem[] = Array.from({ length: stage.moreCount }, (_, i) => ({
+      id: `${stage.id}-extra-${i}`,
+      title: `${stage.label} item ${stage.items.length + i + 1}`,
+      channelId: channels[i % channels.length]?.id || "ch1",
+      videoId: `v-extra-${i}`,
+      status: "processing" as const,
+      statusDetail: "Queued",
+      timeInStage: `${Math.floor(Math.random() * 30)}m`,
+      retries: 0,
+    }));
+    return [...stage.items, ...extra];
+  }, [stage]);
+
+  const filteredItems = search
+    ? allItems.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
+    : allItems;
 
   return (
-    <div className="rounded-xl border border-border overflow-hidden flex flex-col h-[420px]">
-      {/* Stage header */}
-      <div className="px-4 py-3 bg-background shrink-0">
-        <div className="flex items-center justify-between mb-1.5">
-          <div className="flex items-center gap-2">
-            {stage.number > 0 && (
-              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-semibold ${
-                isFailed ? "bg-destructive/15 text-destructive" : "bg-primary/15 text-primary"
-              }`}>
-                {isFailed ? "!" : stage.number}
-              </span>
-            )}
-            {isFailed && (
-              <span className="w-5 h-5 rounded-full flex items-center justify-center bg-destructive/15 text-destructive">
-                <AlertTriangle className="w-3 h-3" />
-              </span>
-            )}
-            <span className="text-[13px] font-semibold">{stage.label}</span>
-            <span className="text-[12px] text-dim font-mono">({stage.count})</span>
+    <>
+      <div className="rounded-xl border border-border overflow-hidden flex flex-col h-[420px]">
+        {/* Stage header */}
+        <div className="px-4 py-3 bg-background shrink-0">
+          <div className="flex items-center justify-between mb-1.5">
+            <div className="flex items-center gap-2">
+              {stage.number > 0 && (
+                <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-semibold ${
+                  isFailed ? "bg-destructive/15 text-destructive" : "bg-primary/15 text-primary"
+                }`}>
+                  {isFailed ? "!" : stage.number}
+                </span>
+              )}
+              {isFailed && (
+                <span className="w-5 h-5 rounded-full flex items-center justify-center bg-destructive/15 text-destructive">
+                  <AlertTriangle className="w-3 h-3" />
+                </span>
+              )}
+              <span className="text-[13px] font-semibold">{stage.label}</span>
+              <span className="text-[12px] text-dim font-mono">({stage.count})</span>
+            </div>
+            <button className="inline-flex items-center gap-1 text-[11px] text-dim font-mono hover:text-sensor transition-colors">
+              <RotateCw className="w-3 h-3" />
+              All
+            </button>
           </div>
-          <button className="inline-flex items-center gap-1 text-[11px] text-dim font-mono hover:text-sensor transition-colors">
-            <RotateCw className="w-3 h-3" />
-            All
-          </button>
         </div>
-        
-        
+
+        {/* Items */}
+        <div className="flex-1 overflow-auto bg-background">
+          {stage.items.map((item) => (
+            <PipelineItemRow key={item.id} item={item} isFailed={isFailed} />
+          ))}
+        </div>
+
+        {/* More count */}
+        {stage.moreCount > 0 && (
+          <div className="px-4 py-3 border-t border-border bg-background shrink-0">
+            <button
+              onClick={() => { setSearch(""); setModalOpen(true); }}
+              className="flex items-center gap-1.5 text-[12px] text-dim font-mono hover:text-sensor transition-colors"
+            >
+              <ChevronDown className="w-3 h-3" />
+              +{stage.moreCount} more
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* Items */}
-      <div className="flex-1 overflow-auto bg-background">
-        {stage.items.map((item) => (
-          <PipelineItemRow key={item.id} item={item} isFailed={isFailed} />
-        ))}
-      </div>
+      {/* All items modal */}
+      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+        <DialogContent className="sm:max-w-[560px] max-h-[80vh] flex flex-col bg-background border-border p-0 gap-0">
+          <DialogHeader className="px-5 pt-5 pb-0 shrink-0">
+            <DialogTitle className="text-[15px] flex items-center gap-2">
+              {stage.label}
+              <span className="text-[12px] text-dim font-mono font-normal">({allItems.length} total)</span>
+            </DialogTitle>
+            <DialogDescription className="text-[12px] text-dim">
+              All items in this stage
+            </DialogDescription>
+          </DialogHeader>
 
-      {/* More count - pinned to bottom */}
-      {stage.moreCount > 0 && (
-        <div className="px-4 py-3 border-t border-border bg-background shrink-0">
-          <button className="flex items-center gap-1.5 text-[12px] text-dim font-mono hover:text-sensor transition-colors">
-            <ChevronDown className="w-3 h-3" />
-            +{stage.moreCount} more
-          </button>
-        </div>
-      )}
-    </div>
+          {/* Search */}
+          <div className="px-5 py-3 shrink-0">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-dim" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search items..."
+                className="w-full pl-9 pr-3 py-2 text-[13px] bg-surface border border-border rounded-full text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40"
+                autoFocus
+              />
+            </div>
+          </div>
+
+          {/* Scrollable list */}
+          <div className="flex-1 overflow-auto min-h-0 border-t border-border">
+            {filteredItems.length === 0 ? (
+              <div className="flex items-center justify-center h-32 text-[12px] text-dim font-mono">No matching items</div>
+            ) : (
+              filteredItems.map((item) => (
+                <PipelineItemRow key={item.id} item={item} isFailed={isFailed} />
+              ))
+            )}
+          </div>
+
+          {/* Footer */}
+          <div className="px-5 py-3 border-t border-border shrink-0 flex items-center justify-between">
+            <span className="text-[11px] text-dim font-mono">
+              {search ? `${filteredItems.length} of ${allItems.length} items` : `${allItems.length} items`}
+            </span>
+            <button
+              onClick={() => setModalOpen(false)}
+              className="px-4 py-1.5 text-[12px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors"
+            >
+              Close
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
