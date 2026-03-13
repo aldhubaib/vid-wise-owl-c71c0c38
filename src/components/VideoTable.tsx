@@ -1,5 +1,5 @@
 import type { Video } from "@/data/mock";
-import { Eye, Heart, MessageCircle } from "lucide-react";
+import { Eye, Heart, MessageCircle, Clock, ArrowUpRight } from "lucide-react";
 
 interface VideoTableProps {
   videos: Video[];
@@ -23,86 +23,61 @@ const statusLabel: Record<string, string> = {
 export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
   return (
     <>
-      {/* Desktop table */}
-      <div className="hidden md:block border border-border rounded-lg overflow-hidden">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-surface">
-              <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Video</th>
-              <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Type</th>
-              <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border cursor-pointer hover:text-sensor">Views</th>
-              <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Likes</th>
-              <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Comments</th>
-              <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Date</th>
-              <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {videos.map((v) => (
-              <tr
-                key={v.id}
-                onClick={() => onVideoClick(v.id)}
-                className="hover:bg-surface/50 cursor-pointer transition-colors"
-              >
-                <td className="py-2.5 px-3 border-b border-border">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-7 rounded bg-elevated shrink-0" />
-                    <span className="text-[13px] font-medium max-w-[320px] whitespace-nowrap overflow-hidden text-ellipsis block text-foreground" dir="rtl">
-                      {v.title}
-                    </span>
-                  </div>
-                </td>
-                <td className="py-2.5 px-3 border-b border-border">
-                  <span className={`text-[10px] font-mono py-0.5 px-1.5 rounded border ${
-                    v.type === "short"
-                      ? "bg-purple/10 text-purple border-purple/15"
-                      : "bg-elevated text-dim border-border"
-                  }`}>
-                    {v.type}
-                  </span>
-                </td>
-                <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.views}</td>
-                <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.likes}</td>
-                <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.comments}</td>
-                <td className="py-2.5 px-3 border-b border-border text-[11px] font-mono text-dim">{v.date}</td>
-                <td className="py-2.5 px-3 border-b border-border">
-                  <span className={`inline-flex items-center py-0.5 px-2 rounded text-[10px] font-mono font-medium whitespace-nowrap ${statusClass[v.status]}`}>
-                    {statusLabel[v.status]}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Mobile cards */}
-      <div className="flex flex-col gap-2 md:hidden">
+      <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
         {videos.map((v) => (
           <div
             key={v.id}
             onClick={() => onVideoClick(v.id)}
-            className="bg-surface border border-border rounded-lg p-3 flex gap-3 cursor-pointer hover:bg-elevated/50 transition-colors"
+            className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-[#0d0d10] transition-colors group border-b border-border last:border-b-0 cursor-pointer"
           >
-            <div className="w-20 h-[46px] rounded bg-elevated shrink-0" />
-            <div className="flex-1 min-w-0 flex flex-col gap-1.5">
-              <div className="text-[13px] font-medium line-clamp-2 text-foreground" dir="rtl" style={{ textAlign: "right" }}>
-                {v.title}
+            {/* Thumbnail placeholder */}
+            <div className="w-10 h-10 rounded-lg bg-elevated shrink-0 flex items-center justify-center">
+              <span className={`text-[9px] font-mono font-medium py-0.5 px-1 rounded ${
+                v.type === "short"
+                  ? "text-purple"
+                  : "text-dim"
+              }`}>
+                {v.type === "short" ? "S" : "V"}
+              </span>
+            </div>
+
+            {/* Info */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 mb-0.5">
+                <span
+                  className="text-[13px] font-medium text-foreground truncate"
+                  dir="rtl"
+                >
+                  {v.title}
+                </span>
+                <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
               </div>
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex gap-3">
-                  <span className="text-[11px] font-mono text-dim flex items-center gap-1">
-                    <Eye className="w-3 h-3" />{v.views}
-                  </span>
-                  <span className="text-[11px] font-mono text-dim flex items-center gap-1">
-                    <Heart className="w-3 h-3" />{v.likes}
-                  </span>
-                </div>
-                <span className={`inline-flex items-center py-0.5 px-2 rounded text-[10px] font-mono font-medium whitespace-nowrap ${statusClass[v.status]}`}>
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] text-dim font-mono flex items-center gap-1">
+                  <Clock className="w-2.5 h-2.5" />
+                  {v.duration}
+                </span>
+                <span className="text-[10px] text-dim">{v.date}</span>
+                <span className={`inline-flex items-center py-0.5 px-1.5 rounded text-[9px] font-mono font-medium whitespace-nowrap ${statusClass[v.status]}`}>
                   {statusLabel[v.status]}
                 </span>
               </div>
-              <div className="text-[10px] font-mono text-dim">{v.date}</div>
+            </div>
+
+            {/* Stats */}
+            <div className="hidden sm:flex items-center gap-6">
+              <div className="flex items-center gap-1.5 text-[12px] font-mono text-sensor">
+                <Eye className="w-3 h-3 text-dim" />
+                {v.views}
+              </div>
+              <div className="flex items-center gap-1.5 text-[12px] font-mono text-sensor">
+                <Heart className="w-3 h-3 text-dim" />
+                {v.likes}
+              </div>
+              <div className="flex items-center gap-1.5 text-[12px] font-mono text-sensor">
+                <MessageCircle className="w-3 h-3 text-dim" />
+                {v.comments}
+              </div>
             </div>
           </div>
         ))}
