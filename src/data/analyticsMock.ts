@@ -1,3 +1,35 @@
+import avatarCh1 from "@/assets/avatars/ch1.jpg";
+import avatarCh2 from "@/assets/avatars/ch2.jpg";
+import avatarCh3 from "@/assets/avatars/ch3.jpg";
+import avatarCh4 from "@/assets/avatars/ch4.jpg";
+import avatarCh5 from "@/assets/avatars/ch5.jpg";
+import avatarCh6 from "@/assets/avatars/ch6.jpg";
+
+// Map channel names to avatar + id for linking
+export const channelAvatarMap: Record<string, { avatar: string; id: string }> = {
+  "SUL CASES": { avatar: avatarCh3, id: "ch3" },
+  "VWAR": { avatar: avatarCh5, id: "ch5" },
+  "Mannas": { avatar: avatarCh4, id: "ch4" },
+  "Fares Ashour": { avatar: avatarCh1, id: "ch1" },
+  "Badr Al-Alawi": { avatar: avatarCh2, id: "ch2" },
+  "Your channels": { avatar: avatarCh6, id: "fun213" },
+  "Walid Qasas": { avatar: avatarCh5, id: "saud" },
+  "Abulsadiq": { avatar: avatarCh4, id: "funqa3e" },
+  "Abu Talal": { avatar: avatarCh3, id: "ahmed" },
+  "Mawtan": { avatar: avatarCh1, id: "khstudio" },
+  "Fun Channel": { avatar: avatarCh6, id: "fun213" },
+  "فن كوميدي": { avatar: avatarCh4, id: "funqa3e" },
+  "قرية العجائب | بدر العلوي": { avatar: avatarCh2, id: "ch2" },
+  "Abulsadiq - ابو الصادق": { avatar: avatarCh4, id: "funqa3e" },
+  "في وار / VWAR": { avatar: avatarCh5, id: "ch5" },
+  "وليد قصص": { avatar: avatarCh5, id: "saud" },
+  "ابو طلال الحمراني الثانية": { avatar: avatarCh3, id: "ahmed" },
+  "SUL CASES | قضايا سول": { avatar: avatarCh3, id: "ch3" },
+  "منص بن سعيد": { avatar: avatarCh1, id: "ch1" },
+  "موطن القصص": { avatar: avatarCh1, id: "khstudio" },
+  "قناة فن الترفيه": { avatar: avatarCh6, id: "fun213" },
+};
+
 export const analyticsStats = {
   channels: { value: 11, owned: 2, competitors: 9 },
   subscribers: { value: "25.5M", yours: "67K", top: "6.6M", topLabel: "badr3 ▲" },
