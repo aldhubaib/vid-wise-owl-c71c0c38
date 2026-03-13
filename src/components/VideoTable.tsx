@@ -17,7 +17,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
   return (
     <>
       {/* Desktop table */}
-      <div className="hidden md:block rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
+      <div className="hidden lg:block rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-elevated/40">
@@ -74,7 +74,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
       </div>
 
       {/* Mobile cards */}
-      <div className="flex flex-col md:hidden rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
+      <div className="flex flex-col lg:hidden rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
         {videos.map((v) => (
           <div
             key={v.id}
@@ -90,9 +90,9 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                 </div>
               )}
             </div>
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 text-right">
               <div className="text-[13px] font-medium truncate text-foreground mb-0.5" dir="rtl">{v.title}</div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-end gap-2">
                 <span className="text-[11px] font-mono text-dim flex items-center gap-1">
                   <Eye className="w-2.5 h-2.5" />{v.views}
                 </span>
