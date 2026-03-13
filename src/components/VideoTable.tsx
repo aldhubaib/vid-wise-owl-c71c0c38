@@ -54,10 +54,12 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                   </div>
                 </td>
                 <td className="py-2.5 px-3 border-b border-border">
-                  {v.type === "short"
-                    ? <Smartphone className="w-3.5 h-3.5 text-dim" title="Short" />
-                    : <Monitor className="w-3.5 h-3.5 text-dim" title="Video" />
-                  }
+                  <span title={v.type === "short" ? "Short" : "Video"}>
+                    {v.type === "short"
+                      ? <Smartphone className="w-3.5 h-3.5 text-dim" />
+                      : <Monitor className="w-3.5 h-3.5 text-dim" />
+                    }
+                  </span>
                 </td>
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.views}</td>
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.likes}</td>
