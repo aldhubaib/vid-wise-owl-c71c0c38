@@ -136,7 +136,7 @@ export default function ChannelDetail() {
                 Failed: channelVideos.filter(v => v.status === "failed").length,
               };
               return (
-                <div className="flex items-center bg-elevated rounded-full p-0.5 w-fit mb-4 max-md:overflow-x-auto">
+                <div className="flex items-center bg-elevated rounded-full p-0.5 w-fit mb-4 max-lg:w-full max-lg:overflow-x-auto max-lg:scrollbar-none">
                   {filterTabs.map((tab) => (
                     <button
                       key={tab}
