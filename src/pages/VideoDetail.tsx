@@ -241,7 +241,7 @@ export default function VideoDetail() {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] text-dim font-mono">♥ {c.likes}</span>
-                      <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-medium font-mono ${
+                      <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-medium font-mono ${
                         c.sentiment === "positive" ? "bg-success/10 text-success" :
                         c.sentiment === "question" ? "bg-blue/10 text-blue" :
                         "bg-elevated text-dim"
