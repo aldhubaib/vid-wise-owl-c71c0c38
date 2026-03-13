@@ -1,18 +1,22 @@
 import { useRef, useEffect } from "react";
 import type { Channel } from "@/data/mock";
-import { RefreshCw, Play, Trash2, Globe, Calendar, Hash, TrendingUp, Eye, Sparkles, X } from "lucide-react";
+import { RefreshCw, Play, Trash2, Globe, Calendar, Hash, TrendingUp, Eye, Sparkles, X, Film, Zap } from "lucide-react";
 
 interface ChannelRightPanelProps {
   channel: Channel;
   visible: boolean;
   onClose: () => void;
+  videoCount?: number;
+  shortCount?: number;
 }
 
-const infoRows = (channel: Channel) => [
+const infoRows = (channel: Channel, videoCount?: number, shortCount?: number) => [
   { icon: Hash, label: "Handle", value: channel.handle },
   { icon: Globe, label: "Country", value: channel.country },
   { icon: Calendar, label: "Joined", value: channel.joinedDate },
   { icon: Sparkles, label: "Category", value: channel.topCategory },
+  { icon: Film, label: "Videos", value: String(videoCount ?? 0) },
+  { icon: Zap, label: "Shorts", value: String(shortCount ?? 0) },
   { icon: TrendingUp, label: "Eng. Rate", value: channel.engRate, highlight: true },
   { icon: Eye, label: "Avg Views", value: channel.avgViews, highlight: true },
 ];
