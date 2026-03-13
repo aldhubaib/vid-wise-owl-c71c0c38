@@ -206,10 +206,10 @@ export default function Admin() {
                           {user.pages.map((page) => (
                             <span
                               key={page.name}
-                              className={`text-[10px] font-mono px-2 py-0.5 rounded-full border transition-colors ${
+                              className={`text-[10px] font-mono px-2.5 py-1 rounded-full transition-colors ${
                                 page.active
-                                  ? "text-foreground border-blue/40 bg-blue/10"
-                                  : "text-dim/40 border-border/30"
+                                  ? "text-foreground border border-border"
+                                  : "text-dim/30 border border-transparent"
                               }`}
                             >
                               {page.name}
