@@ -115,7 +115,7 @@ export default function Monitor() {
                 ))}
               </div>
             </div>
-            <div className="border-t border-border px-4 py-3">
+            <div className="px-4 py-3">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[11px] text-dim font-mono">Total quota</span>
                 <span className="text-[11px] text-dim font-mono">{q.used.toLocaleString()} / {q.total.toLocaleString()} {q.pct}%</span>
