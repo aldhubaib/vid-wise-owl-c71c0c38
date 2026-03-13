@@ -106,10 +106,12 @@ export default function Channels() {
                 className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-[#0d0d10] transition-colors group border-b border-border last:border-b-0"
               >
 
-                {/* Avatar */}
+                {/* Avatar with status ring */}
                 <div className="relative shrink-0">
-                  <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover" />
-                  <span className="absolute top-0 left-0 w-2 h-2 rounded-full bg-success border-2 border-background" />
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${ch.type === "ours" ? "bg-primary/30" : "bg-orange/30"}`}>
+                    <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover" />
+                  </div>
+                  <span className="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-success border-2 border-background" />
                 </div>
 
                 {/* Info */}
@@ -118,7 +120,6 @@ export default function Channels() {
                     <span className="text-[13px] font-medium text-foreground truncate" dir="rtl">
                       {ch.name}
                     </span>
-                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${ch.type === "ours" ? "bg-primary" : "bg-orange"}`} title={ch.type === "ours" ? "Ours" : "Competition"} />
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] text-dim font-mono">{ch.handle}</span>
