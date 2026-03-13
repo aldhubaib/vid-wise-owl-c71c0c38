@@ -53,11 +53,6 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
           <ChevronDown className={`w-3 h-3 text-dim transition-transform ${switcherOpen ? "rotate-180" : ""}`} />
         </button>
 
-        {!isMobile && (
-          <button className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-sensor hover:bg-elevated transition-colors">
-            <Search className="w-3.5 h-3.5" />
-          </button>
-        )}
 
         {/* Dropdown */}
         {switcherOpen && (
