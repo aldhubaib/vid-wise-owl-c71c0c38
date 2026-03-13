@@ -72,7 +72,8 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                   </span>
                 </td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>
