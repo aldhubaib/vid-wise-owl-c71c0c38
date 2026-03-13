@@ -9,7 +9,7 @@ const navItems = [
   { icon: GitBranch, label: "Pipeline", path: "/pipeline" },
   { icon: Activity, label: "Monitor", path: "/monitor" },
   { icon: TrendingUp, label: "Analytics", path: "/analytics" },
-  { icon: AlignJustify, label: "Stories", path: "/stories" },
+  { icon: Sparkles, label: "AI Intelligence", path: "/stories" },
   { icon: CircleDot, label: "Brain", path: "/brain" },
   { icon: Settings, label: "Settings", path: "/settings" },
 ];
