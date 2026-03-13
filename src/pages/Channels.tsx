@@ -140,7 +140,7 @@ export default function Channels() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 mb-0.5">
                     <span
-                      className="text-[13px] font-medium text-foreground truncate cursor-pointer hover:underline"
+                      className="text-[13px] font-medium text-foreground truncate cursor-pointer hover:opacity-80 transition-opacity"
                       dir="rtl"
                       onClick={() => navigate(`/channel/${ch.id}`)}
                     >
