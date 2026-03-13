@@ -21,7 +21,7 @@ const infoRows = (channel: Channel, videoCount?: number, shortCount?: number) =>
   { icon: Eye, label: "Avg Views", value: channel.avgViews, highlight: true },
 ];
 
-export function ChannelRightPanel({ channel, visible, onClose }: ChannelRightPanelProps) {
+export function ChannelRightPanel({ channel, visible, onClose, videoCount, shortCount }: ChannelRightPanelProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
