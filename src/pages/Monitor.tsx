@@ -27,8 +27,10 @@ export default function Monitor() {
 
   const counts: Record<string, number> = {
     All: monitorChannels.length,
-    "Due today": 32,
-    Issues: monitorChannels.filter((c) => c.isStale).length,
+    Active: 38,
+    Regular: 7,
+    Slow: 1,
+    Inactive: 4,
   };
 
   return (
