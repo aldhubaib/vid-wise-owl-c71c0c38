@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, ExternalLink, Lock, Bot, Globe, FileText, Cog } from "lucide-react";
+import { X, ExternalLink, Lock, Bot, Globe, FileText, Cog, Check } from "lucide-react";
 import { toast } from "sonner";
 
 interface SingleApiKey {
