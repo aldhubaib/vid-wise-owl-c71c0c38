@@ -94,6 +94,7 @@ export const channels: Channel[] = [
     name: "طارق العلي",
     handle: "@tariq",
     avatar: "ط",
+    avatarImg: avatarCh3,
     subscribers: "2.1M",
     views: "241.3M",
     videos: "198",
