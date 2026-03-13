@@ -7,6 +7,14 @@ import { pipelineStats, pipelineStages, type PipelineStageData, type PipelineIte
 
 export default function Pipeline() {
   const s = pipelineStats;
+  const [countdown, setCountdown] = useState(21);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown((prev) => (prev <= 0 ? 21 : prev - 1));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
