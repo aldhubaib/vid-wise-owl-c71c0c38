@@ -125,41 +125,48 @@ export default function VideoDetail() {
             {/* Tab content */}
             {activeTab === "Overview" && (
               <div>
-                <div className="mb-5">
-                  <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-2">Summary (AR)</div>
-                  <p className="text-sm leading-relaxed text-sensor" dir="rtl" style={{ textAlign: "right" }}>{a.summary}</p>
-                </div>
-                <div className="mb-5">
-                  <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-2">Summary (EN)</div>
-                  <p className="text-sm leading-relaxed text-sensor">{a.summaryEn}</p>
+                {/* Summaries in table container */}
+                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
+                  <div className="bg-background px-4 py-3 border-b border-border hover:bg-[#0d0d10] transition-colors">
+                    <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-1.5">Summary (AR)</div>
+                    <p className="text-sm leading-relaxed text-sensor" dir="rtl" style={{ textAlign: "right" }}>{a.summary}</p>
+                  </div>
+                  <div className="bg-background px-4 py-3 hover:bg-[#0d0d10] transition-colors">
+                    <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-1.5">Summary (EN)</div>
+                    <p className="text-sm leading-relaxed text-sensor">{a.summaryEn}</p>
+                  </div>
                 </div>
 
                 <SectionDivider label="Topics" />
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {a.topics.map((t) => (
-                    <span key={t} className="py-1 px-2.5 rounded-full bg-primary/10 border border-primary/15 text-primary text-xs font-mono">{t}</span>
-                  ))}
+                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
+                  <div className="bg-background px-4 py-3 flex flex-wrap gap-1.5">
+                    {a.topics.map((t) => (
+                      <span key={t} className="py-1 px-2.5 rounded-full bg-primary/10 border border-primary/15 text-primary text-xs font-mono">{t}</span>
+                    ))}
+                  </div>
                 </div>
 
                 <SectionDivider label="Keywords" />
-                <div className="flex flex-wrap gap-1.5">
-                  {a.keywords.map((k) => (
-                    <span key={k} className="py-1 px-2.5 rounded-full bg-elevated border border-border text-sensor text-xs font-mono">{k}</span>
-                  ))}
+                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
+                  <div className="bg-background px-4 py-3 flex flex-wrap gap-1.5">
+                    {a.keywords.map((k) => (
+                      <span key={k} className="py-1 px-2.5 rounded-full bg-elevated border border-border text-sensor text-xs font-mono">{k}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
 
             {activeTab === "Sentiment" && (
               <div>
-                <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-3">Sentiment Distribution</div>
-                <div className="flex flex-col gap-2.5 mb-7">
+                {/* Sentiment bars in table */}
+                <div className="rounded-xl overflow-hidden border border-border mb-7" style={{ borderRadius: '12px' }}>
                   {[
                     { label: "Positive", val: a.sentiment.positive, cls: "bg-success" },
                     { label: "Negative", val: a.sentiment.negative, cls: "bg-destructive" },
                     { label: "Neutral", val: a.sentiment.neutral, cls: "bg-dim" },
                   ].map((s) => (
-                    <div key={s.label} className="flex items-center gap-3">
+                    <div key={s.label} className="flex items-center gap-3 bg-background px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
                       <span className="text-xs text-sensor w-[72px]">{s.label}</span>
                       <div className="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden">
                         <div className={`h-full rounded-full ${s.cls}`} style={{ width: `${s.val}%` }} />
@@ -170,9 +177,9 @@ export default function VideoDetail() {
                 </div>
 
                 <SectionDivider label="Emotions" />
-                <div className="grid grid-cols-2 gap-2 mb-7 max-sm:grid-cols-1">
+                <div className="rounded-xl overflow-hidden border border-border mb-7" style={{ borderRadius: '12px' }}>
                   {a.emotions.map((e) => (
-                    <div key={e.name} className="bg-surface border border-border rounded-xl px-3.5 py-2.5 flex justify-between items-center">
+                    <div key={e.name} className="bg-background flex items-center justify-between px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
                       <span className="text-[13px]">{e.emoji} {e.name}</span>
                       <span className="text-xs text-dim font-mono">{e.pct}%</span>
                     </div>
@@ -180,9 +187,9 @@ export default function VideoDetail() {
                 </div>
 
                 <SectionDivider label="Top Questions" />
-                <div className="flex flex-col gap-2">
+                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
                   {a.questions.map((q) => (
-                    <div key={q.text} className="bg-surface border border-border rounded-xl px-3.5 py-2.5 flex items-center justify-between gap-3">
+                    <div key={q.text} className="bg-background flex items-center justify-between gap-3 px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
                       <span className="text-[13px] flex-1" dir="rtl">{q.text}</span>
                       <span className="text-[11px] text-dim font-mono bg-elevated py-0.5 px-2 rounded-full whitespace-nowrap">{q.count}</span>
                     </div>
@@ -193,33 +200,34 @@ export default function VideoDetail() {
 
             {activeTab === "Viral" && (
               <div>
-                <div className="grid grid-cols-3 gap-2 mb-7 max-lg:grid-cols-2">
-                  {[
-                    { val: a.viral.score, label: "Viral Score", highlight: true },
-                    { val: a.viral.hookStrength, label: "Hook Strength" },
-                    { val: a.viral.shareability, label: "Shareability" },
-                    { val: a.viral.avgWatchPct, label: "Avg Watch %" },
-                    { val: a.viral.retentionDrop, label: "Retention Drop" },
-                    { val: a.viral.trending ? "Yes" : "No", label: "Trending", highlight: a.viral.trending },
-                  ].map((v) => (
-                    <div
-                      key={v.label}
-                      className={`border rounded-xl px-3.5 py-3 ${
-                        v.highlight ? "bg-success/[0.05] border-success/15" : "bg-surface border-border"
-                      }`}
-                    >
-                      <div className={`text-lg font-semibold font-mono tracking-tight ${v.highlight ? "text-success" : ""}`}>
-                        {v.val}
+                {/* Viral stats in table grid */}
+                <div className="rounded-xl overflow-hidden border border-border mb-7" style={{ borderRadius: '12px' }}>
+                  <div className="grid grid-cols-3 max-lg:grid-cols-2">
+                    {[
+                      { val: a.viral.score, label: "Viral Score", highlight: true },
+                      { val: a.viral.hookStrength, label: "Hook Strength" },
+                      { val: a.viral.shareability, label: "Shareability" },
+                      { val: a.viral.avgWatchPct, label: "Avg Watch %" },
+                      { val: a.viral.retentionDrop, label: "Retention Drop" },
+                      { val: a.viral.trending ? "Yes" : "No", label: "Trending", highlight: a.viral.trending },
+                    ].map((v) => (
+                      <div
+                        key={v.label}
+                        className="bg-background px-4 py-3 border-r border-b border-border last:border-r-0 hover:bg-[#0d0d10] transition-colors"
+                      >
+                        <div className={`text-lg font-semibold font-mono tracking-tight ${v.highlight ? "text-success" : ""}`}>
+                          {v.val}
+                        </div>
+                        <div className="text-[11px] text-dim mt-0.5">{v.label}</div>
                       </div>
-                      <div className="text-[11px] text-dim mt-0.5">{v.label}</div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
 
                 <SectionDivider label="Key Moments" />
-                <div className="flex flex-col gap-2">
+                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
                   {a.moments.map((m) => (
-                    <div key={m.time} className="flex gap-3 items-start bg-surface border border-border rounded-xl px-3.5 py-2.5">
+                    <div key={m.time} className="flex gap-3 items-start bg-background px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
                       <span className="text-[11px] text-primary font-mono whitespace-nowrap pt-0.5">{m.time}</span>
                       <span className="text-[13px] leading-relaxed text-sensor" dir="rtl">{m.text}</span>
                     </div>
@@ -229,14 +237,14 @@ export default function VideoDetail() {
             )}
 
             {activeTab === "Comments" && (
-              <div className="flex flex-col gap-2">
+              <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
                 {a.comments.map((c, i) => (
-                  <div key={i} className="bg-surface border border-border rounded-xl px-4 py-3">
-                    <div className="flex items-center mb-2">
+                  <div key={i} className="bg-background px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
+                    <div className="flex items-center mb-1.5">
                       <span className="text-[13px] font-medium">{c.author}</span>
                       <span className="text-[11px] text-dim font-mono ml-auto">{c.date}</span>
                     </div>
-                    <p className="text-[13px] text-sensor leading-relaxed mb-2" dir="rtl" style={{ textAlign: "right" }}>
+                    <p className="text-[13px] text-sensor leading-relaxed mb-1.5" dir="rtl" style={{ textAlign: "right" }}>
                       {c.text}
                     </p>
                     <div className="flex items-center justify-between">
@@ -257,9 +265,9 @@ export default function VideoDetail() {
             {activeTab === "Ideas" && (
               <div>
                 <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-3">Content Ideas</div>
-                <div className="flex flex-col gap-2 mb-7">
+                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
                   {a.contentIdeas.map((idea, i) => (
-                    <div key={i} className="bg-surface border border-border rounded-xl px-4 py-3">
+                    <div key={i} className="bg-background px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
                       <div className="text-[13px] font-medium mb-1" dir="rtl" style={{ textAlign: "right" }}>
                         {idea.hook}
                       </div>
@@ -274,10 +282,10 @@ export default function VideoDetail() {
 
             {activeTab === "Pipeline" && (
               <div>
-                <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-4">Pipeline</div>
-                <div className="flex flex-col gap-0">
+                <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-3">Pipeline</div>
+                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
                   {video.pipeline.map((step) => (
-                    <div key={step.name} className="flex items-center justify-between py-3 border-b border-border last:border-b-0">
+                    <div key={step.name} className="flex items-center justify-between bg-background px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
                       <div className="flex items-center gap-2.5">
                         <div className={`w-2 h-2 rounded-full ${
                           step.status === "done" ? "bg-success" :
@@ -297,38 +305,27 @@ export default function VideoDetail() {
 
             {activeTab === "History" && (
               <div>
-                <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-4">Analysis History</div>
-                <div className="relative pl-7">
-                  <div className="absolute left-[7px] top-2 bottom-0 w-px bg-border" />
+                <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-3">Analysis History</div>
+                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
                   {[
                     { time: "Mar 8, 14:22", name: "Full Analysis", status: "success" as const, badge: "Completed" },
                     { time: "Mar 7, 09:15", name: "Comment Refresh", status: "failed" as const, badge: "Failed", error: "API rate limit exceeded. Retry after 60 minutes." },
                   ].map((item, i) => (
-                    <div key={i} className="relative mb-6 last:mb-0">
-                      <div className={`absolute -left-[25px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-background z-10 ${
-                        item.status === "success"
-                          ? "bg-success ring-[3px] ring-success/10"
-                          : "bg-destructive ring-[3px] ring-destructive/10"
-                      }`} />
-                      <div className="text-[10px] text-dim font-mono mb-1.5">{item.time}</div>
-                      <div className="bg-surface border border-border rounded-xl overflow-hidden">
-                        <div className="flex items-center gap-2.5 px-3.5 py-2.5">
-                          <span className="text-[13px] font-medium flex-1">{item.name}</span>
-                          <span className={`text-[10px] font-medium py-0.5 px-2 rounded-full font-mono ${
-                            item.status === "success"
-                              ? "bg-success/10 text-success"
-                              : "bg-destructive/10 text-destructive"
-                          }`}>
-                            {item.badge}
-                          </span>
-                        </div>
-                        {item.error && (
-                          <div className="border-t border-destructive/15 px-3.5 py-2.5 bg-destructive/[0.03] rounded-b-xl">
-                            <div className="text-[10px] text-destructive tracking-wider uppercase font-mono mb-1">Error</div>
-                            <div className="text-xs text-destructive/60 font-mono leading-relaxed">{item.error}</div>
-                          </div>
-                        )}
+                    <div key={i} className="bg-background px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[13px] font-medium">{item.name}</span>
+                        <span className={`text-[10px] font-medium py-0.5 px-2 rounded-full font-mono ${
+                          item.status === "success"
+                            ? "bg-success/10 text-success"
+                            : "bg-destructive/10 text-destructive"
+                        }`}>
+                          {item.badge}
+                        </span>
                       </div>
+                      <div className="text-[10px] text-dim font-mono">{item.time}</div>
+                      {item.error && (
+                        <div className="mt-2 text-xs text-destructive/60 font-mono leading-relaxed">{item.error}</div>
+                      )}
                     </div>
                   ))}
                 </div>
