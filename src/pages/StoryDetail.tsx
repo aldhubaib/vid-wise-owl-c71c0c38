@@ -329,6 +329,23 @@ export default function StoryDetail() {
                       </div>
                     </div>
                   )}
+
+                  {story.shortScript && (
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Short Script (1–2 min) — with timestamps</span>
+                        <CopyBtn text={story.shortScript.map((s) => `${s.time} ${s.text}`).join("\n")} />
+                      </div>
+                      <div className="rounded-xl bg-surface overflow-hidden">
+                        {story.shortScript.map((s, i) => (
+                          <div key={i} className={`flex items-start gap-4 px-4 py-3 ${i < story.shortScript!.length - 1 ? "border-b border-border" : ""}`}>
+                            <span className="text-[13px] font-mono font-bold text-blue shrink-0 pt-0.5">{s.time}</span>
+                            <span className="text-[13px] text-sensor leading-relaxed text-right flex-1">{s.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <button onClick={() => moveStory("filmed")} className="w-full px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity">
