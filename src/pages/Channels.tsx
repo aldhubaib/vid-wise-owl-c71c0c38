@@ -172,11 +172,8 @@ export default function Channels() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button
-                    onClick={() => navigate(`/channel/${ch.id}`)}
-                    className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5" />
+                  <button className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
+                    <RefreshCw className="w-3.5 h-3.5" />
                   </button>
                   <button className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
                     <RefreshCw className="w-3.5 h-3.5" />
