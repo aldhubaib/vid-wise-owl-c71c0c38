@@ -172,7 +172,7 @@ export default function VideoDetail() {
                 <SectionDivider label="Emotions" />
                 <div className="grid grid-cols-2 gap-2 mb-7 max-sm:grid-cols-1">
                   {a.emotions.map((e) => (
-                    <div key={e.name} className="bg-surface border border-border rounded-lg px-3.5 py-2.5 flex justify-between items-center">
+                    <div key={e.name} className="bg-surface border border-border rounded-xl px-3.5 py-2.5 flex justify-between items-center">
                       <span className="text-[13px]">{e.emoji} {e.name}</span>
                       <span className="text-xs text-dim font-mono">{e.pct}%</span>
                     </div>
@@ -182,7 +182,7 @@ export default function VideoDetail() {
                 <SectionDivider label="Top Questions" />
                 <div className="flex flex-col gap-2">
                   {a.questions.map((q) => (
-                    <div key={q.text} className="bg-surface border border-border rounded-lg px-3.5 py-2.5 flex items-center justify-between gap-3">
+                    <div key={q.text} className="bg-surface border border-border rounded-xl px-3.5 py-2.5 flex items-center justify-between gap-3">
                       <span className="text-[13px] flex-1" dir="rtl">{q.text}</span>
                       <span className="text-[11px] text-dim font-mono bg-elevated py-0.5 px-2 rounded-full whitespace-nowrap">{q.count}</span>
                     </div>
@@ -204,7 +204,7 @@ export default function VideoDetail() {
                   ].map((v) => (
                     <div
                       key={v.label}
-                      className={`border rounded-lg px-3.5 py-3 ${
+                      className={`border rounded-xl px-3.5 py-3 ${
                         v.highlight ? "bg-success/[0.05] border-success/15" : "bg-surface border-border"
                       }`}
                     >
@@ -219,7 +219,7 @@ export default function VideoDetail() {
                 <SectionDivider label="Key Moments" />
                 <div className="flex flex-col gap-2">
                   {a.moments.map((m) => (
-                    <div key={m.time} className="flex gap-3 items-start bg-surface border border-border rounded-lg px-3.5 py-2.5">
+                    <div key={m.time} className="flex gap-3 items-start bg-surface border border-border rounded-xl px-3.5 py-2.5">
                       <span className="text-[11px] text-primary font-mono whitespace-nowrap pt-0.5">{m.time}</span>
                       <span className="text-[13px] leading-relaxed text-sensor" dir="rtl">{m.text}</span>
                     </div>
@@ -231,7 +231,7 @@ export default function VideoDetail() {
             {activeTab === "Comments" && (
               <div className="flex flex-col gap-2">
                 {a.comments.map((c, i) => (
-                  <div key={i} className="bg-surface border border-border rounded-lg px-4 py-3">
+                  <div key={i} className="bg-surface border border-border rounded-xl px-4 py-3">
                     <div className="flex items-center mb-2">
                       <span className="text-[13px] font-medium">{c.author}</span>
                       <span className="text-[11px] text-dim font-mono ml-auto">{c.date}</span>
@@ -259,7 +259,7 @@ export default function VideoDetail() {
                 <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-3">Content Ideas</div>
                 <div className="flex flex-col gap-2 mb-7">
                   {a.contentIdeas.map((idea, i) => (
-                    <div key={i} className="bg-surface border border-border rounded-lg px-4 py-3">
+                    <div key={i} className="bg-surface border border-border rounded-xl px-4 py-3">
                       <div className="text-[13px] font-medium mb-1" dir="rtl" style={{ textAlign: "right" }}>
                         {idea.hook}
                       </div>
@@ -311,7 +311,7 @@ export default function VideoDetail() {
                           : "bg-destructive ring-[3px] ring-destructive/10"
                       }`} />
                       <div className="text-[10px] text-dim font-mono mb-1.5">{item.time}</div>
-                      <div className="bg-surface border border-border rounded-lg overflow-hidden">
+                      <div className="bg-surface border border-border rounded-xl overflow-hidden">
                         <div className="flex items-center gap-2.5 px-3.5 py-2.5">
                           <span className="text-[13px] font-medium flex-1">{item.name}</span>
                           <span className={`text-[10px] font-medium py-0.5 px-2 rounded-full font-mono ${
@@ -323,7 +323,7 @@ export default function VideoDetail() {
                           </span>
                         </div>
                         {item.error && (
-                          <div className="border-t border-destructive/15 px-3.5 py-2.5 bg-destructive/[0.03]">
+                          <div className="border-t border-destructive/15 px-3.5 py-2.5 bg-destructive/[0.03] rounded-b-xl">
                             <div className="text-[10px] text-destructive tracking-wider uppercase font-mono mb-1">Error</div>
                             <div className="text-xs text-destructive/60 font-mono leading-relaxed">{item.error}</div>
                           </div>
