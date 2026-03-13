@@ -204,11 +204,46 @@ export default function StoryDetail() {
                   </div>
                 </div>
 
+                {/* Script inputs */}
+                <div className="rounded-xl bg-background p-5 space-y-4">
+                  <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Scripts</div>
+                  <div>
+                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Long Script (20–40 min) — with timestamps</label>
+                    <textarea
+                      value={longScriptInput}
+                      onChange={(e) => setLongScriptInput(e.target.value)}
+                      placeholder="00:00 مقدمة&#10;01:30 القصة تبدأ..."
+                      rows={5}
+                      className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Short Script (1–2 min) — with timestamps</label>
+                    <textarea
+                      value={shortScriptInput}
+                      onChange={(e) => setShortScriptInput(e.target.value)}
+                      placeholder="00:00 هوك&#10;00:15 المحتوى..."
+                      rows={3}
+                      className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y"
+                    />
+                  </div>
+                </div>
+
                 <div className="flex gap-2">
                   <button
                     onClick={() => {
                       if (!selectedChannel) { toast.error("Please select a channel first"); return; }
-                      setStories((prev) => prev.map((s) => s.id === id ? { ...s, channelId: selectedChannel, stage: "approved" as Stage } : s));
+                      const parseScript = (raw: string) => raw.trim() ? raw.trim().split("\n").map((line) => {
+                        const match = line.match(/^(\d{1,2}:\d{2}(?::\d{2})?)\s+(.+)/);
+                        return match ? { time: match[1], text: match[2] } : { time: "", text: line };
+                      }) : undefined;
+                      setStories((prev) => prev.map((s) => s.id === id ? {
+                        ...s,
+                        channelId: selectedChannel,
+                        stage: "approved" as Stage,
+                        script: parseScript(longScriptInput) || s.script,
+                        shortScript: parseScript(shortScriptInput),
+                      } : s));
                       toast.success(`Moved to ${stages.find((s) => s.key === "approved")?.label}`);
                     }}
                     className="flex-1 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
