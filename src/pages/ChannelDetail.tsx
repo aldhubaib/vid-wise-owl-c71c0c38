@@ -13,7 +13,8 @@ export default function ChannelDetail() {
   const channel = channels.find((c) => c.id === id);
   const channelVideos = videos.filter((v) => v.channelId === id);
   const [activeFilter, setActiveFilter] = useState("All");
-  const [panelVisible, setPanelVisible] = useState(true);
+  const [panelVisible, setPanelVisible] = useState(false);
+  const closePanel = useCallback(() => setPanelVisible(false), []);
 
   if (!channel) {
     return <div className="p-10 text-sensor">Channel not found</div>;
