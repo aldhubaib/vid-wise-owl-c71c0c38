@@ -292,7 +292,7 @@ export default function Settings() {
                           )}
                           <button
                             onClick={() => handleSave(api.id)}
-                            className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue text-blue-foreground hover:opacity-90 transition-opacity shrink-0"
+                            className="w-10 h-10 rounded-full flex items-center justify-center bg-blue text-blue-foreground hover:opacity-90 transition-opacity shrink-0"
                           >
                             <Check className="w-4 h-4" />
                           </button>
