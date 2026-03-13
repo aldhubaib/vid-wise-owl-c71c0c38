@@ -65,10 +65,10 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
                 navigate(item.path);
                 onClose?.();
               }}
-              className={`w-full flex items-center gap-2.5 px-2.5 py-[7px] rounded-md text-[13px] font-medium transition-colors mb-0.5 ${
+              className={`w-full flex items-center gap-2.5 px-2.5 py-[7px] rounded-full text-[13px] font-medium transition-colors mb-0.5 ${
               active ?
               "bg-elevated text-foreground" :
-              "text-dim hover:bg-surface hover:text-sensor"}`
+              "text-dim hover:bg-elevated/60 hover:text-sensor"}`
               }>
               
               <Icon className="w-4 h-4" strokeWidth={1.5} />
