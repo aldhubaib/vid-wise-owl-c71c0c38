@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { LayoutGrid, GitBranch, Shield, Settings, Search } from "lucide-react";
+import { LayoutGrid, GitBranch, Shield, Settings, Search, ChevronDown } from "lucide-react";
 
 const navItems = [
 { icon: LayoutGrid, label: "Channels", path: "/" },
