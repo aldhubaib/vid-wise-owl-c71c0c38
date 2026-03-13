@@ -13,7 +13,7 @@ import {
   type FieldTab,
   type InsightType,
 } from "@/data/analyticsMock";
-import { Star, Circle, CheckCircle, XCircle } from "lucide-react";
+import { Star, Circle, CheckCircle, XCircle, ChevronDown } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 const periodTabs = ["30d", "90d", "12m"];
@@ -322,6 +322,60 @@ function ComparisonCard({ label, value, sub, note, noteColor }: { label: string;
   );
 }
 
+function getAvatarForDropdown(name: string) {
+  // Try exact match first, then partial
+  if (channelAvatarMap[name]) return channelAvatarMap[name].avatar;
+  for (const [key, val] of Object.entries(channelAvatarMap)) {
+    if (name.includes(key) || key.includes(name)) return val.avatar;
+  }
+  return null;
+}
+
+function ChannelDropdown({ value, onChange, options, variant }: { value: string; onChange: (v: string) => void; options: string[]; variant: "you" | "competitor" }) {
+  const [open, setOpen] = useState(false);
+  const avatar = getAvatarForDropdown(value);
+  const isYou = variant === "you";
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className={`flex items-center gap-2 text-[11px] font-mono px-2.5 py-1 rounded-full cursor-pointer transition-colors ${
+          isYou ? "text-blue bg-blue/10 border border-blue/30 hover:bg-blue/20" : "text-dim bg-transparent border border-border hover:text-sensor"
+        }`}
+      >
+        {avatar && <img src={avatar} alt="" className="w-4 h-4 rounded-full object-cover" />}
+        <span>{value}</span>
+        <ChevronDown className="w-3 h-3 shrink-0" />
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute top-full left-0 mt-1 z-50 bg-background border border-border rounded-xl shadow-lg py-1 min-w-[200px]">
+            {options.map((ch) => {
+              const chAvatar = getAvatarForDropdown(ch);
+              return (
+                <button
+                  key={ch}
+                  onClick={() => { onChange(ch); setOpen(false); }}
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 text-[11px] font-mono hover:bg-surface/50 transition-colors text-left ${ch === value ? (isYou ? "text-blue" : "text-foreground") : "text-dim"}`}
+                >
+                  {chAvatar ? (
+                    <img src={chAvatar} alt="" className="w-5 h-5 rounded-full object-cover shrink-0" />
+                  ) : (
+                    <div className="w-5 h-5 rounded-full bg-elevated shrink-0" />
+                  )}
+                  <span>{ch}</span>
+                </button>
+              );
+            })}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 function ChannelAnalysisSection() {
   const ca = channelAnalysis;
   const [yourChannel, setYourChannel] = useState(ca.yourChannel);
@@ -345,27 +399,9 @@ function ChannelAnalysisSection() {
       <div className="px-5 py-4 flex items-center gap-3 flex-wrap">
         <span className="text-[13px] font-semibold">Channel Analysis</span>
         <span className="text-[11px] font-mono text-dim">—</span>
-        <select
-          value={yourChannel}
-          onChange={(e) => setYourChannel(e.target.value)}
-          className="text-[11px] text-blue font-mono px-2.5 py-1 bg-blue/10 border border-blue/30 rounded-full appearance-none cursor-pointer hover:bg-blue/20 transition-colors pr-6 focus:outline-none"
-          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%234a8fe7' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center" }}
-        >
-          {ourChannels.map((ch) => (
-            <option key={ch} value={ch} className="bg-background text-foreground">{ch}</option>
-          ))}
-        </select>
+        <ChannelDropdown value={yourChannel} onChange={setYourChannel} options={ourChannels} variant="you" />
         <span className="text-[11px] text-dim font-mono">vs</span>
-        <select
-          value={competitor}
-          onChange={(e) => setCompetitor(e.target.value)}
-          className="text-[11px] text-dim font-mono px-2.5 py-1 bg-transparent border border-border rounded-full appearance-none cursor-pointer hover:text-sensor hover:border-border transition-colors pr-6 focus:outline-none"
-          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center" }}
-        >
-          {competitorChannels.map((ch) => (
-            <option key={ch} value={ch} className="bg-background text-foreground">{ch}</option>
-          ))}
-        </select>
+        <ChannelDropdown value={competitor} onChange={setCompetitor} options={competitorChannels} variant="competitor" />
       </div>
 
       {/* Summary */}
