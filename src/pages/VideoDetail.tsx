@@ -255,9 +255,24 @@ export default function VideoDetail() {
                         }`} />
                         <span className={`text-[13px] ${step.status === "failed" ? "text-destructive" : "text-foreground"}`}>{step.name}</span>
                       </div>
-                      <span className={`text-[12px] font-mono ${step.status === "failed" ? "text-destructive/60" : "text-dim"}`}>
-                        {step.time || (step.status === "waiting" ? "—" : "...")}
-                      </span>
+                      <div className="flex items-center gap-3">
+                        {step.retries != null && step.retries > 1 && (
+                          <TooltipProvider delayDuration={200}>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span className="inline-flex items-center gap-1 text-[11px] font-mono text-dim">
+                                  <RotateCw className="w-3 h-3" />
+                                  {step.retries}
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent side="left">Attempted {step.retries} times</TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        )}
+                        <span className={`text-[12px] font-mono ${step.status === "failed" ? "text-destructive/60" : "text-dim"}`}>
+                          {step.time || (step.status === "waiting" ? "—" : "...")}
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>
