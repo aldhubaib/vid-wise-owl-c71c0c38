@@ -8,6 +8,7 @@ interface ChannelRightPanelProps {
   onClose: () => void;
   videoCount?: number;
   shortCount?: number;
+  onTypeChange?: (type: "ours" | "competition") => void;
 }
 
 interface InfoRow {
