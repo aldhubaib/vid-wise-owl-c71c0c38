@@ -20,8 +20,8 @@ export default function Login() {
 
       <div className="relative z-10 w-full max-w-[380px] mx-4">
         <div className="flex flex-col items-center mb-8">
-          <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center mb-5">
-            <div className="w-4 h-4 rounded bg-primary" />
+          <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center mb-5">
+            <div className="w-4 h-4 rounded-lg bg-primary" />
           </div>
           <h1 className="text-xl font-semibold tracking-tight mb-2 text-center">
             Sign in to Falak
