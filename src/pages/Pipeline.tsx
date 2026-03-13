@@ -182,9 +182,9 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
 
       {/* All items modal */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="sm:max-w-[560px] max-h-[80vh] flex flex-col bg-background border-border p-0 gap-0">
-          <DialogHeader className="px-5 pt-5 pb-0 shrink-0">
-            <DialogTitle className="text-[15px] flex items-center gap-2">
+        <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col bg-[#070707] border-0 p-0 gap-0 rounded-xl overflow-hidden shadow-2xl">
+          <DialogHeader className="px-6 pt-6 pb-3 shrink-0">
+            <DialogTitle className="text-[15px] font-semibold flex items-center gap-2">
               {stage.label}
               <span className="text-[12px] text-dim font-mono font-normal">({allItems.length} total)</span>
             </DialogTitle>
@@ -194,22 +194,27 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
           </DialogHeader>
 
           {/* Search */}
-          <div className="px-5 py-3 shrink-0">
+          <div className="px-6 pb-4 shrink-0">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-dim" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dim" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search items..."
-                className="w-full pl-9 pr-3 py-2 text-[13px] bg-surface border border-border rounded-full text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40"
+                className="w-full pl-11 pr-8 py-2.5 text-[13px] bg-surface/50 border border-border/50 rounded-full text-foreground placeholder:text-dim focus:outline-none focus:border-primary/40 transition-colors"
                 autoFocus
               />
+              {search && (
+                <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-dim hover:text-foreground transition-colors">
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
             </div>
           </div>
 
           {/* Scrollable list */}
-          <div className="flex-1 overflow-auto min-h-0 border-t border-border">
+          <div className="flex-1 overflow-auto min-h-0">
             {filteredItems.length === 0 ? (
               <div className="flex items-center justify-center h-32 text-[12px] text-dim font-mono">No matching items</div>
             ) : (
@@ -220,13 +225,13 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
           </div>
 
           {/* Footer */}
-          <div className="px-5 py-3 border-t border-border shrink-0 flex items-center justify-between">
+          <div className="px-6 py-3 border-t border-border/30 shrink-0 flex items-center justify-between">
             <span className="text-[11px] text-dim font-mono">
               {search ? `${filteredItems.length} of ${allItems.length} items` : `${allItems.length} items`}
             </span>
             <button
               onClick={() => setModalOpen(false)}
-              className="px-4 py-1.5 text-[12px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors"
+              className="px-4 py-1.5 text-[12px] font-medium rounded-full border border-border/50 text-dim hover:text-foreground hover:opacity-80 transition-all"
             >
               Close
             </button>
