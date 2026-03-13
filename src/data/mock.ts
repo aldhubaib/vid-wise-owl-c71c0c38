@@ -116,6 +116,7 @@ export const channels: Channel[] = [
     name: "سارة الودعاني",
     handle: "@sarah_w",
     avatar: "س",
+    avatarImg: avatarCh4,
     subscribers: "890K",
     views: "52.4M",
     videos: "87",
