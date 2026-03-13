@@ -385,49 +385,27 @@ function ChannelAnalysisSection() {
 
       {/* Metric comparison table */}
       <div className="mx-5 mb-4 rounded-xl border border-border overflow-hidden">
-        {/* Column headers — shown once */}
-        <div className="grid grid-cols-[1fr_100px_100px] gap-0 px-5 py-3 bg-surface/30 border-b border-border">
+        <div className="grid grid-cols-[1fr_100px_100px_80px] gap-0 px-5 py-3 bg-surface/30 border-b border-border">
           <span className="text-[10px] text-dim font-mono uppercase tracking-widest">METRIC</span>
           <span className="text-[10px] text-blue font-mono uppercase tracking-widest text-right">You</span>
           <span className="text-[10px] text-dim font-mono uppercase tracking-widest text-right">Competitor</span>
+          <span className="text-[10px] text-dim font-mono uppercase tracking-widest text-right">STATUS</span>
         </div>
-        {ca.metrics.map((m, i) => (
-          <div key={m.label} className={`grid grid-cols-[1fr_100px_100px] gap-0 px-5 py-3.5 items-center ${i < ca.metrics.length - 1 ? "border-b border-border" : ""}`}>
-            <div className="flex items-center gap-2">
+        {ca.metrics.map((m, i) => {
+          const isWinning = m.tagColor === "success";
+          return (
+            <div key={m.label} className={`grid grid-cols-[1fr_100px_100px_80px] gap-0 px-5 py-3.5 items-center ${i < ca.metrics.length - 1 ? "border-b border-border" : ""}`}>
               <span className="text-[13px] font-medium">{m.label}</span>
-              <span className={`text-[10px] font-mono px-2 py-0.5 border rounded-full ${
-                m.tagColor === "success" ? "text-success border-success/30" : "text-dim border-border"
+              <span className={`text-[13px] font-mono font-semibold text-right ${isWinning ? "text-success" : "text-blue"}`}>{m.you.value}</span>
+              <span className="text-[13px] font-mono text-dim text-right">{m.them.value}</span>
+              <span className={`text-[10px] font-mono px-2 py-0.5 border rounded-full text-center ml-auto ${
+                isWinning ? "text-success border-success/30 bg-success/10" : "text-destructive border-destructive/30 bg-destructive/10"
               }`}>
-                {m.tagColor === "success" ? "✓" : "◇"} {m.tag}
+                {isWinning ? "✓ Winning" : "✗ Losing"}
               </span>
             </div>
-            <span className={`text-[13px] font-mono font-semibold text-right ${m.tagColor === "success" ? "text-success" : "text-blue"}`}>{m.you.value}</span>
-            <span className="text-[13px] font-mono text-dim text-right">{m.them.value}</span>
-          </div>
-        ))}
-        {/* Visual bars row */}
-        <div className="px-5 py-3 border-t border-border bg-surface/20">
-          <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-3">
-            {ca.metrics.map((m) => (
-              <div key={m.label} className="flex items-center gap-2">
-                <span className="text-[10px] text-dim font-mono w-28 shrink-0 truncate">{m.label}</span>
-                <div className="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden relative">
-                  <div className={`h-full rounded-full absolute left-0 top-0 ${m.tagColor === "success" ? "bg-success" : "bg-blue"}`}
-                    style={{ width: `${getMetricBarWidth(m.you.value, m.them.value)}%` }} />
-                </div>
-                <div className="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden relative">
-                  <div className="h-full bg-dim/40 rounded-full absolute left-0 top-0"
-                    style={{ width: `${getMetricBarWidth(m.them.value, m.them.value)}%` }} />
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex items-center gap-4 mt-2">
-            {ca.metrics.map((m) => (
-              <span key={m.label} className="text-[10px] text-dim font-mono">{m.gap}</span>
-            ))}
-          </div>
-        </div>
+          );
+        })}
       </div>
 
       {/* Action Plan */}
