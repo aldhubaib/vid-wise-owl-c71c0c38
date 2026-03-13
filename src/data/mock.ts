@@ -138,6 +138,7 @@ export const channels: Channel[] = [
     name: "عبدالرحمن المرشد",
     handle: "@amrshd",
     avatar: "ع",
+    avatarImg: avatarCh5,
     subscribers: "1.3M",
     views: "98.7M",
     videos: "154",
