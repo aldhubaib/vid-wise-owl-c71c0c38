@@ -223,13 +223,11 @@ export default function Analytics() {
               <span className="text-[11px] text-dim font-mono">across all tracked channels</span>
             </div>
             {topVideos.map((v) => (
-              <div key={v.rank} className="flex items-center gap-5 px-5 py-3.5 border-t border-border hover:bg-surface/30 transition-colors">
+              <div key={v.rank} className="group flex items-center gap-5 px-5 py-3.5 border-t border-border hover:bg-surface/30 transition-colors cursor-pointer">
                 <span className="text-[12px] text-dim font-mono w-6 text-right shrink-0">{v.rank}</span>
-                <div className="flex-1 min-w-0">
-                  <span className="text-[13px] font-medium truncate block">{v.title}</span>
-                  <div className="h-0.5 bg-dim/20 rounded-full mt-1.5 w-full">
-                    <div className="h-full bg-blue/40 rounded-full" style={{ width: `${(parseFloat(v.views) / 15.5) * 100}%` }} />
-                  </div>
+                <div className="flex-1 min-w-0 flex items-center gap-2">
+                  <span className="text-[13px] font-medium truncate group-hover:opacity-80 transition-opacity">{v.title}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-dim shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <ChannelAvatar name={v.channel} size="sm" />
                 <span className="text-[13px] font-mono text-dim shrink-0 w-16 text-right">{v.views}</span>
