@@ -1,12 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { LayoutGrid, GitBranch, Shield, Settings, Search, ChevronDown, Check, Pencil, Plus } from "lucide-react";
+import { LayoutGrid, GitBranch, Circle, TrendingUp, AlignJustify, CircleDot, Settings, ChevronDown, Check, Pencil, Plus, Activity } from "lucide-react";
 
 const navItems = [
   { icon: LayoutGrid, label: "Channels", path: "/" },
   { icon: GitBranch, label: "Pipeline", path: "/pipeline" },
-  { icon: Shield, label: "Access Control", path: "/access" },
+  { icon: Activity, label: "Monitor", path: "/monitor" },
+  { icon: TrendingUp, label: "Analytics", path: "/analytics" },
+  { icon: AlignJustify, label: "Stories", path: "/stories" },
+  { icon: CircleDot, label: "Brain", path: "/brain" },
   { icon: Settings, label: "Settings", path: "/settings" },
+];
+
+const adminItems = [
+  { icon: Circle, label: "Admin", path: "/admin" },
 ];
 
 const projects = [
