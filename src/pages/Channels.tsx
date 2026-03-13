@@ -109,7 +109,7 @@ export default function Channels() {
             <button
               onClick={handleAdd}
               className="px-4 py-2 bg-[rgb(30,81,233)] text-white text-[13px] font-medium cursor-pointer whitespace-nowrap shrink-0 hover:opacity-90 transition-opacity flex items-center gap-1.5 max-md:w-full max-md:justify-center"
-              style={{ borderRadius: '8px' }}
+              style={{ borderRadius: '20px' }}
             >
               <Plus className="w-3.5 h-3.5" />
               Add
