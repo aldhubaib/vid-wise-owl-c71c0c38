@@ -55,10 +55,10 @@ export default function VideoDetail() {
           {/* Hero */}
           <div className="px-6 py-5 flex items-start gap-3.5 max-lg:px-4">
             {video.thumbnail && (
-              <img
+                <img
                 src={video.thumbnail}
                 alt=""
-                className="w-16 h-10 rounded object-cover shrink-0"
+                className="w-16 h-10 rounded-lg object-cover shrink-0"
               />
             )}
             <div className="flex-1 min-w-0">
