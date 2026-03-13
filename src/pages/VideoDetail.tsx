@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { videos, channels, videoAnalysis } from "@/data/mock";
 import { VideoRightPanel } from "@/components/VideoRightPanel";
-import { ArrowLeft, Info, SmilePlus, HelpCircle, Meh, CheckCircle2, XCircle, RotateCw } from "lucide-react";
+import { ArrowLeft, Info, SmilePlus, HelpCircle, Meh, CheckCircle2, XCircle, RotateCw, Clock, Loader2, Play, Zap, Calendar } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 
 const tabList = ["Overview", "Sentiment", "Viral", "Comments", "Pipeline", "History"];
@@ -54,36 +54,63 @@ export default function VideoDetail() {
       <div className="flex-1 relative overflow-auto">
         <div>
           {/* Hero */}
-          <div className="px-6 py-5 flex items-start gap-3.5 max-lg:px-4">
+          <div className="px-6 py-6 max-lg:px-4">
             {video.thumbnail && (
+              <div className="relative w-full max-w-md rounded-xl overflow-hidden mb-5">
                 <img
-                src={video.thumbnail}
-                alt=""
-                className="w-16 h-10 rounded-lg object-cover shrink-0"
-              />
-            )}
-            <div className="flex-1 min-w-0">
-              <h1 className="text-base font-semibold tracking-tight mb-0.5 max-lg:text-sm" dir="rtl">
-                {video.title}
-              </h1>
-              <div className="flex gap-1.5 flex-wrap mt-1.5">
-                <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium ${
-                  video.status === "done" ? "bg-success/10 text-success" :
-                  video.status === "failed" ? "bg-destructive/10 text-destructive" :
-                  video.status === "analyzing" ? "bg-blue/10 text-blue" :
-                  "bg-elevated text-dim"
-                }`}>
-                  {video.status === "done" ? "Complete" : video.status === "failed" ? "Failed" : video.status === "analyzing" ? "Analyzing" : "Pending"}
-                </span>
-                <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium ${
-                  video.type === "short" ? "bg-purple/10 text-purple" : "bg-elevated text-dim"
-                }`}>
-                  {video.type === "short" ? "Short" : "Video"}
-                </span>
-                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-elevated text-dim">
-                  {video.date}
-                </span>
+                  src={video.thumbnail}
+                  alt=""
+                  className="w-full aspect-video object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
               </div>
+            )}
+            <h1 className="text-xl font-semibold tracking-tight mb-3 max-lg:text-lg" dir="rtl">
+              {video.title}
+            </h1>
+            <div className="flex items-center gap-3 text-dim">
+              <TooltipProvider delayDuration={200}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className={`inline-flex items-center justify-center ${
+                      video.status === "done" ? "text-success" :
+                      video.status === "failed" ? "text-destructive" :
+                      video.status === "analyzing" ? "text-blue" : "text-dim"
+                    }`}>
+                      {video.status === "done" ? <CheckCircle2 className="w-4 h-4" /> :
+                       video.status === "failed" ? <XCircle className="w-4 h-4" /> :
+                       video.status === "analyzing" ? <Loader2 className="w-4 h-4 animate-spin" /> :
+                       <Clock className="w-4 h-4" />}
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {video.status === "done" ? "Complete" : video.status === "failed" ? "Failed" : video.status === "analyzing" ? "Analyzing" : "Pending"}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <span className="w-px h-3.5 bg-border" />
+              <TooltipProvider delayDuration={200}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="inline-flex items-center justify-center text-dim">
+                      {video.type === "short" ? <Zap className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>{video.type === "short" ? "Short" : "Video"}</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <span className="w-px h-3.5 bg-border" />
+              <TooltipProvider delayDuration={200}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="inline-flex items-center gap-1.5 text-[12px] font-mono text-dim">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {video.date}
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>Published date</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
 
