@@ -55,7 +55,8 @@ export default function StoryDetail() {
   const [openingHookInput, setOpeningHookInput] = useState("");
   const [brandedHookStartInput, setBrandedHookStartInput] = useState("");
   const [brandedHookEndInput, setBrandedHookEndInput] = useState("");
-  const [scriptTab, setScriptTab] = useState<"long" | "short">("long");
+  const [longScriptOpen, setLongScriptOpen] = useState(false);
+  const [shortScriptOpen, setShortScriptOpen] = useState(true);
   const [shortSuggestedTitleInput, setShortSuggestedTitleInput] = useState("");
   const [shortOpeningHookInput, setShortOpeningHookInput] = useState("");
   const [shortBrandedHookStartInput, setShortBrandedHookStartInput] = useState("");
