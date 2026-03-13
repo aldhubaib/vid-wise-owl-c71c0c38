@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   analyticsStats,
   fieldComparison,
@@ -8,10 +9,12 @@ import {
   channelAnalysis,
   benchmarkCategories,
   monthlyTrendData,
+  channelAvatarMap,
   type FieldTab,
   type InsightType,
 } from "@/data/analyticsMock";
 import { Star, Circle } from "lucide-react";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 const periodTabs = ["30d", "90d", "12m"];
 const fieldTabs: FieldTab[] = ["Subscribers", "Engagement", "Views", "Upload rate"];
