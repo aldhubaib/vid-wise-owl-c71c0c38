@@ -206,7 +206,8 @@ export default function StoryDetail() {
                   <button
                     onClick={() => {
                       if (!selectedChannel) { toast.error("Please select a channel first"); return; }
-                      moveStory("approved");
+                      setStories((prev) => prev.map((s) => s.id === id ? { ...s, channelId: selectedChannel, stage: "approved" as Stage } : s));
+                      toast.success(`Moved to ${stages.find((s) => s.key === "approved")?.label}`);
                     }}
                     className="flex-1 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
                   >
@@ -222,6 +223,12 @@ export default function StoryDetail() {
             {/* APPROVED */}
             {activeStage === "approved" && (
               <>
+                {story.channelId && (
+                  <div className="rounded-xl bg-background p-5 flex items-center gap-3">
+                    <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Channel</div>
+                    <span className="text-[13px] font-semibold">{channels.find((c) => c.id === story.channelId)?.name}</span>
+                  </div>
+                )}
                 <div className="rounded-xl bg-background p-5 space-y-5">
                   <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Production Brief</div>
 

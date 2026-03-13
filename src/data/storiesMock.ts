@@ -21,6 +21,7 @@ export interface Story {
   comments?: number;
   gapWin?: boolean;
   rank?: number;
+  channelId?: string;
 }
 
 export const storiesMock: Story[] = [
