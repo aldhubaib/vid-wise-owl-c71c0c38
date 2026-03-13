@@ -5,7 +5,7 @@ import { ChannelRightPanel } from "@/components/ChannelRightPanel";
 import { VideoTable } from "@/components/VideoTable";
 import { ArrowLeft, PanelRightClose, PanelRight } from "lucide-react";
 
-const filterTabs = ["All Videos", "Videos", "Shorts", "Analyzed", "Failed"];
+const filterTabs = ["All", "Videos", "Shorts", "Analyzing", "Done", "Failed"];
 
 export default function ChannelDetail() {
   const { id } = useParams();
