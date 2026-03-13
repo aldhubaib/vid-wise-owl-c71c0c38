@@ -212,25 +212,6 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
         })}
       </nav>
 
-      {/* Pin toggle (desktop only, visible when expanded) */}
-      {!isMobile && !collapsed && onTogglePin && (
-        <div className="px-2 py-1.5 bg-[#080808] flex justify-end">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={onTogglePin}
-                className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
-                  pinned ? "text-blue hover:bg-elevated/60" : "text-dim hover:bg-elevated/60 hover:text-sensor"
-                }`}
-              >
-                {pinned ? <Pin className="w-3.5 h-3.5" strokeWidth={1.5} /> : <PinOff className="w-3.5 h-3.5" strokeWidth={1.5} />}
-              </button>
-            </TooltipTrigger>
-            <TooltipContent side="right">{pinned ? "Unpin sidebar" : "Pin sidebar"}</TooltipContent>
-          </Tooltip>
-        </div>
-      )}
-
       {/* User */}
       <button
         onClick={() => setLogoutOpen(true)}
