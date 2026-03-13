@@ -87,7 +87,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
               <button
                 key={project.id}
                 onClick={() => setSwitcherOpen(false)}
-                className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] hover:bg-background transition-colors"
+                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-full text-[13px] hover:bg-elevated/60 transition-colors"
               >
                 <span className={`flex-1 text-left truncate ${project.active ? "text-foreground font-medium" : "text-dim"}`}>
                   {project.name}
