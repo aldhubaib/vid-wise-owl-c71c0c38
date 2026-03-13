@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, ExternalLink, Lock, Bot, Globe, FileText, Cog } from "lucide-react";
+import { X, ExternalLink, Lock, Bot, Globe, FileText, Cog, Check } from "lucide-react";
 import { toast } from "sonner";
 
 interface SingleApiKey {
@@ -274,9 +274,9 @@ export default function Settings() {
                         />
                         <button
                           onClick={() => handleSave(api.id)}
-                          className="px-5 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap"
+                          className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue text-blue-foreground hover:opacity-90 transition-opacity shrink-0"
                         >
-                          Save
+                          <Check className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleClear(api.id)}
