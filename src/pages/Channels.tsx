@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { channels as mockChannels } from "@/data/mock";
 import { DeleteChannelModal } from "@/components/DeleteChannelModal";
-import { Plus, ExternalLink, RefreshCw, X, Users, Eye, PlayCircle } from "lucide-react";
+import { Plus, ExternalLink, RefreshCw, X, Users, Eye, PlayCircle, Star, Swords } from "lucide-react";
 
 type FilterType = "ours" | "competition";
 
