@@ -48,6 +48,8 @@ export default function StoryDetail() {
   const [stories, setStories] = useState<Story[]>(storiesMock);
   const [youtubeInput, setYoutubeInput] = useState("");
   const [selectedChannel, setSelectedChannel] = useState<string>("");
+  const [longScriptInput, setLongScriptInput] = useState("");
+  const [shortScriptInput, setShortScriptInput] = useState("");
 
   const story = stories.find((s) => s.id === id);
   const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
