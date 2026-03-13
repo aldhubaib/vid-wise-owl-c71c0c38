@@ -86,7 +86,7 @@ export const pipelineStages: PipelineStageData[] = [
     count: 71,
     moreCount: 68,
     items: [
-      { id: "pc1", title: "استكشاف القلعة التاريخية", channelId: "ch2", status: "processing", progress: "100 / 100", timeInStage: "16m 53s", retries: 1 },
+      { id: "pc1", title: "استكشاف القلعة التاريخية", channelId: "ch2", status: "processing", timeInStage: "16m 53s", retries: 1 },
       { id: "pc2", title: "رحلة إلى الشمال", channelId: "ch5", status: "waiting", timeInStage: "22m 20s", retries: 1 },
       { id: "pc3", title: "تحدي الطبخ في البر", channelId: "ch6", status: "waiting", timeInStage: "38m 14s", retries: 2 },
     ],
