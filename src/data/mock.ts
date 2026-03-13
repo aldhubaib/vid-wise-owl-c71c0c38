@@ -144,6 +144,7 @@ export const channels: Channel[] = [
     handle: "@amrshd",
     avatar: "ع",
     avatarImg: avatarCh5,
+    type: "competition",
     subscribers: "1.3M",
     views: "98.7M",
     videos: "154",
