@@ -170,7 +170,7 @@ export default function Stories() {
                     <button
                       key={story.id}
                       onClick={() => setSelectedId(story.id)}
-                      className={`w-full px-4 py-3.5 border-t border-border text-right hover:bg-surface/50 transition-colors group ${selectedId === story.id ? "bg-surface/70" : ""}`}
+                      className={`w-full px-4 py-3.5 border-t border-border text-right hover:bg-[#0d0d10] transition-colors group ${selectedId === story.id ? "bg-[#0d0d10]" : ""}`}
                     >
                       <div className="flex items-start justify-between mb-1.5">
                         <div className="flex items-center gap-1.5 shrink-0">
