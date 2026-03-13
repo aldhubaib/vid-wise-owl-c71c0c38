@@ -272,6 +272,29 @@ export default function VideoDetail() {
               </div>
             )}
 
+            {activeTab === "Pipeline" && (
+              <div>
+                <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-4">Pipeline</div>
+                <div className="flex flex-col gap-0">
+                  {video.pipeline.map((step) => (
+                    <div key={step.name} className="flex items-center justify-between py-3 border-b border-border last:border-b-0">
+                      <div className="flex items-center gap-2.5">
+                        <div className={`w-2 h-2 rounded-full ${
+                          step.status === "done" ? "bg-success" :
+                          step.status === "failed" ? "bg-destructive" :
+                          step.status === "running" ? "bg-blue animate-pulse" : "bg-dim/30"
+                        }`} />
+                        <span className={`text-[13px] ${step.status === "failed" ? "text-destructive" : "text-foreground"}`}>{step.name}</span>
+                      </div>
+                      <span className={`text-[12px] font-mono ${step.status === "failed" ? "text-destructive/60" : "text-dim"}`}>
+                        {step.time || (step.status === "waiting" ? "—" : "...")}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {activeTab === "History" && (
               <div>
                 <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-4">Analysis History</div>
