@@ -71,7 +71,7 @@ export default function VideoDetail() {
                 </h1>
 
                 {/* Metadata grid */}
-                <div className="flex items-center gap-0 mt-auto">
+                <div className="flex items-center gap-0 mt-auto ml-auto">
                   <div className="px-3 py-2">
                     <div className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1">Status</div>
                     <div className="flex items-center gap-1.5">
