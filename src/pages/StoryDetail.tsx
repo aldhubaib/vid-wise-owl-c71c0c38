@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 import { storiesMock, Story } from "@/data/storiesMock";
@@ -151,23 +151,35 @@ export default function StoryDetail() {
                     Ranked #{likedStories.findIndex((s) => s.id === id) + 1} of {likedStories.length} liked — Score {story.totalScore}
                   </div>
                   <div className="space-y-1">
-                    {likedStories.map((s, i) => (
-                      <Link
-                        key={s.id}
-                        to={`/story/${s.id}`}
-                        className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-[12px] hover:bg-[#0d0d10] transition-colors group ${s.id === id ? "bg-[#0d0d10] text-foreground" : "text-dim"}`}
-                      >
-                        <span className="font-mono w-5">#{i + 1}</span>
-                        {s.isFirstMover ? (
-                          <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-success/15 text-success shrink-0">1st</span>
-                        ) : s.isLate ? (
-                          <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-orange/15 text-orange shrink-0">Late</span>
-                        ) : null}
-                        <span className="flex-1 truncate text-right hover:text-foreground transition-colors">{s.title}</span>
-                        <span className="font-mono font-medium">{s.totalScore}</span>
-                        <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                      </Link>
-                    ))}
+                    {likedStories.map((s, i) => {
+                      const isCurrent = s.id === id;
+                      return (
+                        <button
+                          key={s.id}
+                          type="button"
+                          onClick={() => {
+                            if (!isCurrent) navigate(`/story/${s.id}`);
+                          }}
+                          className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-[12px] transition-colors group ${
+                            isCurrent
+                              ? "bg-[#0d0d10] text-foreground cursor-default"
+                              : "text-dim hover:bg-[#0d0d10] cursor-pointer"
+                          }`}
+                        >
+                          <span className="font-mono w-5">#{i + 1}</span>
+                          {s.isFirstMover ? (
+                            <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-success/15 text-success shrink-0">1st</span>
+                          ) : s.isLate ? (
+                            <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-orange/15 text-orange shrink-0">Late</span>
+                          ) : null}
+                          <span className="flex-1 truncate text-right transition-colors group-hover:text-foreground">{s.title}</span>
+                          <span className="font-mono font-medium">{s.totalScore}</span>
+                          {!isCurrent && (
+                            <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
                 <div className="flex gap-2">
