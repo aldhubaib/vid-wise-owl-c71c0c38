@@ -121,7 +121,7 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
           </button>
         </div>
         
-        <div className="mt-2 h-px bg-border" />
+        
       </div>
 
       {/* Items */}
