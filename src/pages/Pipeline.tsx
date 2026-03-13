@@ -8,34 +8,31 @@ export default function Pipeline() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <div className="px-6 pt-6 pb-4 max-lg:px-4">
-        <div className="flex items-start justify-between mb-1">
-          <div>
-            <h1 className="text-xl font-semibold tracking-tight mb-1">Pipeline</h1>
-            <p className="text-[12px] text-dim font-mono">
-              Est. completion ~1h 57m · Refreshing in 21s
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-success/15 text-success text-[12px] font-medium">
-              <Circle className="w-2 h-2 fill-current" />
-              System running
-            </span>
-            <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-[12px] text-dim font-medium hover:text-sensor hover:border-border transition-colors">
-              <Pause className="w-3 h-3" />
-              Pause
-            </button>
-            <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-[12px] text-dim font-medium hover:text-sensor hover:border-border transition-colors">
-              <RotateCw className="w-3 h-3" />
-              Retry all failed (8)
-            </button>
-          </div>
+      {/* Top bar */}
+      <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
+        <div className="flex items-center gap-3">
+          <h1 className="text-[13px] font-medium text-foreground">Pipeline</h1>
+          <span className="text-[11px] text-dim font-mono">Est. ~1h 57m · Refreshing in 21s</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/15 text-success text-[11px] font-medium">
+            <Circle className="w-2 h-2 fill-current" />
+            System running
+          </span>
+          <button className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border text-[11px] text-dim font-medium hover:text-sensor transition-colors">
+            <Pause className="w-3 h-3" />
+            Pause
+          </button>
+          <button className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border text-[11px] text-dim font-medium hover:text-sensor transition-colors">
+            <RotateCw className="w-3 h-3" />
+            Retry all failed (8)
+          </button>
         </div>
       </div>
 
+      <div className="flex-1 relative overflow-auto">
       {/* Stats row */}
-      <div className="px-6 max-lg:px-4 mb-5">
+      <div className="px-6 max-lg:px-4 mb-5 pt-5">
         <div className="flex rounded-xl overflow-hidden border border-border">
           {/* Total */}
           <div className="px-5 py-4 bg-background border-r border-border min-w-[140px]">
@@ -88,6 +85,7 @@ export default function Pipeline() {
             <StageColumn key={stage.id} stage={stage} />
           ))}
         </div>
+      </div>
       </div>
     </div>
   );
