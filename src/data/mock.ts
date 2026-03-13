@@ -51,6 +51,7 @@ export interface Video {
   viewsRaw: number;
   likesRaw: number;
   commentsRaw: number;
+  thumbnail?: string;
 }
 
 export const channels: Channel[] = [
