@@ -29,7 +29,7 @@ export function DeleteChannelModal({ open, channelName, onClose, onDelete }: Del
           </button>
           <button
             onClick={onDelete}
-            className="py-1.5 px-4 rounded-md bg-destructive text-destructive-foreground text-[13px] font-medium cursor-pointer transition-opacity hover:opacity-90"
+            className="py-1.5 px-4 rounded-full bg-destructive text-destructive-foreground text-[13px] font-medium cursor-pointer transition-opacity hover:opacity-90"
           >
             Delete
           </button>

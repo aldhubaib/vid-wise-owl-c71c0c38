@@ -291,7 +291,7 @@ export default function VideoDetail() {
                       <div className="bg-surface border border-border rounded-lg overflow-hidden">
                         <div className="flex items-center gap-2.5 px-3.5 py-2.5">
                           <span className="text-[13px] font-medium flex-1">{item.name}</span>
-                          <span className={`text-[10px] font-medium py-0.5 px-2 rounded font-mono ${
+                          <span className={`text-[10px] font-medium py-0.5 px-2 rounded-full font-mono ${
                             item.status === "success"
                               ? "bg-success/10 text-success"
                               : "bg-destructive/10 text-destructive"

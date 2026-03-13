@@ -81,7 +81,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
             onClick={() => onVideoClick(v.id)}
             className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-[#0d0d10] transition-colors border-b border-border last:border-b-0 cursor-pointer"
           >
-            <div className="w-10 h-7 rounded bg-elevated shrink-0 overflow-hidden">
+            <div className="w-10 h-7 rounded-lg bg-elevated shrink-0 overflow-hidden">
               {v.thumbnail ? (
                 <img src={v.thumbnail} alt="" className="w-full h-full object-cover" />
               ) : (

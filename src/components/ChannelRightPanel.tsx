@@ -56,7 +56,7 @@ export function ChannelRightPanel({ channel, visible, onClose, videoCount, short
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
         <span className="text-[11px] text-dim font-mono uppercase tracking-widest">Overview</span>
-        <button onClick={onClose} className="w-5 h-5 rounded flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
+        <button onClick={onClose} className="w-5 h-5 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
           <X className="w-3 h-3" />
         </button>
       </div>
