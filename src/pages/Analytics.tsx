@@ -424,7 +424,7 @@ function ChannelAnalysisSection() {
 
       {/* Metric comparison table */}
       <div className="mx-5 mb-4 rounded-xl border border-border overflow-hidden">
-        <div className="grid grid-cols-[1fr_100px_100px_40px] gap-0 px-5 py-3 bg-surface/30 border-b border-border">
+        <div className="grid grid-cols-[1fr_100px_120px_50px] gap-4 px-5 py-3 bg-surface/30 border-b border-border">
           <span className="text-[10px] text-dim font-mono uppercase tracking-widest">METRIC</span>
           <div className="flex items-center gap-1.5 justify-end">
             {getAvatarForDropdown(yourChannel) && <img src={getAvatarForDropdown(yourChannel)!} alt="" className="w-4 h-4 rounded-full object-cover" />}
@@ -439,7 +439,7 @@ function ChannelAnalysisSection() {
         {ca.metrics.map((m, i) => {
           const isWinning = m.tagColor === "success";
           return (
-            <div key={m.label} className={`grid grid-cols-[1fr_100px_100px_40px] gap-0 px-5 py-3.5 items-center ${i < ca.metrics.length - 1 ? "border-b border-border" : ""}`}>
+            <div key={m.label} className={`grid grid-cols-[1fr_100px_120px_50px] gap-4 px-5 py-3.5 items-center ${i < ca.metrics.length - 1 ? "border-b border-border" : ""}`}>
               <span className="text-[13px] font-medium">{m.label}</span>
               <span className={`text-[13px] font-mono font-semibold text-right ${isWinning ? "text-success" : "text-blue"}`}>{m.you.value}</span>
               <span className="text-[13px] font-mono text-dim text-right">{m.them.value}</span>
