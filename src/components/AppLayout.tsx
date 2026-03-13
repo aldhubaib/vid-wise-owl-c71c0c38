@@ -10,12 +10,12 @@ export function AppLayout() {
   return (
     <div className="flex min-h-screen">
       {/* Desktop sidebar */}
-      <div className="hidden md:flex">
+      <div className="hidden lg:flex">
         <AppSidebar collapsed={collapsed} onToggleCollapse={() => setCollapsed(!collapsed)} />
       </div>
 
-      {/* Mobile header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 h-12 flex items-center justify-between px-4 border-b border-border bg-background z-[100]">
+      {/* Mobile/Tablet header */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-12 flex items-center justify-between px-4 border-b border-border bg-background z-[100]">
         <button
           onClick={() => setDrawerOpen(true)}
           className="w-8 h-8 rounded-md flex items-center justify-center text-dim hover:text-sensor hover:bg-elevated transition-colors"
@@ -31,17 +31,17 @@ export function AppLayout() {
         <div className="w-8" />
       </div>
 
-      {/* Mobile drawer overlay */}
+      {/* Mobile/Tablet drawer overlay */}
       {drawerOpen && (
         <div
-          className="fixed inset-0 bg-black/60 z-[500] backdrop-blur-sm md:hidden"
+          className="fixed inset-0 bg-black/60 z-[500] backdrop-blur-sm lg:hidden"
           onClick={() => setDrawerOpen(false)}
         />
       )}
 
-      {/* Mobile drawer */}
+      {/* Mobile/Tablet drawer */}
       <div
-        className={`fixed top-0 left-0 w-[260px] h-screen bg-background border-r border-border z-[600] transition-transform duration-200 ease-out md:hidden ${
+        className={`fixed top-0 left-0 w-[260px] h-screen bg-background border-r border-border z-[600] transition-transform duration-200 ease-out lg:hidden ${
           drawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -49,7 +49,7 @@ export function AppLayout() {
       </div>
 
       {/* Main content */}
-      <main className="flex-1 min-w-0 md:pt-0 pt-12 bg-surface md:rounded-l-2xl relative z-10">
+      <main className="flex-1 min-w-0 lg:pt-0 pt-12 bg-surface lg:rounded-l-2xl relative z-10">
         <Outlet />
       </main>
     </div>
