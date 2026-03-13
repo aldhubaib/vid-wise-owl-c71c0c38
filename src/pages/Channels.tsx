@@ -103,7 +103,7 @@ export default function Channels() {
                 className={`w-full pl-3 pr-3 py-2 bg-background border text-foreground text-[13px] font-sans outline-none transition-colors placeholder:text-dim ${
                   inputError ? "border-destructive/50" : "border-border focus:border-[#2a2a2e]"
                 }`}
-                style={{ borderRadius: '8px' }}
+                style={{ borderRadius: '20px' }}
               />
             </div>
             <button
