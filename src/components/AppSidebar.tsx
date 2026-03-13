@@ -387,7 +387,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
                 }
                 setNewOpen(false);
               }}
-              className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+              className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full bg-blue text-blue-foreground hover:opacity-90 transition-opacity"
             >
               Create
             </button>
