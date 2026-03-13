@@ -258,23 +258,6 @@ export default function VideoDetail() {
               </div>
             )}
 
-            {activeTab === "Ideas" && (
-              <div>
-                <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-3">Content Ideas</div>
-                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
-                  {a.contentIdeas.map((idea, i) => (
-                    <div key={i} className="bg-background px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
-                      <div className="text-[13px] font-medium mb-1" dir="rtl" style={{ textAlign: "right" }}>
-                        {idea.hook}
-                      </div>
-                      <p className="text-xs text-dim leading-relaxed" dir="rtl" style={{ textAlign: "right" }}>
-                        {idea.concept}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
 
             {activeTab === "Pipeline" && (
               <div>
