@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { channels, videos } from "@/data/mock";
 import { ChannelRightPanel } from "@/components/ChannelRightPanel";
 import { VideoTable } from "@/components/VideoTable";
-import { ArrowLeft, PanelRightClose, PanelRight } from "lucide-react";
+import { ArrowLeft, Info } from "lucide-react";
 
 const filterTabs = ["All", "Videos", "Shorts", "Analyzing", "Done", "Failed"];
 
@@ -13,7 +13,8 @@ export default function ChannelDetail() {
   const channel = channels.find((c) => c.id === id);
   const channelVideos = videos.filter((v) => v.channelId === id);
   const [activeFilter, setActiveFilter] = useState("All");
-  const [panelVisible, setPanelVisible] = useState(true);
+  const [panelVisible, setPanelVisible] = useState(false);
+  const closePanel = useCallback(() => setPanelVisible(false), []);
 
   if (!channel) {
     return <div className="p-10 text-sensor">Channel not found</div>;
@@ -51,16 +52,16 @@ export default function ChannelDetail() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setPanelVisible(!panelVisible)}
-            className="w-8 h-8 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors hidden md:flex"
+            className="w-8 h-8 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
           >
-            {panelVisible ? <PanelRightClose className="w-4 h-4" /> : <PanelRight className="w-4 h-4" />}
+            <Info className="w-4 h-4" />
           </button>
         </div>
       </div>
 
       <div className="flex-1 relative overflow-auto">
         {/* Main content */}
-        <div className={`transition-[margin] duration-200 ease-out ${panelVisible ? "md:mr-[300px]" : ""}`}>
+        <div>
           {/* Hero */}
           <div className="px-6 py-5 flex items-start gap-3.5 max-md:px-4">
             <img
@@ -136,8 +137,8 @@ export default function ChannelDetail() {
           </div>
         </div>
 
-        {/* Right panel */}
-        <ChannelRightPanel channel={channel} visible={panelVisible} />
+        {/* Popover panel */}
+        <ChannelRightPanel channel={channel} visible={panelVisible} onClose={closePanel} />
       </div>
     </div>
   );
