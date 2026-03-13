@@ -58,7 +58,11 @@ const apiNameColorMap: Record<string, string> = {
   "youtube-data": "text-dim",
 };
 
-const mask = (v: string) => (v.length > 14 ? v.slice(0, 14) + "•••••••••" : v);
+const mask = (v: string) => {
+  if (v.length <= 4) return "••••••••••••";
+  const visible = Math.min(v.length > 10 ? 6 : 3, v.length);
+  return v.slice(0, visible) + "•••••••••";
+};
 
 const initialApiKeys: ApiKey[] = [
   {
