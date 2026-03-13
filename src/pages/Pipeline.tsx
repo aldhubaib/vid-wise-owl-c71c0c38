@@ -1,4 +1,5 @@
-import { RotateCw, Pause, Circle, ChevronDown, AlertTriangle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { RotateCw, Pause, Circle, ChevronDown, AlertTriangle, ArrowUpRight } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { channels } from "@/data/mock";
 import { pipelineStats, pipelineStages, type PipelineStageData, type PipelineItem } from "@/data/pipelineMock";
@@ -145,10 +146,14 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
 }
 
 function PipelineItemRow({ item, isFailed }: { item: PipelineItem; isFailed: boolean }) {
+  const navigate = useNavigate();
   const channel = channels.find((c) => c.id === item.channelId);
 
   return (
-    <div className="px-4 py-3 border-t border-border hover:bg-surface/50 transition-colors">
+    <div
+      onClick={() => item.videoId && navigate(`/video/${item.videoId}`)}
+      className={`px-4 py-3 border-t border-border hover:bg-surface/50 transition-colors group ${item.videoId ? "cursor-pointer" : ""}`}
+    >
       <div className="flex items-start justify-between mb-2">
         {/* Left: channel avatar + status */}
         <div className="flex items-center gap-2 min-w-0">
@@ -181,8 +186,13 @@ function PipelineItemRow({ item, isFailed }: { item: PipelineItem; isFailed: boo
           </div>
         </div>
         {/* Right: title */}
-        <div className="text-[13px] text-foreground font-medium text-right shrink-0 max-w-[55%]" dir="rtl">
-          {item.title}
+        <div className="flex items-center gap-1.5 shrink-0 max-w-[55%]">
+          <span className="text-[13px] text-foreground font-medium text-right" dir="rtl">
+            {item.title}
+          </span>
+          {item.videoId && (
+            <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+          )}
         </div>
       </div>
       <div className="flex items-center justify-between">
