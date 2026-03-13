@@ -120,21 +120,33 @@ export default function ChannelDetail() {
             </div>
 
             {/* Filter tabs */}
-            <div className="flex items-center bg-elevated rounded-full p-0.5 w-fit mb-4 max-md:overflow-x-auto">
-              {filterTabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveFilter(tab)}
-                  className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap ${
-                    activeFilter === tab
-                      ? "bg-surface text-foreground"
-                      : "text-dim hover:text-sensor"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
+            {(() => {
+              const counts: Record<string, number> = {
+                All: channelVideos.length,
+                Videos: channelVideos.filter(v => v.type === "video").length,
+                Shorts: channelVideos.filter(v => v.type === "short").length,
+                Analyzing: channelVideos.filter(v => v.status === "analyzing").length,
+                Done: channelVideos.filter(v => v.status === "done").length,
+                Failed: channelVideos.filter(v => v.status === "failed").length,
+              };
+              return (
+                <div className="flex items-center bg-elevated rounded-full p-0.5 w-fit mb-4 max-md:overflow-x-auto">
+                  {filterTabs.map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveFilter(tab)}
+                      className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap ${
+                        activeFilter === tab
+                          ? "bg-surface text-foreground"
+                          : "text-dim hover:text-sensor"
+                      }`}
+                    >
+                      {tab} <span className="text-[11px] opacity-60">({counts[tab]})</span>
+                    </button>
+                  ))}
+                </div>
+              );
+            })()}
 
             <VideoTable videos={filteredVideos} onVideoClick={(vid) => navigate(`/video/${vid}`)} />
           </div>
