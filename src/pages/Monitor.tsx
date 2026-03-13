@@ -85,7 +85,8 @@ export default function Monitor() {
             <div className="px-4 py-3">
               <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2.5">Check Cadence (Auto-learned)</div>
               {monitorCadence.map((c) => {
-                const dotColor = c.color === "success" ? "bg-success" : c.color === "blue" ? "bg-blue" : c.color === "orange" ? "bg-orange" : c.color === "dim" ? "bg-dim" : "";
+                const color = c.color;
+                const dotColor = color === "success" ? "bg-success" : color === "blue" ? "bg-blue" : color === "orange" ? "bg-orange" : color === "destructive" ? "bg-destructive" : "";
                 return (
                   <div key={c.label} className="flex items-center justify-between py-1.5">
                     <div className="flex items-center gap-2">

@@ -30,7 +30,7 @@ export const monitorCadence = [
   { label: "Active", desc: "uploaded <3d ago", color: "success" as const, channels: 18, freq: "every 2d" },
   { label: "Regular", desc: "3-14d", color: "blue" as const, channels: 20, freq: "every 5d" },
   { label: "Slow", desc: "14-30d", color: "orange" as const, channels: 5, freq: "every 10d" },
-  { label: "Inactive", desc: "30d+", color: "dim" as const, channels: 4, freq: "every 20d" },
+  { label: "Inactive", desc: "30d+", color: "destructive" as const, channels: 4, freq: "every 20d" },
 ];
 
 export const monitorQuota = {
