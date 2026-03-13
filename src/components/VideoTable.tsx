@@ -87,9 +87,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                   <Eye className="w-2.5 h-2.5" />{v.views}
                 </span>
                 <span className="text-[10px] text-dim">{v.date}</span>
-                <span className={`inline-flex items-center py-0.5 px-1.5 rounded text-[9px] font-mono font-medium ${statusClass[v.status]}`}>
-                  {statusLabel[v.status]}
-                </span>
+                {(() => { const s = statusIcon[v.status]; return <s.icon className={`w-3.5 h-3.5 ${s.className}`} title={s.title} />; })()}
               </div>
             </div>
           </div>
