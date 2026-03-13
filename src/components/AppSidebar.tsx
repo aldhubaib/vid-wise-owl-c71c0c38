@@ -98,7 +98,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
             <div className="border-t border-border">
               <button
                 onClick={() => setSwitcherOpen(false)}
-                className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-dim hover:text-sensor hover:bg-elevated/60 transition-colors"
+                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-full text-[13px] text-dim hover:text-sensor hover:bg-elevated/60 transition-colors"
               >
                 <Pencil className="w-3.5 h-3.5" />
                 <span>Edit project</span>
