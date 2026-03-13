@@ -189,8 +189,8 @@ export default function Monitor() {
           {/* Table */}
           <div className="rounded-xl border border-border overflow-hidden">
             {/* Header */}
-            <div className="grid grid-cols-[1fr_90px_90px_90px_90px_80px_80px] px-4 py-2.5 bg-background border-b border-border">
-              {["CHANNEL", "LAST CHECK", "NEW VIDEOS", "LAST VIDEO", "NEXT CHECK", "CADENCE", "OVERRIDE"].map((h) => (
+            <div className="grid grid-cols-[1fr_70px_90px_90px_90px_90px_80px_80px] px-4 py-2.5 bg-background border-b border-border">
+              {["CHANNEL", "STATUS", "LAST CHECK", "NEW VIDEOS", "LAST VIDEO", "NEXT CHECK", "CADENCE", "OVERRIDE"].map((h) => (
                 <span key={h} className="text-[10px] text-dim font-mono uppercase tracking-wider">{h}</span>
               ))}
             </div>
