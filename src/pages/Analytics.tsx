@@ -533,14 +533,14 @@ function SimpleTrendChart() {
         {data.yourChannels.map((c) => (
           <span key={c.name} className="flex items-center gap-1.5 text-[11px] font-mono">
             <span className="w-3 h-0.5 bg-blue rounded-full inline-block" />
-            <span className="text-foreground font-medium">{c.name}</span>
+            <ChannelAvatar name={c.name} size="sm" />
           </span>
         ))}
         <span className="text-[10px] text-dim font-mono uppercase tracking-widest ml-4">COMPETITORS</span>
         {data.competitors.map((c) => (
           <span key={c.name} className="flex items-center gap-1.5 text-[11px] font-mono text-dim">
             <span className="w-3 h-0.5 bg-dim/40 rounded-full inline-block" />
-            {c.name}
+            <ChannelAvatar name={c.name} size="sm" />
           </span>
         ))}
       </div>
