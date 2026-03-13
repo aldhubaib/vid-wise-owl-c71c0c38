@@ -45,6 +45,7 @@ export interface PipelineStep {
   name: PipelineStepName;
   status: PipelineStepStatus;
   time?: string;
+  retries?: number;
 }
 
 export interface Video {
@@ -214,12 +215,12 @@ export const videos: Video[] = [
     date: "2026-03-08", duration: "18:42", status: "done",
     viewsRaw: 1200000, likesRaw: 45000, commentsRaw: 2300, thumbnail: thumbV1,
     pipeline: [
-      { name: "Transcription", status: "done", time: "2m 14s" },
-      { name: "Translation", status: "done", time: "1m 32s" },
-      { name: "Sentiment", status: "done", time: "3m 08s" },
-      { name: "Topics", status: "done", time: "1m 45s" },
-      { name: "Comments", status: "done", time: "4m 22s" },
-      { name: "Viral Score", status: "done", time: "0m 58s" },
+      { name: "Transcription", status: "done", time: "2m 14s", retries: 1 },
+      { name: "Translation", status: "done", time: "1m 32s", retries: 1 },
+      { name: "Sentiment", status: "done", time: "3m 08s", retries: 2 },
+      { name: "Topics", status: "done", time: "1m 45s", retries: 1 },
+      { name: "Comments", status: "done", time: "4m 22s", retries: 1 },
+      { name: "Viral Score", status: "done", time: "0m 58s", retries: 1 },
     ],
   },
   {
@@ -229,12 +230,12 @@ export const videos: Video[] = [
     date: "2026-03-05", duration: "24:15", status: "done",
     viewsRaw: 890000, likesRaw: 32000, commentsRaw: 1800, thumbnail: thumbV2,
     pipeline: [
-      { name: "Transcription", status: "done", time: "3m 01s" },
-      { name: "Translation", status: "done", time: "2m 10s" },
-      { name: "Sentiment", status: "done", time: "2m 44s" },
-      { name: "Topics", status: "done", time: "1m 30s" },
-      { name: "Comments", status: "done", time: "3m 55s" },
-      { name: "Viral Score", status: "done", time: "1m 02s" },
+      { name: "Transcription", status: "done", time: "3m 01s", retries: 1 },
+      { name: "Translation", status: "done", time: "2m 10s", retries: 1 },
+      { name: "Sentiment", status: "done", time: "2m 44s", retries: 1 },
+      { name: "Topics", status: "done", time: "1m 30s", retries: 1 },
+      { name: "Comments", status: "done", time: "3m 55s", retries: 1 },
+      { name: "Viral Score", status: "done", time: "1m 02s", retries: 1 },
     ],
   },
   {
@@ -259,10 +260,10 @@ export const videos: Video[] = [
     date: "2026-02-28", duration: "0:58", status: "analyzing",
     viewsRaw: 5400000, likesRaw: 210000, commentsRaw: 8900, thumbnail: thumbV4,
     pipeline: [
-      { name: "Transcription", status: "done", time: "0m 32s" },
-      { name: "Translation", status: "done", time: "0m 28s" },
-      { name: "Sentiment", status: "done", time: "1m 05s" },
-      { name: "Topics", status: "running" },
+      { name: "Transcription", status: "done", time: "0m 32s", retries: 1 },
+      { name: "Translation", status: "done", time: "0m 28s", retries: 1 },
+      { name: "Sentiment", status: "done", time: "1m 05s", retries: 1 },
+      { name: "Topics", status: "running", retries: 2 },
       { name: "Comments", status: "waiting" },
       { name: "Viral Score", status: "waiting" },
     ],
@@ -289,9 +290,9 @@ export const videos: Video[] = [
     date: "2026-02-20", duration: "45:30", status: "failed",
     viewsRaw: 670000, likesRaw: 28000, commentsRaw: 1500, thumbnail: thumbV6,
     pipeline: [
-      { name: "Transcription", status: "done", time: "5m 12s" },
-      { name: "Translation", status: "done", time: "3m 48s" },
-      { name: "Sentiment", status: "failed" },
+      { name: "Transcription", status: "done", time: "5m 12s", retries: 2 },
+      { name: "Translation", status: "done", time: "3m 48s", retries: 1 },
+      { name: "Sentiment", status: "failed", retries: 3 },
       { name: "Topics", status: "waiting" },
       { name: "Comments", status: "waiting" },
       { name: "Viral Score", status: "waiting" },
