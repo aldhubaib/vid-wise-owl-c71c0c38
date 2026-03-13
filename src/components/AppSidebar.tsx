@@ -68,7 +68,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
             onClick={() => setSwitcherOpen(!switcherOpen)}
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
-            <span className="font-semibold text-[13px] text-foreground">Falak</span>
+            <span className="font-semibold text-[13px] text-foreground">{projectName}</span>
             <ChevronDown className={`w-3 h-3 text-dim transition-transform ${switcherOpen ? "rotate-180" : ""}`} />
           </button>
         ) : (
