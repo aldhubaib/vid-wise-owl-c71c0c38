@@ -326,13 +326,48 @@ function ComparisonCard({ label, value, sub, note, noteColor }: { label: string;
   );
 }
 
-function getAvatarForDropdown(name: string) {
-  // Try exact match first, then partial
-  if (channelAvatarMap[name]) return channelAvatarMap[name].avatar;
+function getChannelInfo(name: string): { avatar: string; id: string } | null {
+  if (channelAvatarMap[name]) return channelAvatarMap[name];
   for (const [key, val] of Object.entries(channelAvatarMap)) {
-    if (name.includes(key) || key.includes(name)) return val.avatar;
+    if (name.includes(key) || key.includes(name)) return val;
   }
   return null;
+}
+
+function getAvatarForDropdown(name: string) {
+  return getChannelInfo(name)?.avatar ?? null;
+}
+
+function ChannelAvatar({ name, size = "md" }: { name: string; size?: "sm" | "md" }) {
+  const navigate = useNavigate();
+  const info = getChannelInfo(name);
+  const px = size === "sm" ? "w-5 h-5" : "w-7 h-7";
+  const fallbackPx = size === "sm" ? "w-5 h-5 text-[8px]" : "w-7 h-7 text-[10px]";
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div
+          className={`shrink-0 cursor-pointer`}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (info) navigate(`/channel/${info.id}`);
+          }}
+        >
+          {info ? (
+            <img src={info.avatar} alt={name} className={`${px} rounded-full object-cover hover:ring-2 hover:ring-blue transition-all`} />
+          ) : (
+            <div className={`${fallbackPx} rounded-full bg-elevated flex items-center justify-center text-dim font-mono`}>
+              {name[0]}
+            </div>
+          )}
+        </div>
+      </TooltipTrigger>
+      <TooltipContent side="top">
+        <span>{name}</span>
+      </TooltipContent>
+    </Tooltip>
+  );
 }
 
 function ChannelDropdown({ value, onChange, options, variant }: { value: string; onChange: (v: string) => void; options: string[]; variant: "you" | "competitor" }) {
