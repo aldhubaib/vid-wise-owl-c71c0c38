@@ -160,6 +160,7 @@ export const channels: Channel[] = [
     name: "نواف السالم",
     handle: "@nawaf_s",
     avatar: "ن",
+    avatarImg: avatarCh6,
     subscribers: "445K",
     views: "18.2M",
     videos: "63",
