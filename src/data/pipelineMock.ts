@@ -4,8 +4,7 @@ export type PipelineItemStatus = "processing" | "waiting" | "queued" | "failed";
 export interface PipelineItem {
   id: string;
   title: string;
-  channelAvatar: string;
-  channelHandle: string;
+  channelId: string;
   status: PipelineItemStatus;
   statusDetail?: string;
   timeInStage?: string;
@@ -61,9 +60,9 @@ export const pipelineStages: PipelineStageData[] = [
     count: 48,
     moreCount: 45,
     items: [
-      { id: "pi1", title: "فيديو جديد في قناة بدر", channelAvatar: "ب", channelHandle: "@badr3", status: "processing", statusDetail: "Fetching...", timeInStage: "18m 23s in stage", retries: 1 },
-      { id: "pi2", title: "رحلة الجبال الشمالية", channelAvatar: "ب", channelHandle: "@badr3", status: "queued", timeInStage: "20m 10s waiting", retries: 1 },
-      { id: "pi3", title: "تجربة الطبيخ السعودي", channelAvatar: "F", channelHandle: "@fun213", status: "queued", timeInStage: "20m 47s waiting", retries: 1 },
+      { id: "pi1", title: "فيديو جديد في قناة بدر", channelId: "ch2", status: "processing", statusDetail: "Fetching...", timeInStage: "18m 23s in stage", retries: 1 },
+      { id: "pi2", title: "رحلة الجبال الشمالية", channelId: "ch2", status: "queued", timeInStage: "20m 10s waiting", retries: 1 },
+      { id: "pi3", title: "تجربة الطبيخ السعودي", channelId: "ch6", status: "queued", timeInStage: "20m 47s waiting", retries: 1 },
     ],
   },
   {
@@ -74,9 +73,9 @@ export const pipelineStages: PipelineStageData[] = [
     count: 62,
     moreCount: 59,
     items: [
-      { id: "pt1", title: "أسرار قرية الأشباح", channelAvatar: "ب", channelHandle: "@badr3", status: "processing", statusDetail: "Processing...", timeInStage: "17m 16s in stage", retries: 1 },
-      { id: "pt2", title: "مغامرة في الصحراء", channelAvatar: "ب", channelHandle: "@badr3", status: "processing", statusDetail: "Processing...", timeInStage: "20m 01s in stage", retries: 2 },
-      { id: "pt3", title: "ليلة في الوادي المجهول", channelAvatar: "T", channelHandle: "@tariq", status: "waiting", timeInStage: "34m 49s waiting", retries: 3 },
+      { id: "pt1", title: "أسرار قرية الأشباح", channelId: "ch2", status: "processing", statusDetail: "Processing...", timeInStage: "17m 16s in stage", retries: 1 },
+      { id: "pt2", title: "مغامرة في الصحراء", channelId: "ch2", status: "processing", statusDetail: "Processing...", timeInStage: "20m 01s in stage", retries: 2 },
+      { id: "pt3", title: "ليلة في الوادي المجهول", channelId: "ch3", status: "waiting", timeInStage: "34m 49s waiting", retries: 3 },
     ],
   },
   {
@@ -87,9 +86,9 @@ export const pipelineStages: PipelineStageData[] = [
     count: 71,
     moreCount: 68,
     items: [
-      { id: "pc1", title: "استكشاف القلعة التاريخية", channelAvatar: "ب", channelHandle: "@badr3", status: "processing", progress: "100 / 100", timeInStage: "16m 53s in stage", retries: 1 },
-      { id: "pc2", title: "رحلة إلى الشمال", channelAvatar: "M", channelHandle: "@mghandi", status: "waiting", timeInStage: "22m 20s waiting", retries: 1 },
-      { id: "pc3", title: "تحدي الطبخ في البر", channelAvatar: "F", channelHandle: "@fun213", status: "waiting", timeInStage: "38m 14s waiting", retries: 2 },
+      { id: "pc1", title: "استكشاف القلعة التاريخية", channelId: "ch2", status: "processing", progress: "100 / 100", timeInStage: "16m 53s in stage", retries: 1 },
+      { id: "pc2", title: "رحلة إلى الشمال", channelId: "ch5", status: "waiting", timeInStage: "22m 20s waiting", retries: 1 },
+      { id: "pc3", title: "تحدي الطبخ في البر", channelId: "ch6", status: "waiting", timeInStage: "38m 14s waiting", retries: 2 },
     ],
   },
   {
@@ -100,8 +99,8 @@ export const pipelineStages: PipelineStageData[] = [
     count: 38,
     moreCount: 36,
     items: [
-      { id: "pa1", title: "رحلة إلى قرية الأشباح", channelAvatar: "ب", channelHandle: "@badr3", status: "processing", statusDetail: "Part B · Sonnet", timeInStage: "21m 38s in stage", retries: 2 },
-      { id: "pa2", title: "اغرب مكان زرته", channelAvatar: "ب", channelHandle: "@badr3", status: "waiting", timeInStage: "25m 27s waiting", retries: 1 },
+      { id: "pa1", title: "رحلة إلى قرية الأشباح", channelId: "ch2", status: "processing", statusDetail: "Part B · Sonnet", timeInStage: "21m 38s in stage", retries: 2 },
+      { id: "pa2", title: "اغرب مكان زرته", channelId: "ch2", status: "waiting", timeInStage: "25m 27s waiting", retries: 1 },
     ],
   },
   {
@@ -112,9 +111,9 @@ export const pipelineStages: PipelineStageData[] = [
     count: 8,
     moreCount: 5,
     items: [
-      { id: "pf1", title: "تحدي البقاء في المنزل المسكون", channelAvatar: "ب", channelHandle: "@badr3", status: "failed", errorReason: "API quota exceeded", timeInStage: "Stuck 2h 14m", retries: 3 },
-      { id: "pf2", title: "صوت غريب في المنطقة المهجورة", channelAvatar: "ب", channelHandle: "@badr3", status: "failed", errorReason: "Transcript unavailable", timeInStage: "Stuck 45m", retries: 3 },
-      { id: "pf3", title: "رحلة إلى الجزيرة الغامضة", channelAvatar: "ب", channelHandle: "@badr3", status: "failed", errorReason: "Transcript unavailable", timeInStage: "Stuck 1h 02m", retries: 2 },
+      { id: "pf1", title: "تحدي البقاء في المنزل المسكون", channelId: "ch2", status: "failed", errorReason: "API quota exceeded", timeInStage: "Stuck 2h 14m", retries: 3 },
+      { id: "pf2", title: "صوت غريب في المنطقة المهجورة", channelId: "ch2", status: "failed", errorReason: "Transcript unavailable", timeInStage: "Stuck 45m", retries: 3 },
+      { id: "pf3", title: "رحلة إلى الجزيرة الغامضة", channelId: "ch2", status: "failed", errorReason: "Transcript unavailable", timeInStage: "Stuck 1h 02m", retries: 2 },
     ],
   },
 ];
