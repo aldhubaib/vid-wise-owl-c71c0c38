@@ -331,10 +331,6 @@ export default function VideoDetail() {
                 </div>
               </div>
             )}
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
