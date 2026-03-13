@@ -129,6 +129,29 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
             </button>
           );
         })}
+
+        <div className="mt-4 mb-1 px-2.5 text-[10px] font-medium text-dim uppercase tracking-wider">Admin</div>
+        {adminItems.map((item) => {
+          const Icon = item.icon;
+          const active = isActive(item.path);
+          return (
+            <button
+              key={item.path}
+              onClick={() => {
+                navigate(item.path);
+                onClose?.();
+              }}
+              className={`w-full flex items-center gap-2.5 px-2.5 py-[7px] rounded-full text-[13px] font-medium transition-colors mb-0.5 ${
+                active
+                  ? "bg-elevated text-foreground"
+                  : "text-dim hover:bg-elevated/60 hover:text-sensor"
+              }`}
+            >
+              <Icon className="w-4 h-4" strokeWidth={1.5} />
+              {item.label}
+            </button>
+          );
+        })}
       </nav>
 
       {/* User */}
