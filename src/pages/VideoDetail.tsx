@@ -305,39 +305,32 @@ export default function VideoDetail() {
 
             {activeTab === "History" && (
               <div>
-                <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-4">Analysis History</div>
-                <div className="relative pl-7">
-                  <div className="absolute left-[7px] top-2 bottom-0 w-px bg-border" />
+                <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-3">Analysis History</div>
+                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
                   {[
                     { time: "Mar 8, 14:22", name: "Full Analysis", status: "success" as const, badge: "Completed" },
                     { time: "Mar 7, 09:15", name: "Comment Refresh", status: "failed" as const, badge: "Failed", error: "API rate limit exceeded. Retry after 60 minutes." },
                   ].map((item, i) => (
-                    <div key={i} className="relative mb-6 last:mb-0">
-                      <div className={`absolute -left-[25px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-background z-10 ${
-                        item.status === "success"
-                          ? "bg-success ring-[3px] ring-success/10"
-                          : "bg-destructive ring-[3px] ring-destructive/10"
-                      }`} />
-                      <div className="text-[10px] text-dim font-mono mb-1.5">{item.time}</div>
-                      <div className="bg-surface border border-border rounded-xl overflow-hidden">
-                        <div className="flex items-center gap-2.5 px-3.5 py-2.5">
-                          <span className="text-[13px] font-medium flex-1">{item.name}</span>
-                          <span className={`text-[10px] font-medium py-0.5 px-2 rounded-full font-mono ${
-                            item.status === "success"
-                              ? "bg-success/10 text-success"
-                              : "bg-destructive/10 text-destructive"
-                          }`}>
-                            {item.badge}
-                          </span>
-                        </div>
-                        {item.error && (
-                          <div className="border-t border-destructive/15 px-3.5 py-2.5 bg-destructive/[0.03] rounded-b-xl">
-                            <div className="text-[10px] text-destructive tracking-wider uppercase font-mono mb-1">Error</div>
-                            <div className="text-xs text-destructive/60 font-mono leading-relaxed">{item.error}</div>
-                          </div>
-                        )}
+                    <div key={i} className="bg-background px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[13px] font-medium">{item.name}</span>
+                        <span className={`text-[10px] font-medium py-0.5 px-2 rounded-full font-mono ${
+                          item.status === "success"
+                            ? "bg-success/10 text-success"
+                            : "bg-destructive/10 text-destructive"
+                        }`}>
+                          {item.badge}
+                        </span>
                       </div>
+                      <div className="text-[10px] text-dim font-mono">{item.time}</div>
+                      {item.error && (
+                        <div className="mt-2 text-xs text-destructive/60 font-mono leading-relaxed">{item.error}</div>
+                      )}
                     </div>
+                  ))}
+                </div>
+              </div>
+            )}
                   ))}
                 </div>
               </div>
