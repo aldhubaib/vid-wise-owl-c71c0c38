@@ -253,7 +253,7 @@ export default function Analytics() {
               <span className="text-[11px] text-dim font-mono">across all tracked channels</span>
             </div>
             {topVideos.map((v) => (
-              <div key={v.rank} className="flex items-center gap-3 px-5 py-3.5 border-t border-border hover:bg-surface/30 transition-colors">
+              <div key={v.rank} className="flex items-center gap-5 px-5 py-3.5 border-t border-border hover:bg-surface/30 transition-colors">
                 <span className="text-[12px] text-dim font-mono w-6 text-right shrink-0">{v.rank}</span>
                 <div className="flex-1 min-w-0">
                   <span className="text-[13px] font-medium truncate block">{v.title}</span>
