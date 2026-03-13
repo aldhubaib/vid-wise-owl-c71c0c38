@@ -26,7 +26,7 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen max-h-screen overflow-hidden bg-background">
-      <div className="hidden lg:flex flex-1 relative overflow-hidden">
+      <div className="hidden lg:flex w-[340px] min-w-[340px] relative overflow-hidden">
         {/* Dark overlay for depth */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background z-20 pointer-events-none" />
         <div className="absolute inset-0 bg-background/30 z-10 pointer-events-none" />
@@ -66,7 +66,7 @@ export default function Login() {
       </div>
 
       {/* Right — Login form */}
-      <div className="w-full lg:w-[480px] lg:min-w-[480px] flex items-center justify-center relative">
+      <div className="flex-1 flex items-center justify-center relative">
         <div className="absolute inset-0 pointer-events-none" style={{
           background: "radial-gradient(ellipse 80% 60% at 50% -10%, hsl(var(--primary) / 0.06) 0%, transparent 60%)",
         }} />
