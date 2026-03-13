@@ -223,6 +223,12 @@ export default function StoryDetail() {
             {/* APPROVED */}
             {activeStage === "approved" && (
               <>
+                {story.channelId && (
+                  <div className="rounded-xl bg-background p-5 flex items-center gap-3">
+                    <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Channel</div>
+                    <span className="text-[13px] font-semibold">{channels.find((c) => c.id === story.channelId)?.name}</span>
+                  </div>
+                )}
                 <div className="rounded-xl bg-background p-5 space-y-5">
                   <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Production Brief</div>
 
