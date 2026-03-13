@@ -108,11 +108,11 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
       <div className="flex items-center justify-between pt-3 mt-2 flex-wrap gap-2">
         <span className="text-[11px] text-dim font-mono">Showing 1–{videos.length} of {videos.length}</span>
         <div className="flex items-center gap-1">
-          <button disabled className="w-7 h-7 rounded-md border border-border bg-surface text-dim text-xs font-mono cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center">«</button>
-          <button disabled className="w-7 h-7 rounded-md border border-border bg-surface text-dim text-xs font-mono cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center">‹</button>
-          <button className="w-7 h-7 rounded-md border border-primary/30 bg-primary/10 text-primary text-xs font-mono flex items-center justify-center">1</button>
-          <button disabled className="w-7 h-7 rounded-md border border-border bg-surface text-dim text-xs font-mono cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center">›</button>
-          <button disabled className="w-7 h-7 rounded-md border border-border bg-surface text-dim text-xs font-mono cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center">»</button>
+          <button disabled className="w-7 h-7 rounded-full border border-border bg-surface text-dim text-xs font-mono cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center">«</button>
+          <button disabled className="w-7 h-7 rounded-full border border-border bg-surface text-dim text-xs font-mono cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center">‹</button>
+          <button className="w-7 h-7 rounded-full bg-[rgb(30,81,233)] text-white text-xs font-mono flex items-center justify-center">1</button>
+          <button disabled className="w-7 h-7 rounded-full border border-border bg-surface text-dim text-xs font-mono cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center">›</button>
+          <button disabled className="w-7 h-7 rounded-full border border-border bg-surface text-dim text-xs font-mono cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center">»</button>
         </div>
       </div>
     </>
