@@ -3,24 +3,24 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { LayoutGrid, GitBranch, Circle, TrendingUp, AlignJustify, CircleDot, Settings, ChevronDown, Check, Pencil, Plus, Activity } from "lucide-react";
 
 const navItems = [
-  { icon: LayoutGrid, label: "Channels", path: "/" },
-  { icon: GitBranch, label: "Pipeline", path: "/pipeline" },
-  { icon: Activity, label: "Monitor", path: "/monitor" },
-  { icon: TrendingUp, label: "Analytics", path: "/analytics" },
-  { icon: AlignJustify, label: "Stories", path: "/stories" },
-  { icon: CircleDot, label: "Brain", path: "/brain" },
-  { icon: Settings, label: "Settings", path: "/settings" },
-];
+{ icon: LayoutGrid, label: "Channels", path: "/" },
+{ icon: GitBranch, label: "Pipeline", path: "/pipeline" },
+{ icon: Activity, label: "Monitor", path: "/monitor" },
+{ icon: TrendingUp, label: "Analytics", path: "/analytics" },
+{ icon: AlignJustify, label: "Stories", path: "/stories" },
+{ icon: CircleDot, label: "Brain", path: "/brain" },
+{ icon: Settings, label: "Settings", path: "/settings" }];
+
 
 const adminItems = [
-  { icon: Circle, label: "Admin", path: "/admin" },
-];
+{ icon: Circle, label: "Admin", path: "/admin" }];
+
 
 const projects = [
-  { id: "falak", name: "Falak", initial: "f.", active: true },
-  { id: "nizek", name: "Nizek", initial: "n.", active: false },
-  { id: "darb", name: "Al-Darb", initial: "a.", active: false },
-];
+{ id: "falak", name: "Falak", initial: "f.", active: true },
+{ id: "nizek", name: "Nizek", initial: "n.", active: false },
+{ id: "darb", name: "Al-Darb", initial: "a.", active: false }];
+
 
 interface AppSidebarProps {
   onClose?: () => void;
@@ -51,60 +51,60 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
   return (
     <div className={`flex flex-col h-full bg-background ${isMobile ? "" : "w-[220px] min-w-[220px] sticky top-0 h-screen"}`}>
       {/* Brand / Project Switcher */}
-      <div className="relative px-4 h-12 flex items-center justify-between shrink-0" ref={switcherRef}>
+      <div className="relative px-4 h-12 flex items-center justify-between shrink-0 border-[#080808]" ref={switcherRef}>
         <button
           onClick={() => setSwitcherOpen(!switcherOpen)}
-          className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
-        >
+          className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+          
           <span className="font-semibold text-[13px] text-foreground">Falak</span>
           <ChevronDown className={`w-3 h-3 text-dim transition-transform ${switcherOpen ? "rotate-180" : ""}`} />
         </button>
 
 
         {/* Dropdown */}
-        {switcherOpen && (
-          <div className="absolute top-full left-2 right-2 mt-1 bg-elevated border border-border rounded-lg shadow-lg z-50 overflow-hidden">
+        {switcherOpen &&
+        <div className="absolute top-full left-2 right-2 mt-1 bg-elevated border border-border rounded-lg shadow-lg z-50 overflow-hidden">
             <div className="px-3 py-2 text-[10px] font-medium text-dim uppercase tracking-wider">Projects</div>
-            {projects.map((project) => (
-              <button
-                key={project.id}
-                onClick={() => setSwitcherOpen(false)}
-                className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] hover:bg-background transition-colors"
-              >
+            {projects.map((project) =>
+          <button
+            key={project.id}
+            onClick={() => setSwitcherOpen(false)}
+            className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] hover:bg-background transition-colors">
+            
                 <span className={`flex-1 text-left truncate ${project.active ? "text-foreground font-medium" : "text-dim"}`}>
                   {project.name}
                 </span>
                 {project.active && <Check className="w-3.5 h-3.5 text-primary shrink-0" />}
               </button>
-            ))}
+          )}
             <div className="border-t border-border">
               <button
-                onClick={() => setSwitcherOpen(false)}
-                className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-dim hover:text-sensor hover:bg-surface transition-colors"
-              >
+              onClick={() => setSwitcherOpen(false)}
+              className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-dim hover:text-sensor hover:bg-surface transition-colors">
+              
                 <Pencil className="w-3.5 h-3.5" />
                 <span>Edit project</span>
               </button>
               <button
-                onClick={() => setSwitcherOpen(false)}
-                className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-dim hover:text-sensor hover:bg-surface transition-colors"
-              >
+              onClick={() => setSwitcherOpen(false)}
+              className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-dim hover:text-sensor hover:bg-surface transition-colors">
+              
                 <Plus className="w-3.5 h-3.5" />
                 <span>New project</span>
               </button>
             </div>
           </div>
-        )}
+        }
       </div>
 
-      {isMobile && (
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 w-7 h-7 rounded flex items-center justify-center text-dim text-sm hover:text-sensor hover:bg-elevated transition-colors"
-        >
+      {isMobile &&
+      <button
+        onClick={onClose}
+        className="absolute top-3 right-3 w-7 h-7 rounded flex items-center justify-center text-dim text-sm hover:text-sensor hover:bg-elevated transition-colors">
+        
           ✕
         </button>
-      )}
+      }
 
       {/* Nav */}
       <nav className="flex-1 py-1.5 px-2 bg-[#080808]">
@@ -119,15 +119,15 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
                 onClose?.();
               }}
               className={`w-full flex items-center gap-2.5 px-2.5 py-[7px] rounded-full text-[13px] font-medium transition-colors mb-0.5 ${
-                active
-                  ? "bg-elevated text-foreground"
-                  : "text-dim hover:bg-elevated/60 hover:text-sensor"
-              }`}
-            >
+              active ?
+              "bg-elevated text-foreground" :
+              "text-dim hover:bg-elevated/60 hover:text-sensor"}`
+              }>
+              
               <Icon className="w-4 h-4" strokeWidth={1.5} />
               {item.label}
-            </button>
-          );
+            </button>);
+
         })}
 
         <div className="mt-4 mb-1 px-2.5 text-[10px] font-medium text-dim uppercase tracking-wider">Admin</div>
@@ -142,15 +142,15 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
                 onClose?.();
               }}
               className={`w-full flex items-center gap-2.5 px-2.5 py-[7px] rounded-full text-[13px] font-medium transition-colors mb-0.5 ${
-                active
-                  ? "bg-elevated text-foreground"
-                  : "text-dim hover:bg-elevated/60 hover:text-sensor"
-              }`}
-            >
+              active ?
+              "bg-elevated text-foreground" :
+              "text-dim hover:bg-elevated/60 hover:text-sensor"}`
+              }>
+              
               <Icon className="w-4 h-4" strokeWidth={1.5} />
               {item.label}
-            </button>
-          );
+            </button>);
+
         })}
       </nav>
 
@@ -164,6 +164,6 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
           <div className="text-[11px] text-dim truncate">a@falak.io</div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
