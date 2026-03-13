@@ -10,11 +10,14 @@ const filterTabs = ["All", "Videos", "Shorts", "Analyzing", "Done", "Failed"];
 export default function ChannelDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const channel = channels.find((c) => c.id === id);
+  const channelData = channels.find((c) => c.id === id);
   const channelVideos = videos.filter((v) => v.channelId === id);
   const [activeFilter, setActiveFilter] = useState("All");
   const [panelVisible, setPanelVisible] = useState(false);
+  const [channelType, setChannelType] = useState<"ours" | "competition">(channelData?.type ?? "ours");
   const closePanel = useCallback(() => setPanelVisible(false), []);
+
+  const channel = channelData ? { ...channelData, type: channelType } : undefined;
 
   if (!channel) {
     return <div className="p-10 text-sensor">Channel not found</div>;
