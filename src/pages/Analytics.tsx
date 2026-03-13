@@ -182,17 +182,33 @@ export default function Analytics() {
               {benchmarkCategories.map((cat) => (
                 <div key={cat.label} className="bg-background px-5 py-4">
                   <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">{cat.label}</div>
-                  {cat.items.map((item) => (
-                    <div key={item.rank} className={`flex items-center justify-between py-2 ${item.isYou ? "" : ""}`}>
-                      <div className="flex items-center gap-2.5">
-                        <span className={`text-[11px] font-mono w-5 text-right ${item.isYou ? "text-blue" : "text-dim"}`}>{item.rank}</span>
-                        <span className={`text-[12px] truncate max-w-[180px] ${item.isYou ? "text-foreground font-medium" : "text-sensor"}`}>
-                          {item.name}
-                        </span>
+                  {cat.items.map((item) => {
+                    const ch = channelAvatarMap[item.name];
+                    return (
+                      <div
+                        key={item.rank}
+                        className={`flex items-center justify-between py-2 ${ch ? "cursor-pointer hover:bg-surface/30 -mx-2 px-2 rounded-lg" : ""}`}
+                        onClick={() => ch && navigate(`/channel/${ch.id}`)}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <span className={`text-[11px] font-mono w-5 text-right ${item.isYou ? "text-blue" : "text-dim"}`}>{item.rank}</span>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="shrink-0">
+                                {ch ? (
+                                  <img src={ch.avatar} alt={item.name} className={`w-6 h-6 rounded-full object-cover ${item.isYou ? "ring-1.5 ring-blue" : ""}`} />
+                                ) : (
+                                  <div className="w-6 h-6 rounded-full bg-elevated flex items-center justify-center text-[9px] text-dim font-mono">{item.name[0]}</div>
+                                )}
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="top">{item.name}</TooltipContent>
+                          </Tooltip>
+                        </div>
+                        <span className={`text-[12px] font-mono ${item.isYou ? "text-blue" : "text-dim"}`}>{item.value}</span>
                       </div>
-                      <span className={`text-[12px] font-mono ${item.isYou ? "text-blue" : "text-dim"}`}>{item.value}</span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               ))}
             </div>
