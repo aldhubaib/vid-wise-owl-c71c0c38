@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { videos, channels, videoAnalysis } from "@/data/mock";
 import { VideoRightPanel } from "@/components/VideoRightPanel";
-import { ArrowLeft, Info, SmilePlus, HelpCircle, Meh, CheckCircle2, XCircle, RotateCw } from "lucide-react";
+import { ArrowLeft, Info, SmilePlus, HelpCircle, Meh, CheckCircle2, XCircle, RotateCw, Clock, Loader2, Play, Zap, Calendar } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 
 const tabList = ["Overview", "Sentiment", "Viral", "Comments", "Pipeline", "History"];
