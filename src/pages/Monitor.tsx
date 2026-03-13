@@ -21,7 +21,8 @@ export default function Monitor() {
 
   const filtered = monitorChannels.filter((ch) => {
     if (search && !ch.name.includes(search) && !ch.handle.includes(search)) return false;
-    if (activeFilter === "Issues") return ch.isStale;
+    if (activeFilter === "Active") return !ch.isStale;
+    if (activeFilter === "Inactive") return ch.isStale;
     return true;
   });
 
