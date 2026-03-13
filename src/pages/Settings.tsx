@@ -258,7 +258,7 @@ export default function Settings() {
                           />
                           <button
                             onClick={() => handleAddKey(api.id)}
-                            className="px-5 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap"
+                            className="px-5 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity whitespace-nowrap"
                           >
                             Add Key
                           </button>
@@ -292,13 +292,13 @@ export default function Settings() {
                           )}
                           <button
                             onClick={() => handleSave(api.id)}
-                            className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue text-blue-foreground hover:opacity-90 transition-opacity shrink-0"
+                            className="w-10 h-10 rounded-full flex items-center justify-center bg-blue text-blue-foreground hover:opacity-90 transition-opacity shrink-0"
                           >
                             <Check className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleClear(api.id)}
-                            className="w-10 h-10 rounded-xl flex items-center justify-center bg-destructive/15 text-destructive hover:bg-destructive/25 transition-colors shrink-0"
+                            className="w-10 h-10 rounded-full flex items-center justify-center bg-destructive/15 text-destructive hover:bg-destructive/25 transition-colors shrink-0"
                           >
                             <X className="w-4 h-4" />
                           </button>
