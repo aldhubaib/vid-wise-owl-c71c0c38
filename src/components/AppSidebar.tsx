@@ -357,14 +357,6 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
               <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Project name</label>
               <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40" placeholder="Project name" autoFocus />
             </div>
-            <div>
-              <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded hook — Starting</label>
-              <input type="text" value={newHookStart} onChange={(e) => setNewHookStart(e.target.value)} className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40" placeholder="e.g. Hey everyone, welcome back to..." />
-            </div>
-            <div>
-              <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded hook — Ending</label>
-              <input type="text" value={newHookEnd} onChange={(e) => setNewHookEnd(e.target.value)} className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40" placeholder="e.g. Don't forget to like and subscribe!" />
-            </div>
           </div>
           <div className="flex gap-2 mt-3">
             <button onClick={() => setNewOpen(false)} className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors">Cancel</button>
