@@ -109,26 +109,46 @@ export default function Analytics() {
 
             {/* Rankings bar chart */}
             <div className="px-5 pb-5">
-              {rankings.map((entry) => (
-                <div key={entry.rank} className={`flex items-center gap-3 py-2.5 ${entry.isYou ? "" : ""}`}>
-                  <span className={`w-6 text-right text-[12px] font-mono shrink-0 ${entry.isYou ? "text-blue" : "text-dim"}`}>
-                    {entry.rank}
-                  </span>
-                  <span className={`text-[13px] font-medium w-[140px] shrink-0 truncate ${entry.isYou ? "text-foreground" : "text-sensor"}`}>
-                    {entry.name}
-                    {entry.isYou && <span className="text-[10px] text-blue font-mono ml-1.5">YOU</span>}
-                  </span>
-                  <div className="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full ${entry.isYou ? "bg-blue" : "bg-dim/40"}`}
-                      style={{ width: `${getBarWidth(entry, rankings)}%` }}
-                    />
+              {rankings.map((entry) => {
+                const ch = channelAvatarMap[entry.name];
+                return (
+                  <div
+                    key={entry.rank}
+                    className={`flex items-center gap-3 py-2.5 ${ch ? "cursor-pointer" : ""}`}
+                    onClick={() => ch && navigate(`/channel/${ch.id}`)}
+                  >
+                    <span className={`w-6 text-right text-[12px] font-mono shrink-0 ${entry.isYou ? "text-blue" : "text-dim"}`}>
+                      {entry.rank}
+                    </span>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="shrink-0">
+                          {ch ? (
+                            <img src={ch.avatar} alt={entry.name} className={`w-7 h-7 rounded-full object-cover ${entry.isYou ? "ring-2 ring-blue" : ""}`} />
+                          ) : (
+                            <div className="w-7 h-7 rounded-full bg-elevated flex items-center justify-center text-[10px] text-dim font-mono">
+                              {entry.name[0]}
+                            </div>
+                          )}
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">
+                        <span>{entry.name}{entry.isYou ? " (You)" : ""}</span>
+                      </TooltipContent>
+                    </Tooltip>
+                    {entry.isYou && <span className="text-[10px] text-blue font-mono shrink-0">YOU</span>}
+                    <div className="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full ${entry.isYou ? "bg-blue" : "bg-dim/40"}`}
+                        style={{ width: `${getBarWidth(entry, rankings)}%` }}
+                      />
+                    </div>
+                    <span className={`text-[12px] font-mono shrink-0 w-16 text-right ${entry.isYou ? "text-blue" : "text-dim"}`}>
+                      {entry.value}
+                    </span>
                   </div>
-                  <span className={`text-[12px] font-mono shrink-0 w-16 text-right ${entry.isYou ? "text-blue" : "text-dim"}`}>
-                    {entry.value}
-                  </span>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Insight footer */}
