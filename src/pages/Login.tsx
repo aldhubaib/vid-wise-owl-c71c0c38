@@ -66,7 +66,7 @@ export default function Login() {
       </div>
 
       {/* Right — Login form */}
-      <div className="w-full lg:w-[480px] lg:min-w-[480px] flex items-center justify-center relative">
+      <div className="flex-1 flex items-center justify-center relative">
         <div className="absolute inset-0 pointer-events-none" style={{
           background: "radial-gradient(ellipse 80% 60% at 50% -10%, hsl(var(--primary) / 0.06) 0%, transparent 60%)",
         }} />
