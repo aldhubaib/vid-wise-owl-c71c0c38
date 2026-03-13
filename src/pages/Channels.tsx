@@ -113,7 +113,10 @@ export default function Channels() {
                 className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-[#0d0d10] transition-colors group border-b border-border last:border-b-0"
               >
                 {/* Avatar */}
-                <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover shrink-0" />
+                <div className="relative shrink-0">
+                  <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover" />
+                  <span className="absolute top-0 left-0 w-2 h-2 rounded-full bg-success border-2 border-background" />
+                </div>
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
@@ -121,7 +124,6 @@ export default function Channels() {
                     <span className="text-[13px] font-medium text-foreground truncate" dir="rtl">
                       {ch.name}
                     </span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-success shrink-0" />
                   </div>
                   <div className="text-[11px] text-dim font-mono">{ch.handle}</div>
                 </div>
