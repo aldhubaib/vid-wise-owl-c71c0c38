@@ -179,7 +179,7 @@ export default function Monitor() {
               <div
                 key={ch.id}
                 onClick={() => navigate(`/channel/${ch.id}`)}
-                className="grid grid-cols-[1fr_90px_90px_90px_90px_80px_80px] px-4 py-3 bg-background border-b border-border last:border-b-0 hover:bg-surface/50 transition-colors cursor-pointer group items-center"
+                className="grid grid-cols-[1fr_90px_90px_90px_90px_80px_80px] px-4 py-3 bg-background border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors cursor-pointer group items-center"
               >
                 <div className="flex items-center gap-2.5">
                   <img src={ch.avatar} alt="" className="w-7 h-7 rounded-full object-cover shrink-0" />
