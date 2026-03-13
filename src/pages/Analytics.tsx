@@ -110,32 +110,15 @@ export default function Analytics() {
             {/* Rankings bar chart */}
             <div className="px-5 pb-5">
               {rankings.map((entry) => {
-                const ch = channelAvatarMap[entry.name];
                 return (
                   <div
                     key={entry.rank}
-                    className={`flex items-center gap-3 py-2.5 ${ch ? "cursor-pointer" : ""}`}
-                    onClick={() => ch && navigate(`/channel/${ch.id}`)}
+                    className="flex items-center gap-3 py-2.5"
                   >
                     <span className={`w-6 text-right text-[12px] font-mono shrink-0 ${entry.isYou ? "text-blue" : "text-dim"}`}>
                       {entry.rank}
                     </span>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="shrink-0">
-                          {ch ? (
-                            <img src={ch.avatar} alt={entry.name} className={`w-7 h-7 rounded-full object-cover ${entry.isYou ? "ring-2 ring-blue" : ""}`} />
-                          ) : (
-                            <div className="w-7 h-7 rounded-full bg-elevated flex items-center justify-center text-[10px] text-dim font-mono">
-                              {entry.name[0]}
-                            </div>
-                          )}
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="top">
-                        <span>{entry.name}{entry.isYou ? " (You)" : ""}</span>
-                      </TooltipContent>
-                    </Tooltip>
+                    <ChannelAvatar name={entry.name} />
                     {entry.isYou && <span className="text-[10px] text-blue font-mono shrink-0">YOU</span>}
                     <div className="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden">
                       <div
