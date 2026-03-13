@@ -163,7 +163,8 @@ export default function Channels() {
                   </button>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
