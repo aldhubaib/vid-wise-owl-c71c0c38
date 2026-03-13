@@ -35,7 +35,7 @@ export default function Login() {
           <button
             onClick={handleLogin}
             disabled={loading}
-            className={`w-full flex items-center justify-center gap-2.5 py-2.5 px-4 bg-elevated border border-border rounded-md text-foreground text-[13px] font-medium transition-all hover:bg-border hover:border-sensor/20 ${
+            className={`w-full flex items-center justify-center gap-2.5 py-2.5 px-4 bg-elevated border border-border rounded-xl text-foreground text-[13px] font-medium transition-all hover:bg-border hover:border-sensor/20 ${
               loading ? "opacity-60 cursor-not-allowed pointer-events-none" : "cursor-pointer"
             }`}
           >
