@@ -30,8 +30,9 @@ export default function Pipeline() {
         </div>
       </div>
 
+      <div className="flex-1 relative overflow-auto">
       {/* Stats row */}
-      <div className="px-6 max-lg:px-4 mb-5">
+      <div className="px-6 max-lg:px-4 mb-5 pt-5">
         <div className="flex rounded-xl overflow-hidden border border-border">
           {/* Total */}
           <div className="px-5 py-4 bg-background border-r border-border min-w-[140px]">
