@@ -23,7 +23,6 @@ export default function Login() {
   // Create 3 columns with different speeds/directions
   const col1 = [s1, s4, s2, s5, s1, s4, s2, s5];
   const col2 = [s3, s6, s5, s1, s3, s6, s5, s1];
-  const col3 = [s2, s5, s4, s3, s2, s5, s4, s3];
 
   return (
     <div className="flex min-h-screen bg-background">
