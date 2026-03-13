@@ -108,7 +108,7 @@ export default function Channels() {
               return (
               <div
                 key={ch.id}
-                className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-elevated/50 transition-colors group border-b border-border last:border-b-0"
+                className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-[hsl(240_4%_16%)] transition-colors group border-b border-border last:border-b-0"
               >
                 {/* Avatar */}
                 <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover shrink-0" />
