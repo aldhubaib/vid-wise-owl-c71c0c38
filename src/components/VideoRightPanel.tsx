@@ -58,27 +58,6 @@ export function VideoRightPanel({ video, visible, onClose, pipeline }: VideoRigh
         ))}
       </div>
 
-      {/* Pipeline */}
-      <div className="px-4 py-3 border-t border-border">
-        <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2">Pipeline</div>
-        <div className="space-y-1">
-          {pipeline.map((step) => (
-            <div key={step.name} className="flex items-center justify-between py-1">
-              <div className="flex items-center gap-1.5">
-                <div className={`w-1.5 h-1.5 rounded-full ${
-                  step.status === "done" ? "bg-success" :
-                  step.status === "failed" ? "bg-destructive" :
-                  step.status === "running" ? "bg-blue animate-pulse" : "bg-dim/30"
-                }`} />
-                <span className={`text-[11px] ${step.status === "failed" ? "text-destructive" : "text-sensor"}`}>{step.name}</span>
-              </div>
-              <span className={`text-[10px] font-mono ${step.status === "failed" ? "text-destructive/60" : "text-dim"}`}>
-                {step.time || (step.status === "waiting" ? "—" : "...")}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* Actions */}
       <div className="px-4 py-3 border-t border-border flex items-center justify-between">
