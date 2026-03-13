@@ -153,9 +153,10 @@ export default function StoryDetail() {
                   <div className="space-y-1">
                     {likedStories.map((s, i) => (
                       <button
+                        type="button"
                         key={s.id}
-                        onClick={() => navigate(`/story/${s.id}`)}
-                        className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12px] hover:bg-[#0d0d10] transition-colors group cursor-pointer ${s.id === id ? "bg-[#0d0d10] text-foreground" : "text-dim"}`}
+                        onClick={(e) => { e.stopPropagation(); navigate(`/story/${s.id}`); }}
+                        className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-[12px] hover:bg-[#0d0d10] transition-colors group cursor-pointer ${s.id === id ? "bg-[#0d0d10] text-foreground" : "text-dim"}`}
                       >
                         <span className="font-mono w-5">#{i + 1}</span>
                         {s.isFirstMover ? (
