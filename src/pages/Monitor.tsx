@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Circle, Pause, RotateCw, Search, ChevronDown, ArrowUpRight } from "lucide-react";
 import { monitorHealth, monitorCadence, monitorQuota, monitorChannels } from "@/data/monitorMock";
@@ -9,7 +9,15 @@ export default function Monitor() {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("All");
   const [search, setSearch] = useState("");
+  const [countdown, setCountdown] = useState(21);
   const q = monitorQuota;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown((prev) => (prev <= 0 ? 21 : prev - 1));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const filtered = monitorChannels.filter((ch) => {
     if (search && !ch.name.includes(search) && !ch.handle.includes(search)) return false;
@@ -36,7 +44,7 @@ export default function Monitor() {
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/15 text-success text-[11px] font-medium">
             <Circle className="w-2 h-2 fill-current" />
-            Crawler running
+            Crawler running · {countdown}s
           </span>
           <button className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border text-[11px] text-dim font-medium hover:text-sensor transition-colors">
             <Pause className="w-3 h-3" />
