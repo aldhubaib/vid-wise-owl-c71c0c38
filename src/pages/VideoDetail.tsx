@@ -152,11 +152,18 @@ export default function VideoDetail() {
             {/* Tab content */}
             {activeTab === "Overview" && (
               <div>
-                {/* Summaries in table container */}
+                {/* Transcript */}
                 <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
-                  <div className="bg-background px-4 py-3 hover:bg-[#0d0d10] transition-colors">
-                    <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-1.5">Summary</div>
-                    <p className="text-sm leading-relaxed text-sensor" dir="rtl" style={{ textAlign: "right" }}>{a.summary}</p>
+                  <div className="bg-background px-4 py-3">
+                    <div className="text-[11px] text-dim font-mono uppercase tracking-widest mb-3">Transcript</div>
+                    <div className="space-y-5">
+                      {a.transcript.map((seg, i) => (
+                        <div key={i} className="flex gap-4">
+                          <span className="text-destructive text-[13px] font-mono shrink-0 pt-0.5">{seg.time}</span>
+                          <p className="text-sm leading-relaxed text-sensor" dir="rtl" style={{ textAlign: "right" }}>{seg.text}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
