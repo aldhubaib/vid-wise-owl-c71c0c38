@@ -31,7 +31,7 @@ export default function Login() {
           </p>
         </div>
 
-        <div className="bg-surface border border-border rounded-lg p-6">
+        <div className="bg-surface border border-border rounded-2xl p-6">
           <button
             onClick={handleLogin}
             disabled={loading}
