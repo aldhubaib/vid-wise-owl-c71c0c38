@@ -263,29 +263,44 @@ export default function Settings() {
                     )}
 
                     {/* Single key */}
-                    {!api.multiKey && (
-                      <div className="flex items-center gap-2.5 max-sm:flex-col max-sm:items-stretch">
-                        <input
-                          type="text"
-                          value={editingValues[api.id] !== undefined ? editingValues[api.id] : (api as SingleApiKey).value}
-                          onChange={(e) => setEditingValues((p) => ({ ...p, [api.id]: e.target.value }))}
-                          placeholder="Paste your API key..."
-                          className="flex-1 px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40"
-                        />
-                        <button
-                          onClick={() => handleSave(api.id)}
-                          className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue text-blue-foreground hover:opacity-90 transition-opacity shrink-0"
-                        >
-                          <Check className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleClear(api.id)}
-                          className="w-10 h-10 rounded-xl flex items-center justify-center bg-destructive/15 text-destructive hover:bg-destructive/25 transition-colors shrink-0"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
+                    {!api.multiKey && (() => {
+                      const storedValue = (api as SingleApiKey).value;
+                      const isEditing = editingValues[api.id] !== undefined;
+                      const hasKey = !!storedValue;
+                      return (
+                        <div className="flex items-center gap-2.5 max-sm:flex-col max-sm:items-stretch">
+                          {hasKey && !isEditing ? (
+                            <div
+                              onClick={() => setEditingValues((p) => ({ ...p, [api.id]: "" }))}
+                              className="flex-1 px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-dim font-mono cursor-pointer hover:border-blue/40 transition-colors"
+                            >
+                              {storedValue}
+                            </div>
+                          ) : (
+                            <input
+                              type="password"
+                              value={editingValues[api.id] || ""}
+                              onChange={(e) => setEditingValues((p) => ({ ...p, [api.id]: e.target.value }))}
+                              placeholder="Paste your API key..."
+                              className="flex-1 px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40"
+                              autoFocus={isEditing}
+                            />
+                          )}
+                          <button
+                            onClick={() => handleSave(api.id)}
+                            className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue text-blue-foreground hover:opacity-90 transition-opacity shrink-0"
+                          >
+                            <Check className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleClear(api.id)}
+                            className="w-10 h-10 rounded-xl flex items-center justify-center bg-destructive/15 text-destructive hover:bg-destructive/25 transition-colors shrink-0"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      );
+                    })()}
 
                     {api.link && (
                       <a href={api.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[12px] text-blue font-mono mt-2 hover:opacity-80 transition-opacity">
