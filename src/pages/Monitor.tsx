@@ -68,7 +68,7 @@ export default function Monitor() {
                 {[
                   { val: monitorHealth.total, label: "TOTAL", color: "" },
                   { val: monitorHealth.healthy, label: "ACTIVE", color: "text-success" },
-                  { val: monitorHealth.inactive, label: "INACTIVE", color: "text-orange" },
+                  { val: monitorHealth.inactive, label: "REGULAR", color: "text-orange" },
                   { val: monitorHealth.gone, label: "GONE", color: "text-destructive" },
                 ].map((s) => (
                   <div key={s.label}>
