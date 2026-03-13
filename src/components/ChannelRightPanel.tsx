@@ -1,10 +1,19 @@
 import type { Channel } from "@/data/mock";
-import { RefreshCw, Play, Trash2 } from "lucide-react";
+import { RefreshCw, Play, Trash2, Globe, Calendar, Hash, TrendingUp, Eye, Sparkles } from "lucide-react";
 
 interface ChannelRightPanelProps {
   channel: Channel;
   visible: boolean;
 }
+
+const infoCards = (channel: Channel) => [
+  { icon: Hash, label: "Handle", value: channel.handle },
+  { icon: Globe, label: "Country", value: channel.country },
+  { icon: Calendar, label: "Joined", value: channel.joinedDate },
+  { icon: Sparkles, label: "Category", value: channel.topCategory },
+  { icon: TrendingUp, label: "Eng. Rate", value: channel.engRate, highlight: true },
+  { icon: Eye, label: "Avg Views", value: channel.avgViews, highlight: true },
+];
 
 export function ChannelRightPanel({ channel, visible }: ChannelRightPanelProps) {
   return (
@@ -14,24 +23,25 @@ export function ChannelRightPanel({ channel, visible }: ChannelRightPanelProps) 
       }`}
     >
       <h3 className="text-[11px] text-dim font-mono uppercase tracking-widest mb-4">
-        Channel Info
+        Overview
       </h3>
 
-      {[
-        { key: "Handle", val: channel.handle },
-        { key: "Country", val: channel.country },
-        { key: "Joined", val: channel.joinedDate },
-        { key: "Category", val: channel.topCategory },
-        { key: "Eng. Rate", val: channel.engRate, highlight: true },
-        { key: "Avg Views", val: channel.avgViews, highlight: true },
-      ].map((row) => (
-        <div key={row.key} className="flex justify-between items-center py-2 border-b border-border last:border-b-0">
-          <span className="text-[12px] text-dim">{row.key}</span>
-          <span className={`text-[12px] font-mono text-right ${row.highlight ? "text-foreground" : "text-sensor"}`}>
-            {row.val}
-          </span>
-        </div>
-      ))}
+      <div className="grid grid-cols-2 gap-2 mb-5">
+        {infoCards(channel).map((card) => (
+          <div
+            key={card.label}
+            className="rounded-lg bg-elevated/60 border border-border/60 px-3 py-2.5 flex flex-col gap-1.5"
+          >
+            <div className="flex items-center gap-1.5">
+              <card.icon className="w-3 h-3 text-dim" />
+              <span className="text-[10px] text-dim font-mono uppercase tracking-wider">{card.label}</span>
+            </div>
+            <span className={`text-[13px] font-mono font-medium truncate ${card.highlight ? "text-primary" : "text-foreground"}`}>
+              {card.value}
+            </span>
+          </div>
+        ))}
+      </div>
 
       <div className="h-px bg-border my-5" />
 
