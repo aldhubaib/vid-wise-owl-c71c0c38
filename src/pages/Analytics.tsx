@@ -324,14 +324,48 @@ function ComparisonCard({ label, value, sub, note, noteColor }: { label: string;
 
 function ChannelAnalysisSection() {
   const ca = channelAnalysis;
+  const [yourChannel, setYourChannel] = useState(ca.yourChannel);
+  const [competitor, setCompetitor] = useState(ca.competitor);
+
+  const ourChannels = ["Fun Channel (@fun213)", "فن كوميدي (@funqa3e)"];
+  const competitorChannels = [
+    "قرية العجائب | Badr Al-Alawi",
+    "Fares Ashour",
+    "VWAR",
+    "SUL CASES",
+    "Abulsadiq",
+    "Walid Qasas",
+    "Abu Talal",
+    "Mannas",
+    "Mawtan",
+  ];
+
   return (
     <div className="rounded-xl bg-background overflow-hidden">
       <div className="px-5 py-4 flex items-center gap-3 flex-wrap">
         <span className="text-[13px] font-semibold">Channel Analysis</span>
-        <span className="text-[11px] font-mono">—</span>
-        <span className="text-[11px] text-blue font-mono px-2.5 py-1 bg-blue/10 border border-blue/30 rounded-full">★ {ca.yourChannel}</span>
+        <span className="text-[11px] font-mono text-dim">—</span>
+        <select
+          value={yourChannel}
+          onChange={(e) => setYourChannel(e.target.value)}
+          className="text-[11px] text-blue font-mono px-2.5 py-1 bg-blue/10 border border-blue/30 rounded-full appearance-none cursor-pointer hover:bg-blue/20 transition-colors pr-6 focus:outline-none"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%234a8fe7' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center" }}
+        >
+          {ourChannels.map((ch) => (
+            <option key={ch} value={ch} className="bg-background text-foreground">{ch}</option>
+          ))}
+        </select>
         <span className="text-[11px] text-dim font-mono">vs</span>
-        <span className="text-[11px] text-dim font-mono">{ca.competitor}</span>
+        <select
+          value={competitor}
+          onChange={(e) => setCompetitor(e.target.value)}
+          className="text-[11px] text-dim font-mono px-2.5 py-1 bg-transparent border border-border rounded-full appearance-none cursor-pointer hover:text-sensor hover:border-border transition-colors pr-6 focus:outline-none"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center" }}
+        >
+          {competitorChannels.map((ch) => (
+            <option key={ch} value={ch} className="bg-background text-foreground">{ch}</option>
+          ))}
+        </select>
       </div>
 
       {/* Summary */}
