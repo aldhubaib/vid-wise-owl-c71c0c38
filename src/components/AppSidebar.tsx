@@ -1,12 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { LayoutGrid, GitBranch, Shield, Settings, Search, ChevronDown, Check, Pencil, Plus } from "lucide-react";
+import { LayoutGrid, GitBranch, Circle, TrendingUp, AlignJustify, CircleDot, Settings, ChevronDown, Check, Pencil, Plus, Activity } from "lucide-react";
 
 const navItems = [
   { icon: LayoutGrid, label: "Channels", path: "/" },
   { icon: GitBranch, label: "Pipeline", path: "/pipeline" },
-  { icon: Shield, label: "Access Control", path: "/access" },
+  { icon: Activity, label: "Monitor", path: "/monitor" },
+  { icon: TrendingUp, label: "Analytics", path: "/analytics" },
+  { icon: AlignJustify, label: "Stories", path: "/stories" },
+  { icon: CircleDot, label: "Brain", path: "/brain" },
   { icon: Settings, label: "Settings", path: "/settings" },
+];
+
+const adminItems = [
+  { icon: Circle, label: "Admin", path: "/admin" },
 ];
 
 const projects = [
@@ -102,6 +109,29 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
       {/* Nav */}
       <nav className="flex-1 py-1.5 px-2 bg-[#080808]">
         {navItems.map((item) => {
+          const Icon = item.icon;
+          const active = isActive(item.path);
+          return (
+            <button
+              key={item.path}
+              onClick={() => {
+                navigate(item.path);
+                onClose?.();
+              }}
+              className={`w-full flex items-center gap-2.5 px-2.5 py-[7px] rounded-full text-[13px] font-medium transition-colors mb-0.5 ${
+                active
+                  ? "bg-elevated text-foreground"
+                  : "text-dim hover:bg-elevated/60 hover:text-sensor"
+              }`}
+            >
+              <Icon className="w-4 h-4" strokeWidth={1.5} />
+              {item.label}
+            </button>
+          );
+        })}
+
+        <div className="mt-4 mb-1 px-2.5 text-[10px] font-medium text-dim uppercase tracking-wider">Admin</div>
+        {adminItems.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.path);
           return (
