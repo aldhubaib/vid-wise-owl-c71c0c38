@@ -45,6 +45,7 @@ export interface PipelineStep {
   name: PipelineStepName;
   status: PipelineStepStatus;
   time?: string;
+  retries?: number;
 }
 
 export interface Video {
