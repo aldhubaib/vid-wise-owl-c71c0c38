@@ -184,7 +184,7 @@ export default function VideoDetail() {
                   {a.questions.map((q) => (
                     <div key={q.text} className="bg-surface border border-border rounded-lg px-3.5 py-2.5 flex items-center justify-between gap-3">
                       <span className="text-[13px] flex-1" dir="rtl">{q.text}</span>
-                      <span className="text-[11px] text-dim font-mono bg-elevated py-0.5 px-2 rounded whitespace-nowrap">{q.count}</span>
+                      <span className="text-[11px] text-dim font-mono bg-elevated py-0.5 px-2 rounded-full whitespace-nowrap">{q.count}</span>
                     </div>
                   ))}
                 </div>
