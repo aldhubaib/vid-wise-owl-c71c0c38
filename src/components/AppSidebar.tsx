@@ -130,7 +130,7 @@ export function AppSidebar({ onClose, isMobile }: AppSidebarProps) {
       </nav>
 
       {/* User */}
-      <div className="px-3 py-3 border-t border-border flex items-center gap-2.5 bg-[#080808]">
+      <div className="px-3 py-3 flex items-center gap-2.5 bg-[#080808]">
         <div className="w-7 h-7 rounded-full bg-primary/15 flex items-center justify-center text-[11px] font-semibold text-primary shrink-0">
           A
         </div>
