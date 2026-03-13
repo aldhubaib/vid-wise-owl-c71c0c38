@@ -11,6 +11,7 @@ export interface Channel {
   handle: string;
   avatar: string;
   avatarImg: string;
+  type: "ours" | "competition";
   subscribers: string;
   views: string;
   videos: string;
