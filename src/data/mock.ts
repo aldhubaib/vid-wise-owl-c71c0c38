@@ -116,6 +116,8 @@ export const channels: Channel[] = [
     topCategory: "Entertainment",
     growthSubs: "+3.1%",
     growthViews: "+7.2%",
+    startHook: "أهلاً وسهلاً فيكم في قرية العجائب، أنا بدر العلوي...",
+    endHook: "لا تنسوا الاشتراك وتفعيل الجرس عشان يوصلكم كل جديد!",
   },
   {
     id: "ch3",
