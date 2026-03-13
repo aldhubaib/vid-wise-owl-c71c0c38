@@ -45,10 +45,12 @@ export default function Pipeline() {
             </div>
           </div>
           {/* Stage stats */}
-          {s.stages.map((stage) => (
+          {s.stages.map((stage) => {
+            const colorClass = stage.color === "orange" ? "text-orange" : stage.color === "blue" ? "text-blue" : stage.color === "purple" ? "text-purple" : stage.color === "success" ? "text-success" : stage.color === "destructive" ? "text-destructive" : "text-primary";
+            return (
             <div key={stage.label} className="flex-1 px-5 py-4 bg-background border-r border-border last:border-r-0">
               <div className="flex items-baseline gap-2">
-                <span className={`text-2xl font-semibold font-mono tracking-tight text-${stage.color}`}>{stage.count}</span>
+                <span className={`text-2xl font-semibold font-mono tracking-tight ${colorClass}`}>{stage.count}</span>
                 {stage.eta && (
                   <span className="text-[10px] text-dim font-mono">{stage.eta} ⏱</span>
                 )}
@@ -59,7 +61,8 @@ export default function Pipeline() {
                 <span className="text-orange">{stage.remaining} left</span>
               </div>
             </div>
-          ))}
+            );
+          })}
           {/* Failed */}
           <div className="px-5 py-4 bg-background min-w-[120px]">
             <div className="flex items-baseline gap-2">
