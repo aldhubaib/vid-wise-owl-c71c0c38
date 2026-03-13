@@ -11,6 +11,7 @@ export interface Channel {
   handle: string;
   avatar: string;
   avatarImg: string;
+  type: "ours" | "competition";
   subscribers: string;
   views: string;
   videos: string;
@@ -51,6 +52,7 @@ export const channels: Channel[] = [
     handle: "@dqh1",
     avatar: "م",
     avatarImg: avatarCh1,
+    type: "ours",
     subscribers: "607K",
     views: "37.6M",
     videos: "126",
@@ -73,6 +75,7 @@ export const channels: Channel[] = [
     handle: "@badr3",
     avatar: "ق",
     avatarImg: avatarCh2,
+    type: "ours",
     subscribers: "6.6M",
     views: "863.7M",
     videos: "282",
@@ -95,6 +98,7 @@ export const channels: Channel[] = [
     handle: "@tariq",
     avatar: "ط",
     avatarImg: avatarCh3,
+    type: "ours",
     subscribers: "2.1M",
     views: "241.3M",
     videos: "198",
@@ -117,6 +121,7 @@ export const channels: Channel[] = [
     handle: "@sarah_w",
     avatar: "س",
     avatarImg: avatarCh4,
+    type: "competition",
     subscribers: "890K",
     views: "52.4M",
     videos: "87",
@@ -139,6 +144,7 @@ export const channels: Channel[] = [
     handle: "@amrshd",
     avatar: "ع",
     avatarImg: avatarCh5,
+    type: "competition",
     subscribers: "1.3M",
     views: "98.7M",
     videos: "154",
@@ -161,6 +167,7 @@ export const channels: Channel[] = [
     handle: "@nawaf_s",
     avatar: "ن",
     avatarImg: avatarCh6,
+    type: "competition",
     subscribers: "445K",
     views: "18.2M",
     videos: "63",
