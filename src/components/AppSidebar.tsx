@@ -196,14 +196,18 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
 
       {/* Collapse toggle (desktop only) */}
       {!isMobile && onToggleCollapse && (
-        <div className="px-2 py-1.5 bg-[#080808]">
-          <button
-            onClick={onToggleCollapse}
-            className="w-full flex items-center justify-center gap-2.5 px-2.5 py-[7px] rounded-full text-[13px] font-medium text-dim hover:bg-elevated/60 hover:text-sensor transition-colors"
-          >
-            {collapsed ? <ChevronsRight className="w-4 h-4" strokeWidth={1.5} /> : <ChevronsLeft className="w-4 h-4" strokeWidth={1.5} />}
-            {!collapsed && "Collapse"}
-          </button>
+        <div className="px-2 py-1.5 bg-[#080808] flex justify-end">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={onToggleCollapse}
+                className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:bg-elevated/60 hover:text-sensor transition-colors"
+              >
+                {collapsed ? <ChevronsRight className="w-3.5 h-3.5" strokeWidth={1.5} /> : <ChevronsLeft className="w-3.5 h-3.5" strokeWidth={1.5} />}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="right">{collapsed ? "Expand" : "Collapse"}</TooltipContent>
+          </Tooltip>
         </div>
       )}
 
