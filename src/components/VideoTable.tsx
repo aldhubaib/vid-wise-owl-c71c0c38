@@ -17,7 +17,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
   return (
     <>
       {/* Desktop table */}
-      <div className="hidden md:block rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
+      <div className="hidden lg:block rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-elevated/40">
