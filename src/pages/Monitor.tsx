@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Circle, Pause, RotateCw, Search, ChevronDown, ArrowUpRight } from "lucide-react";
 import { monitorHealth, monitorCadence, monitorQuota, monitorChannels } from "@/data/monitorMock";
