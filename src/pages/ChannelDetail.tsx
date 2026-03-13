@@ -99,10 +99,16 @@ export default function ChannelDetail() {
           </div>
 
           {/* Stats row */}
-          <div className="px-6 max-md:px-4">
-            <div className="grid grid-cols-5 max-md:grid-cols-3 max-sm:grid-cols-2 rounded-xl overflow-hidden border border-border">
-              {stats.map((s) => (
-                <div key={s.label} className="px-5 py-4 bg-background border-r border-b border-border last:border-r-0">
+          <div className="px-6 max-lg:px-4">
+            <div className="grid grid-cols-5 max-lg:grid-cols-3 max-sm:grid-cols-2 rounded-xl overflow-hidden border border-border">
+              {stats.map((s, i) => (
+                <div
+                  key={s.label}
+                  className={`px-5 py-4 bg-background border-r border-b border-border last:border-r-0 ${
+                    /* On 2-col mobile, make the 5th (last) item span full width */
+                    i === stats.length - 1 ? "max-sm:col-span-2 max-sm:border-r-0" : ""
+                  }`}
+                >
                   <div className="text-lg font-semibold font-mono tracking-tight mb-0.5">{s.val}</div>
                   <div className="text-[11px] text-dim">{s.label}</div>
                   <div className={`text-[11px] font-mono mt-0.5 ${s.up ? "text-success" : "text-destructive"}`}>
