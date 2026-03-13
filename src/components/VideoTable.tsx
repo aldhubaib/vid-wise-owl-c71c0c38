@@ -53,6 +53,12 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                     <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </div>
                 </td>
+                <td className="py-2.5 px-3 border-b border-border">
+                  {v.type === "short"
+                    ? <Smartphone className="w-3.5 h-3.5 text-dim" title="Short" />
+                    : <Monitor className="w-3.5 h-3.5 text-dim" title="Video" />
+                  }
+                </td>
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.views}</td>
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.likes}</td>
                 <td className="py-2.5 px-3 border-b border-border text-[11px] font-mono text-dim">{v.date}</td>
