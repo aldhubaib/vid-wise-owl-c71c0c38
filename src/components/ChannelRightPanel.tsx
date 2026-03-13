@@ -83,7 +83,7 @@ export function ChannelRightPanel({ channel, visible, onClose, videoCount, short
         <div className="flex items-center justify-between mb-2">
           <span className="text-[11px] text-dim">Classification</span>
         </div>
-        <div className="flex rounded-lg overflow-hidden border border-border">
+        <div className="flex rounded-full overflow-hidden border border-border">
           <button
             onClick={() => onTypeChange?.("ours")}
             className={`flex-1 py-1.5 text-[11px] font-medium transition-colors ${
