@@ -33,7 +33,7 @@ export default function Channels() {
       <div className="flex-1 overflow-auto">
         {/* Add channel */}
         <div className="px-6 pt-5 max-md:px-4">
-          <div className="bg-surface border border-border rounded-lg p-4">
+          <div className="bg-surface p-4">
             <div className="flex gap-2 max-md:flex-col">
               <input
                 type="text"
