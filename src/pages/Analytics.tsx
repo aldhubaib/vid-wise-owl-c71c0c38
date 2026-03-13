@@ -261,7 +261,10 @@ export default function Analytics() {
                     <div className="h-full bg-blue/40 rounded-full" style={{ width: `${(parseFloat(v.views) / 15.5) * 100}%` }} />
                   </div>
                 </div>
-                <span className="text-[11px] text-dim font-mono px-2 py-0.5 bg-surface rounded shrink-0">{v.channel}</span>
+                <div className="flex items-center gap-1.5 px-2 py-0.5 bg-surface rounded shrink-0">
+                  {getAvatarForDropdown(v.channel) && <img src={getAvatarForDropdown(v.channel)!} alt="" className="w-4 h-4 rounded-full object-cover" />}
+                  <span className="text-[11px] text-dim font-mono">{v.channel}</span>
+                </div>
                 <span className="text-[13px] font-mono text-dim shrink-0 w-16 text-right">{v.views}</span>
               </div>
             ))}
