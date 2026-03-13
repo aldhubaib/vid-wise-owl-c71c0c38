@@ -13,6 +13,7 @@ export default function Channels() {
   const [inputError, setInputError] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterType>("ours");
+  const [addType, setAddType] = useState<FilterType>("ours");
 
   const filteredChannels = useMemo(
     () => channels.filter((ch) => ch.type === filter),
@@ -73,8 +74,29 @@ export default function Channels() {
       <div className="flex-1 overflow-auto">
         {/* Add channel */}
         <div className="px-6 pt-5 pb-1 max-md:px-4">
-          <div className="flex gap-2 max-md:flex-col">
-            <div className="flex-1 relative">
+          <div className="flex gap-2 max-md:flex-col items-start">
+            {/* Type selector */}
+            <div className="flex items-center bg-background border border-border p-0.5 shrink-0" style={{ borderRadius: '8px' }}>
+              <button
+                onClick={() => setAddType("ours")}
+                className={`px-3 py-2 text-[12px] font-medium transition-colors ${
+                  addType === "ours" ? "bg-elevated text-foreground" : "text-dim hover:text-sensor"
+                }`}
+                style={{ borderRadius: '6px' }}
+              >
+                Ours
+              </button>
+              <button
+                onClick={() => setAddType("competition")}
+                className={`px-3 py-2 text-[12px] font-medium transition-colors ${
+                  addType === "competition" ? "bg-elevated text-foreground" : "text-dim hover:text-sensor"
+                }`}
+                style={{ borderRadius: '6px' }}
+              >
+                Competition
+              </button>
+            </div>
+            <div className="flex-1 relative max-md:w-full">
               <input
                 type="text"
                 value={inputValue}
