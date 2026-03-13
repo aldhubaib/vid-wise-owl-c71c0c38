@@ -64,7 +64,7 @@ export default function Monitor() {
           <div className="rounded-xl bg-background overflow-hidden">
             <div className="px-4 py-3">
               <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Channel Health</div>
-              <div className="grid grid-cols-4 gap-0">
+              <div className="grid grid-cols-5 gap-0">
                 {[
                   { val: monitorHealth.total, label: "TOTAL", color: "" },
                   { val: monitorHealth.healthy, label: "ACTIVE", color: "text-success" },
