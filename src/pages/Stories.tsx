@@ -68,14 +68,6 @@ export default function Stories() {
 
 
   const stageStories = stories.filter((s) => s.stage === activeStage);
-  const selected = stories.find((s) => s.id === selectedId && s.stage === activeStage) || null;
-  const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
-
-  const moveStory = (id: string, to: Stage) => {
-    setStories((prev) => prev.map((s) => (s.id === id ? { ...s, stage: to } : s)));
-    setSelectedId(null);
-    toast.success(`Moved to ${stages.find((s) => s.key === to)?.label}`);
-  };
 
   // First mover % across all stories
   const totalStories = stories.length;
