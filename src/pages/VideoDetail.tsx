@@ -171,26 +171,6 @@ export default function VideoDetail() {
                     </div>
                   ))}
                 </div>
-
-                <SectionDivider label="Emotions" />
-                <div className="rounded-xl overflow-hidden border border-border mb-7" style={{ borderRadius: '12px' }}>
-                  {a.emotions.map((e) => (
-                    <div key={e.name} className="bg-background flex items-center justify-between px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
-                      <span className="text-[13px]">{e.emoji} {e.name}</span>
-                      <span className="text-xs text-dim font-mono">{e.pct}%</span>
-                    </div>
-                  ))}
-                </div>
-
-                <SectionDivider label="Top Questions" />
-                <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
-                  {a.questions.map((q) => (
-                    <div key={q.text} className="bg-background flex items-center justify-between gap-3 px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
-                      <span className="text-[13px] flex-1" dir="rtl">{q.text}</span>
-                      <span className="text-[11px] text-dim font-mono bg-elevated py-0.5 px-2 rounded-full whitespace-nowrap">{q.count}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
             )}
 
