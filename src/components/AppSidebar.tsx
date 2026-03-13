@@ -28,7 +28,8 @@ interface AppSidebarProps {
   onClose?: () => void;
   isMobile?: boolean;
   collapsed?: boolean;
-  onToggleCollapse?: () => void;
+  pinned?: boolean;
+  onTogglePin?: () => void;
 }
 
 export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleCollapse }: AppSidebarProps) {
