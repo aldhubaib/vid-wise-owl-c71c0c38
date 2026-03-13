@@ -122,7 +122,7 @@ export default function Channels() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] text-dim font-mono">{ch.handle}</span>
-                    <span className="text-[10px] text-dim">Synced {ch.lastSynced}</span>
+                    <span className="text-[10px] text-dim">{formatDistanceToNow(new Date(ch.lastSynced), { addSuffix: true })}</span>
                   </div>
                 </div>
 
