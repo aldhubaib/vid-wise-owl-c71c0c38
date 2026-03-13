@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
