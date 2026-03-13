@@ -27,7 +27,7 @@ export default function Pipeline() {
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/15 text-success text-[11px] font-medium">
             <Circle className="w-2 h-2 fill-current" />
-            System running
+            Running · {countdown}s
           </span>
           <button className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border text-[11px] text-dim font-medium hover:text-sensor transition-colors">
             <Pause className="w-3 h-3" />
