@@ -158,8 +158,6 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
           return btn;
         })}
 
-        {!collapsed && <div className="mt-4" />}
-        {collapsed && <div className="mt-4" />}
         {adminItems.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.path);
