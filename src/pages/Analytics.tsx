@@ -248,7 +248,7 @@ export default function Analytics() {
             {keyInsights.map((insight, i) => (
               <div key={i} className="px-5 py-4 border-t border-border">
                 <div className="flex items-start gap-3">
-                  <span className={`text-[10px] font-mono font-semibold px-2 py-0.5 border rounded shrink-0 mt-0.5 ${insightColors[insight.type]}`}>
+                  <span className={`text-[10px] font-mono font-semibold px-2.5 py-1 rounded-full shrink-0 mt-0.5 ${insightColors[insight.type]}`}>
                     {insight.type}
                   </span>
                   <div>
