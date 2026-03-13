@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { AppSidebar } from "./AppSidebar";
+import { Menu } from "lucide-react";
 
 export function AppLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -13,23 +14,20 @@ export function AppLayout() {
       </div>
 
       {/* Mobile header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 h-[52px] flex items-center justify-between px-4 border-b border-border bg-background z-[100]">
+      <div className="md:hidden fixed top-0 left-0 right-0 h-12 flex items-center justify-between px-4 border-b border-border bg-background z-[100]">
         <button
           onClick={() => setDrawerOpen(true)}
-          className="w-9 h-9 bg-elevated border border-border rounded-md flex flex-col items-center justify-center gap-1 cursor-pointer"
+          className="w-8 h-8 rounded-md flex items-center justify-center text-dim hover:text-sensor hover:bg-elevated transition-colors"
         >
-          <span className="block w-3.5 h-[1.5px] bg-sensor rounded-sm" />
-          <span className="block w-3.5 h-[1.5px] bg-sensor rounded-sm" />
-          <span className="block w-3.5 h-[1.5px] bg-sensor rounded-sm" />
+          <Menu className="w-4 h-4" />
         </button>
         <div className="flex items-center gap-2">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-            <circle cx="10" cy="10" r="9" stroke="hsl(var(--primary))" strokeWidth="1.5" />
-            <circle cx="10" cy="10" r="4" fill="hsl(var(--primary))" />
-          </svg>
-          <span className="font-bold text-sm text-foreground">Falak</span>
+          <div className="w-4 h-4 rounded bg-primary/20 flex items-center justify-center">
+            <div className="w-1.5 h-1.5 rounded-sm bg-primary" />
+          </div>
+          <span className="font-semibold text-[13px] text-foreground">Falak</span>
         </div>
-        <div className="w-9" />
+        <div className="w-8" />
       </div>
 
       {/* Mobile drawer overlay */}
@@ -42,7 +40,7 @@ export function AppLayout() {
 
       {/* Mobile drawer */}
       <div
-        className={`fixed top-0 left-0 w-[260px] h-screen bg-background border-r border-border z-[600] transition-transform duration-250 ease-out md:hidden ${
+        className={`fixed top-0 left-0 w-[260px] h-screen bg-background border-r border-border z-[600] transition-transform duration-200 ease-out md:hidden ${
           drawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -50,7 +48,7 @@ export function AppLayout() {
       </div>
 
       {/* Main content */}
-      <main className="flex-1 min-w-0 md:pt-0 pt-[52px]">
+      <main className="flex-1 min-w-0 md:pt-0 pt-12">
         <Outlet />
       </main>
     </div>
