@@ -206,7 +206,8 @@ export default function StoryDetail() {
                   <button
                     onClick={() => {
                       if (!selectedChannel) { toast.error("Please select a channel first"); return; }
-                      moveStory("approved");
+                      setStories((prev) => prev.map((s) => s.id === id ? { ...s, channelId: selectedChannel, stage: "approved" as Stage } : s));
+                      toast.success(`Moved to ${stages.find((s) => s.key === "approved")?.label}`);
                     }}
                     className="flex-1 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
                   >
