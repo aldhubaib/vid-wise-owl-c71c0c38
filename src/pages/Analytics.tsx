@@ -13,7 +13,7 @@ import {
   type FieldTab,
   type InsightType,
 } from "@/data/analyticsMock";
-import { Star, Circle } from "lucide-react";
+import { Star, Circle, CheckCircle, XCircle } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 const periodTabs = ["30d", "90d", "12m"];
@@ -385,24 +385,26 @@ function ChannelAnalysisSection() {
 
       {/* Metric comparison table */}
       <div className="mx-5 mb-4 rounded-xl border border-border overflow-hidden">
-        <div className="grid grid-cols-[1fr_100px_100px_80px] gap-0 px-5 py-3 bg-surface/30 border-b border-border">
+        <div className="grid grid-cols-[1fr_100px_100px_40px] gap-0 px-5 py-3 bg-surface/30 border-b border-border">
           <span className="text-[10px] text-dim font-mono uppercase tracking-widest">METRIC</span>
           <span className="text-[10px] text-blue font-mono uppercase tracking-widest text-right">You</span>
           <span className="text-[10px] text-dim font-mono uppercase tracking-widest text-right">Competitor</span>
-          <span className="text-[10px] text-dim font-mono uppercase tracking-widest text-right">STATUS</span>
+          <span />
         </div>
         {ca.metrics.map((m, i) => {
           const isWinning = m.tagColor === "success";
           return (
-            <div key={m.label} className={`grid grid-cols-[1fr_100px_100px_80px] gap-0 px-5 py-3.5 items-center ${i < ca.metrics.length - 1 ? "border-b border-border" : ""}`}>
+            <div key={m.label} className={`grid grid-cols-[1fr_100px_100px_40px] gap-0 px-5 py-3.5 items-center ${i < ca.metrics.length - 1 ? "border-b border-border" : ""}`}>
               <span className="text-[13px] font-medium">{m.label}</span>
               <span className={`text-[13px] font-mono font-semibold text-right ${isWinning ? "text-success" : "text-blue"}`}>{m.you.value}</span>
               <span className="text-[13px] font-mono text-dim text-right">{m.them.value}</span>
-              <span className={`text-[10px] font-mono px-2 py-0.5 border rounded-full text-center ml-auto ${
-                isWinning ? "text-success border-success/30 bg-success/10" : "text-destructive border-destructive/30 bg-destructive/10"
-              }`}>
-                {isWinning ? "✓ Winning" : "✗ Losing"}
-              </span>
+              <div className="flex justify-end">
+                {isWinning ? (
+                  <CheckCircle className="w-4 h-4 text-success" />
+                ) : (
+                  <XCircle className="w-4 h-4 text-destructive" />
+                )}
+              </div>
             </div>
           );
         })}
