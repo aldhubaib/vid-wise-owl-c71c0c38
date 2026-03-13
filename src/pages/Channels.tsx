@@ -108,10 +108,8 @@ export default function Channels() {
 
                 {/* Avatar with status ring */}
                 <div className="relative shrink-0">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ring-2 ${ch.type === "ours" ? "ring-[#1e51e9]" : "ring-[#FFFF00]"}`}>
-                    <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover" />
-                  </div>
-                  <span className="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-success border-2 border-background" />
+                  <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover" />
+                  <span className={`absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-success ring-2 ${ch.type === "ours" ? "ring-[#1e51e9]" : "ring-[#FFFF00]"}`} />
                 </div>
 
                 {/* Info */}
