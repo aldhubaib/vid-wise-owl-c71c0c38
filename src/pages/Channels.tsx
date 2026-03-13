@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { channels as mockChannels } from "@/data/mock";
 import { DeleteChannelModal } from "@/components/DeleteChannelModal";
-import { Plus, ExternalLink, RefreshCw, X, Users, Eye, PlayCircle } from "lucide-react";
+import { Plus, ExternalLink, RefreshCw, X, Users, Eye, PlayCircle, Star, Swords } from "lucide-react";
 
 type FilterType = "ours" | "competition";
 
@@ -14,10 +14,7 @@ export default function Channels() {
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterType>("ours");
 
-  const filteredChannels = useMemo(
-    () => channels.filter((ch) => ch.type === filter),
-    [channels, filter]
-  );
+  // Show all channels, toggle only affects add type
 
   const handleAdd = () => {
     const val = inputValue.trim();
@@ -101,12 +98,21 @@ export default function Channels() {
         {/* Channel list */}
         <div className="px-6 py-4 max-md:px-4">
           <div className="rounded-xl overflow-hidden border border-border" style={{ borderRadius: '12px' }}>
-            {filteredChannels.map((ch, index) => {
+            {channels.map((ch) => {
               return (
               <div
                 key={ch.id}
                 className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-[#0d0d10] transition-colors group border-b border-border last:border-b-0"
               >
+                {/* Type icon */}
+                <div className="shrink-0" title={ch.type === "ours" ? "Ours" : "Competition"}>
+                  {ch.type === "ours" ? (
+                    <Star className="w-3.5 h-3.5 text-primary" />
+                  ) : (
+                    <Swords className="w-3.5 h-3.5 text-orange" />
+                  )}
+                </div>
+
                 {/* Avatar */}
                 <div className="relative shrink-0">
                   <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover" />
