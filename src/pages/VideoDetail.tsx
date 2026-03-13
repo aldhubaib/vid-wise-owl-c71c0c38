@@ -137,7 +137,7 @@ export default function VideoDetail() {
                 <SectionDivider label="Topics" />
                 <div className="flex flex-wrap gap-1.5 mb-5">
                   {a.topics.map((t) => (
-                    <span key={t} className="py-1 px-2.5 rounded-md bg-primary/10 border border-primary/15 text-primary text-xs font-mono">{t}</span>
+                    <span key={t} className="py-1 px-2.5 rounded-full bg-primary/10 border border-primary/15 text-primary text-xs font-mono">{t}</span>
                   ))}
                 </div>
 
