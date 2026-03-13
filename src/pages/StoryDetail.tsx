@@ -223,12 +223,23 @@ export default function StoryDetail() {
             {/* APPROVED */}
             {activeStage === "approved" && (
               <>
-                {story.channelId && (
-                  <div className="rounded-xl bg-background p-5 flex items-center gap-3">
-                    <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Channel</div>
-                    <span className="text-[13px] font-semibold">{channels.find((c) => c.id === story.channelId)?.name}</span>
-                  </div>
-                )}
+                {story.channelId && (() => {
+                  const ch = channels.find((c) => c.id === story.channelId);
+                  return ch ? (
+                    <div className="rounded-xl bg-background p-5 flex items-center gap-3">
+                      <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Channel</div>
+                      <button
+                        onClick={() => navigate(`/channel/${ch.id}`)}
+                        className="group relative flex items-center gap-2"
+                      >
+                        <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover" />
+                        <span className="absolute left-10 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg bg-elevated text-[12px] font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                          {ch.name}
+                        </span>
+                      </button>
+                    </div>
+                  ) : null;
+                })()}
                 <div className="rounded-xl bg-background p-5 space-y-5">
                   <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Production Brief</div>
 
