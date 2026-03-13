@@ -7,6 +7,7 @@ import Channels from "./pages/Channels";
 import ChannelDetail from "./pages/ChannelDetail";
 import VideoDetail from "./pages/VideoDetail";
 import Pipeline from "./pages/Pipeline";
+import Monitor from "./pages/Monitor";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
             <Route path="/channel/:id" element={<ChannelDetail />} />
             <Route path="/video/:id" element={<VideoDetail />} />
             <Route path="/pipeline" element={<Pipeline />} />
+            <Route path="/monitor" element={<Monitor />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
