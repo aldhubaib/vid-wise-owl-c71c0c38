@@ -31,6 +31,18 @@ export default function Channels() {
       setInputError("This channel is already tracked");
       return;
     }
+    const newChannel = {
+      id: `ch-${Date.now()}`,
+      name: val.replace("@", ""),
+      handle: val.startsWith("@") ? val : `@${val}`,
+      avatarImg: "/placeholder.svg",
+      subscribers: "0",
+      views: "0",
+      videos: "0",
+      lastSynced: new Date().toISOString(),
+      type: filter as "ours" | "competition",
+    };
+    setChannels((prev) => [...prev, newChannel]);
     setInputValue("");
     setInputError("");
   };
