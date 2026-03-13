@@ -37,6 +37,16 @@ export interface Channel {
   growthViews: string;
 }
 
+export const PIPELINE_STEPS = ["Transcription", "Translation", "Sentiment", "Topics", "Comments", "Viral Score"] as const;
+export type PipelineStepName = typeof PIPELINE_STEPS[number];
+export type PipelineStepStatus = "done" | "failed" | "running" | "waiting";
+
+export interface PipelineStep {
+  name: PipelineStepName;
+  status: PipelineStepStatus;
+  time?: string;
+}
+
 export interface Video {
   id: string;
   channelId: string;
@@ -52,6 +62,7 @@ export interface Video {
   likesRaw: number;
   commentsRaw: number;
   thumbnail?: string;
+  pipeline: PipelineStep[];
 }
 
 export const channels: Channel[] = [
@@ -202,6 +213,14 @@ export const videos: Video[] = [
     type: "video", views: "1.2M", likes: "45K", comments: "2.3K",
     date: "2026-03-08", duration: "18:42", status: "done",
     viewsRaw: 1200000, likesRaw: 45000, commentsRaw: 2300, thumbnail: thumbV1,
+    pipeline: [
+      { name: "Transcription", status: "done", time: "2m 14s" },
+      { name: "Translation", status: "done", time: "1m 32s" },
+      { name: "Sentiment", status: "done", time: "3m 08s" },
+      { name: "Topics", status: "done", time: "1m 45s" },
+      { name: "Comments", status: "done", time: "4m 22s" },
+      { name: "Viral Score", status: "done", time: "0m 58s" },
+    ],
   },
   {
     id: "v2", channelId: "ch2",
@@ -209,6 +228,14 @@ export const videos: Video[] = [
     type: "video", views: "890K", likes: "32K", comments: "1.8K",
     date: "2026-03-05", duration: "24:15", status: "done",
     viewsRaw: 890000, likesRaw: 32000, commentsRaw: 1800, thumbnail: thumbV2,
+    pipeline: [
+      { name: "Transcription", status: "done", time: "3m 01s" },
+      { name: "Translation", status: "done", time: "2m 10s" },
+      { name: "Sentiment", status: "done", time: "2m 44s" },
+      { name: "Topics", status: "done", time: "1m 30s" },
+      { name: "Comments", status: "done", time: "3m 55s" },
+      { name: "Viral Score", status: "done", time: "1m 02s" },
+    ],
   },
   {
     id: "v3", channelId: "ch2",
@@ -216,6 +243,14 @@ export const videos: Video[] = [
     type: "video", views: "2.1M", likes: "78K", comments: "4.1K",
     date: "2026-03-01", duration: "32:08", status: "done",
     viewsRaw: 2100000, likesRaw: 78000, commentsRaw: 4100, thumbnail: thumbV3,
+    pipeline: [
+      { name: "Transcription", status: "done", time: "4m 22s" },
+      { name: "Translation", status: "done", time: "3m 15s" },
+      { name: "Sentiment", status: "done", time: "2m 58s" },
+      { name: "Topics", status: "done", time: "1m 40s" },
+      { name: "Comments", status: "done", time: "5m 10s" },
+      { name: "Viral Score", status: "done", time: "1m 12s" },
+    ],
   },
   {
     id: "v4", channelId: "ch2",
@@ -223,6 +258,14 @@ export const videos: Video[] = [
     type: "short", views: "5.4M", likes: "210K", comments: "8.9K",
     date: "2026-02-28", duration: "0:58", status: "analyzing",
     viewsRaw: 5400000, likesRaw: 210000, commentsRaw: 8900, thumbnail: thumbV4,
+    pipeline: [
+      { name: "Transcription", status: "done", time: "0m 32s" },
+      { name: "Translation", status: "done", time: "0m 28s" },
+      { name: "Sentiment", status: "done", time: "1m 05s" },
+      { name: "Topics", status: "running" },
+      { name: "Comments", status: "waiting" },
+      { name: "Viral Score", status: "waiting" },
+    ],
   },
   {
     id: "v5", channelId: "ch2",
@@ -230,6 +273,14 @@ export const videos: Video[] = [
     type: "short", views: "3.2M", likes: "145K", comments: "5.6K",
     date: "2026-02-25", duration: "0:45", status: "done",
     viewsRaw: 3200000, likesRaw: 145000, commentsRaw: 5600, thumbnail: thumbV5,
+    pipeline: [
+      { name: "Transcription", status: "done", time: "0m 28s" },
+      { name: "Translation", status: "done", time: "0m 22s" },
+      { name: "Sentiment", status: "done", time: "0m 55s" },
+      { name: "Topics", status: "done", time: "0m 38s" },
+      { name: "Comments", status: "done", time: "2m 44s" },
+      { name: "Viral Score", status: "done", time: "0m 30s" },
+    ],
   },
   {
     id: "v6", channelId: "ch2",
@@ -237,6 +288,14 @@ export const videos: Video[] = [
     type: "video", views: "670K", likes: "28K", comments: "1.5K",
     date: "2026-02-20", duration: "45:30", status: "failed",
     viewsRaw: 670000, likesRaw: 28000, commentsRaw: 1500, thumbnail: thumbV6,
+    pipeline: [
+      { name: "Transcription", status: "done", time: "5m 12s" },
+      { name: "Translation", status: "done", time: "3m 48s" },
+      { name: "Sentiment", status: "failed" },
+      { name: "Topics", status: "waiting" },
+      { name: "Comments", status: "waiting" },
+      { name: "Viral Score", status: "waiting" },
+    ],
   },
   {
     id: "v7", channelId: "ch2",
@@ -244,6 +303,14 @@ export const videos: Video[] = [
     type: "video", views: "445K", likes: "19K", comments: "980",
     date: "2026-02-15", duration: "15:22", status: "pending",
     viewsRaw: 445000, likesRaw: 19000, commentsRaw: 980, thumbnail: thumbV7,
+    pipeline: [
+      { name: "Transcription", status: "waiting" },
+      { name: "Translation", status: "waiting" },
+      { name: "Sentiment", status: "waiting" },
+      { name: "Topics", status: "waiting" },
+      { name: "Comments", status: "waiting" },
+      { name: "Viral Score", status: "waiting" },
+    ],
   },
   {
     id: "v8", channelId: "ch2",
@@ -251,6 +318,14 @@ export const videos: Video[] = [
     type: "video", views: "920K", likes: "41K", comments: "2.1K",
     date: "2026-02-10", duration: "22:17", status: "done",
     viewsRaw: 920000, likesRaw: 41000, commentsRaw: 2100, thumbnail: thumbV8,
+    pipeline: [
+      { name: "Transcription", status: "done", time: "2m 48s" },
+      { name: "Translation", status: "done", time: "1m 55s" },
+      { name: "Sentiment", status: "done", time: "2m 30s" },
+      { name: "Topics", status: "done", time: "1m 18s" },
+      { name: "Comments", status: "done", time: "3m 40s" },
+      { name: "Viral Score", status: "done", time: "0m 52s" },
+    ],
   },
 ];
 
