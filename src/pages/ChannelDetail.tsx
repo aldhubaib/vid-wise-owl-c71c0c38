@@ -39,7 +39,7 @@ export default function ChannelDetail() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Top bar */}
-      <div className="h-12 flex items-center justify-between px-6 border-b border-border bg-background sticky top-0 z-[100] max-md:px-4 shrink-0">
+      <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-md:px-4">
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-1.5 text-[13px] text-dim cursor-pointer bg-transparent border-none font-sans hover:text-foreground transition-colors"
@@ -58,14 +58,16 @@ export default function ChannelDetail() {
         </div>
       </div>
 
-      <div className="flex-1 relative">
+      <div className="flex-1 relative overflow-auto">
         {/* Main content */}
         <div className={`transition-[margin] duration-200 ease-out ${panelVisible ? "md:mr-[300px]" : ""}`}>
           {/* Hero */}
-          <div className="px-6 py-5 border-b border-border flex items-start gap-3.5 max-md:px-4">
-            <div className="w-12 h-12 rounded-full bg-elevated border border-border flex items-center justify-center text-lg shrink-0 max-md:w-10 max-md:h-10 max-md:text-base">
-              {channel.avatar}
-            </div>
+          <div className="px-6 py-5 flex items-start gap-3.5 max-md:px-4">
+            <img
+              src={channel.avatarImg}
+              alt={channel.name}
+              className="w-12 h-12 rounded-full object-cover shrink-0 max-md:w-10 max-md:h-10"
+            />
             <div>
               <h1 className="text-base font-semibold tracking-tight mb-0.5 max-md:text-sm" dir="rtl">
                 {channel.name}
@@ -79,13 +81,13 @@ export default function ChannelDetail() {
                 {channel.handle}
               </a>
               <div className="flex gap-1.5 flex-wrap">
-                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-success/10 text-success border border-success/15">
+                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-success/10 text-success">
                   Active
                 </span>
-                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-blue/10 text-blue border border-blue/15">
+                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-primary/10 text-primary">
                   {channel.country}
                 </span>
-                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-elevated text-dim border border-border">
+                <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded text-[11px] font-mono font-medium bg-elevated text-dim">
                   Since {channel.joinedDate}
                 </span>
               </div>
@@ -93,16 +95,18 @@ export default function ChannelDetail() {
           </div>
 
           {/* Stats row */}
-          <div className="grid grid-cols-5 border-b border-border max-md:grid-cols-3 max-sm:grid-cols-2">
-            {stats.map((s, i) => (
-              <div key={s.label} className={`px-6 py-4 ${i > 0 ? "border-l border-border" : ""} max-md:border-l-0 max-md:border-b max-md:border-border`}>
-                <div className="text-lg font-semibold font-mono tracking-tight mb-0.5">{s.val}</div>
-                <div className="text-[11px] text-dim">{s.label}</div>
-                <div className={`text-[11px] font-mono mt-0.5 ${s.up ? "text-success" : "text-destructive"}`}>
-                  {s.change}
+          <div className="px-6 max-md:px-4">
+            <div className="grid grid-cols-5 max-md:grid-cols-3 max-sm:grid-cols-2 rounded-xl overflow-hidden border border-border">
+              {stats.map((s) => (
+                <div key={s.label} className="px-5 py-4 bg-background border-r border-b border-border last:border-r-0">
+                  <div className="text-lg font-semibold font-mono tracking-tight mb-0.5">{s.val}</div>
+                  <div className="text-[11px] text-dim">{s.label}</div>
+                  <div className={`text-[11px] font-mono mt-0.5 ${s.up ? "text-success" : "text-destructive"}`}>
+                    {s.change}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Videos section */}
@@ -112,15 +116,15 @@ export default function ChannelDetail() {
             </div>
 
             {/* Filter tabs */}
-            <div className="flex gap-1 mb-3 flex-wrap max-md:flex-nowrap max-md:overflow-x-auto max-md:pb-1">
+            <div className="flex items-center bg-elevated rounded-full p-0.5 w-fit mb-4 max-md:overflow-x-auto">
               {filterTabs.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveFilter(tab)}
-                  className={`py-1 px-2.5 rounded-md text-[12px] font-medium border cursor-pointer transition-all whitespace-nowrap ${
+                  className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap ${
                     activeFilter === tab
-                      ? "bg-elevated text-foreground border-border"
-                      : "bg-transparent text-dim border-transparent hover:text-sensor hover:bg-surface"
+                      ? "bg-surface text-foreground"
+                      : "text-dim hover:text-sensor"
                   }`}
                 >
                   {tab}
