@@ -111,6 +111,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
                 <span>New project</span>
               </button>
             </div>
+            <div className="pb-1.5" />
           </div>
         )}
       </div>
