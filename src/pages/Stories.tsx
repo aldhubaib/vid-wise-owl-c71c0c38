@@ -159,15 +159,6 @@ export default function Stories() {
                   <span className="text-[13px] font-semibold">{stages.find((s) => s.key === activeStage)?.label}</span>
                   <span className="text-[12px] text-dim font-mono">({stageStories.length})</span>
                 </div>
-                {activeStage === "suggestion" && (
-                  <button
-                    onClick={() => toast.success("Fetching...")}
-                    className="inline-flex items-center gap-1 text-[11px] text-blue font-mono hover:text-sensor transition-colors"
-                  >
-                    <ArrowDown className="w-3 h-3" />
-                    Fetch
-                  </button>
-                )}
               </div>
 
               {/* Items */}
