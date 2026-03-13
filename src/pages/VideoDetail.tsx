@@ -57,7 +57,7 @@ export default function VideoDetail() {
           <div className="px-6 py-6 max-lg:px-4">
             <div className="rounded-xl overflow-hidden border border-border flex max-md:flex-col bg-background">
               {/* Thumbnail left */}
-              <div className="relative w-[420px] max-md:w-full shrink-0 p-4">
+              <div className="relative w-[380px] max-md:w-full shrink-0 p-3">
                 <img
                   src={video.thumbnail}
                   alt=""
@@ -65,37 +65,46 @@ export default function VideoDetail() {
                 />
               </div>
               {/* Info right */}
-              <div className="flex-1 flex flex-col justify-between p-5 pl-1 max-md:pt-0 max-md:pl-4">
-                <div>
-                  <h1 className="text-lg font-semibold tracking-tight mb-4 max-lg:text-base" dir="rtl" style={{ textAlign: "right" }}>
-                    {video.title}
-                  </h1>
-                </div>
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-dim">
-                  <div className="flex items-center gap-1.5">
-                    <span className={`inline-flex items-center justify-center ${
-                      video.status === "done" ? "text-success" :
-                      video.status === "failed" ? "text-destructive" :
-                      video.status === "analyzing" ? "text-blue" : "text-dim"
-                    }`}>
-                      {video.status === "done" ? <CheckCircle2 className="w-3.5 h-3.5" /> :
-                       video.status === "failed" ? <XCircle className="w-3.5 h-3.5" /> :
-                       video.status === "analyzing" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> :
-                       <Clock className="w-3.5 h-3.5" />}
-                    </span>
-                    <span className="text-[12px] font-mono text-sensor">
-                      {video.status === "done" ? "Complete" : video.status === "failed" ? "Failed" : video.status === "analyzing" ? "Analyzing" : "Pending"}
-                    </span>
+              <div className="flex-1 flex flex-col gap-4 py-4 pr-5 pl-1 max-md:pt-0 max-md:px-4 max-md:pb-4">
+                <h1 className="text-base font-semibold tracking-tight max-lg:text-sm" dir="rtl" style={{ textAlign: "right" }}>
+                  {video.title}
+                </h1>
+
+                {/* Metadata grid */}
+                <div className="grid grid-cols-3 gap-3 mt-auto">
+                  <div className="rounded-lg bg-elevated/50 border border-border/50 px-3 py-2.5">
+                    <div className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1">Status</div>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`inline-flex ${
+                        video.status === "done" ? "text-success" :
+                        video.status === "failed" ? "text-destructive" :
+                        video.status === "analyzing" ? "text-blue" : "text-dim"
+                      }`}>
+                        {video.status === "done" ? <CheckCircle2 className="w-3.5 h-3.5" /> :
+                         video.status === "failed" ? <XCircle className="w-3.5 h-3.5" /> :
+                         video.status === "analyzing" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> :
+                         <Clock className="w-3.5 h-3.5" />}
+                      </span>
+                      <span className="text-[12px] text-sensor font-medium">
+                        {video.status === "done" ? "Complete" : video.status === "failed" ? "Failed" : video.status === "analyzing" ? "Analyzing" : "Pending"}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="inline-flex items-center justify-center text-dim">
-                      {video.type === "short" ? <Zap className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                    </span>
-                    <span className="text-[12px] font-mono text-sensor">{video.type === "short" ? "Short" : "Video"}</span>
+                  <div className="rounded-lg bg-elevated/50 border border-border/50 px-3 py-2.5">
+                    <div className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1">Type</div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-dim">
+                        {video.type === "short" ? <Zap className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+                      </span>
+                      <span className="text-[12px] text-sensor font-medium">{video.type === "short" ? "Short" : "Video"}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-dim" />
-                    <span className="text-[12px] font-mono text-sensor">{video.date}</span>
+                  <div className="rounded-lg bg-elevated/50 border border-border/50 px-3 py-2.5">
+                    <div className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1">Published</div>
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-dim" />
+                      <span className="text-[12px] text-sensor font-medium">{video.date}</span>
+                    </div>
                   </div>
                 </div>
               </div>
