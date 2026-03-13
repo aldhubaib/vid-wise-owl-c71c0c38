@@ -111,6 +111,14 @@ export default function StoryDetail() {
             </div>
           </div>
 
+          {/* AI Analysis */}
+          {story.aiAnalysis && (
+            <div className="rounded-xl bg-background p-5">
+              <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">AI Analysis</div>
+              <p className="text-[13px] text-sensor leading-relaxed text-right">{story.aiAnalysis}</p>
+            </div>
+          )}
+
           {/* Badge */}
           <div className="rounded-xl bg-background px-5 py-4">
             {story.isFirstMover ? (
@@ -131,12 +139,6 @@ export default function StoryDetail() {
             {/* SUGGESTION */}
             {activeStage === "suggestion" && (
               <>
-                {story.aiAnalysis && (
-                  <div className="rounded-xl bg-background p-5">
-                    <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">AI Analysis</div>
-                    <p className="text-[13px] text-sensor leading-relaxed text-right">{story.aiAnalysis}</p>
-                  </div>
-                )}
                 <div className="flex gap-2">
                   <button onClick={() => moveStory("liked")} className="flex-1 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity">
                     Save to Liked
