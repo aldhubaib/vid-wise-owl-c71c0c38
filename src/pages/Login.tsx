@@ -9,8 +9,6 @@ import s4 from "@/assets/stories/s4.jpg";
 import s5 from "@/assets/stories/s5.jpg";
 import s6 from "@/assets/stories/s6.jpg";
 
-const storyImages = [s1, s2, s3, s4, s5, s6];
-
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -20,53 +18,40 @@ export default function Login() {
     setTimeout(() => navigate("/"), 1200);
   };
 
-  // Create 3 columns with different speeds/directions
-  const col1 = [s1, s4, s2, s5, s1, s4, s2, s5];
+  const col1 = [s5, s1, s4, s2, s5, s1, s4, s2];
   const col2 = [s3, s6, s5, s1, s3, s6, s5, s1];
 
   return (
-    <div className="grid lg:grid-cols-3 min-h-screen max-h-screen overflow-hidden bg-background">
-      <div className="hidden lg:flex relative overflow-hidden">
-        {/* Dark overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background z-20 pointer-events-none" />
-        <div className="absolute inset-0 bg-background/30 z-10 pointer-events-none" />
+    <div className="flex h-screen overflow-hidden bg-background">
+      {/* Left — Scrolling stories (1/3) */}
+      <div className="hidden lg:block w-1/3 relative overflow-hidden">
+        <div className="absolute inset-0 bg-background/20 z-10 pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-background to-transparent z-20 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 right-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
 
-        <div className="flex gap-3 p-3 w-full h-full">
+        <div className="flex gap-3 p-3 h-full">
           {[col1, col2].map((col, colIdx) => (
-            <div key={colIdx} className="flex-1 overflow-hidden relative">
+            <div key={colIdx} className="flex-1 overflow-hidden">
               <div
-                className={`flex flex-col gap-3 ${
-                  colIdx % 2 === 0 ? "animate-scroll-up" : "animate-scroll-down"
-                }`}
-                style={{
-                  animationDuration: `${30 + colIdx * 8}s`,
-                }}
+                className={colIdx % 2 === 0 ? "animate-scroll-up" : "animate-scroll-down"}
+                style={{ animationDuration: `${30 + colIdx * 10}s` }}
               >
-                {col.map((img, i) => (
-                  <div
-                    key={i}
-                    className="rounded-xl overflow-hidden shrink-0 aspect-[9/16]"
-                  >
-                    <img
-                      src={img}
-                      alt=""
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
+                <div className="flex flex-col gap-3">
+                  {col.map((img, i) => (
+                    <div key={i} className="rounded-xl overflow-hidden shrink-0 aspect-[9/16]">
+                      <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-20 pointer-events-none" />
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent z-20 pointer-events-none" />
       </div>
 
-      {/* Right — Login form */}
-      <div className="lg:col-span-2 flex items-center justify-center relative min-h-screen lg:min-h-0">
+      {/* Right — Login form (2/3) */}
+      <div className="flex-1 flex items-center justify-center relative">
         <div className="absolute inset-0 pointer-events-none" style={{
           background: "radial-gradient(ellipse 80% 60% at 50% -10%, hsl(var(--primary) / 0.06) 0%, transparent 60%)",
         }} />
