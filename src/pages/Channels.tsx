@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { channels as mockChannels } from "@/data/mock";
 import { DeleteChannelModal } from "@/components/DeleteChannelModal";
-import { Plus, ExternalLink, RefreshCw, X, Users, Eye, PlayCircle, Star, Swords } from "lucide-react";
+import { Plus, ExternalLink, RefreshCw, X, Users, Eye, PlayCircle } from "lucide-react";
 
 type FilterType = "ours" | "competition";
 
@@ -104,14 +104,6 @@ export default function Channels() {
                 key={ch.id}
                 className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-[#0d0d10] transition-colors group border-b border-border last:border-b-0"
               >
-                {/* Type icon */}
-                <div className="shrink-0" title={ch.type === "ours" ? "Ours" : "Competition"}>
-                  {ch.type === "ours" ? (
-                    <Star className="w-3.5 h-3.5 text-primary" />
-                  ) : (
-                    <Swords className="w-3.5 h-3.5 text-orange" />
-                  )}
-                </div>
 
                 {/* Avatar */}
                 <div className="relative shrink-0">
@@ -125,6 +117,7 @@ export default function Channels() {
                     <span className="text-[13px] font-medium text-foreground truncate" dir="rtl">
                       {ch.name}
                     </span>
+                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${ch.type === "ours" ? "bg-primary" : "bg-orange"}`} title={ch.type === "ours" ? "Ours" : "Competition"} />
                   </div>
                   <div className="text-[11px] text-dim font-mono">{ch.handle}</div>
                 </div>
