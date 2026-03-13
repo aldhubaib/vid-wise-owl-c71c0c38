@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { channels as mockChannels } from "@/data/mock";
 import { DeleteChannelModal } from "@/components/DeleteChannelModal";
 import { Plus, ExternalLink, RefreshCw, X, Users, Eye, PlayCircle } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
 
 type FilterType = "ours" | "competition";
 
@@ -121,7 +122,7 @@ export default function Channels() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] text-dim font-mono">{ch.handle}</span>
-                    <span className="text-[10px] text-dim">Synced {ch.lastSynced}</span>
+                    <span className="text-[10px] text-dim">{formatDistanceToNow(new Date(ch.lastSynced), { addSuffix: true })}</span>
                   </div>
                 </div>
 
