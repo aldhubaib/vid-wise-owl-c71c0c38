@@ -115,12 +115,12 @@ export default function StoryDetail() {
           <div className="rounded-xl bg-background px-5 py-4">
             {story.isFirstMover ? (
               <div className="flex items-center gap-2.5">
-                <Trophy className="w-4 h-4 text-success shrink-0" />
+                <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-success/15 text-success shrink-0">1st</span>
                 <span className="text-[12px] text-success font-medium">First Mover — No competitor has covered this story yet</span>
               </div>
             ) : (
               <div className="flex items-center gap-2.5">
-                <XCircle className="w-4 h-4 text-orange shrink-0" />
+                <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-orange/15 text-orange shrink-0">Late</span>
                 <span className="text-[12px] text-orange font-medium">Late — competitors have already covered this story</span>
               </div>
             )}
