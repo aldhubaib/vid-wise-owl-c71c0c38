@@ -23,7 +23,7 @@ export default function Channels() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <div className="h-12 flex items-center justify-between px-6 border-b border-border shrink-0 max-md:px-4">
+      <div className="h-12 flex items-center justify-between px-6 border-b shrink-0 max-md:px-4 border-[#151619]">
         <h1 className="text-sm font-semibold">Channels</h1>
         <span className="text-[11px] font-mono text-dim">
           {channels.length} tracked
@@ -44,31 +44,31 @@ export default function Channels() {
                 }}
                 placeholder="Add channel — @handle or channel ID..."
                 className={`flex-1 px-3 py-2 bg-elevated border rounded-md text-foreground text-[13px] font-sans outline-none transition-colors placeholder:text-dim min-w-0 ${
-                  inputError ? "border-destructive/50" : "border-border focus:border-sensor/30"
-                }`}
-              />
+                inputError ? "border-destructive/50" : "border-border focus:border-sensor/30"}`
+                } />
+              
               <button
                 onClick={handleAdd}
-                className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-[13px] font-medium cursor-pointer whitespace-nowrap shrink-0 hover:opacity-90 transition-opacity flex items-center gap-1.5 max-md:w-full max-md:justify-center"
-              >
+                className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-[13px] font-medium cursor-pointer whitespace-nowrap shrink-0 hover:opacity-90 transition-opacity flex items-center gap-1.5 max-md:w-full max-md:justify-center">
+                
                 <Plus className="w-3.5 h-3.5" />
                 Add Channel
               </button>
             </div>
-            {inputError && (
-              <p className="text-[11px] mt-2 text-destructive">{inputError}</p>
-            )}
+            {inputError &&
+            <p className="text-[11px] mt-2 text-destructive">{inputError}</p>
+            }
           </div>
         </div>
 
         {/* Channel list */}
         <div className="px-6 py-4 max-md:px-4">
           <div className="grid grid-cols-1 gap-px bg-border border border-border rounded-lg overflow-hidden">
-            {channels.map((ch) => (
-              <div
-                key={ch.id}
-                className="bg-surface flex items-center gap-4 px-4 py-3.5 hover:bg-elevated/50 transition-colors group"
-              >
+            {channels.map((ch) =>
+            <div
+              key={ch.id}
+              className="bg-surface flex items-center gap-4 px-4 py-3.5 hover:bg-elevated/50 transition-colors group">
+              
                 {/* Avatar */}
                 <div className="w-9 h-9 rounded-full bg-elevated border border-border shrink-0 flex items-center justify-center text-sm font-medium text-sensor">
                   {ch.avatar}
@@ -104,23 +104,23 @@ export default function Channels() {
                 {/* Actions */}
                 <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
-                    onClick={() => navigate(`/channel/${ch.id}`)}
-                    className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
-                  >
+                  onClick={() => navigate(`/channel/${ch.id}`)}
+                  className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
+                  
                     <ExternalLink className="w-3.5 h-3.5" />
                   </button>
                   <button className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
                     <RefreshCw className="w-3.5 h-3.5" />
                   </button>
                   <button
-                    onClick={(e) => { e.stopPropagation(); setDeleteTarget(ch.id); }}
-                    className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-destructive hover:bg-destructive/10 transition-colors"
-                  >
+                  onClick={(e) => {e.stopPropagation();setDeleteTarget(ch.id);}}
+                  className="w-7 h-7 rounded-md flex items-center justify-center text-dim hover:text-destructive hover:bg-destructive/10 transition-colors">
+                  
                     <X className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
@@ -129,8 +129,8 @@ export default function Channels() {
         open={!!deleteTarget}
         channelName={channels.find((c) => c.id === deleteTarget)?.name || ""}
         onClose={() => setDeleteTarget(null)}
-        onDelete={() => setDeleteTarget(null)}
-      />
-    </div>
-  );
+        onDelete={() => setDeleteTarget(null)} />
+      
+    </div>);
+
 }
