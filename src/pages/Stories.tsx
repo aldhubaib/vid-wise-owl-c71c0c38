@@ -107,15 +107,14 @@ export default function Stories() {
             {stages.map((s) => {
               const count = stories.filter((st) => st.stage === s.key).length;
               return (
-                <button
+                <div
                   key={s.key}
-                  onClick={() => { setActiveStage(s.key); setSelectedId(null); }}
-                  className={`flex-1 px-5 py-4 bg-background border-r border-[#151619] last:border-r-0 text-left transition-colors ${activeStage === s.key ? "" : "opacity-60 hover:opacity-80"}`}
+                  className={`flex-1 px-5 py-4 bg-background border-r border-[#151619] last:border-r-0 ${activeStage === s.key ? "" : "opacity-60"}`}
                 >
                   <div className={`text-2xl font-semibold font-mono tracking-tight ${s.color}`}>{count}</div>
                   <div className="text-[10px] text-dim font-mono uppercase tracking-wider mt-1">{s.label}</div>
                   <div className="mt-2 text-[11px] text-dim font-mono">{s.sub}</div>
-                </button>
+                </div>
               );
             })}
             {/* First Mover aggregate */}
