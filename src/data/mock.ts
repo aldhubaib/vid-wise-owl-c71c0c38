@@ -72,6 +72,7 @@ export const channels: Channel[] = [
     name: "قرية العجائب | بدر العلوي",
     handle: "@badr3",
     avatar: "ق",
+    avatarImg: avatarCh2,
     subscribers: "6.6M",
     views: "863.7M",
     videos: "282",
