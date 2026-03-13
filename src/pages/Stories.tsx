@@ -109,7 +109,7 @@ export default function Stories() {
               return (
                 <div
                   key={s.key}
-                  className={`flex-1 px-5 py-4 bg-background border-r border-[#151619] last:border-r-0 ${activeStage === s.key ? "" : "opacity-60"}`}
+                  className="flex-1 px-5 py-4 bg-background border-r border-background last:border-r-0"
                 >
                   <div className={`text-2xl font-semibold font-mono tracking-tight ${s.color}`}>{count}</div>
                   <div className="text-[10px] text-dim font-mono uppercase tracking-wider mt-1">{s.label}</div>
