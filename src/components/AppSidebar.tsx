@@ -81,7 +81,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, onToggleColla
 
         {/* Dropdown */}
         {switcherOpen && !collapsed && (
-          <div className="absolute top-full left-2 right-2 mt-1 bg-elevated border border-border rounded-lg shadow-lg z-50 overflow-hidden">
+          <div className="absolute top-full left-2 right-2 mt-1 bg-background border border-border rounded-xl shadow-lg z-50 overflow-hidden">
             <div className="px-3 py-2 text-[10px] font-medium text-dim uppercase tracking-wider">Projects</div>
             {projects.map((project) => (
               <button
