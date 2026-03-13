@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { videos, channels, videoAnalysis } from "@/data/mock";
 import { VideoRightPanel } from "@/components/VideoRightPanel";
-import { ArrowLeft, Info, SmilePlus, HelpCircle, Meh } from "lucide-react";
+import { ArrowLeft, Info, SmilePlus, HelpCircle, Meh, CheckCircle2, XCircle } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 
 const tabList = ["Overview", "Sentiment", "Viral", "Comments", "Pipeline", "History"];
@@ -275,13 +275,18 @@ export default function VideoDetail() {
                     <div key={i} className="bg-background px-4 py-3 border-b border-border last:border-b-0 hover:bg-[#0d0d10] transition-colors">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-[13px] font-medium">{item.name}</span>
-                        <span className={`text-[10px] font-medium py-0.5 px-2 rounded-full font-mono ${
-                          item.status === "success"
-                            ? "bg-success/10 text-success"
-                            : "bg-destructive/10 text-destructive"
-                        }`}>
-                          {item.badge}
-                        </span>
+                        <TooltipProvider delayDuration={200}>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <span className={`inline-flex items-center justify-center ${
+                                item.status === "success" ? "text-success" : "text-destructive"
+                              }`}>
+                                {item.status === "success" ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
+                              </span>
+                            </TooltipTrigger>
+                            <TooltipContent side="left">{item.badge}</TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                       </div>
                       <div className="text-[10px] text-dim font-mono">{item.time}</div>
                       {item.error && (
