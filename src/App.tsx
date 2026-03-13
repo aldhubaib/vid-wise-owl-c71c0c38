@@ -10,6 +10,7 @@ import Pipeline from "./pages/Pipeline";
 import Monitor from "./pages/Monitor";
 import Analytics from "./pages/Analytics";
 import Admin from "./pages/Admin";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
