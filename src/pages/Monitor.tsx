@@ -67,7 +67,7 @@ export default function Monitor() {
               <div className="grid grid-cols-4 gap-0">
                 {[
                   { val: monitorHealth.total, label: "TOTAL", color: "" },
-                  { val: monitorHealth.healthy, label: "HEALTHY", color: "text-success" },
+                  { val: monitorHealth.healthy, label: "ACTIVE", color: "text-success" },
                   { val: monitorHealth.inactive, label: "INACTIVE", color: "text-orange" },
                   { val: monitorHealth.gone, label: "GONE", color: "text-destructive" },
                 ].map((s) => (
