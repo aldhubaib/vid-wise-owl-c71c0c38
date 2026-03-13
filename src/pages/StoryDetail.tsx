@@ -51,6 +51,10 @@ export default function StoryDetail() {
   const [longScriptInput, setLongScriptInput] = useState("");
   const [shortScriptInput, setShortScriptInput] = useState("");
   const [channelDropOpen, setChannelDropOpen] = useState(false);
+  const [suggestedTitleInput, setSuggestedTitleInput] = useState("");
+  const [openingHookInput, setOpeningHookInput] = useState("");
+  const [brandedHookStartInput, setBrandedHookStartInput] = useState("");
+  const [brandedHookEndInput, setBrandedHookEndInput] = useState("");
 
   const story = stories.find((s) => s.id === id);
   const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
