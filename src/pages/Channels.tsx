@@ -13,7 +13,6 @@ export default function Channels() {
   const [inputError, setInputError] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterType>("ours");
-  const [addType, setAddType] = useState<FilterType>("ours");
 
   const filteredChannels = useMemo(
     () => channels.filter((ch) => ch.type === filter),
@@ -41,34 +40,10 @@ export default function Channels() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <div className="h-12 flex items-center justify-between px-6 border-b shrink-0 max-md:px-4 border-[#151619]">
+      <div className="h-12 flex items-center px-6 border-b shrink-0 max-md:px-4 border-[#151619]">
         <h1 className="text-sm font-semibold">
           Channels <span className="text-dim font-normal">({channels.length})</span>
         </h1>
-
-        {/* Toggle */}
-        <div className="flex items-center bg-elevated rounded-full p-0.5">
-          <button
-            onClick={() => setFilter("ours")}
-            className={`px-3 py-1 text-[12px] font-medium rounded-full transition-colors ${
-              filter === "ours"
-                ? "bg-surface text-foreground"
-                : "text-dim hover:text-sensor"
-            }`}
-          >
-            Ours
-          </button>
-          <button
-            onClick={() => setFilter("competition")}
-            className={`px-3 py-1 text-[12px] font-medium rounded-full transition-colors ${
-              filter === "competition"
-                ? "bg-surface text-foreground"
-                : "text-dim hover:text-sensor"
-            }`}
-          >
-            Competition
-          </button>
-        </div>
       </div>
 
       <div className="flex-1 overflow-auto">
@@ -76,22 +51,20 @@ export default function Channels() {
         <div className="px-6 pt-5 pb-1 max-md:px-4">
           <div className="flex gap-2 max-md:flex-col items-start">
             {/* Type selector */}
-            <div className="flex items-center bg-background border border-border p-0.5 shrink-0" style={{ borderRadius: '8px' }}>
+            <div className="flex items-center bg-elevated rounded-full p-0.5 shrink-0">
               <button
-                onClick={() => setAddType("ours")}
-                className={`px-3 py-2 text-[12px] font-medium transition-colors ${
-                  addType === "ours" ? "bg-elevated text-foreground" : "text-dim hover:text-sensor"
+                onClick={() => setFilter("ours")}
+                className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors ${
+                  filter === "ours" ? "bg-surface text-foreground" : "text-dim hover:text-sensor"
                 }`}
-                style={{ borderRadius: '6px' }}
               >
                 Ours
               </button>
               <button
-                onClick={() => setAddType("competition")}
-                className={`px-3 py-2 text-[12px] font-medium transition-colors ${
-                  addType === "competition" ? "bg-elevated text-foreground" : "text-dim hover:text-sensor"
+                onClick={() => setFilter("competition")}
+                className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors ${
+                  filter === "competition" ? "bg-surface text-foreground" : "text-dim hover:text-sensor"
                 }`}
-                style={{ borderRadius: '6px' }}
               >
                 Competition
               </button>
