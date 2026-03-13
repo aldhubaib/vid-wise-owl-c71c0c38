@@ -11,6 +11,7 @@ import Monitor from "./pages/Monitor";
 import Analytics from "./pages/Analytics";
 import Admin from "./pages/Admin";
 import Settings from "./pages/Settings";
+import Stories from "./pages/Stories";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/monitor" element={<Monitor />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/stories" element={<Stories />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
           <Route path="*" element={<NotFound />} />
