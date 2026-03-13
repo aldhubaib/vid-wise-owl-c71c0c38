@@ -119,7 +119,11 @@ export default function Channels() {
                     </span>
                     <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${ch.type === "ours" ? "bg-primary" : "bg-orange"}`} title={ch.type === "ours" ? "Ours" : "Competition"} />
                   </div>
-                  <div className="text-[11px] text-dim font-mono">{ch.handle}</div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-dim font-mono">{ch.handle}</span>
+                    <span className="text-[10px] px-1.5 py-px bg-success/15 text-success font-mono rounded-full">active</span>
+                    <span className="text-[10px] text-dim">Synced {ch.lastSynced}</span>
+                  </div>
                 </div>
 
                 {/* Stats */}
