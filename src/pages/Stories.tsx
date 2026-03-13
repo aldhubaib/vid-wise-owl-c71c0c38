@@ -15,31 +15,6 @@ const stages: { key: Stage; label: string; color: string; sub: string }[] = [
   { key: "done", label: "Done", color: "text-foreground", sub: "published all time" },
 ];
 
-function CopyBtn({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-  return (
-    <button
-      onClick={() => { navigator.clipboard.writeText(text); setCopied(true); toast.success("Copied"); setTimeout(() => setCopied(false), 1500); }}
-      className="text-[11px] text-dim hover:text-sensor font-mono flex items-center gap-1 transition-colors shrink-0"
-    >
-      {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-      Copy
-    </button>
-  );
-}
-
-function ScoreBar({ label, value }: { label: string; value: number }) {
-  const color = label === "Relevance" ? "bg-purple" : label === "Virality" ? "bg-blue" : "bg-success";
-  return (
-    <div className="flex-1 px-4 py-3 bg-background border-r border-[#151619] last:border-r-0">
-      <div className="text-[10px] text-dim font-mono uppercase tracking-wider">{label}</div>
-      <div className="text-2xl font-semibold font-mono tracking-tight mt-1">{value}</div>
-      <div className="h-1 bg-elevated rounded-full overflow-hidden mt-2">
-        <div className={`h-full rounded-full ${color}`} style={{ width: `${value}%` }} />
-      </div>
-    </div>
-  );
-}
 
 function MiniScores({ story }: { story: Story }) {
   const items = [
