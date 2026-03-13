@@ -186,8 +186,13 @@ function PipelineItemRow({ item, isFailed }: { item: PipelineItem; isFailed: boo
           </div>
         </div>
         {/* Right: title */}
-        <div className="text-[13px] text-foreground font-medium text-right shrink-0 max-w-[55%]" dir="rtl">
-          {item.title}
+        <div className="flex items-center gap-1.5 shrink-0 max-w-[55%]">
+          <span className="text-[13px] text-foreground font-medium text-right" dir="rtl">
+            {item.title}
+          </span>
+          {item.videoId && (
+            <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+          )}
         </div>
       </div>
       <div className="flex items-center justify-between">
