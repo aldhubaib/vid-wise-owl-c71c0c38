@@ -128,7 +128,7 @@ export default function Admin() {
               <span className="text-[14px] font-semibold">Add Allowed User</span>
             </div>
             <p className="text-[12px] text-dim mb-4">
-              Enter an email address, assign a role, then choose what they can access.
+              Enter an email address and add the user.
             </p>
             <div className="flex items-center gap-3 max-sm:flex-col max-sm:items-stretch">
               <div className="relative flex-1 max-sm:w-full">
@@ -140,38 +140,6 @@ export default function Admin() {
                   onChange={(e) => setNewEmail(e.target.value)}
                   className="w-full pl-9 pr-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40"
                 />
-              </div>
-              <input
-                type="text"
-                placeholder="Note (optional)"
-                value={newNote}
-                onChange={(e) => setNewNote(e.target.value)}
-                className="flex-1 px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 max-sm:w-full"
-              />
-              <div className="relative">
-                <button
-                  onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
-                  className="flex items-center gap-2 px-4 py-2.5 text-[13px] font-medium bg-surface border border-border rounded-xl hover:border-blue/30 transition-colors"
-                >
-                  {newRole.charAt(0).toUpperCase() + newRole.slice(1)}
-                  <ChevronDown className="w-3.5 h-3.5 text-dim" />
-                </button>
-                {roleDropdownOpen && (
-                  <>
-                    <div className="fixed inset-0 z-40" onClick={() => setRoleDropdownOpen(false)} />
-                    <div className="absolute top-full right-0 mt-1 z-50 bg-background border border-border rounded-xl shadow-lg py-1 min-w-[140px]">
-                      {(["admin", "editor", "viewer"] as Role[]).map((r) => (
-                        <button
-                          key={r}
-                          onClick={() => { setNewRole(r); setRoleDropdownOpen(false); }}
-                          className={`w-full text-left px-3 py-2 text-[12px] font-medium hover:bg-surface/50 transition-colors ${newRole === r ? "text-foreground" : "text-dim"}`}
-                        >
-                          {r.charAt(0).toUpperCase() + r.slice(1)}
-                        </button>
-                      ))}
-                    </div>
-                  </>
-                )}
               </div>
               <button className="px-5 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap">
                 + Add
