@@ -105,8 +105,15 @@ export default function ChannelDetail() {
                 <div
                   key={s.label}
                   className={`px-5 py-4 bg-background border-r border-b border-border last:border-r-0 ${
-                    /* On 2-col mobile, make the 5th (last) item span full width */
-                    i === stats.length - 1 ? "max-sm:col-span-2 max-sm:border-r-0" : ""
+                    /* 3-col tablet: last 2 items span 3 cols evenly */
+                    i === 3 ? "max-lg:border-r max-sm:border-r" : ""
+                  } ${
+                    i === stats.length - 1 ? "max-lg:col-span-1 max-sm:col-span-2 max-sm:border-r-0" : ""
+                  } ${
+                    /* Remove bottom border on last row */
+                    i >= 3 ? "max-lg:border-b-0" : ""
+                  } ${
+                    i >= 4 ? "border-b-0" : ""
                   }`}
                 >
                   <div className="text-lg font-semibold font-mono tracking-tight mb-0.5">{s.val}</div>
