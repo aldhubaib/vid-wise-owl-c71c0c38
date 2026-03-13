@@ -29,6 +29,7 @@ const insightColors: Record<InsightType, string> = {
 };
 
 export default function Analytics() {
+  const navigate = useNavigate();
   const [period, setPeriod] = useState("12m");
   const [fieldTab, setFieldTab] = useState<FieldTab>("Engagement");
   const [trendTab, setTrendTab] = useState("Videos");
