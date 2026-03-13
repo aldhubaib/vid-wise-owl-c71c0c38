@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown } from "lucide-react";
+import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { storiesMock, Story } from "@/data/storiesMock";
 import { channels } from "@/data/mock";
@@ -206,7 +206,16 @@ export default function StoryDetail() {
 
                 {/* Script inputs */}
                 <div className="rounded-xl bg-background p-5 space-y-4">
-                  <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Scripts</div>
+                  <div className="flex items-center justify-between">
+                    <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Scripts</div>
+                    <button
+                      onClick={() => toast("AI script generation coming soon…")}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold text-blue bg-blue/10 rounded-full hover:bg-blue/20 transition-colors"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      Generate with AI
+                    </button>
+                  </div>
                   <div>
                     <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Long Script (20–40 min) — with timestamps</label>
                     <textarea
@@ -229,31 +238,36 @@ export default function StoryDetail() {
                   </div>
                 </div>
 
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      if (!selectedChannel) { toast.error("Please select a channel first"); return; }
-                      const parseScript = (raw: string) => raw.trim() ? raw.trim().split("\n").map((line) => {
-                        const match = line.match(/^(\d{1,2}:\d{2}(?::\d{2})?)\s+(.+)/);
-                        return match ? { time: match[1], text: match[2] } : { time: "", text: line };
-                      }) : undefined;
-                      setStories((prev) => prev.map((s) => s.id === id ? {
-                        ...s,
-                        channelId: selectedChannel,
-                        stage: "approved" as Stage,
-                        script: parseScript(longScriptInput) || s.script,
-                        shortScript: parseScript(shortScriptInput),
-                      } : s));
-                      toast.success(`Moved to ${stages.find((s) => s.key === "approved")?.label}`);
-                    }}
-                    className="flex-1 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
-                  >
-                    Approve
-                  </button>
-                  <button onClick={() => moveStory("suggestion")} className="flex-1 px-4 py-2.5 text-[13px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors">
-                    Pass
-                  </button>
-                </div>
+                {(() => {
+                  const canApprove = !!selectedChannel && (longScriptInput.trim().length > 0 || shortScriptInput.trim().length > 0);
+                  return (
+                    <div className="flex gap-2">
+                      <button
+                        disabled={!canApprove}
+                        onClick={() => {
+                          const parseScript = (raw: string) => raw.trim() ? raw.trim().split("\n").map((line) => {
+                            const match = line.match(/^(\d{1,2}:\d{2}(?::\d{2})?)\s+(.+)/);
+                            return match ? { time: match[1], text: match[2] } : { time: "", text: line };
+                          }) : undefined;
+                          setStories((prev) => prev.map((s) => s.id === id ? {
+                            ...s,
+                            channelId: selectedChannel,
+                            stage: "approved" as Stage,
+                            script: parseScript(longScriptInput) || s.script,
+                            shortScript: parseScript(shortScriptInput),
+                          } : s));
+                          toast.success(`Moved to ${stages.find((s) => s.key === "approved")?.label}`);
+                        }}
+                        className={`flex-1 px-4 py-2.5 text-[13px] font-semibold rounded-full transition-opacity ${canApprove ? "bg-blue text-blue-foreground hover:opacity-90" : "bg-blue/30 text-blue-foreground/40 cursor-not-allowed"}`}
+                      >
+                        Approve
+                      </button>
+                      <button onClick={() => moveStory("suggestion")} className="flex-1 px-4 py-2.5 text-[13px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors">
+                        Pass
+                      </button>
+                    </div>
+                  );
+                })()}
               </>
             )}
 
