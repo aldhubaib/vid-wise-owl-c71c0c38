@@ -256,6 +256,40 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Edit project dialog */}
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent className="sm:max-w-[360px] bg-background border-border">
+          <DialogHeader>
+            <DialogTitle className="text-[15px]">Edit project</DialogTitle>
+            <DialogDescription className="text-[12px] text-dim">
+              Rename the current project.
+            </DialogDescription>
+          </DialogHeader>
+          <input
+            type="text"
+            value={editName}
+            onChange={(e) => setEditName(e.target.value)}
+            className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40 mt-1"
+            placeholder="Project name"
+            autoFocus
+          />
+          <div className="flex gap-2 mt-2">
+            <button
+              onClick={() => setEditOpen(false)}
+              className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => { setProjectName(editName.trim() || projectName); setEditOpen(false); }}
+              className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+            >
+              Save
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
