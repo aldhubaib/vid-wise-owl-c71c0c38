@@ -1,5 +1,5 @@
 import type { Video } from "@/data/mock";
-import { Eye, Heart, MessageCircle, Play } from "lucide-react";
+import { Eye, Heart, MessageCircle, Play, Zap } from "lucide-react";
 
 interface VideoTableProps {
   videos: Video[];
