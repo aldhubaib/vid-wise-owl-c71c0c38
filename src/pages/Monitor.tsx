@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Circle, Pause, RotateCw, Search, ChevronDown, ArrowUpRight } from "lucide-react";
 import { monitorHealth, monitorCadence, monitorQuota, monitorChannels } from "@/data/monitorMock";
 
-const filterTabs = ["All", "Due today", "Issues"];
+const filterTabs = ["All", "Active", "Regular", "Slow", "Inactive"];
 
 export default function Monitor() {
   const navigate = useNavigate();
@@ -21,14 +21,17 @@ export default function Monitor() {
 
   const filtered = monitorChannels.filter((ch) => {
     if (search && !ch.name.includes(search) && !ch.handle.includes(search)) return false;
-    if (activeFilter === "Issues") return ch.isStale;
+    if (activeFilter === "Active") return !ch.isStale;
+    if (activeFilter === "Inactive") return ch.isStale;
     return true;
   });
 
   const counts: Record<string, number> = {
     All: monitorChannels.length,
-    "Due today": 32,
-    Issues: monitorChannels.filter((c) => c.isStale).length,
+    Active: 38,
+    Regular: 7,
+    Slow: 1,
+    Inactive: 4,
   };
 
   return (
