@@ -144,7 +144,7 @@ export default function VideoDetail() {
                 <SectionDivider label="Keywords" />
                 <div className="flex flex-wrap gap-1.5">
                   {a.keywords.map((k) => (
-                    <span key={k} className="py-1 px-2.5 rounded-md bg-elevated border border-border text-sensor text-xs font-mono">{k}</span>
+                    <span key={k} className="py-1 px-2.5 rounded-full bg-elevated border border-border text-sensor text-xs font-mono">{k}</span>
                   ))}
                 </div>
               </div>
