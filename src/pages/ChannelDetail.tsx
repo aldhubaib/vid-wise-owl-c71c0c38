@@ -100,13 +100,12 @@ export default function ChannelDetail() {
 
           {/* Stats row */}
           <div className="px-6 max-lg:px-4">
-            <div className="grid grid-cols-5 max-lg:grid-cols-3 max-sm:grid-cols-2 rounded-xl overflow-hidden border border-border">
+            <div className="grid grid-cols-5 max-lg:grid-cols-2 rounded-xl overflow-hidden border border-border">
               {stats.map((s, i) => (
                 <div
                   key={s.label}
                   className={`px-5 py-4 bg-background border-r border-b border-border last:border-r-0 ${
-                    /* On 2-col mobile, make the 5th (last) item span full width */
-                    i === stats.length - 1 ? "max-sm:col-span-2 max-sm:border-r-0" : ""
+                    i === stats.length - 1 ? "max-lg:col-span-2 max-lg:border-r-0" : ""
                   }`}
                 >
                   <div className="text-lg font-semibold font-mono tracking-tight mb-0.5">{s.val}</div>
