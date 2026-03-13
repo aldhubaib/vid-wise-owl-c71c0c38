@@ -1,5 +1,5 @@
 import type { Video } from "@/data/mock";
-import { Eye, Play, CheckCircle2, XCircle, Loader2, Clock } from "lucide-react";
+import { Eye, Play, CheckCircle2, XCircle, Loader2, Clock, ArrowUpRight } from "lucide-react";
 
 interface VideoTableProps {
   videos: Video[];
@@ -46,9 +46,10 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                         </div>
                       )}
                     </div>
-                    <span className="text-[13px] font-medium max-w-[320px] whitespace-nowrap overflow-hidden text-ellipsis block text-foreground" dir="rtl">
+                    <span className="text-[13px] font-medium max-w-[320px] whitespace-nowrap overflow-hidden text-ellipsis block text-foreground hover:opacity-80 transition-opacity" dir="rtl">
                       {v.title}
                     </span>
+                    <ArrowUpRight className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </div>
                 </td>
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.views}</td>
