@@ -96,7 +96,7 @@ export default function Monitor() {
           </div>
 
           {/* API Quota */}
-          <div className="rounded-xl border border-border overflow-hidden">
+          <div className="rounded-xl bg-background overflow-hidden">
             <div className="px-4 py-3">
               <div className="flex items-center justify-between mb-3">
                 <div className="text-[10px] text-dim font-mono uppercase tracking-widest">API Quota — Today</div>
