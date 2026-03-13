@@ -28,7 +28,7 @@ export default function Monitor() {
       {/* Top bar */}
       <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
         <div className="flex items-center gap-3">
-          <h1 className="text-[13px] font-medium text-foreground">Monitor</h1>
+          <h1 className="text-sm font-semibold">Monitor</h1>
           <span className="text-[11px] text-dim font-mono">
             Now checking @badr3 · 32 / 47 due today · API quota resets in {q.resetsIn}
           </span>
