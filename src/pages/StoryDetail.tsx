@@ -48,6 +48,8 @@ export default function StoryDetail() {
   const [stories, setStories] = useState<Story[]>(storiesMock);
   const [youtubeInput, setYoutubeInput] = useState("");
   const [selectedChannel, setSelectedChannel] = useState<string>("");
+  const [longScriptInput, setLongScriptInput] = useState("");
+  const [shortScriptInput, setShortScriptInput] = useState("");
 
   const story = stories.find((s) => s.id === id);
   const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
@@ -202,11 +204,46 @@ export default function StoryDetail() {
                   </div>
                 </div>
 
+                {/* Script inputs */}
+                <div className="rounded-xl bg-background p-5 space-y-4">
+                  <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Scripts</div>
+                  <div>
+                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Long Script (20–40 min) — with timestamps</label>
+                    <textarea
+                      value={longScriptInput}
+                      onChange={(e) => setLongScriptInput(e.target.value)}
+                      placeholder="00:00 مقدمة&#10;01:30 القصة تبدأ..."
+                      rows={5}
+                      className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Short Script (1–2 min) — with timestamps</label>
+                    <textarea
+                      value={shortScriptInput}
+                      onChange={(e) => setShortScriptInput(e.target.value)}
+                      placeholder="00:00 هوك&#10;00:15 المحتوى..."
+                      rows={3}
+                      className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y"
+                    />
+                  </div>
+                </div>
+
                 <div className="flex gap-2">
                   <button
                     onClick={() => {
                       if (!selectedChannel) { toast.error("Please select a channel first"); return; }
-                      setStories((prev) => prev.map((s) => s.id === id ? { ...s, channelId: selectedChannel, stage: "approved" as Stage } : s));
+                      const parseScript = (raw: string) => raw.trim() ? raw.trim().split("\n").map((line) => {
+                        const match = line.match(/^(\d{1,2}:\d{2}(?::\d{2})?)\s+(.+)/);
+                        return match ? { time: match[1], text: match[2] } : { time: "", text: line };
+                      }) : undefined;
+                      setStories((prev) => prev.map((s) => s.id === id ? {
+                        ...s,
+                        channelId: selectedChannel,
+                        stage: "approved" as Stage,
+                        script: parseScript(longScriptInput) || s.script,
+                        shortScript: parseScript(shortScriptInput),
+                      } : s));
                       toast.success(`Moved to ${stages.find((s) => s.key === "approved")?.label}`);
                     }}
                     className="flex-1 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
@@ -251,21 +288,30 @@ export default function StoryDetail() {
                     <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{story.suggestedTitle}</div>
                   </div>
 
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Opening Hook (first 10 sec)</span>
-                      {story.openingHook && <CopyBtn text={story.openingHook} />}
-                    </div>
-                    <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{story.openingHook}</div>
-                  </div>
+                  {(() => {
+                    const ch = channels.find((c) => c.id === story.channelId);
+                    const openingHook = ch?.startHook || story.openingHook;
+                    const endingHook = ch?.endHook || story.endingHook;
+                    return (
+                      <>
+                        <div>
+                          <div className="flex items-center justify-between mb-1.5">
+                            <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Opening Hook (first 10 sec)</span>
+                            {openingHook && <CopyBtn text={openingHook} />}
+                          </div>
+                          <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{openingHook}</div>
+                        </div>
 
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Ending Hook</span>
-                      {story.endingHook && <CopyBtn text={story.endingHook} />}
-                    </div>
-                    <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{story.endingHook}</div>
-                  </div>
+                        <div>
+                          <div className="flex items-center justify-between mb-1.5">
+                            <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Ending Hook</span>
+                            {endingHook && <CopyBtn text={endingHook} />}
+                          </div>
+                          <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{endingHook}</div>
+                        </div>
+                      </>
+                    );
+                  })()}
 
                   {story.script && (
                     <div>
@@ -276,6 +322,23 @@ export default function StoryDetail() {
                       <div className="rounded-xl bg-surface overflow-hidden">
                         {story.script.map((s, i) => (
                           <div key={i} className={`flex items-start gap-4 px-4 py-3 ${i < story.script!.length - 1 ? "border-b border-border" : ""}`}>
+                            <span className="text-[13px] font-mono font-bold text-blue shrink-0 pt-0.5">{s.time}</span>
+                            <span className="text-[13px] text-sensor leading-relaxed text-right flex-1">{s.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {story.shortScript && (
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Short Script (1–2 min) — with timestamps</span>
+                        <CopyBtn text={story.shortScript.map((s) => `${s.time} ${s.text}`).join("\n")} />
+                      </div>
+                      <div className="rounded-xl bg-surface overflow-hidden">
+                        {story.shortScript.map((s, i) => (
+                          <div key={i} className={`flex items-start gap-4 px-4 py-3 ${i < story.shortScript!.length - 1 ? "border-b border-border" : ""}`}>
                             <span className="text-[13px] font-mono font-bold text-blue shrink-0 pt-0.5">{s.time}</span>
                             <span className="text-[13px] text-sensor leading-relaxed text-right flex-1">{s.text}</span>
                           </div>

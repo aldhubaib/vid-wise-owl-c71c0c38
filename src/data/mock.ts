@@ -35,6 +35,8 @@ export interface Channel {
   topCategory: string;
   growthSubs: string;
   growthViews: string;
+  startHook?: string;
+  endHook?: string;
 }
 
 export const PIPELINE_STEPS = ["Transcription", "Translation", "Sentiment", "Topics", "Comments", "Viral Score"] as const;
@@ -89,6 +91,8 @@ export const channels: Channel[] = [
     topCategory: "Entertainment",
     growthSubs: "+3.1%",
     growthViews: "+7.2%",
+    startHook: "أهلاً وسهلاً فيكم في قرية العجائب، أنا بدر العلوي...",
+    endHook: "لا تنسوا الاشتراك وتفعيل الجرس عشان يوصلكم كل جديد!",
   },
   {
     id: "ch2",
@@ -112,6 +116,8 @@ export const channels: Channel[] = [
     topCategory: "Entertainment",
     growthSubs: "+3.1%",
     growthViews: "+7.2%",
+    startHook: "أهلاً وسهلاً فيكم في قرية العجائب، أنا بدر العلوي...",
+    endHook: "لا تنسوا الاشتراك وتفعيل الجرس عشان يوصلكم كل جديد!",
   },
   {
     id: "ch3",
@@ -135,6 +141,8 @@ export const channels: Channel[] = [
     topCategory: "Comedy",
     growthSubs: "+1.8%",
     growthViews: "+3.9%",
+    startHook: "مرحباً يا جماعة، أنا طارق العلي وعندي لكم قصة...",
+    endHook: "شاركوني رأيكم في التعليقات وشوفوا الفيديو اللي فوق!",
   },
   {
     id: "ch4",

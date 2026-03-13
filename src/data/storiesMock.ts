@@ -15,6 +15,7 @@ export interface Story {
   openingHook?: string;
   endingHook?: string;
   script?: { time: string; text: string }[];
+  shortScript?: { time: string; text: string }[];
   youtubeUrl?: string;
   views?: number;
   likes?: number;
