@@ -4,6 +4,14 @@ import avatarCh3 from "@/assets/avatars/ch3.jpg";
 import avatarCh4 from "@/assets/avatars/ch4.jpg";
 import avatarCh5 from "@/assets/avatars/ch5.jpg";
 import avatarCh6 from "@/assets/avatars/ch6.jpg";
+import thumbV1 from "@/assets/thumbnails/v1.jpg";
+import thumbV2 from "@/assets/thumbnails/v2.jpg";
+import thumbV3 from "@/assets/thumbnails/v3.jpg";
+import thumbV4 from "@/assets/thumbnails/v4.jpg";
+import thumbV5 from "@/assets/thumbnails/v5.jpg";
+import thumbV6 from "@/assets/thumbnails/v6.jpg";
+import thumbV7 from "@/assets/thumbnails/v7.jpg";
+import thumbV8 from "@/assets/thumbnails/v8.jpg";
 
 export interface Channel {
   id: string;
