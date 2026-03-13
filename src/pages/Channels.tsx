@@ -67,8 +67,11 @@ export default function Channels() {
             {channels.map((ch) =>
             <div
               key={ch.id}
-              className="bg-background flex items-center gap-4 px-4 py-3 hover:bg-elevated/40 transition-colors group">
+              className="bg-background flex items-center gap-3 px-4 py-3 hover:bg-elevated/40 transition-colors group">
               
+                {/* Avatar */}
+                <img src={ch.avatarImg} alt={ch.name} className="w-8 h-8 rounded-full object-cover shrink-0" />
+
                 {/* Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
