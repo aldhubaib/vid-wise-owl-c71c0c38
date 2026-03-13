@@ -9,7 +9,15 @@ export default function Monitor() {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("All");
   const [search, setSearch] = useState("");
+  const [countdown, setCountdown] = useState(21);
   const q = monitorQuota;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown((prev) => (prev <= 0 ? 21 : prev - 1));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const filtered = monitorChannels.filter((ch) => {
     if (search && !ch.name.includes(search) && !ch.handle.includes(search)) return false;
