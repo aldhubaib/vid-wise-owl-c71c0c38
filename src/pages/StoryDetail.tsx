@@ -326,7 +326,9 @@ export default function StoryDetail() {
                 </div>
 
                 {(() => {
-                  const canApprove = !!selectedChannel && (longScriptInput.trim().length > 0 || shortScriptInput.trim().length > 0);
+                  const hasLongContent = suggestedTitleInput.trim() || openingHookInput.trim() || brandedHookStartInput.trim() || longScriptInput.trim() || brandedHookEndInput.trim();
+                  const hasShortContent = shortSuggestedTitleInput.trim() || shortOpeningHookInput.trim() || shortBrandedHookStartInput.trim() || shortScriptInput.trim() || shortBrandedHookEndInput.trim();
+                  const canApprove = !!selectedChannel && (!!hasLongContent || !!hasShortContent);
                   return (
                     <div className="flex gap-2">
                       <button
