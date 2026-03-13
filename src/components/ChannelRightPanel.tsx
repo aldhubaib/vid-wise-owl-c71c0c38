@@ -50,7 +50,7 @@ export function ChannelRightPanel({ channel, visible, onClose, videoCount, short
 
       {/* Info rows */}
       <div className="px-4 py-3 space-y-0">
-        {infoRows(channel).map((row) => (
+        {infoRows(channel, videoCount, shortCount).map((row) => (
           <div key={row.label} className="flex items-center justify-between py-1.5">
             <div className="flex items-center gap-1.5">
               <row.icon className="w-3 h-3 text-dim" />
