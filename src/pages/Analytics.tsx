@@ -383,40 +383,51 @@ function ChannelAnalysisSection() {
         </div>
       </div>
 
-      {/* Metric comparison grid */}
-      <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-[1px] bg-border mx-5 mb-4 rounded-xl overflow-hidden">
-        {ca.metrics.map((m) => (
-          <div key={m.label} className="bg-background px-5 py-4">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[13px] font-semibold">{m.label}</span>
+      {/* Metric comparison table */}
+      <div className="mx-5 mb-4 rounded-xl border border-border overflow-hidden">
+        {/* Column headers — shown once */}
+        <div className="grid grid-cols-[1fr_100px_100px] gap-0 px-5 py-3 bg-surface/30 border-b border-border">
+          <span className="text-[10px] text-dim font-mono uppercase tracking-widest">METRIC</span>
+          <span className="text-[10px] text-blue font-mono uppercase tracking-widest text-right">You</span>
+          <span className="text-[10px] text-dim font-mono uppercase tracking-widest text-right">Competitor</span>
+        </div>
+        {ca.metrics.map((m, i) => (
+          <div key={m.label} className={`grid grid-cols-[1fr_100px_100px] gap-0 px-5 py-3.5 items-center ${i < ca.metrics.length - 1 ? "border-b border-border" : ""}`}>
+            <div className="flex items-center gap-2">
+              <span className="text-[13px] font-medium">{m.label}</span>
               <span className={`text-[10px] font-mono px-2 py-0.5 border rounded-full ${
                 m.tagColor === "success" ? "text-success border-success/30" : "text-dim border-border"
               }`}>
                 {m.tagColor === "success" ? "✓" : "◇"} {m.tag}
               </span>
             </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[12px] font-medium">{m.you.name}</span>
-                <span className={`text-[12px] font-mono ${m.tagColor === "success" ? "text-success" : "text-blue"}`}>{m.you.value}</span>
-              </div>
-              <div className="h-1 bg-elevated rounded-full overflow-hidden">
-                <div className={`h-full rounded-full ${m.tagColor === "success" ? "bg-success" : "bg-blue"}`}
-                  style={{ width: `${getMetricBarWidth(m.you.value, m.them.value)}%` }} />
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-[12px] text-sensor">{m.them.name}</span>
-                <span className="text-[12px] font-mono text-dim">{m.them.value}</span>
-              </div>
-              <div className="h-1 bg-elevated rounded-full overflow-hidden">
-                <div className="h-full bg-dim/40 rounded-full"
-                  style={{ width: `${getMetricBarWidth(m.them.value, m.them.value)}%` }} />
-              </div>
-            </div>
-            <div className="mt-3 text-[11px] text-dim font-mono">{m.gap}</div>
-            <div className="text-[11px] text-dim font-mono">Target: {m.target}</div>
+            <span className={`text-[13px] font-mono font-semibold text-right ${m.tagColor === "success" ? "text-success" : "text-blue"}`}>{m.you.value}</span>
+            <span className="text-[13px] font-mono text-dim text-right">{m.them.value}</span>
           </div>
         ))}
+        {/* Visual bars row */}
+        <div className="px-5 py-3 border-t border-border bg-surface/20">
+          <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-3">
+            {ca.metrics.map((m) => (
+              <div key={m.label} className="flex items-center gap-2">
+                <span className="text-[10px] text-dim font-mono w-28 shrink-0 truncate">{m.label}</span>
+                <div className="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden relative">
+                  <div className={`h-full rounded-full absolute left-0 top-0 ${m.tagColor === "success" ? "bg-success" : "bg-blue"}`}
+                    style={{ width: `${getMetricBarWidth(m.you.value, m.them.value)}%` }} />
+                </div>
+                <div className="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden relative">
+                  <div className="h-full bg-dim/40 rounded-full absolute left-0 top-0"
+                    style={{ width: `${getMetricBarWidth(m.them.value, m.them.value)}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-4 mt-2">
+            {ca.metrics.map((m) => (
+              <span key={m.label} className="text-[10px] text-dim font-mono">{m.gap}</span>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Action Plan */}
