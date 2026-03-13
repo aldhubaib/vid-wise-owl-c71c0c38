@@ -329,7 +329,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
           <DialogHeader>
             <DialogTitle className="text-[15px]">New project</DialogTitle>
             <DialogDescription className="text-[12px] text-dim">
-              Create a new project with branded hook lines.
+              Create a new project.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-3 mt-1">
