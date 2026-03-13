@@ -55,9 +55,7 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.likes}</td>
                 <td className="py-2.5 px-3 border-b border-border text-[11px] font-mono text-dim">{v.date}</td>
                 <td className="py-2.5 px-3 border-b border-border">
-                  <span className={`inline-flex items-center py-0.5 px-2 rounded text-[10px] font-mono font-medium whitespace-nowrap ${statusClass[v.status]}`}>
-                    {statusLabel[v.status]}
-                  </span>
+                  {(() => { const s = statusIcon[v.status]; return <s.icon className={`w-4 h-4 ${s.className}`} title={s.title} />; })()}
                 </td>
               </tr>
             ))}
