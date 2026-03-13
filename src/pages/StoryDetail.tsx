@@ -189,18 +189,22 @@ export default function StoryDetail() {
                 {/* Channel selector */}
                 <div className="rounded-xl bg-background p-5">
                   <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Assign to Channel</div>
-                  <div className="relative">
-                    <select
-                      value={selectedChannel}
-                      onChange={(e) => setSelectedChannel(e.target.value)}
-                      className="w-full appearance-none px-4 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-medium focus:outline-none focus:border-primary/40 cursor-pointer pr-10"
-                    >
-                      <option value="" disabled>Select one of your channels…</option>
-                      {channels.filter((c) => c.type === "ours").filter((c, i, arr) => arr.findIndex((x) => x.id === c.id) === i).map((c) => (
-                        <option key={c.id} value={c.id}>{c.name}</option>
-                      ))}
-                    </select>
-                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dim pointer-events-none" />
+                  <div className="space-y-1.5">
+                    {channels.filter((c) => c.type === "ours").filter((c, i, arr) => arr.findIndex((x) => x.id === c.id) === i).map((c) => (
+                      <button
+                        key={c.id}
+                        onClick={() => setSelectedChannel(c.id)}
+                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] transition-colors ${
+                          selectedChannel === c.id
+                            ? "bg-blue/10 border border-blue/30"
+                            : "bg-surface border border-transparent hover:border-border"
+                        }`}
+                      >
+                        <img src={c.avatarImg} alt={c.name} className="w-7 h-7 rounded-full object-cover shrink-0" />
+                        <span className="font-medium text-right flex-1">{c.name}</span>
+                        {selectedChannel === c.id && <Check className="w-4 h-4 text-blue shrink-0" />}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
