@@ -1,8 +1,16 @@
+import avatarCh1 from "@/assets/avatars/ch1.jpg";
+import avatarCh2 from "@/assets/avatars/ch2.jpg";
+import avatarCh3 from "@/assets/avatars/ch3.jpg";
+import avatarCh4 from "@/assets/avatars/ch4.jpg";
+import avatarCh5 from "@/assets/avatars/ch5.jpg";
+import avatarCh6 from "@/assets/avatars/ch6.jpg";
+
 export interface Channel {
   id: string;
   name: string;
   handle: string;
   avatar: string;
+  avatarImg: string;
   subscribers: string;
   views: string;
   videos: string;
@@ -42,6 +50,7 @@ export const channels: Channel[] = [
     name: "منص بن سعيد",
     handle: "@dqh1",
     avatar: "م",
+    avatarImg: avatarCh1,
     subscribers: "607K",
     views: "37.6M",
     videos: "126",
@@ -63,6 +72,7 @@ export const channels: Channel[] = [
     name: "قرية العجائب | بدر العلوي",
     handle: "@badr3",
     avatar: "ق",
+    avatarImg: avatarCh2,
     subscribers: "6.6M",
     views: "863.7M",
     videos: "282",
@@ -84,6 +94,7 @@ export const channels: Channel[] = [
     name: "طارق العلي",
     handle: "@tariq",
     avatar: "ط",
+    avatarImg: avatarCh3,
     subscribers: "2.1M",
     views: "241.3M",
     videos: "198",
@@ -105,6 +116,7 @@ export const channels: Channel[] = [
     name: "سارة الودعاني",
     handle: "@sarah_w",
     avatar: "س",
+    avatarImg: avatarCh4,
     subscribers: "890K",
     views: "52.4M",
     videos: "87",
@@ -126,6 +138,7 @@ export const channels: Channel[] = [
     name: "عبدالرحمن المرشد",
     handle: "@amrshd",
     avatar: "ع",
+    avatarImg: avatarCh5,
     subscribers: "1.3M",
     views: "98.7M",
     videos: "154",
@@ -147,6 +160,7 @@ export const channels: Channel[] = [
     name: "نواف السالم",
     handle: "@nawaf_s",
     avatar: "ن",
+    avatarImg: avatarCh6,
     subscribers: "445K",
     views: "18.2M",
     videos: "63",
