@@ -37,6 +37,16 @@ export interface Channel {
   growthViews: string;
 }
 
+export const PIPELINE_STEPS = ["Transcription", "Translation", "Sentiment", "Topics", "Comments", "Viral Score"] as const;
+export type PipelineStepName = typeof PIPELINE_STEPS[number];
+export type PipelineStepStatus = "done" | "failed" | "running" | "waiting";
+
+export interface PipelineStep {
+  name: PipelineStepName;
+  status: PipelineStepStatus;
+  time?: string;
+}
+
 export interface Video {
   id: string;
   channelId: string;
@@ -52,6 +62,7 @@ export interface Video {
   likesRaw: number;
   commentsRaw: number;
   thumbnail?: string;
+  pipeline: PipelineStep[];
 }
 
 export const channels: Channel[] = [
