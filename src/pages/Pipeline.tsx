@@ -22,7 +22,7 @@ export default function Pipeline() {
       <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
         <div className="flex items-center gap-3">
           <h1 className="text-[13px] font-medium text-foreground">Pipeline</h1>
-          <span className="text-[11px] text-dim font-mono">Est. ~1h 57m · Refreshing in {countdown}s</span>
+          <span className="text-[11px] text-dim font-mono"></span>
         </div>
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/15 text-success text-[11px] font-medium">
