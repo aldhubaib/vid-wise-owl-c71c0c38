@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { channels, videos } from "@/data/mock";
 import { ChannelRightPanel } from "@/components/ChannelRightPanel";
 import { VideoTable } from "@/components/VideoTable";
-import { ArrowLeft, PanelRightClose, PanelRight } from "lucide-react";
+import { ArrowLeft, Info } from "lucide-react";
 
 const filterTabs = ["All", "Videos", "Shorts", "Analyzing", "Done", "Failed"];
 

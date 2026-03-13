@@ -1,12 +1,14 @@
+import { useRef, useEffect } from "react";
 import type { Channel } from "@/data/mock";
-import { RefreshCw, Play, Trash2, Globe, Calendar, Hash, TrendingUp, Eye, Sparkles } from "lucide-react";
+import { RefreshCw, Play, Trash2, Globe, Calendar, Hash, TrendingUp, Eye, Sparkles, X } from "lucide-react";
 
 interface ChannelRightPanelProps {
   channel: Channel;
   visible: boolean;
+  onClose: () => void;
 }
 
-const infoCards = (channel: Channel) => [
+const infoRows = (channel: Channel) => [
   { icon: Hash, label: "Handle", value: channel.handle },
   { icon: Globe, label: "Country", value: channel.country },
   { icon: Calendar, label: "Joined", value: channel.joinedDate },
@@ -15,52 +17,63 @@ const infoCards = (channel: Channel) => [
   { icon: Eye, label: "Avg Views", value: channel.avgViews, highlight: true },
 ];
 
-export function ChannelRightPanel({ channel, visible }: ChannelRightPanelProps) {
+export function ChannelRightPanel({ channel, visible, onClose }: ChannelRightPanelProps) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!visible) return;
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [visible, onClose]);
+
+  if (!visible) return null;
+
   return (
     <div
-      className={`fixed top-12 right-0 w-[300px] h-[calc(100vh-48px)] overflow-y-auto bg-background border-l border-border px-5 py-6 transition-transform duration-200 ease-out z-50 hidden md:block ${
-        visible ? "translate-x-0" : "translate-x-full"
-      }`}
+      ref={ref}
+      className="absolute top-2 right-2 w-[260px] rounded-xl bg-surface border border-border shadow-xl shadow-black/30 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150"
     >
-      <h3 className="text-[11px] text-dim font-mono uppercase tracking-widest mb-4">
-        Overview
-      </h3>
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+        <span className="text-[11px] text-dim font-mono uppercase tracking-widest">Overview</span>
+        <button onClick={onClose} className="w-5 h-5 rounded flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors">
+          <X className="w-3 h-3" />
+        </button>
+      </div>
 
-      <div className="grid grid-cols-2 gap-2 mb-5">
-        {infoCards(channel).map((card) => (
-          <div
-            key={card.label}
-            className="rounded-lg bg-elevated/60 border border-border/60 px-3 py-2.5 flex flex-col gap-1.5"
-          >
+      {/* Info rows */}
+      <div className="px-4 py-3 space-y-0">
+        {infoRows(channel).map((row) => (
+          <div key={row.label} className="flex items-center justify-between py-1.5">
             <div className="flex items-center gap-1.5">
-              <card.icon className="w-3 h-3 text-dim" />
-              <span className="text-[10px] text-dim font-mono uppercase tracking-wider">{card.label}</span>
+              <row.icon className="w-3 h-3 text-dim" />
+              <span className="text-[11px] text-dim">{row.label}</span>
             </div>
-            <span className={`text-[13px] font-mono font-medium truncate ${card.highlight ? "text-primary" : "text-foreground"}`}>
-              {card.value}
+            <span className={`text-[12px] font-mono font-medium ${row.highlight ? "text-primary" : "text-foreground"}`}>
+              {row.value}
             </span>
           </div>
         ))}
       </div>
 
-      <div className="h-px bg-border my-5" />
-
-      <h4 className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">
-        Actions
-      </h4>
-
-      <button className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md text-[12px] font-medium bg-elevated border border-border text-sensor cursor-pointer transition-all hover:bg-border hover:text-foreground mb-1.5">
-        <RefreshCw className="w-3.5 h-3.5" />
-        Sync Now
-      </button>
-      <button className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md text-[12px] font-medium bg-primary/10 border border-primary/15 text-primary cursor-pointer transition-all hover:bg-primary/15 mb-1.5">
-        <Play className="w-3.5 h-3.5" />
-        Analyze All Videos
-      </button>
-      <button className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md text-[12px] font-medium bg-transparent border border-destructive/15 text-destructive cursor-pointer transition-all hover:bg-destructive/[0.06]">
-        <Trash2 className="w-3.5 h-3.5" />
-        Remove Channel
-      </button>
+      {/* Actions */}
+      <div className="px-4 py-3 border-t border-border space-y-1.5">
+        <button className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-md text-[11px] font-medium bg-elevated border border-border text-sensor cursor-pointer transition-all hover:bg-border hover:text-foreground">
+          <RefreshCw className="w-3 h-3" />
+          Sync Now
+        </button>
+        <button className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-md text-[11px] font-medium bg-primary/10 border border-primary/15 text-primary cursor-pointer transition-all hover:bg-primary/15">
+          <Play className="w-3 h-3" />
+          Analyze All
+        </button>
+        <button className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-md text-[11px] font-medium bg-transparent border border-destructive/15 text-destructive cursor-pointer transition-all hover:bg-destructive/[0.06]">
+          <Trash2 className="w-3 h-3" />
+          Remove
+        </button>
+      </div>
     </div>
   );
 }
