@@ -23,7 +23,7 @@ export function DeleteChannelModal({ open, channelName, onClose, onDelete }: Del
         <div className="flex gap-2 justify-end">
           <button
             onClick={onClose}
-            className="py-1.5 px-4 rounded-md bg-elevated border border-border text-sensor text-[13px] font-medium cursor-pointer transition-all hover:bg-border hover:text-foreground"
+            className="py-1.5 px-4 rounded-full bg-elevated border border-border text-sensor text-[13px] font-medium cursor-pointer transition-all hover:bg-border hover:text-foreground"
           >
             Cancel
           </button>
