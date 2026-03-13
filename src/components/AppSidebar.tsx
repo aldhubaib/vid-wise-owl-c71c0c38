@@ -37,6 +37,9 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
   const navigate = useNavigate();
   const [switcherOpen, setSwitcherOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [editName, setEditName] = useState("Falak");
+  const [projectName, setProjectName] = useState("Falak");
   const switcherRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => {
@@ -65,7 +68,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
             onClick={() => setSwitcherOpen(!switcherOpen)}
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
-            <span className="font-semibold text-[13px] text-foreground">Falak</span>
+            <span className="font-semibold text-[13px] text-foreground">{projectName}</span>
             <ChevronDown className={`w-3 h-3 text-dim transition-transform ${switcherOpen ? "rotate-180" : ""}`} />
           </button>
         ) : (
@@ -117,7 +120,7 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
             ))}
             <div className="border-t border-border mt-1.5 pt-1.5">
               <button
-                onClick={() => setSwitcherOpen(false)}
+                onClick={() => { setSwitcherOpen(false); setEditName(projectName); setEditOpen(true); }}
                 className="w-full flex items-center gap-2.5 px-3 py-2 rounded-full text-[13px] text-dim hover:text-sensor hover:bg-elevated/60 transition-colors"
               >
                 <Pencil className="w-3.5 h-3.5" />
@@ -249,6 +252,40 @@ export function AppSidebar({ onClose, isMobile, collapsed = false, pinned = fals
               className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full bg-destructive text-destructive-foreground hover:opacity-90 transition-opacity"
             >
               Sign out
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit project dialog */}
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent className="sm:max-w-[360px] bg-background border-border">
+          <DialogHeader>
+            <DialogTitle className="text-[15px]">Edit project</DialogTitle>
+            <DialogDescription className="text-[12px] text-dim">
+              Rename the current project.
+            </DialogDescription>
+          </DialogHeader>
+          <input
+            type="text"
+            value={editName}
+            onChange={(e) => setEditName(e.target.value)}
+            className="w-full px-3 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:ring-1 focus:ring-primary/40 mt-1"
+            placeholder="Project name"
+            autoFocus
+          />
+          <div className="flex gap-2 mt-2">
+            <button
+              onClick={() => setEditOpen(false)}
+              className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full border border-border text-dim hover:text-sensor transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => { setProjectName(editName.trim() || projectName); setEditOpen(false); }}
+              className="flex-1 px-4 py-2 text-[13px] font-medium rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+            >
+              Save
             </button>
           </div>
         </DialogContent>
