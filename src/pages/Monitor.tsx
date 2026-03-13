@@ -53,7 +53,7 @@ export default function Monitor() {
         {/* Cards row */}
         <div className="px-6 pt-5 max-lg:px-4 grid grid-cols-2 max-lg:grid-cols-1 gap-4 mb-5">
           {/* Channel Health */}
-          <div className="rounded-xl border border-border overflow-hidden">
+          <div className="rounded-xl bg-background overflow-hidden">
             <div className="px-4 py-3">
               <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Channel Health</div>
               <div className="grid grid-cols-4 gap-0">
@@ -70,7 +70,7 @@ export default function Monitor() {
                 ))}
               </div>
             </div>
-            <div className="border-t border-border px-4 py-3">
+            <div className="px-4 py-3">
               <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2.5">Check Cadence (Auto-learned)</div>
               {monitorCadence.map((c) => {
                 const dotColor = c.color === "success" ? "bg-success" : c.color === "blue" ? "bg-blue" : c.color === "dim" ? "bg-dim" : "";
@@ -96,7 +96,7 @@ export default function Monitor() {
           </div>
 
           {/* API Quota */}
-          <div className="rounded-xl border border-border overflow-hidden">
+          <div className="rounded-xl bg-background overflow-hidden">
             <div className="px-4 py-3">
               <div className="flex items-center justify-between mb-3">
                 <div className="text-[10px] text-dim font-mono uppercase tracking-widest">API Quota — Today</div>
@@ -115,7 +115,7 @@ export default function Monitor() {
                 ))}
               </div>
             </div>
-            <div className="border-t border-border px-4 py-3">
+            <div className="px-4 py-3">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[11px] text-dim font-mono">Total quota</span>
                 <span className="text-[11px] text-dim font-mono">{q.used.toLocaleString()} / {q.total.toLocaleString()} {q.pct}%</span>

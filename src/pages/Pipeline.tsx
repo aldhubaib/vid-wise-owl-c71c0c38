@@ -34,9 +34,9 @@ export default function Pipeline() {
       <div className="flex-1 relative overflow-auto">
       {/* Stats row */}
       <div className="px-6 max-lg:px-4 mb-5 pt-5">
-        <div className="flex rounded-xl overflow-hidden border border-border">
+        <div className="flex rounded-xl overflow-hidden">
           {/* Total */}
-          <div className="px-5 py-4 bg-background border-r border-border min-w-[140px]">
+          <div className="px-5 py-4 bg-background border-r border-background min-w-[140px]">
             <div className="text-2xl font-semibold font-mono tracking-tight">{s.totalVideos}</div>
             <div className="text-[10px] text-dim font-mono uppercase tracking-wider mt-1">Total Videos</div>
             <div className="flex items-center gap-2 mt-2 text-[11px] text-dim font-mono">
@@ -48,7 +48,7 @@ export default function Pipeline() {
           {s.stages.map((stage) => {
             const colorClass = stage.color === "orange" ? "text-orange" : stage.color === "blue" ? "text-blue" : stage.color === "purple" ? "text-purple" : stage.color === "success" ? "text-success" : stage.color === "destructive" ? "text-destructive" : "text-primary";
             return (
-            <div key={stage.label} className="flex-1 px-5 py-4 bg-background border-r border-border last:border-r-0">
+            <div key={stage.label} className="flex-1 px-5 py-4 bg-background border-r border-background last:border-r-0">
               <div className="flex items-baseline gap-2">
                 <span className={`text-2xl font-semibold font-mono tracking-tight ${colorClass}`}>{stage.count}</span>
                 {stage.eta && (
