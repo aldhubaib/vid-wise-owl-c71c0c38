@@ -23,18 +23,16 @@ export default function Login() {
   // Create 3 columns with different speeds/directions
   const col1 = [s1, s4, s2, s5, s1, s4, s2, s5];
   const col2 = [s3, s6, s5, s1, s3, s6, s5, s1];
-  const col3 = [s2, s5, s4, s3, s2, s5, s4, s3];
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Left — Animated stories grid */}
+    <div className="flex min-h-screen max-h-screen overflow-hidden bg-background">
       <div className="hidden lg:flex flex-1 relative overflow-hidden">
         {/* Dark overlay for depth */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background z-20 pointer-events-none" />
         <div className="absolute inset-0 bg-background/30 z-10 pointer-events-none" />
 
         <div className="flex gap-3 p-3 w-full h-full">
-          {[col1, col2, col3].map((col, colIdx) => (
+          {[col1, col2].map((col, colIdx) => (
             <div key={colIdx} className="flex-1 overflow-hidden relative">
               <div
                 className={`flex flex-col gap-3 ${
