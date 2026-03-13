@@ -78,6 +78,35 @@ export function ChannelRightPanel({ channel, visible, onClose, videoCount, short
         ))}
       </div>
 
+      {/* Type toggle */}
+      <div className="px-4 py-3 border-t border-border">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[11px] text-dim">Classification</span>
+        </div>
+        <div className="flex rounded-lg overflow-hidden border border-border">
+          <button
+            onClick={() => onTypeChange?.("ours")}
+            className={`flex-1 py-1.5 text-[11px] font-medium transition-colors ${
+              channel.type === "ours"
+                ? "bg-[#1e51e9]/15 text-[#1e51e9] border-r border-border"
+                : "bg-elevated text-dim hover:text-sensor border-r border-border"
+            }`}
+          >
+            Ours
+          </button>
+          <button
+            onClick={() => onTypeChange?.("competition")}
+            className={`flex-1 py-1.5 text-[11px] font-medium transition-colors ${
+              channel.type === "competition"
+                ? "bg-[#FFFF00]/10 text-[#FFFF00]"
+                : "bg-elevated text-dim hover:text-sensor"
+            }`}
+          >
+            Competition
+          </button>
+        </div>
+      </div>
+
       {/* Actions */}
       <div className="px-4 py-3 border-t border-border space-y-1.5">
         <button className="w-full flex items-center justify-center gap-2 py-1.5 px-3 rounded-md text-[11px] font-medium bg-elevated border border-border text-sensor cursor-pointer transition-all hover:bg-border hover:text-foreground">
