@@ -8,6 +8,7 @@ interface ChannelRightPanelProps {
   onClose: () => void;
   videoCount?: number;
   shortCount?: number;
+  onTypeChange?: (type: "ours" | "competition") => void;
 }
 
 interface InfoRow {
@@ -31,7 +32,7 @@ const buildRows = (channel: Channel, videoCount?: number, shortCount?: number): 
   { icon: Timer, label: "Next sync", value: "Today · 7:59 AM" },
 ];
 
-export function ChannelRightPanel({ channel, visible, onClose, videoCount, shortCount }: ChannelRightPanelProps) {
+export function ChannelRightPanel({ channel, visible, onClose, videoCount, shortCount, onTypeChange }: ChannelRightPanelProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -75,6 +76,35 @@ export function ChannelRightPanel({ channel, visible, onClose, videoCount, short
             </span>
           </div>
         ))}
+      </div>
+
+      {/* Type toggle */}
+      <div className="px-4 py-3 border-t border-border">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[11px] text-dim">Classification</span>
+        </div>
+        <div className="flex rounded-lg overflow-hidden border border-border">
+          <button
+            onClick={() => onTypeChange?.("ours")}
+            className={`flex-1 py-1.5 text-[11px] font-medium transition-colors ${
+              channel.type === "ours"
+                ? "bg-[#1e51e9]/15 text-[#1e51e9] border-r border-border"
+                : "bg-elevated text-dim hover:text-sensor border-r border-border"
+            }`}
+          >
+            Ours
+          </button>
+          <button
+            onClick={() => onTypeChange?.("competition")}
+            className={`flex-1 py-1.5 text-[11px] font-medium transition-colors ${
+              channel.type === "competition"
+                ? "bg-[#FFFF00]/10 text-[#FFFF00]"
+                : "bg-elevated text-dim hover:text-sensor"
+            }`}
+          >
+            Competition
+          </button>
+        </div>
       </div>
 
       {/* Actions */}
