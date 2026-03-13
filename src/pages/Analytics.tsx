@@ -261,11 +261,7 @@ export default function Analytics() {
                     <div className="h-full bg-blue/40 rounded-full" style={{ width: `${(parseFloat(v.views) / 15.5) * 100}%` }} />
                   </div>
                 </div>
-                {getAvatarForDropdown(v.channel) ? (
-                  <img src={getAvatarForDropdown(v.channel)!} alt={v.channel} title={v.channel} className="w-6 h-6 rounded-full object-cover shrink-0" />
-                ) : (
-                  <div className="w-6 h-6 rounded-full bg-surface shrink-0 flex items-center justify-center text-[9px] text-dim font-mono">{v.channel[0]}</div>
-                )}
+                <ChannelAvatar name={v.channel} size="sm" />
                 <span className="text-[13px] font-mono text-dim shrink-0 w-16 text-right">{v.views}</span>
               </div>
             ))}
