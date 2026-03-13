@@ -216,13 +216,24 @@ export default function VideoDetail() {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] text-dim font-mono">♥ {c.likes}</span>
-                      <span className={`inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-medium font-mono ${
-                        c.sentiment === "positive" ? "bg-success/10 text-success" :
-                        c.sentiment === "question" ? "bg-blue/10 text-blue" :
-                        "bg-elevated text-dim"
-                      }`}>
-                        {c.sentiment}
-                      </span>
+                      <TooltipProvider delayDuration={200}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full ${
+                              c.sentiment === "positive" ? "text-success" :
+                              c.sentiment === "question" ? "text-blue" :
+                              "text-dim"
+                            }`}>
+                              {c.sentiment === "positive" ? <SmilePlus className="w-3.5 h-3.5" /> :
+                               c.sentiment === "question" ? <HelpCircle className="w-3.5 h-3.5" /> :
+                               <Meh className="w-3.5 h-3.5" />}
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent side="left">
+                            <span className="capitalize">{c.sentiment}</span>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                   </div>
                 ))}
