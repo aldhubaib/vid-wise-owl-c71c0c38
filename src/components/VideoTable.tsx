@@ -1,5 +1,5 @@
 import type { Video } from "@/data/mock";
-import { Eye, Heart, MessageCircle, Play } from "lucide-react";
+import { Eye, Heart, MessageCircle, Play, Zap } from "lucide-react";
 
 interface VideoTableProps {
   videos: Video[];
@@ -29,7 +29,6 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
           <thead>
             <tr className="bg-elevated/40">
               <th className="text-[11px] text-dim font-medium py-2.5 px-4 text-left border-b border-border">Title</th>
-              <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Type</th>
               <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Views</th>
               <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Likes</th>
               <th className="text-[11px] text-dim font-medium py-2.5 px-3 text-left border-b border-border">Date</th>
@@ -37,7 +36,9 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
             </tr>
           </thead>
           <tbody>
-            {videos.map((v) => (
+            {videos.map((v) => {
+              const isShort = v.type === "short";
+              return (
               <tr
                 key={v.id}
                 onClick={() => onVideoClick(v.id)}
@@ -45,23 +46,22 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
               >
                 <td className="py-2.5 px-4 border-b border-border">
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-7 rounded bg-elevated shrink-0 flex items-center justify-center">
-                      <Play className="w-3 h-3 text-dim" />
+                    <div className="relative w-11 h-7 rounded bg-elevated shrink-0 flex items-center justify-center">
+                      {isShort ? (
+                        <Zap className="w-3 h-3 text-purple" />
+                      ) : (
+                        <Play className="w-3 h-3 text-dim" />
+                      )}
+                      <span className={`absolute -bottom-1 -right-1 text-[7px] font-mono font-bold px-0.5 rounded ${
+                        isShort ? "bg-purple text-white" : "bg-dim/80 text-white"
+                      }`}>
+                        {isShort ? "S" : "V"}
+                      </span>
                     </div>
                     <span className="text-[13px] font-medium max-w-[320px] whitespace-nowrap overflow-hidden text-ellipsis block text-foreground" dir="rtl">
                       {v.title}
                     </span>
                   </div>
-                </td>
-                <td className="py-2.5 px-3 border-b border-border">
-                  <span className={`inline-flex items-center gap-1 text-[10px] font-mono py-0.5 px-1.5 rounded ${
-                    v.type === "short"
-                      ? "bg-purple/10 text-purple"
-                      : "bg-elevated text-dim"
-                  }`}>
-                    <Play className="w-2.5 h-2.5" />
-                    {v.type === "short" ? "Short" : "Video"}
-                  </span>
                 </td>
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.views}</td>
                 <td className="py-2.5 px-3 border-b border-border text-[12px] font-mono text-sensor">{v.likes}</td>
@@ -72,7 +72,8 @@ export function VideoTable({ videos, onVideoClick }: VideoTableProps) {
                   </span>
                 </td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>
