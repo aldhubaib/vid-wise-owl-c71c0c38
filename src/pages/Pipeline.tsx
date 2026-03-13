@@ -147,30 +147,26 @@ function StageColumn({ stage }: { stage: PipelineStageData }) {
 }
 
 function PipelineItemRow({ item, isFailed }: { item: PipelineItem; isFailed: boolean }) {
+  const channel = channels.find((c) => c.id === item.channelId);
+
   return (
     <div className="px-4 py-3 border-t border-border hover:bg-surface/50 transition-colors">
       <div className="flex items-start justify-between mb-2">
-        {/* Left: avatar + status */}
+        {/* Left: channel avatar + status */}
         <div className="flex items-center gap-2 min-w-0">
-          <div className="w-6 h-6 rounded-full bg-elevated flex items-center justify-center text-[10px] font-semibold text-dim shrink-0">
-            {item.channelAvatar}
-          </div>
+          {channel && (
+            <img
+              src={channel.avatarImg}
+              alt={channel.name}
+              className="w-6 h-6 rounded-full object-cover shrink-0"
+            />
+          )}
           <div className="min-w-0">
             {item.status === "processing" && !isFailed && (
               <div className="flex items-center gap-1.5 mb-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
                 <span className="text-[11px] text-success font-mono">{item.statusDetail || "Processing..."}</span>
               </div>
-            )}
-            {item.status === "queued" && (
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-elevated text-[10px] font-mono text-dim">
-                {item.channelHandle}
-              </span>
-            )}
-            {item.status === "waiting" && !isFailed && (
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-elevated text-[10px] font-mono text-dim">
-                {item.channelHandle}
-              </span>
             )}
             {isFailed && item.errorReason && (
               <div className="flex items-center gap-1.5 mb-0.5">
