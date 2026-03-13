@@ -86,11 +86,7 @@ export default function StoryDetail() {
           <span className="text-[13px] font-medium truncate max-w-[400px]">{story.title}</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className={`text-[11px] font-mono px-2.5 py-1 rounded-full ${
-            activeStage === "done" ? "bg-foreground/10 text-foreground" :
-            activeStage === "failed" ? "bg-destructive/15 text-destructive" :
-            "bg-primary/15 text-primary"
-          }`}>
+          <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-primary/15 text-primary">
             {stages.find((s) => s.key === activeStage)?.label}
           </span>
         </div>
