@@ -12,6 +12,7 @@ import Analytics from "./pages/Analytics";
 import Admin from "./pages/Admin";
 import Settings from "./pages/Settings";
 import Stories from "./pages/Stories";
+import Brain from "./pages/Brain";
 import StoryDetail from "./pages/StoryDetail";
 import NotFound from "./pages/NotFound";
 
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/stories" element={<Stories />} />
+            <Route path="/brain" element={<Brain />} />
             <Route path="/story/:id" element={<StoryDetail />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
