@@ -58,6 +58,7 @@ export default function StoryDetail() {
   const [hookStartInput, setHookStartInput] = useState("");
   const [hookEndInput, setHookEndInput] = useState("");
   const [scriptInput, setScriptInput] = useState("");
+  const [editingYoutubeUrl, setEditingYoutubeUrl] = useState(false);
 
   const story = stories.find((s) => s.id === id);
   const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
