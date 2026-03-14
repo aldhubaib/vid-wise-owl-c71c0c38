@@ -176,12 +176,19 @@ export default function Brain() {
                 {publishedVideos.map((video) => (
                   <div key={video.id} className="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-surface hover:bg-elevated/60 transition-colors">
                     {/* Channel avatar — clickable */}
-                    <button
-                      onClick={() => navigate(`/channel/${video.channelId}`)}
-                      className="shrink-0 hover:opacity-80 transition-opacity"
-                    >
-                      <img src={video.channelAvatar} alt={video.channelName} className="w-7 h-7 rounded-full object-cover border border-border" />
-                    </button>
+                    <TooltipProvider delayDuration={200}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            onClick={() => navigate(`/channel/${video.channelId}`)}
+                            className="shrink-0 hover:opacity-80 transition-opacity"
+                          >
+                            <img src={video.channelAvatar} alt={video.channelName} className="w-7 h-7 rounded-full object-cover border border-border" />
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="top"><p>{video.channelName}</p></TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                     {/* Type badge */}
                     <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full shrink-0 ${
                       video.type === "short" ? "bg-purple/15 text-purple" : "bg-blue/15 text-blue"
