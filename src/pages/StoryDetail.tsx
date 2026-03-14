@@ -453,7 +453,7 @@ export default function StoryDetail() {
                           type="url"
                           value={youtubeInput}
                           onChange={(e) => setYoutubeInput(e.target.value)}
-                          placeholder="https://youtube.com/watch?v=..."
+                          placeholder={scriptFormat === "short" ? "https://youtube.com/shorts/..." : "https://youtube.com/watch?v=..."}
                           className="w-full pl-9 pr-3 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40"
                         />
                       </div>
