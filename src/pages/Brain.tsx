@@ -170,45 +170,16 @@ export default function Brain() {
             <div className="rounded-xl bg-background p-5">
               <div className="flex items-center justify-between mb-4">
                 <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Your Published Videos</div>
-                <button
-                  onClick={() => setAddUrlOpen(!addUrlOpen)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-[11px] text-dim font-medium hover:text-sensor transition-colors"
-                >
-                  <Plus className="w-3 h-3" />
-                  Add URL
-                </button>
               </div>
-
-              {addUrlOpen && (
-                <div className="mb-4 p-4 rounded-xl bg-surface space-y-3">
-                  <input
-                    type="text"
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
-                    placeholder="Video title…"
-                    className="w-full px-4 py-2.5 text-[13px] bg-background border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right"
-                  />
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="url"
-                      value={newUrl}
-                      onChange={(e) => setNewUrl(e.target.value)}
-                      placeholder="https://youtube.com/watch?v=..."
-                      className="flex-1 px-4 py-2.5 text-[13px] bg-background border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40"
-                    />
-                    <button
-                      onClick={() => { toast.success("Video added"); setAddUrlOpen(false); setNewUrl(""); setNewTitle(""); }}
-                      className="px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
-                    >
-                      Add
-                    </button>
-                  </div>
-                </div>
-              )}
 
               <div className="space-y-1">
                 {publishedVideos.map((video) => (
                   <div key={video.id} className="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-surface hover:bg-elevated/60 transition-colors">
+                    {video.type === "short" ? (
+                      <Smartphone className="w-3.5 h-3.5 text-dim shrink-0" />
+                    ) : (
+                      <Monitor className="w-3.5 h-3.5 text-dim shrink-0" />
+                    )}
                     <div className="flex items-center gap-3 shrink-0">
                       <div className="flex items-center gap-1.5 text-[11px] text-dim font-mono">
                         <Eye className="w-3 h-3" /> {video.views}
@@ -220,6 +191,7 @@ export default function Brain() {
                         <MessageSquare className="w-3 h-3" /> {video.comments}
                       </div>
                     </div>
+                    <span className="text-[11px] text-dim font-mono shrink-0 px-2 py-0.5 rounded-full bg-elevated">{video.channel}</span>
                     <span className="flex-1 text-[13px] text-right truncate">{video.title}</span>
                     <span className="text-[11px] text-dim font-mono shrink-0">{video.date}</span>
                     {video.result === "gap_win" ? (
