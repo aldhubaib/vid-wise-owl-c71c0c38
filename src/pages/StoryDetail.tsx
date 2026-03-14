@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown, Sparkles, Pencil } from "lucide-react";
+import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown, Sparkles, Pencil, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { storiesMock, Story } from "@/data/storiesMock";
 import { channels } from "@/data/mock";
