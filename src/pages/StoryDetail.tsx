@@ -432,57 +432,50 @@ export default function StoryDetail() {
                   )}
                 </div>
 
-                {activeStage === "approved" && (
-                  <button onClick={() => moveStory("filmed")} className="w-full px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity">
-                    + Mark as Filmed
-                  </button>
+                {activeStage === "filmed" && (
+                  <div className="rounded-xl bg-background p-5">
+                    <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2">Add YouTube URL</div>
+                    <p className="text-[12px] text-dim leading-relaxed mb-4">
+                      Paste the published video URL to record performance and check Brain coverage.
+                    </p>
+                    <div className="flex items-center gap-2.5">
+                      <div className="relative flex-1">
+                        <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-dim" />
+                        <input
+                          type="url"
+                          value={youtubeInput}
+                          onChange={(e) => setYoutubeInput(e.target.value)}
+                          placeholder="https://youtube.com/watch?v=..."
+                          className="w-full pl-9 pr-3 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40"
+                        />
+                      </div>
+                      <button
+                        onClick={() => {
+                          if (!youtubeInput.trim()) { toast.error("Please paste a YouTube URL"); return; }
+                          const currentFormats = stories.find((st) => st.id === id)?.producedFormats || [];
+                          const newFormat: "short" | "long" = scriptFormat;
+                          const updatedFormats = currentFormats.includes(newFormat) ? currentFormats : [...currentFormats, newFormat];
+                          setStories((prev) => prev.map((s) => s.id === id ? { ...s, youtubeUrl: youtubeInput.trim(), stage: "done" as Stage, views: 0, likes: 0, comments: 0, gapWin: false, producedFormats: updatedFormats } : s));
+                          setYoutubeInput("");
+                          toast.success("Moved to Done");
+                        }}
+                        className="px-5 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity whitespace-nowrap"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
                 )}
 
-            {/* FILMED */}
-            {activeStage === "filmed" && (
-              <div className="rounded-xl bg-background p-5">
-                <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2">Add YouTube URL</div>
-                <p className="text-[12px] text-dim leading-relaxed mb-4">
-                  Paste the published video URL to record performance and check Brain coverage.
-                </p>
-                <div className="flex items-center gap-2.5">
-                  <div className="relative flex-1">
-                    <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-dim" />
-                    <input
-                      type="url"
-                      value={youtubeInput}
-                      onChange={(e) => setYoutubeInput(e.target.value)}
-                      placeholder="https://youtube.com/watch?v=..."
-                      className="w-full pl-9 pr-3 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40"
-                    />
+                {activeStage === "publish" && (
+                  <div className="rounded-xl bg-background p-5">
+                    <p className="text-[12px] text-dim font-mono mb-4">Final details to confirm before marking done.</p>
+                    <button onClick={() => moveStory("done")} className="w-full px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity">
+                      Mark as Done
+                    </button>
                   </div>
-                  <button
-                    onClick={() => {
-                      if (!youtubeInput.trim()) { toast.error("Please paste a YouTube URL"); return; }
-                      const currentFormats = stories.find((st) => st.id === id)?.producedFormats || [];
-                      const hasShort = !!stories.find((st) => st.id === id)?.shortScript;
-                      const newFormat: "short" | "long" = hasShort && !stories.find((st) => st.id === id)?.script ? "short" : hasShort ? "short" : "long";
-                      const updatedFormats = currentFormats.includes(newFormat) ? currentFormats : [...currentFormats, newFormat];
-                      setStories((prev) => prev.map((s) => s.id === id ? { ...s, youtubeUrl: youtubeInput.trim(), stage: "done" as Stage, views: 0, likes: 0, comments: 0, gapWin: false, producedFormats: updatedFormats } : s));
-                      setYoutubeInput("");
-                      toast.success("Moved to Done");
-                    }}
-                    className="px-5 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity whitespace-nowrap"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* PUBLISH */}
-            {activeStage === "publish" && (
-              <div className="rounded-xl bg-background p-5">
-                <p className="text-[12px] text-dim font-mono mb-4">Final details to confirm before marking done.</p>
-                <button onClick={() => moveStory("done")} className="w-full px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity">
-                  Mark as Done
-                </button>
-              </div>
+                )}
+              </>
             )}
 
             {/* DONE */}
