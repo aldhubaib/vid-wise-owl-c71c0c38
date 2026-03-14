@@ -155,6 +155,8 @@ export const publishedVideos: PublishedVideo[] = [
     comments: "12K",
     result: "gap_win",
     viewsRaw: 2100000,
+    type: "video",
+    channel: "Main",
   },
   {
     id: "pv2",
@@ -165,6 +167,8 @@ export const publishedVideos: PublishedVideo[] = [
     comments: "9K",
     result: "gap_win",
     viewsRaw: 1400000,
+    type: "video",
+    channel: "Main",
   },
   {
     id: "pv3",
@@ -175,6 +179,8 @@ export const publishedVideos: PublishedVideo[] = [
     comments: "890",
     result: "late",
     viewsRaw: 420000,
+    type: "short",
+    channel: "Clips",
   },
 ];
 
