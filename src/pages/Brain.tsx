@@ -210,7 +210,7 @@ export default function Brain() {
 
               <div className="space-y-1">
                 {publishedVideos.map((video) => (
-                  <div key={video.id} className="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-[#0d0d10] hover:bg-elevated/60 transition-colors">
+                  <div key={video.id} className="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-surface hover:bg-elevated/60 transition-colors">
                     <div className="flex items-center gap-3 shrink-0">
                       <div className="flex items-center gap-1.5 text-[11px] text-dim font-mono">
                         <Eye className="w-3 h-3" /> {video.views}
