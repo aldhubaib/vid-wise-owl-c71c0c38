@@ -200,7 +200,7 @@ export default function Brain() {
                     />
                     <button
                       onClick={() => { toast.success("Video added"); setAddUrlOpen(false); setNewUrl(""); setNewTitle(""); }}
-                      className="px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-xl hover:opacity-90 transition-opacity"
+                      className="px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
                     >
                       Add
                     </button>
