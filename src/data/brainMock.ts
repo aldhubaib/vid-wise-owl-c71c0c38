@@ -1,4 +1,5 @@
 import avatarCh2 from "@/assets/avatars/ch2.jpg";
+import avatarCh3 from "@/assets/avatars/ch3.jpg";
 import avatarCh4 from "@/assets/avatars/ch4.jpg";
 import avatarCh5 from "@/assets/avatars/ch5.jpg";
 import avatarCh6 from "@/assets/avatars/ch6.jpg";
@@ -22,7 +23,9 @@ export interface PublishedVideo {
   result: "gap_win" | "late";
   viewsRaw: number;
   type: "short" | "video";
-  channel: string;
+  channelId: string;
+  channelName: string;
+  channelAvatar: string;
 }
 
 export interface CompetitorChannel {
@@ -156,7 +159,9 @@ export const publishedVideos: PublishedVideo[] = [
     result: "gap_win",
     viewsRaw: 2100000,
     type: "video",
-    channel: "Main",
+    channelId: "ch2",
+    channelName: "قرية العجائب",
+    channelAvatar: avatarCh2,
   },
   {
     id: "pv2",
@@ -168,7 +173,9 @@ export const publishedVideos: PublishedVideo[] = [
     result: "gap_win",
     viewsRaw: 1400000,
     type: "video",
-    channel: "Main",
+    channelId: "ch2",
+    channelName: "قرية العجائب",
+    channelAvatar: avatarCh2,
   },
   {
     id: "pv3",
@@ -180,7 +187,9 @@ export const publishedVideos: PublishedVideo[] = [
     result: "late",
     viewsRaw: 420000,
     type: "short",
-    channel: "Clips",
+    channelId: "ch3",
+    channelName: "طارق العلي",
+    channelAvatar: avatarCh3,
   },
 ];
 

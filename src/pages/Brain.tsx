@@ -174,11 +174,24 @@ export default function Brain() {
               <div className="space-y-1">
                 {publishedVideos.map((video) => (
                   <div key={video.id} className="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-surface hover:bg-elevated/60 transition-colors">
-                    {video.type === "short" ? (
-                      <Smartphone className="w-3.5 h-3.5 text-dim shrink-0" />
-                    ) : (
-                      <Monitor className="w-3.5 h-3.5 text-dim shrink-0" />
-                    )}
+                    {/* Channel avatar — clickable */}
+                    <button
+                      onClick={() => navigate(`/channel/${video.channelId}`)}
+                      className="shrink-0 hover:opacity-80 transition-opacity"
+                    >
+                      <img src={video.channelAvatar} alt={video.channelName} className="w-7 h-7 rounded-full object-cover border border-border" />
+                    </button>
+                    {/* Type badge */}
+                    <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full shrink-0 ${
+                      video.type === "short" ? "bg-purple/15 text-purple" : "bg-blue/15 text-blue"
+                    }`}>
+                      {video.type === "short" ? (
+                        <span className="inline-flex items-center gap-1"><Smartphone className="w-3 h-3" /> Short</span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1"><Monitor className="w-3 h-3" /> Video</span>
+                      )}
+                    </span>
+                    {/* Metrics */}
                     <div className="flex items-center gap-3 shrink-0">
                       <div className="flex items-center gap-1.5 text-[11px] text-dim font-mono">
                         <Eye className="w-3 h-3" /> {video.views}
@@ -190,16 +203,17 @@ export default function Brain() {
                         <MessageSquare className="w-3 h-3" /> {video.comments}
                       </div>
                     </div>
-                    <span className="text-[11px] text-dim font-mono shrink-0 px-2 py-0.5 rounded-full bg-elevated">{video.channel}</span>
+                    {/* Title */}
                     <span className="flex-1 text-[13px] text-right truncate">{video.title}</span>
                     <span className="text-[11px] text-dim font-mono shrink-0">{video.date}</span>
+                    {/* Result icon */}
                     {video.result === "gap_win" ? (
                       <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-success/15 text-success shrink-0">
                         <Trophy className="w-3 h-3" /> Gap Win
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-destructive/15 text-destructive shrink-0">
-                        × Late
+                        <ArrowUpRight className="w-3 h-3" /> Late
                       </span>
                     )}
                   </div>
