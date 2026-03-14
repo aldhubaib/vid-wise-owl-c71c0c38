@@ -252,6 +252,7 @@ export default function StoryDetail() {
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Short Script (1–2 min)</span>
+                      {shortSaved && <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-success/15 text-success">Saved</span>}
                     </div>
                     <div className="flex items-center gap-2">
                       <button
@@ -266,26 +267,44 @@ export default function StoryDetail() {
                   </button>
                   {shortScriptOpen && (
                     <div className="px-5 pb-5 space-y-4">
-                      <div>
-                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Suggested Title</label>
-                        <input type="text" value={shortSuggestedTitleInput} onChange={(e) => setShortSuggestedTitleInput(e.target.value)} placeholder="عنوان الشورت المقترح..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
-                      </div>
-                      <div>
-                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Opening Hook (first 10 sec)</label>
-                        <input type="text" value={shortOpeningHookInput} onChange={(e) => setShortOpeningHookInput(e.target.value)} placeholder="الجملة الأولى التي تجذب المشاهد..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
-                      </div>
-                      <div>
-                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook Start</label>
-                        <input type="text" value={shortBrandedHookStartInput} onChange={(e) => setShortBrandedHookStartInput(e.target.value)} placeholder="e.g. أهلاً وسهلاً بكم في قناة..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
-                      </div>
-                      <div>
-                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Script — with timestamps</label>
-                        <textarea value={shortScriptInput} onChange={(e) => setShortScriptInput(e.target.value)} placeholder="00:00 هوك&#10;00:15 المحتوى..." rows={3} className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y" />
-                      </div>
-                      <div>
-                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook End</label>
-                        <input type="text" value={shortBrandedHookEndInput} onChange={(e) => setShortBrandedHookEndInput(e.target.value)} placeholder="e.g. لا تنسوا الاشتراك وتفعيل الجرس..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
-                      </div>
+                      {([
+                        { key: "title", label: "Suggested Title", value: shortSuggestedTitleInput, setter: setShortSuggestedTitleInput, placeholder: "عنوان الشورت المقترح...", type: "input" as const },
+                        { key: "hook", label: "Opening Hook (first 10 sec)", value: shortOpeningHookInput, setter: setShortOpeningHookInput, placeholder: "الجملة الأولى التي تجذب المشاهد...", type: "input" as const },
+                        { key: "hookStart", label: "Branded Hook Start", value: shortBrandedHookStartInput, setter: setShortBrandedHookStartInput, placeholder: "e.g. أهلاً وسهلاً بكم في قناة...", type: "input" as const },
+                        { key: "script", label: "Script — with timestamps", value: shortScriptInput, setter: setShortScriptInput, placeholder: "00:00 هوك\n00:15 المحتوى...", type: "textarea" as const },
+                        { key: "hookEnd", label: "Branded Hook End", value: shortBrandedHookEndInput, setter: setShortBrandedHookEndInput, placeholder: "e.g. لا تنسوا الاشتراك وتفعيل الجرس...", type: "input" as const },
+                      ]).map((field) => {
+                        const isEditing = !shortSaved || shortEditingField === field.key;
+                        return (
+                          <div key={field.key}>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <label className="text-[10px] text-dim font-mono uppercase tracking-wider">{field.label}</label>
+                              {shortSaved && shortEditingField !== field.key && field.value && (
+                                <button onClick={() => setShortEditingField(field.key)} className="flex items-center gap-1 text-[10px] text-dim hover:text-sensor transition-colors">
+                                  <Pencil className="w-3 h-3" /> Edit
+                                </button>
+                              )}
+                              {shortSaved && shortEditingField === field.key && (
+                                <button onClick={() => { setShortEditingField(null); toast.success("Field updated"); }} className="text-[10px] text-blue hover:text-blue/80 font-medium transition-colors">Done</button>
+                              )}
+                            </div>
+                            {isEditing ? (
+                              field.type === "textarea" ? (
+                                <textarea value={field.value} onChange={(e) => field.setter(e.target.value)} placeholder={field.placeholder} rows={3} className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y" />
+                              ) : (
+                                <input type="text" value={field.value} onChange={(e) => field.setter(e.target.value)} placeholder={field.placeholder} className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                              )
+                            ) : (
+                              <div className="rounded-xl bg-surface px-4 py-2.5 text-[13px] text-right min-h-[38px]">
+                                {field.type === "textarea" ? <pre className="whitespace-pre-wrap font-mono text-[13px]">{field.value || <span className="text-dim">—</span>}</pre> : (field.value || <span className="text-dim">—</span>)}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                      {!shortSaved && (
+                        <button onClick={() => { setShortSaved(true); setShortEditingField(null); toast.success("Short script saved"); }} className="w-full py-2.5 text-[13px] font-semibold rounded-full bg-blue text-blue-foreground hover:opacity-90 transition-opacity">Save</button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -298,6 +317,7 @@ export default function StoryDetail() {
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Long Script (20–40 min)</span>
+                      {longSaved && <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-success/15 text-success">Saved</span>}
                     </div>
                     <div className="flex items-center gap-2">
                       <button
@@ -312,26 +332,44 @@ export default function StoryDetail() {
                   </button>
                   {longScriptOpen && (
                     <div className="px-5 pb-5 space-y-4">
-                      <div>
-                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Suggested Title</label>
-                        <input type="text" value={suggestedTitleInput} onChange={(e) => setSuggestedTitleInput(e.target.value)} placeholder="عنوان الفيديو المقترح..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
-                      </div>
-                      <div>
-                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Opening Hook (first 10 sec)</label>
-                        <input type="text" value={openingHookInput} onChange={(e) => setOpeningHookInput(e.target.value)} placeholder="الجملة الأولى التي تجذب المشاهد..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
-                      </div>
-                      <div>
-                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook Start</label>
-                        <input type="text" value={brandedHookStartInput} onChange={(e) => setBrandedHookStartInput(e.target.value)} placeholder="e.g. أهلاً وسهلاً بكم في قناة..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
-                      </div>
-                      <div>
-                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Script — with timestamps</label>
-                        <textarea value={longScriptInput} onChange={(e) => setLongScriptInput(e.target.value)} placeholder="00:00 مقدمة&#10;01:30 القصة تبدأ..." rows={5} className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y" />
-                      </div>
-                      <div>
-                        <label className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1.5 block">Branded Hook End</label>
-                        <input type="text" value={brandedHookEndInput} onChange={(e) => setBrandedHookEndInput(e.target.value)} placeholder="e.g. لا تنسوا الاشتراك وتفعيل الجرس..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
-                      </div>
+                      {([
+                        { key: "title", label: "Suggested Title", value: suggestedTitleInput, setter: setSuggestedTitleInput, placeholder: "عنوان الفيديو المقترح...", type: "input" as const },
+                        { key: "hook", label: "Opening Hook (first 10 sec)", value: openingHookInput, setter: setOpeningHookInput, placeholder: "الجملة الأولى التي تجذب المشاهد...", type: "input" as const },
+                        { key: "hookStart", label: "Branded Hook Start", value: brandedHookStartInput, setter: setBrandedHookStartInput, placeholder: "e.g. أهلاً وسهلاً بكم في قناة...", type: "input" as const },
+                        { key: "script", label: "Script — with timestamps", value: longScriptInput, setter: setLongScriptInput, placeholder: "00:00 مقدمة\n01:30 القصة تبدأ...", type: "textarea" as const },
+                        { key: "hookEnd", label: "Branded Hook End", value: brandedHookEndInput, setter: setBrandedHookEndInput, placeholder: "e.g. لا تنسوا الاشتراك وتفعيل الجرس...", type: "input" as const },
+                      ]).map((field) => {
+                        const isEditing = !longSaved || longEditingField === field.key;
+                        return (
+                          <div key={field.key}>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <label className="text-[10px] text-dim font-mono uppercase tracking-wider">{field.label}</label>
+                              {longSaved && longEditingField !== field.key && field.value && (
+                                <button onClick={() => setLongEditingField(field.key)} className="flex items-center gap-1 text-[10px] text-dim hover:text-sensor transition-colors">
+                                  <Pencil className="w-3 h-3" /> Edit
+                                </button>
+                              )}
+                              {longSaved && longEditingField === field.key && (
+                                <button onClick={() => { setLongEditingField(null); toast.success("Field updated"); }} className="text-[10px] text-blue hover:text-blue/80 font-medium transition-colors">Done</button>
+                              )}
+                            </div>
+                            {isEditing ? (
+                              field.type === "textarea" ? (
+                                <textarea value={field.value} onChange={(e) => field.setter(e.target.value)} placeholder={field.placeholder} rows={5} className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y" />
+                              ) : (
+                                <input type="text" value={field.value} onChange={(e) => field.setter(e.target.value)} placeholder={field.placeholder} className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                              )
+                            ) : (
+                              <div className="rounded-xl bg-surface px-4 py-2.5 text-[13px] text-right min-h-[38px]">
+                                {field.type === "textarea" ? <pre className="whitespace-pre-wrap font-mono text-[13px]">{field.value || <span className="text-dim">—</span>}</pre> : (field.value || <span className="text-dim">—</span>)}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                      {!longSaved && (
+                        <button onClick={() => { setLongSaved(true); setLongEditingField(null); toast.success("Long script saved"); }} className="w-full py-2.5 text-[13px] font-semibold rounded-full bg-blue text-blue-foreground hover:opacity-90 transition-opacity">Save</button>
+                      )}
                     </div>
                   )}
                 </div>
