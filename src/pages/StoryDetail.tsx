@@ -432,6 +432,12 @@ export default function StoryDetail() {
                   )}
                 </div>
 
+                {activeStage === "approved" && (
+                  <button onClick={() => moveStory("filmed")} className="w-full px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity">
+                    + Mark as Filmed
+                  </button>
+                )}
+
                 {activeStage === "filmed" && (
                   <div className="rounded-xl bg-background p-5">
                     <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2">Add YouTube URL</div>
