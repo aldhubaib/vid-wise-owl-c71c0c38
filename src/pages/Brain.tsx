@@ -148,7 +148,7 @@ export default function Brain() {
                     <p className="text-[12px] text-dim mb-3 ml-5.5">These exact stories are in competitor videos. If you make a video about them, you are late.</p>
                     <div className="space-y-1">
                       {competitorStories.map((story) => (
-                        <div key={story.id} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0d0d10] hover:bg-elevated/60 transition-colors">
+                        <div key={story.id} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-surface hover:bg-elevated/60 transition-colors">
                           <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-orange/15 text-orange shrink-0">TAKEN</span>
                           <div className="flex items-center gap-1 shrink-0">
                             {story.competitors.map((c, i) => (
