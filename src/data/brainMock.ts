@@ -1,4 +1,5 @@
 import avatarCh2 from "@/assets/avatars/ch2.jpg";
+import avatarCh3 from "@/assets/avatars/ch3.jpg";
 import avatarCh4 from "@/assets/avatars/ch4.jpg";
 import avatarCh5 from "@/assets/avatars/ch5.jpg";
 import avatarCh6 from "@/assets/avatars/ch6.jpg";
