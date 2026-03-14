@@ -42,9 +42,7 @@ function UrgencyBadge({ days }: { days: number }) {
 
 export default function Brain() {
   const navigate = useNavigate();
-  const [addUrlOpen, setAddUrlOpen] = useState(false);
-  const [newUrl, setNewUrl] = useState("");
-  const [newTitle, setNewTitle] = useState("");
+  const [takenOpen, setTakenOpen] = useState(false);
   const [takenOpen, setTakenOpen] = useState(false);
 
   const gapWins = publishedVideos.filter((v) => v.result === "gap_win").length;
