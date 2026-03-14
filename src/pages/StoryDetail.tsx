@@ -541,10 +541,47 @@ export default function StoryDetail() {
                 </div>
 
                 {story.youtubeUrl && (
-                  <a href={story.youtubeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[12px] text-blue font-mono hover:opacity-80 transition-opacity">
-                    <ExternalLink className="w-3.5 h-3.5" />
-                    YouTube Link
-                  </a>
+                  <div className="flex items-center gap-2">
+                    {editingYoutubeUrl ? (
+                      <div className="flex items-center gap-2 flex-1">
+                        <div className="relative flex-1">
+                          <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-dim" />
+                          <input
+                            type="url"
+                            value={youtubeInput}
+                            onChange={(e) => setYoutubeInput(e.target.value)}
+                            className="w-full pl-9 pr-3 py-2 text-[13px] bg-surface border border-border rounded-full text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40"
+                          />
+                        </div>
+                        <button
+                          onClick={() => {
+                            if (!youtubeInput.trim()) { toast.error("URL cannot be empty"); return; }
+                            setStories((prev) => prev.map((s) => s.id === id ? { ...s, youtubeUrl: youtubeInput.trim() } : s));
+                            setEditingYoutubeUrl(false);
+                            toast.success("URL updated");
+                          }}
+                          className="text-[11px] text-blue font-semibold hover:opacity-80 transition-opacity"
+                        >Done</button>
+                        <button
+                          onClick={() => { setYoutubeInput(story.youtubeUrl || ""); setEditingYoutubeUrl(false); }}
+                          className="text-[11px] text-dim hover:text-sensor transition-colors"
+                        >Cancel</button>
+                      </div>
+                    ) : (
+                      <>
+                        <a href={story.youtubeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[12px] text-blue font-mono hover:opacity-80 transition-opacity">
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          YouTube Link
+                        </a>
+                        <button
+                          onClick={() => { setYoutubeInput(story.youtubeUrl || ""); setEditingYoutubeUrl(true); }}
+                          className="flex items-center gap-1 text-[10px] text-dim hover:text-sensor transition-colors"
+                        >
+                          <Pencil className="w-3 h-3" /> Edit
+                        </button>
+                      </>
+                    )}
+                  </div>
                 )}
 
                 {/* Produce Again CTA */}
