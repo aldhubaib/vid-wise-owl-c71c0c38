@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Copy, Check, RefreshCw, Plus, Eye, ThumbsUp, MessageSquare, Trophy, XCircle, Check as CheckIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Copy, Check, RefreshCw, Plus, Eye, ThumbsUp, MessageSquare, Trophy, ChevronDown, ArrowUpRight, Zap } from "lucide-react";
 import { toast } from "sonner";
 import {
   competitorStories,
@@ -7,6 +8,7 @@ import {
   publishedVideos,
   competitorChannels,
   autoSearchQuery,
+  getCompetitorActivity,
 } from "@/data/brainMock";
 
 function CopyBtn({ text }: { text: string }) {
@@ -22,10 +24,28 @@ function CopyBtn({ text }: { text: string }) {
   );
 }
 
+function daysOpen(dateStr: string): number {
+  const now = new Date("2026-03-14"); // current date
+  const d = new Date(dateStr);
+  return Math.max(0, Math.floor((now.getTime() - d.getTime()) / (1000 * 60 * 60 * 24)));
+}
+
+function UrgencyBadge({ days }: { days: number }) {
+  const color = days >= 7 ? "bg-destructive/15 text-destructive" : days >= 3 ? "bg-orange/15 text-orange" : "bg-success/15 text-success";
+  const label = days >= 7 ? "🔥 Closing fast" : days >= 3 ? `🔥 ${days}d open` : `${days}d open`;
+  return (
+    <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full ${color} shrink-0`}>
+      {label}
+    </span>
+  );
+}
+
 export default function Brain() {
+  const navigate = useNavigate();
   const [addUrlOpen, setAddUrlOpen] = useState(false);
   const [newUrl, setNewUrl] = useState("");
   const [newTitle, setNewTitle] = useState("");
+  const [takenOpen, setTakenOpen] = useState(false);
 
   const gapWins = publishedVideos.filter((v) => v.result === "gap_win").length;
   const lateCount = publishedVideos.filter((v) => v.result === "late").length;
@@ -33,6 +53,7 @@ export default function Brain() {
   const gapAvgViews = gapWins ? Math.round(publishedVideos.filter((v) => v.result === "gap_win").reduce((a, v) => a + v.viewsRaw, 0) / gapWins) : 0;
   const lateAvgViews = lateCount ? Math.round(publishedVideos.filter((v) => v.result === "late").reduce((a, v) => a + v.viewsRaw, 0) / lateCount) : 0;
   const advantage = lateAvgViews ? Math.round(((gapAvgViews - lateAvgViews) / lateAvgViews) * 100) : 0;
+  const competitorActivity = getCompetitorActivity();
 
   const fmt = (n: number) => n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(0)}K` : String(n);
 
@@ -60,7 +81,7 @@ export default function Brain() {
           <div className="flex-1 min-w-0 space-y-6">
             {/* Competitor Story Database */}
             <div className="rounded-xl bg-background p-5">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-5">
                 <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Competitor Story Database</div>
                 <div className="flex items-center gap-3">
                   <span className="text-[10px] text-dim font-mono">Last extracted: 2026-03-08</span>
@@ -74,47 +95,76 @@ export default function Brain() {
                 </div>
               </div>
 
-              {/* Already covered */}
-              <div className="mb-4">
-                <div className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1">
-                  × Already covered by competitors ({competitorStories.length})
+              {/* ★ UNTOUCHED FIRST — high visual weight */}
+              <div className="mb-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">🔥</span>
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-success">
+                    Untouched — Your windows ({untouchedStories.length})
+                  </span>
                 </div>
-                <p className="text-[12px] text-dim mb-3">These exact stories are in competitor videos. If you make a video about them, you are late.</p>
-                <div className="space-y-1">
-                  {competitorStories.map((story) => (
-                    <div key={story.id} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0d0d10] hover:bg-elevated/60 transition-colors">
-                      <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-orange/15 text-orange shrink-0">TAKEN</span>
-                      <div className="flex items-center gap-1 shrink-0">
-                        {story.competitors.map((c, i) => (
-                          <img key={i} src={c.avatar} alt={c.name} className="w-5 h-5 rounded-full object-cover border border-border" />
-                        ))}
+                <p className="text-[12px] text-dim mb-3">Stories found in competitor research but never produced. Act before someone else does.</p>
+                <div className="space-y-1.5">
+                  {untouchedStories.map((story) => {
+                    const days = daysOpen(story.date);
+                    return (
+                      <div key={story.id} className="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-success/[0.04] border border-success/10 hover:bg-success/[0.07] transition-colors group">
+                        <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-success/15 text-success shrink-0">OPEN</span>
+                        <UrgencyBadge days={days} />
+                        <span className="flex-1 text-[13px] text-right truncate font-medium">{story.title}</span>
+                        <span className="text-[11px] text-dim font-mono shrink-0">{story.date}</span>
+                        <button
+                          onClick={() => {
+                            toast.success("Sent to AI Intelligence pipeline");
+                            navigate("/stories");
+                          }}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-success text-success-foreground text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                        >
+                          <Zap className="w-3 h-3" />
+                          Produce
+                        </button>
                       </div>
-                      <span className="text-[11px] text-dim font-mono shrink-0">
-                        {story.competitors.length} competitor{story.competitors.length > 1 ? "s" : ""} {story.totalViews} views
-                      </span>
-                      <span className="flex-1 text-[13px] text-right truncate">{story.title}</span>
-                      <span className="text-[11px] text-dim font-mono shrink-0">{story.date}</span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Untouched */}
+              {/* ★ TAKEN — collapsed by default */}
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                  <span>🔥</span>
-                  <span className="text-success">Untouched — Nobody made a video yet ({untouchedStories.length})</span>
-                </div>
-                <p className="text-[12px] text-dim mb-3">Stories found in competitor transcript research but never turned into a video. These are your windows.</p>
-                <div className="space-y-1">
-                  {untouchedStories.map((story) => (
-                    <div key={story.id} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0d0d10] hover:bg-elevated/60 transition-colors">
-                      <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-success/15 text-success shrink-0">OPEN</span>
-                      <span className="flex-1 text-[13px] text-right truncate">{story.title}</span>
-                      <span className="text-[11px] text-dim font-mono shrink-0">{story.date}</span>
+                <button
+                  onClick={() => setTakenOpen(!takenOpen)}
+                  className="flex items-center gap-2 mb-2 hover:opacity-80 transition-opacity"
+                >
+                  <ChevronDown className={`w-3.5 h-3.5 text-dim transition-transform ${takenOpen ? "rotate-0" : "-rotate-90"}`} />
+                  <span className="text-[10px] text-dim font-mono uppercase tracking-wider">
+                    × Already covered by competitors ({competitorStories.length})
+                  </span>
+                </button>
+                {!takenOpen && (
+                  <p className="text-[11px] text-dim ml-5.5 font-mono">{competitorStories.length} stories taken · you'd be late on all of these</p>
+                )}
+                {takenOpen && (
+                  <>
+                    <p className="text-[12px] text-dim mb-3 ml-5.5">These exact stories are in competitor videos. If you make a video about them, you are late.</p>
+                    <div className="space-y-1">
+                      {competitorStories.map((story) => (
+                        <div key={story.id} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0d0d10] hover:bg-elevated/60 transition-colors">
+                          <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-orange/15 text-orange shrink-0">TAKEN</span>
+                          <div className="flex items-center gap-1 shrink-0">
+                            {story.competitors.map((c, i) => (
+                              <img key={i} src={c.avatar} alt={c.name} className="w-5 h-5 rounded-full object-cover border border-border" />
+                            ))}
+                          </div>
+                          <span className="text-[11px] text-dim font-mono shrink-0">
+                            {story.competitors.length} competitor{story.competitors.length > 1 ? "s" : ""} {story.totalViews} views
+                          </span>
+                          <span className="flex-1 text-[13px] text-right truncate">{story.title}</span>
+                          <span className="text-[11px] text-dim font-mono shrink-0">{story.date}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </>
+                )}
               </div>
             </div>
 
@@ -217,6 +267,27 @@ export default function Brain() {
                 <div className="text-dim">Gap Win avg: <span className="text-success font-semibold">{fmt(gapAvgViews)} views</span></div>
                 <div className="text-dim">Late avg: <span className="text-destructive font-semibold">{fmt(lateAvgViews)} views</span></div>
                 <div className="text-dim">First-mover advantage: <span className="text-foreground font-semibold">{advantage}%</span> more views</div>
+              </div>
+            </div>
+
+            {/* Competitor Activity */}
+            <div className="rounded-xl bg-background p-5">
+              <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Competitor Activity</div>
+              <p className="text-[12px] text-dim mb-3">Who's covering the most stories this period.</p>
+              <div className="space-y-2">
+                {competitorActivity.map((c) => (
+                  <div key={c.name} className="flex items-center gap-3">
+                    <span className={`w-2 h-2 rounded-full ${c.color} shrink-0`} />
+                    <span className="text-[12px] text-sensor flex-1">{c.name}</span>
+                    <div className="w-24 h-1.5 bg-elevated rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full ${c.color}`}
+                        style={{ width: `${Math.min(100, (c.count / (competitorActivity[0]?.count || 1)) * 100)}%` }}
+                      />
+                    </div>
+                    <span className="text-[11px] font-mono font-semibold text-foreground w-6 text-right">{c.count}</span>
+                  </div>
+                ))}
               </div>
             </div>
 

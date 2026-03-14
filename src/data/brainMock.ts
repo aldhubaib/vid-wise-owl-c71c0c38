@@ -184,6 +184,22 @@ export const competitorChannels: CompetitorChannel[] = [
   { name: "SUL CASES", handle: "@sulcases", color: "bg-orange", enabled: true },
 ];
 
+// Helper: count stories per competitor
+export function getCompetitorActivity() {
+  const activity: Record<string, number> = {};
+  competitorStories.forEach((s) => {
+    s.competitors.forEach((c) => {
+      activity[c.name] = (activity[c.name] || 0) + 1;
+    });
+  });
+  return Object.entries(activity)
+    .map(([name, count]) => {
+      const ch = competitorChannels.find((c) => c.name === name);
+      return { name, count, color: ch?.color || "bg-dim" };
+    })
+    .sort((a, b) => b.count - a.count);
+}
+
 export const autoSearchQuery = `أعطني أبرز 8 قضايا وأخبار من الجريمة والقضايا الحقيقية في السعودية والخليج من آخر 7 أيام.
 
 أولوية: ابحث عن تطورات جديدة في هذه القضايا الغير مغطاة:
