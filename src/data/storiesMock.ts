@@ -23,6 +23,7 @@ export interface Story {
   gapWin?: boolean;
   rank?: number;
   channelId?: string;
+  producedFormats?: ("short" | "long")[];
 }
 
 export const storiesMock: Story[] = [
