@@ -158,7 +158,9 @@ export const publishedVideos: PublishedVideo[] = [
     result: "gap_win",
     viewsRaw: 2100000,
     type: "video",
-    channel: "Main",
+    channelId: "ch2",
+    channelName: "قرية العجائب",
+    channelAvatar: avatarCh2,
   },
   {
     id: "pv2",
@@ -170,7 +172,9 @@ export const publishedVideos: PublishedVideo[] = [
     result: "gap_win",
     viewsRaw: 1400000,
     type: "video",
-    channel: "Main",
+    channelId: "ch2",
+    channelName: "قرية العجائب",
+    channelAvatar: avatarCh2,
   },
   {
     id: "pv3",
@@ -182,7 +186,9 @@ export const publishedVideos: PublishedVideo[] = [
     result: "late",
     viewsRaw: 420000,
     type: "short",
-    channel: "Clips",
+    channelId: "ch3",
+    channelName: "طارق العلي",
+    channelAvatar: avatarCh3,
   },
 ];
 
