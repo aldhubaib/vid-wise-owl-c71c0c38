@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Copy, Check, RefreshCw, Plus, Eye, ThumbsUp, MessageSquare, Trophy, ChevronDown, ArrowUpRight, Zap } from "lucide-react";
+import { Copy, Check, RefreshCw, Eye, ThumbsUp, MessageSquare, Trophy, ChevronDown, ArrowUpRight, Zap, Smartphone, Monitor } from "lucide-react";
 import { toast } from "sonner";
 import {
   competitorStories,
