@@ -440,9 +440,11 @@ export default function StoryDetail() {
 
                 {activeStage === "filmed" && (
                   <div className="rounded-xl bg-background p-5">
-                    <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2">Add YouTube URL</div>
+                    <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-2">
+                      {scriptFormat === "short" ? "Add YouTube Short URL" : "Add YouTube Video URL"}
+                    </div>
                     <p className="text-[12px] text-dim leading-relaxed mb-4">
-                      Paste the published video URL to record performance and check Brain coverage.
+                      Paste the published {scriptFormat === "short" ? "short" : "video"} URL to record performance and check Brain coverage.
                     </p>
                     <div className="flex items-center gap-2.5">
                       <div className="relative flex-1">
@@ -451,7 +453,7 @@ export default function StoryDetail() {
                           type="url"
                           value={youtubeInput}
                           onChange={(e) => setYoutubeInput(e.target.value)}
-                          placeholder="https://youtube.com/watch?v=..."
+                          placeholder={scriptFormat === "short" ? "https://youtube.com/shorts/..." : "https://youtube.com/watch?v=..."}
                           className="w-full pl-9 pr-3 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40"
                         />
                       </div>
