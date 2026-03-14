@@ -118,7 +118,7 @@ export default function Brain() {
                             toast.success("Sent to AI Intelligence pipeline");
                             navigate("/stories");
                           }}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-success text-success-foreground text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue text-blue-foreground text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
                         >
                           <Zap className="w-3 h-3" />
                           Produce
