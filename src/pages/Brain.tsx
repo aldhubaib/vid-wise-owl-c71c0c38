@@ -60,7 +60,7 @@ export default function Brain() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Top bar */}
-      <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
+      <div className="h-12 flex items-center justify-between px-6 border-b border-border shrink-0 max-lg:px-4">
         <div className="flex items-center gap-3">
           <h1 className="text-sm font-semibold">Channel Brain</h1>
           <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
@@ -118,7 +118,7 @@ export default function Brain() {
                             toast.success("Sent to AI Intelligence pipeline");
                             navigate("/stories");
                           }}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-success text-success-foreground text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue text-blue-foreground text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
                         >
                           <Zap className="w-3 h-3" />
                           Produce
@@ -148,7 +148,7 @@ export default function Brain() {
                     <p className="text-[12px] text-dim mb-3 ml-5.5">These exact stories are in competitor videos. If you make a video about them, you are late.</p>
                     <div className="space-y-1">
                       {competitorStories.map((story) => (
-                        <div key={story.id} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0d0d10] hover:bg-elevated/60 transition-colors">
+                        <div key={story.id} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-surface hover:bg-elevated/60 transition-colors">
                           <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-orange/15 text-orange shrink-0">TAKEN</span>
                           <div className="flex items-center gap-1 shrink-0">
                             {story.competitors.map((c, i) => (
@@ -200,7 +200,7 @@ export default function Brain() {
                     />
                     <button
                       onClick={() => { toast.success("Video added"); setAddUrlOpen(false); setNewUrl(""); setNewTitle(""); }}
-                      className="px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-xl hover:opacity-90 transition-opacity"
+                      className="px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
                     >
                       Add
                     </button>
@@ -210,7 +210,7 @@ export default function Brain() {
 
               <div className="space-y-1">
                 {publishedVideos.map((video) => (
-                  <div key={video.id} className="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-[#0d0d10] hover:bg-elevated/60 transition-colors">
+                  <div key={video.id} className="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-surface hover:bg-elevated/60 transition-colors">
                     <div className="flex items-center gap-3 shrink-0">
                       <div className="flex items-center gap-1.5 text-[11px] text-dim font-mono">
                         <Eye className="w-3 h-3" /> {video.views}
