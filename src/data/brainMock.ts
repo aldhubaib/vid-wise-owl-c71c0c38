@@ -21,6 +21,8 @@ export interface PublishedVideo {
   comments: string;
   result: "gap_win" | "late";
   viewsRaw: number;
+  type: "short" | "video";
+  channel: string;
 }
 
 export interface CompetitorChannel {
