@@ -23,6 +23,7 @@ export interface Story {
   gapWin?: boolean;
   rank?: number;
   channelId?: string;
+  producedFormats?: ("short" | "long")[];
 }
 
 export const storiesMock: Story[] = [
@@ -183,5 +184,6 @@ export const storiesMock: Story[] = [
     suggestedTitle: "اختفاء في نيوم — ماذا حدث للسياح الثلاثة؟",
     openingHook: "ثلاثة سياح دخلوا الصحراء... ولم يعد أي منهم.",
     endingHook: "هل تجرؤ على زيارة هذا المكان؟ اكتب رأيك.",
+    producedFormats: ["long"],
   },
 ];

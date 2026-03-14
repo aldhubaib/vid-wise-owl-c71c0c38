@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown, Sparkles, Pencil } from "lucide-react";
+import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown, Sparkles, Pencil, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { storiesMock, Story } from "@/data/storiesMock";
 import { channels } from "@/data/mock";
@@ -527,7 +527,11 @@ export default function StoryDetail() {
                   <button
                     onClick={() => {
                       if (!youtubeInput.trim()) { toast.error("Please paste a YouTube URL"); return; }
-                      setStories((prev) => prev.map((s) => s.id === id ? { ...s, youtubeUrl: youtubeInput.trim(), stage: "done" as Stage, views: 0, likes: 0, comments: 0, gapWin: false } : s));
+                      const currentFormats = stories.find((st) => st.id === id)?.producedFormats || [];
+                      const hasShort = !!stories.find((st) => st.id === id)?.shortScript;
+                      const newFormat: "short" | "long" = hasShort && !stories.find((st) => st.id === id)?.script ? "short" : hasShort ? "short" : "long";
+                      const updatedFormats = currentFormats.includes(newFormat) ? currentFormats : [...currentFormats, newFormat];
+                      setStories((prev) => prev.map((s) => s.id === id ? { ...s, youtubeUrl: youtubeInput.trim(), stage: "done" as Stage, views: 0, likes: 0, comments: 0, gapWin: false, producedFormats: updatedFormats } : s));
                       setYoutubeInput("");
                       toast.success("Moved to Done");
                     }}
@@ -559,6 +563,18 @@ export default function StoryDetail() {
                       <div className="text-[14px] font-semibold text-success">Gap Win</div>
                       <div className="text-[12px] text-success/80">You were first and the audience responded!</div>
                     </div>
+                  </div>
+                )}
+
+                {/* Produced Formats badges */}
+                {story.producedFormats && story.producedFormats.length > 0 && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Produced</span>
+                    {story.producedFormats.map((f) => (
+                      <span key={f} className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue/15 text-blue">
+                        {f === "short" ? "Short" : "Long Video"}
+                      </span>
+                    ))}
                   </div>
                 )}
 
@@ -597,6 +613,72 @@ export default function StoryDetail() {
                     YouTube Link
                   </a>
                 )}
+
+                {/* Produce Again CTA */}
+                {(() => {
+                  const produced = story.producedFormats || [];
+                  const canProduceShort = !produced.includes("short");
+                  const canProduceLong = !produced.includes("long");
+                  if (!canProduceShort && !canProduceLong) return null;
+                  return (
+                    <div className="rounded-xl bg-background p-5 space-y-3">
+                      <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Produce Another Format</div>
+                      <p className="text-[12px] text-dim leading-relaxed">This story performed well. Produce it in another format to maximize reach.</p>
+                      <div className="flex gap-2">
+                        {canProduceShort && (
+                          <button
+                            onClick={() => {
+                              setStories((prev) => prev.map((s) => s.id === id ? {
+                                ...s,
+                                stage: "approved" as Stage,
+                                producedFormats: [...(s.producedFormats || [])],
+                              } : s));
+                              setShortScriptOpen(true);
+                              setLongScriptOpen(false);
+                              setShortSaved(false);
+                              setShortEditingField(null);
+                              setShortSuggestedTitleInput("");
+                              setShortOpeningHookInput("");
+                              setShortBrandedHookStartInput("");
+                              setShortBrandedHookEndInput("");
+                              setShortScriptInput("");
+                              toast.success("Restarted pipeline for Short format");
+                            }}
+                            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
+                          >
+                            <RefreshCw className="w-3.5 h-3.5" />
+                            Produce as Short
+                          </button>
+                        )}
+                        {canProduceLong && (
+                          <button
+                            onClick={() => {
+                              setStories((prev) => prev.map((s) => s.id === id ? {
+                                ...s,
+                                stage: "approved" as Stage,
+                                producedFormats: [...(s.producedFormats || [])],
+                              } : s));
+                              setLongScriptOpen(true);
+                              setShortScriptOpen(false);
+                              setLongSaved(false);
+                              setLongEditingField(null);
+                              setSuggestedTitleInput("");
+                              setOpeningHookInput("");
+                              setBrandedHookStartInput("");
+                              setBrandedHookEndInput("");
+                              setLongScriptInput("");
+                              toast.success("Restarted pipeline for Long Video format");
+                            }}
+                            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
+                          >
+                            <RefreshCw className="w-3.5 h-3.5" />
+                            Produce as Long Video
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })()}
               </>
             )}
           </div>
