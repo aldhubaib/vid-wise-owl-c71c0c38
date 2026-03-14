@@ -237,15 +237,15 @@ export default function StoryDetail() {
                   })()}
                 </div>
 
-                {/* Short Script — collapsible box */}
+                {/* Script Box — single box with format toggle */}
                 <div className="rounded-xl bg-background overflow-hidden">
                   <button
-                    onClick={() => setShortScriptOpen(!shortScriptOpen)}
+                    onClick={() => setScriptOpen(!scriptOpen)}
                     className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-elevated/50 transition-colors"
                   >
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Short Script (1–2 min)</span>
-                      {shortSaved && <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-success/15 text-success">Saved</span>}
+                      <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Script</span>
+                      {scriptSaved && <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-success/15 text-success">Saved</span>}
                     </div>
                     <div className="flex items-center gap-2">
                       <button
@@ -255,100 +255,51 @@ export default function StoryDetail() {
                         <Sparkles className="w-3.5 h-3.5" />
                         Generate with AI
                       </button>
-                      <ChevronDown className={`w-4 h-4 text-dim transition-transform ${shortScriptOpen ? "rotate-180" : ""}`} />
+                      <ChevronDown className={`w-4 h-4 text-dim transition-transform ${scriptOpen ? "rotate-180" : ""}`} />
                     </div>
                   </button>
-                  {shortScriptOpen && (
+                  {scriptOpen && (
                     <div className="px-5 pb-5 space-y-4">
-                      {([
-                        { key: "title", label: "Suggested Title", value: shortSuggestedTitleInput, setter: setShortSuggestedTitleInput, placeholder: "عنوان الشورت المقترح...", type: "input" as const },
-                        { key: "hook", label: "Opening Hook (first 10 sec)", value: shortOpeningHookInput, setter: setShortOpeningHookInput, placeholder: "الجملة الأولى التي تجذب المشاهد...", type: "input" as const },
-                        { key: "hookStart", label: "Branded Hook Start", value: shortBrandedHookStartInput, setter: setShortBrandedHookStartInput, placeholder: "e.g. أهلاً وسهلاً بكم في قناة...", type: "input" as const },
-                        { key: "script", label: "Script — with timestamps", value: shortScriptInput, setter: setShortScriptInput, placeholder: "00:00 هوك\n00:15 المحتوى...", type: "textarea" as const },
-                        { key: "hookEnd", label: "Branded Hook End", value: shortBrandedHookEndInput, setter: setShortBrandedHookEndInput, placeholder: "e.g. لا تنسوا الاشتراك وتفعيل الجرس...", type: "input" as const },
-                      ]).map((field) => {
-                        const isEditing = !shortSaved || shortEditingField === field.key;
-                        return (
-                          <div key={field.key}>
-                            <div className="flex items-center justify-between mb-1.5">
-                              <label className="text-[10px] text-dim font-mono uppercase tracking-wider">{field.label}</label>
-                              {shortSaved && shortEditingField !== field.key && field.value && (
-                                <button onClick={() => setShortEditingField(field.key)} className="flex items-center gap-1 text-[10px] text-dim hover:text-sensor transition-colors">
-                                  <Pencil className="w-3 h-3" /> Edit
-                                </button>
-                              )}
-                              {shortSaved && shortEditingField === field.key && (
-                                <button onClick={() => { setShortEditingField(null); toast.success("Field updated"); }} className="text-[10px] text-blue hover:text-blue/80 font-medium transition-colors">Done</button>
-                              )}
-                            </div>
-                            {isEditing ? (
-                              field.type === "textarea" ? (
-                                <textarea value={field.value} onChange={(e) => field.setter(e.target.value)} placeholder={field.placeholder} rows={3} className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y" />
-                              ) : (
-                                <input type="text" value={field.value} onChange={(e) => field.setter(e.target.value)} placeholder={field.placeholder} className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
-                              )
-                            ) : (
-                              <div className="rounded-xl bg-surface px-4 py-2.5 text-[13px] text-right min-h-[38px]">
-                                {field.type === "textarea" ? <pre className="whitespace-pre-wrap font-mono text-[13px]">{field.value || <span className="text-dim">—</span>}</pre> : (field.value || <span className="text-dim">—</span>)}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
-                      {!shortSaved && (
-                        <button onClick={() => { setShortSaved(true); setShortEditingField(null); toast.success("Short script saved"); }} className="w-full py-2.5 text-[13px] font-semibold rounded-full bg-blue text-blue-foreground hover:opacity-90 transition-opacity">Save</button>
-                      )}
-                    </div>
-                  )}
-                </div>
+                      {/* Format toggle */}
+                      <div className="flex items-center gap-1 p-1 bg-surface rounded-full w-fit">
+                        <button
+                          onClick={() => { if (!scriptSaved) { setScriptFormat("short"); } }}
+                          className={`px-4 py-1.5 text-[11px] font-semibold rounded-full transition-colors ${scriptFormat === "short" ? "bg-foreground/10 text-foreground" : "text-dim hover:text-sensor"}`}
+                        >
+                          Short (1–2 min)
+                        </button>
+                        <button
+                          onClick={() => { if (!scriptSaved) { setScriptFormat("long"); } }}
+                          className={`px-4 py-1.5 text-[11px] font-semibold rounded-full transition-colors ${scriptFormat === "long" ? "bg-foreground/10 text-foreground" : "text-dim hover:text-sensor"}`}
+                        >
+                          Video (20–40 min)
+                        </button>
+                      </div>
 
-                {/* Long Script — collapsible box */}
-                <div className="rounded-xl bg-background overflow-hidden">
-                  <button
-                    onClick={() => setLongScriptOpen(!longScriptOpen)}
-                    className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-elevated/50 transition-colors"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Long Script (20–40 min)</span>
-                      {longSaved && <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-success/15 text-success">Saved</span>}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); toast("AI script generation coming soon…"); }}
-                        className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-semibold text-blue bg-blue/10 rounded-full hover:bg-blue/20 transition-colors"
-                      >
-                        <Sparkles className="w-3.5 h-3.5" />
-                        Generate with AI
-                      </button>
-                      <ChevronDown className={`w-4 h-4 text-dim transition-transform ${longScriptOpen ? "rotate-180" : ""}`} />
-                    </div>
-                  </button>
-                  {longScriptOpen && (
-                    <div className="px-5 pb-5 space-y-4">
                       {([
-                        { key: "title", label: "Suggested Title", value: suggestedTitleInput, setter: setSuggestedTitleInput, placeholder: "عنوان الفيديو المقترح...", type: "input" as const },
-                        { key: "hook", label: "Opening Hook (first 10 sec)", value: openingHookInput, setter: setOpeningHookInput, placeholder: "الجملة الأولى التي تجذب المشاهد...", type: "input" as const },
-                        { key: "hookStart", label: "Branded Hook Start", value: brandedHookStartInput, setter: setBrandedHookStartInput, placeholder: "e.g. أهلاً وسهلاً بكم في قناة...", type: "input" as const },
-                        { key: "script", label: "Script — with timestamps", value: longScriptInput, setter: setLongScriptInput, placeholder: "00:00 مقدمة\n01:30 القصة تبدأ...", type: "textarea" as const },
-                        { key: "hookEnd", label: "Branded Hook End", value: brandedHookEndInput, setter: setBrandedHookEndInput, placeholder: "e.g. لا تنسوا الاشتراك وتفعيل الجرس...", type: "input" as const },
+                        { key: "title", label: "Suggested Title", value: titleInput, setter: setTitleInput, placeholder: scriptFormat === "short" ? "عنوان الشورت المقترح..." : "عنوان الفيديو المقترح...", type: "input" as const },
+                        { key: "hook", label: "Opening Hook (first 10 sec)", value: hookInput, setter: setHookInput, placeholder: "الجملة الأولى التي تجذب المشاهد...", type: "input" as const },
+                        { key: "hookStart", label: "Branded Hook Start", value: hookStartInput, setter: setHookStartInput, placeholder: "e.g. أهلاً وسهلاً بكم في قناة...", type: "input" as const },
+                        { key: "script", label: "Script — with timestamps", value: scriptInput, setter: setScriptInput, placeholder: scriptFormat === "short" ? "00:00 هوك\n00:15 المحتوى..." : "00:00 مقدمة\n01:30 القصة تبدأ...", type: "textarea" as const },
+                        { key: "hookEnd", label: "Branded Hook End", value: hookEndInput, setter: setHookEndInput, placeholder: "e.g. لا تنسوا الاشتراك وتفعيل الجرس...", type: "input" as const },
                       ]).map((field) => {
-                        const isEditing = !longSaved || longEditingField === field.key;
+                        const isEditing = !scriptSaved || editingField === field.key;
                         return (
                           <div key={field.key}>
                             <div className="flex items-center justify-between mb-1.5">
                               <label className="text-[10px] text-dim font-mono uppercase tracking-wider">{field.label}</label>
-                              {longSaved && longEditingField !== field.key && field.value && (
-                                <button onClick={() => setLongEditingField(field.key)} className="flex items-center gap-1 text-[10px] text-dim hover:text-sensor transition-colors">
+                              {scriptSaved && editingField !== field.key && field.value && (
+                                <button onClick={() => setEditingField(field.key)} className="flex items-center gap-1 text-[10px] text-dim hover:text-sensor transition-colors">
                                   <Pencil className="w-3 h-3" /> Edit
                                 </button>
                               )}
-                              {longSaved && longEditingField === field.key && (
-                                <button onClick={() => { setLongEditingField(null); toast.success("Field updated"); }} className="text-[10px] text-blue hover:text-blue/80 font-medium transition-colors">Done</button>
+                              {scriptSaved && editingField === field.key && (
+                                <button onClick={() => { setEditingField(null); toast.success("Field updated"); }} className="text-[10px] text-blue hover:text-blue/80 font-medium transition-colors">Done</button>
                               )}
                             </div>
                             {isEditing ? (
                               field.type === "textarea" ? (
-                                <textarea value={field.value} onChange={(e) => field.setter(e.target.value)} placeholder={field.placeholder} rows={5} className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y" />
+                                <textarea value={field.value} onChange={(e) => field.setter(e.target.value)} placeholder={field.placeholder} rows={scriptFormat === "short" ? 3 : 5} className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y" />
                               ) : (
                                 <input type="text" value={field.value} onChange={(e) => field.setter(e.target.value)} placeholder={field.placeholder} className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
                               )
@@ -360,17 +311,16 @@ export default function StoryDetail() {
                           </div>
                         );
                       })}
-                      {!longSaved && (
-                        <button onClick={() => { setLongSaved(true); setLongEditingField(null); toast.success("Long script saved"); }} className="w-full py-2.5 text-[13px] font-semibold rounded-full bg-blue text-blue-foreground hover:opacity-90 transition-opacity">Save</button>
+                      {!scriptSaved && (
+                        <button onClick={() => { setScriptSaved(true); setEditingField(null); toast.success("Script saved"); }} className="w-full py-2.5 text-[13px] font-semibold rounded-full bg-blue text-blue-foreground hover:opacity-90 transition-opacity">Save</button>
                       )}
                     </div>
                   )}
                 </div>
 
                 {(() => {
-                  const hasLongContent = suggestedTitleInput.trim() || openingHookInput.trim() || brandedHookStartInput.trim() || longScriptInput.trim() || brandedHookEndInput.trim();
-                  const hasShortContent = shortSuggestedTitleInput.trim() || shortOpeningHookInput.trim() || shortBrandedHookStartInput.trim() || shortScriptInput.trim() || shortBrandedHookEndInput.trim();
-                  const canApprove = !!selectedChannel && (!!hasLongContent || !!hasShortContent);
+                  const hasContent = titleInput.trim() || hookInput.trim() || hookStartInput.trim() || scriptInput.trim() || hookEndInput.trim();
+                  const canApprove = !!selectedChannel && !!hasContent;
                   return (
                     <div className="flex gap-2">
                       <button
@@ -380,12 +330,12 @@ export default function StoryDetail() {
                             const match = line.match(/^(\d{1,2}:\d{2}(?::\d{2})?)\s+(.+)/);
                             return match ? { time: match[1], text: match[2] } : { time: "", text: line };
                           }) : undefined;
+                          const parsed = parseScript(scriptInput);
                           setStories((prev) => prev.map((s) => s.id === id ? {
                             ...s,
                             channelId: selectedChannel,
                             stage: "approved" as Stage,
-                            script: parseScript(longScriptInput) || s.script,
-                            shortScript: parseScript(shortScriptInput),
+                            ...(scriptFormat === "long" ? { script: parsed || s.script } : { shortScript: parsed }),
                           } : s));
                           toast.success(`Moved to ${stages.find((s) => s.key === "approved")?.label}`);
                         }}
