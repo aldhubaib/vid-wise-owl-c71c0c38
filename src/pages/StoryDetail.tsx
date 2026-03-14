@@ -576,15 +576,15 @@ export default function StoryDetail() {
                                 stage: "approved" as Stage,
                                 producedFormats: [...(s.producedFormats || [])],
                               } : s));
-                              setShortScriptOpen(true);
-                              setLongScriptOpen(false);
-                              setShortSaved(false);
-                              setShortEditingField(null);
-                              setShortSuggestedTitleInput("");
-                              setShortOpeningHookInput("");
-                              setShortBrandedHookStartInput("");
-                              setShortBrandedHookEndInput("");
-                              setShortScriptInput("");
+                              setScriptFormat("short");
+                              setScriptOpen(true);
+                              setScriptSaved(false);
+                              setEditingField(null);
+                              setTitleInput("");
+                              setHookInput("");
+                              setHookStartInput("");
+                              setHookEndInput("");
+                              setScriptInput("");
                               toast.success("Restarted pipeline for Short format");
                             }}
                             className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
@@ -601,15 +601,15 @@ export default function StoryDetail() {
                                 stage: "approved" as Stage,
                                 producedFormats: [...(s.producedFormats || [])],
                               } : s));
-                              setLongScriptOpen(true);
-                              setShortScriptOpen(false);
-                              setLongSaved(false);
-                              setLongEditingField(null);
-                              setSuggestedTitleInput("");
-                              setOpeningHookInput("");
-                              setBrandedHookStartInput("");
-                              setBrandedHookEndInput("");
-                              setLongScriptInput("");
+                              setScriptFormat("long");
+                              setScriptOpen(true);
+                              setScriptSaved(false);
+                              setEditingField(null);
+                              setTitleInput("");
+                              setHookInput("");
+                              setHookStartInput("");
+                              setHookEndInput("");
+                              setScriptInput("");
                               toast.success("Restarted pipeline for Long Video format");
                             }}
                             className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
