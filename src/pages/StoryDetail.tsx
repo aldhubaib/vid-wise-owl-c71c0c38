@@ -352,8 +352,8 @@ export default function StoryDetail() {
               </>
             )}
 
-            {/* APPROVED */}
-            {activeStage === "approved" && (
+            {/* APPROVED / FILMED / PUBLISH — same layout as liked, fields already filled */}
+            {(activeStage === "approved" || activeStage === "filmed" || activeStage === "publish") && (
               <>
                 {story.channelId && (() => {
                   const ch = channels.find((c) => c.id === story.channelId);
@@ -372,82 +372,71 @@ export default function StoryDetail() {
                     </div>
                   ) : null;
                 })()}
-                <div className="rounded-xl bg-background p-5 space-y-5">
-                  <div className="text-[10px] text-dim font-mono uppercase tracking-widest">Production Brief</div>
 
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Suggested Title</span>
-                      {story.suggestedTitle && <CopyBtn text={story.suggestedTitle} />}
+                {/* Same script box — saved state */}
+                <div className="rounded-xl bg-background overflow-hidden">
+                  <button
+                    onClick={() => setScriptOpen(!scriptOpen)}
+                    className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-elevated/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Script</span>
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-blue/15 text-blue">
+                        {scriptFormat === "short" ? "Short" : "Video"}
+                      </span>
+                      {scriptSaved && <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-success/15 text-success">Saved</span>}
                     </div>
-                    <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{story.suggestedTitle}</div>
-                  </div>
-
-                  {(() => {
-                    const ch = channels.find((c) => c.id === story.channelId);
-                    const openingHook = ch?.startHook || story.openingHook;
-                    const endingHook = ch?.endHook || story.endingHook;
-                    return (
-                      <>
-                        <div>
-                          <div className="flex items-center justify-between mb-1.5">
-                            <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Opening Hook (first 10 sec)</span>
-                            {openingHook && <CopyBtn text={openingHook} />}
+                    <ChevronDown className={`w-4 h-4 text-dim transition-transform ${scriptOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  {scriptOpen && (
+                    <div className="px-5 pb-5 space-y-4">
+                      {([
+                        { key: "title", label: "Suggested Title", value: titleInput, setter: setTitleInput, type: "input" as const },
+                        { key: "hook", label: "Opening Hook (first 10 sec)", value: hookInput, setter: setHookInput, type: "input" as const },
+                        { key: "hookStart", label: "Branded Hook Start", value: hookStartInput, setter: setHookStartInput, type: "input" as const },
+                        { key: "script", label: "Script — with timestamps", value: scriptInput, setter: setScriptInput, type: "textarea" as const },
+                        { key: "hookEnd", label: "Branded Hook End", value: hookEndInput, setter: setHookEndInput, type: "input" as const },
+                      ]).map((field) => {
+                        const isEditing = editingField === field.key;
+                        return (
+                          <div key={field.key}>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <label className="text-[10px] text-dim font-mono uppercase tracking-wider">{field.label}</label>
+                              <div className="flex items-center gap-2">
+                                {field.value && !isEditing && <CopyBtn text={field.value} />}
+                                {!isEditing && field.value && (
+                                  <button onClick={() => setEditingField(field.key)} className="flex items-center gap-1 text-[10px] text-dim hover:text-sensor transition-colors">
+                                    <Pencil className="w-3 h-3" /> Edit
+                                  </button>
+                                )}
+                                {isEditing && (
+                                  <button onClick={() => { setEditingField(null); toast.success("Field updated"); }} className="text-[10px] text-blue hover:text-blue/80 font-medium transition-colors">Done</button>
+                                )}
+                              </div>
+                            </div>
+                            {isEditing ? (
+                              field.type === "textarea" ? (
+                                <textarea value={field.value} onChange={(e) => field.setter(e.target.value)} rows={scriptFormat === "short" ? 3 : 5} className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y" />
+                              ) : (
+                                <input type="text" value={field.value} onChange={(e) => field.setter(e.target.value)} className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim focus:outline-none focus:border-blue/40 text-right" />
+                              )
+                            ) : (
+                              <div className="rounded-xl bg-surface px-4 py-2.5 text-[13px] text-right min-h-[38px]">
+                                {field.type === "textarea" ? <pre className="whitespace-pre-wrap font-mono text-[13px]">{field.value || <span className="text-dim">—</span>}</pre> : (field.value || <span className="text-dim">—</span>)}
+                              </div>
+                            )}
                           </div>
-                          <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{openingHook}</div>
-                        </div>
-
-                        <div>
-                          <div className="flex items-center justify-between mb-1.5">
-                            <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Ending Hook</span>
-                            {endingHook && <CopyBtn text={endingHook} />}
-                          </div>
-                          <div className="rounded-xl bg-surface px-4 py-3 text-[13px] text-right leading-relaxed">{endingHook}</div>
-                        </div>
-                      </>
-                    );
-                  })()}
-
-                  {story.script && (
-                    <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Long Script (20–40 min) — with timestamps</span>
-                        <CopyBtn text={story.script.map((s) => `${s.time} ${s.text}`).join("\n")} />
-                      </div>
-                      <div className="rounded-xl bg-surface overflow-hidden">
-                        {story.script.map((s, i) => (
-                          <div key={i} className={`flex items-start gap-4 px-4 py-3 ${i < story.script!.length - 1 ? "border-b border-border" : ""}`}>
-                            <span className="text-[13px] font-mono font-bold text-blue shrink-0 pt-0.5">{s.time}</span>
-                            <span className="text-[13px] text-sensor leading-relaxed text-right flex-1">{s.text}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {story.shortScript && (
-                    <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[10px] text-dim font-mono uppercase tracking-wider">Short Script (1–2 min) — with timestamps</span>
-                        <CopyBtn text={story.shortScript.map((s) => `${s.time} ${s.text}`).join("\n")} />
-                      </div>
-                      <div className="rounded-xl bg-surface overflow-hidden">
-                        {story.shortScript.map((s, i) => (
-                          <div key={i} className={`flex items-start gap-4 px-4 py-3 ${i < story.shortScript!.length - 1 ? "border-b border-border" : ""}`}>
-                            <span className="text-[13px] font-mono font-bold text-blue shrink-0 pt-0.5">{s.time}</span>
-                            <span className="text-[13px] text-sensor leading-relaxed text-right flex-1">{s.text}</span>
-                          </div>
-                        ))}
-                      </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
 
-                <button onClick={() => moveStory("filmed")} className="w-full px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity">
-                  + Mark as Filmed
-                </button>
-              </>
-            )}
+                {activeStage === "approved" && (
+                  <button onClick={() => moveStory("filmed")} className="w-full px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity">
+                    + Mark as Filmed
+                  </button>
+                )}
 
             {/* FILMED */}
             {activeStage === "filmed" && (
