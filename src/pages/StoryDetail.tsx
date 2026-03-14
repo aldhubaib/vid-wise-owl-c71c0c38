@@ -542,9 +542,9 @@ export default function StoryDetail() {
                 </div>
 
                 {story.youtubeUrl && (
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-[10px] text-dim font-mono uppercase tracking-wider">
+                  <div className="rounded-xl bg-background p-5">
+                    <div className="flex items-center justify-between mb-3">
+                      <label className="text-[10px] text-dim font-mono uppercase tracking-widest">
                         {scriptFormat === "short" ? "YouTube Short URL" : "YouTube Video URL"}
                       </label>
                       <div className="flex items-center gap-2">
