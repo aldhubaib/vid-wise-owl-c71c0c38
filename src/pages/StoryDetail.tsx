@@ -527,7 +527,11 @@ export default function StoryDetail() {
                   <button
                     onClick={() => {
                       if (!youtubeInput.trim()) { toast.error("Please paste a YouTube URL"); return; }
-                      setStories((prev) => prev.map((s) => s.id === id ? { ...s, youtubeUrl: youtubeInput.trim(), stage: "done" as Stage, views: 0, likes: 0, comments: 0, gapWin: false } : s));
+                      const currentFormats = stories.find((st) => st.id === id)?.producedFormats || [];
+                      const hasShort = !!stories.find((st) => st.id === id)?.shortScript;
+                      const newFormat: "short" | "long" = hasShort && !stories.find((st) => st.id === id)?.script ? "short" : hasShort ? "short" : "long";
+                      const updatedFormats = currentFormats.includes(newFormat) ? currentFormats : [...currentFormats, newFormat];
+                      setStories((prev) => prev.map((s) => s.id === id ? { ...s, youtubeUrl: youtubeInput.trim(), stage: "done" as Stage, views: 0, likes: 0, comments: 0, gapWin: false, producedFormats: updatedFormats } : s));
                       setYoutubeInput("");
                       toast.success("Moved to Done");
                     }}
