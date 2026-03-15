@@ -434,8 +434,8 @@ export default function Test() {
                   </div>
                 </div>
 
-                {/* Collaborators */}
-                <div className="flex items-center -space-x-2">
+                {/* Collaborators — hidden on mobile */}
+                <div className="flex items-center -space-x-2 max-sm:hidden">
                   {[ch1, ch2, ch3].map((avatar, i) => (
                     <div key={i} className="relative">
                       <img src={avatar} alt={`Collaborator ${i + 1}`} className="w-7 h-7 rounded-full object-cover border-2 border-background" />
