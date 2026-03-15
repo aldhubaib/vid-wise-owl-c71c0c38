@@ -134,7 +134,7 @@ export default function ScriptEditor({ onChange }: ScriptEditorProps) {
         <FloatingBlockActions>
           <BlockOptions />
         </FloatingBlockActions>
-        <ActionMenuList />
+        <SlashCommandMenu />
       </YooptaEditor>
     </div>
   );
