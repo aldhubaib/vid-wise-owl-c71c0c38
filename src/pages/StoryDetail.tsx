@@ -195,6 +195,46 @@ export default function StoryDetail() {
             </div>
           )}
 
+          {/* Full Article Box */}
+          <div className="rounded-xl bg-background border border-border overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-border">
+              <div className="flex items-center gap-2">
+                <FileText className="w-4 h-4 text-dim" />
+                <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Article</span>
+              </div>
+              <button
+                onClick={handleAiCleanup}
+                disabled={aiCleaning || !articleText.trim()}
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-[11px] font-semibold hover:bg-primary/90 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <Wand2 className={`w-3 h-3 ${aiCleaning ? "animate-spin" : ""}`} />
+                {aiCleaning ? "Cleaning…" : "AI Clean Up"}
+              </button>
+            </div>
+
+            {/* Progress bar */}
+            {aiCleaning && (
+              <div className="px-5 pt-3">
+                <Progress value={aiProgress} className="h-1.5 bg-muted" />
+                <div className="text-[10px] font-mono text-dim mt-1.5 text-center">
+                  {aiProgress < 30 ? "Analyzing text…" : aiProgress < 70 ? "Cleaning up…" : aiProgress < 100 ? "Finalizing…" : "Done!"}
+                </div>
+              </div>
+            )}
+
+            <div className="p-5">
+              <textarea
+                value={articleText}
+                onChange={(e) => setArticleText(e.target.value)}
+                disabled={aiCleaning}
+                placeholder="اكتب المقال الكامل هنا..."
+                rows={10}
+                dir="rtl"
+                className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim/50 focus:outline-none focus:border-primary/40 text-right leading-relaxed resize-y disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+              />
+            </div>
+          </div>
+
           {/* Stage-specific content */}
           <div className="space-y-5">
             {/* SUGGESTION */}
