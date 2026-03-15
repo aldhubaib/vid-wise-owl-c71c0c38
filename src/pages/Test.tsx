@@ -381,10 +381,10 @@ export default function Test() {
                   <button
                     onClick={() => canGenerate ? toast("Generating script from article…") : toast.error("Please assign a channel first")}
                     disabled={!canGenerate}
-                    className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[12px] font-medium transition-opacity ${
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors whitespace-nowrap border ${
                       canGenerate
-                        ? "bg-blue text-blue-foreground hover:opacity-90"
-                        : "bg-blue/30 text-blue-foreground/50 cursor-not-allowed"
+                        ? "border-border/50 text-dim hover:text-sensor hover:border-border"
+                        : "border-border/30 text-dim/30 cursor-not-allowed"
                     }`}
                   >
                     <Sparkles className="w-3.5 h-3.5" />
