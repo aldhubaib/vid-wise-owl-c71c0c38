@@ -147,7 +147,7 @@ export default function Test() {
 
   return (
     <div className="flex flex-col min-h-screen bg-surface p-3 max-sm:p-0">
-      <div className="flex flex-col flex-1 bg-background rounded-xl overflow-hidden">
+      <div className="flex flex-col flex-1 bg-background rounded-xl max-sm:rounded-none overflow-hidden">
       {/* Top bar — matches Channel Detail */}
       <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
         <button
