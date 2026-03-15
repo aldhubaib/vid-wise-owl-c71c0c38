@@ -83,6 +83,7 @@ export default function Test() {
 
   // Script state
   const [scriptFormat, setScriptFormat] = useState<"short" | "long">("short");
+  const [scriptDuration, setScriptDuration] = useState(3); // minutes
 
   const [titleInput, setTitleInput] = useState("");
 
@@ -90,6 +91,7 @@ export default function Test() {
   // Channel
   const [selectedChannel, setSelectedChannel] = useState("");
   const [channelDropOpen, setChannelDropOpen] = useState(false);
+  const canGenerate = !!selectedChannel;
 
   // History
   const [historyOpen, setHistoryOpen] = useState(false);
@@ -335,20 +337,48 @@ export default function Test() {
             <div className="rounded-xl bg-background border border-border overflow-hidden">
               {/* AI Writer controls */}
               <div className="px-5 py-3 flex items-center justify-between border-b border-border">
-                <div className="flex items-center gap-1.5">
-                  {(["short", "long"] as const).map((fmt) => (
-                    <button
-                      key={fmt}
-                      onClick={() => setScriptFormat(fmt)}
-                      className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border ${
-                        scriptFormat === fmt
-                          ? "bg-surface text-foreground border-border"
-                          : "bg-transparent text-dim border-border/50 hover:text-sensor hover:border-border"
-                      }`}
-                    >
-                      {fmt === "short" ? "Short (up to 3 min)" : "Video (3 min – unlimited)"}
-                    </button>
-                  ))}
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1.5">
+                    {(["short", "long"] as const).map((fmt) => (
+                      <button
+                        key={fmt}
+                        onClick={() => {
+                          setScriptFormat(fmt);
+                          setScriptDuration(fmt === "short" ? 3 : 40);
+                        }}
+                        className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border ${
+                          scriptFormat === fmt
+                            ? "bg-surface text-foreground border-border"
+                            : "bg-transparent text-dim border-border/50 hover:text-sensor hover:border-border"
+                        }`}
+                      >
+                        {fmt === "short" ? "Short" : "Video"}
+                      </button>
+                    ))}
+                  </div>
+                  {/* Duration input */}
+                  <div className="flex items-center gap-1.5 text-[12px] text-dim">
+                    <Clock className="w-3.5 h-3.5" />
+                    <input
+                      type="number"
+                      value={scriptDuration}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        if (scriptFormat === "short") {
+                          setScriptDuration(Math.max(1, Math.min(3, val)));
+                        } else {
+                          setScriptDuration(Math.max(3, val));
+                        }
+                      }}
+                      className="w-12 px-1.5 py-1 text-[12px] font-mono bg-surface border border-border rounded-md text-foreground text-center focus:outline-none focus:border-blue"
+                      min={scriptFormat === "short" ? 1 : 3}
+                      max={scriptFormat === "short" ? 3 : undefined}
+                    />
+                    <span className="font-mono">min</span>
+                    <span className="text-[10px] text-dim/60">
+                      {scriptFormat === "short" ? "(max 3)" : "(min 3)"}
+                    </span>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3">
                   {/* Live collaborators */}
@@ -368,8 +398,13 @@ export default function Test() {
                     </div>
                   </div>
                   <button
-                    onClick={() => toast("Generating script from article…")}
-                    className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue text-blue-foreground text-[12px] font-medium hover:opacity-90 transition-opacity"
+                    onClick={() => canGenerate ? toast("Generating script from article…") : toast.error("Please assign a channel first")}
+                    disabled={!canGenerate}
+                    className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[12px] font-medium transition-opacity ${
+                      canGenerate
+                        ? "bg-blue text-blue-foreground hover:opacity-90"
+                        : "bg-blue/30 text-blue-foreground/50 cursor-not-allowed"
+                    }`}
                   >
                     <Sparkles className="w-3.5 h-3.5" />
                     Generate script
