@@ -216,7 +216,8 @@ export default function QueryParameterBlock({ parameter, onUpdate, onRemove }: P
                   return (
                     <button
                       key={preset}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         const newValues = isSelected
                           ? selectedValues.filter((v) => v !== preset)
                           : [...selectedValues, preset];
