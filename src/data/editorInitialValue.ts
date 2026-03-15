@@ -27,6 +27,25 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
     ],
     meta: { order: 1, depth: 0 },
   },
+  "sample-image": {
+    id: "sample-image",
+    type: "Image",
+    value: [
+      {
+        id: "img-el",
+        type: "image",
+        children: [{ text: "" }],
+        props: {
+          nodeType: "void",
+          src: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&q=80",
+          alt: "Technology workspace",
+          fit: "cover",
+          sizes: { width: 800, height: 450 },
+        },
+      },
+    ],
+    meta: { order: 2, depth: 0 },
+  },
   "intro-paragraph": {
     id: "intro-paragraph",
     type: "Paragraph",
@@ -46,7 +65,26 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 2, depth: 0 },
+    meta: { order: 3, depth: 0 },
+  },
+  "links-paragraph": {
+    id: "links-paragraph",
+    type: "Paragraph",
+    value: [
+      {
+        id: "lp-el",
+        type: "paragraph",
+        children: [
+          { text: "Links: " },
+          { text: "Documentation", bold: true },
+          { text: " · " },
+          { text: "GitHub", bold: true },
+          { text: " — get started and star the repo!" },
+        ],
+        props: { nodeType: "block" },
+      },
+    ],
+    meta: { order: 4, depth: 0 },
   },
   "heading-marks": {
     id: "heading-marks",
