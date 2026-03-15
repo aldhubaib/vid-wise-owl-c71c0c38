@@ -148,25 +148,25 @@ export default function Test() {
   return (
     <div className="flex flex-col min-h-screen bg-surface p-3 max-sm:p-0">
       <div className="flex flex-col flex-1 bg-background rounded-xl max-sm:rounded-none overflow-hidden">
-      {/* Top bar — matches Channel Detail */}
-      <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
+      {/* Top bar */}
+      <div className="flex items-center justify-between px-6 max-sm:px-3 border-b border-[#151619] shrink-0 max-lg:px-4 py-2.5">
         <button
           onClick={() => navigate("/stories")}
           className="flex items-center gap-1.5 text-[13px] text-dim cursor-pointer bg-transparent border-none font-sans hover:text-foreground transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          AI Intelligence
+          <span className="max-sm:hidden">AI Intelligence</span>
         </button>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 max-sm:gap-1 flex-wrap justify-end">
           <button
             onClick={() => setHistoryOpen(true)}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
+            className="w-8 h-8 max-sm:w-7 max-sm:h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
           >
-            <Clock className="w-4 h-4" />
+            <Clock className="w-4 h-4 max-sm:w-3.5 max-sm:h-3.5" />
           </button>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <button className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-red hover:border-red/40 transition-colors">
+              <button className="inline-flex items-center gap-1.5 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-red hover:border-red/40 transition-colors">
                 Pass
               </button>
             </AlertDialogTrigger>
@@ -183,7 +183,7 @@ export default function Test() {
           </AlertDialog>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <button className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-orange hover:border-orange/40 transition-colors">
+              <button className="inline-flex items-center gap-1.5 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-orange hover:border-orange/40 transition-colors">
                 Omit
               </button>
             </AlertDialogTrigger>
@@ -200,28 +200,28 @@ export default function Test() {
           </AlertDialog>
           <button
             onClick={() => toast.success("Moved to Filmed")}
-            className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
+            className="inline-flex items-center gap-1 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
           >
             <span className="text-primary font-mono">Scripting</span>
             <ChevronRight className="w-3 h-3 text-dim/40" />
             <span className="font-mono">Filmed</span>
           </button>
           {/* Navigation */}
-          <div className="flex items-center gap-1 ml-3">
+          <div className="flex items-center gap-0.5 ml-1 max-sm:ml-0">
             <button
               onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
               disabled={currentIndex === 0}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
+              className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="text-[11px] font-mono text-dim px-1">
+            <span className="text-[10px] font-mono text-dim px-0.5">
               {currentIndex + 1}/{stories.length}
             </span>
             <button
               onClick={() => setCurrentIndex(Math.min(stories.length - 1, currentIndex + 1))}
               disabled={currentIndex === stories.length - 1}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
+              className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
