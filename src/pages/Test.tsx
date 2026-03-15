@@ -119,14 +119,6 @@ export default function Test() {
     }, interval);
   }, [aiCleaning, articleText]);
 
-  const handleSuggestTags = () => {
-    setSuggestingTags(true);
-    setTimeout(() => {
-      setTags(["سفاح تايمز سكوير", "جرائم القتل", "وثائقي نتفليكس", "قاتل الجذع", "ريتشارد كوتينغهام", "جرائم حقيقية"]);
-      setSuggestingTags(false);
-      toast.success("Tags suggested");
-    }, 1500);
-  };
 
   if (!story) return null;
 
