@@ -177,15 +177,22 @@ export default function Test() {
               <span className="text-primary font-mono">{story.stage === "suggestion" ? "Suggestion" : story.stage === "liked" ? "Liked" : story.stage === "approved" ? "Scripting" : story.stage === "filmed" ? "Filmed" : story.stage === "publish" ? "Publish" : "Done"}</span>
               <ChevronDown className={`w-3 h-3 text-dim/40 transition-transform ${actionDropOpen ? "rotate-180" : ""}`} />
             </button>
-            {actionDropOpen && (
+            {actionDropOpen && (() => {
+              const stageOrder: Array<"suggestion" | "liked" | "approved" | "filmed" | "publish" | "done"> = ["suggestion", "liked", "approved", "filmed", "publish", "done"];
+              const stageLabels: Record<string, string> = { suggestion: "Suggestion", liked: "Liked", approved: "Scripting", filmed: "Filmed", publish: "Publish", done: "Done" };
+              const currentStageIdx = stageOrder.indexOf(story.stage);
+              const nextStage = currentStageIdx < stageOrder.length - 1 ? stageOrder[currentStageIdx + 1] : null;
+              return (
               <div className="absolute z-20 mt-2 right-0 w-48 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
+                {nextStage && (
                 <button
-                  onClick={() => { setActionDropOpen(false); setStories(prev => prev.map((s, i) => i === currentIndex ? { ...s, stage: "filmed" as const } : s)); toast.success("Moved to Filmed"); }}
+                  onClick={() => { setActionDropOpen(false); setStories(prev => prev.map((s, i) => i === currentIndex ? { ...s, stage: nextStage } : s)); toast.success(`Moved to ${stageLabels[nextStage]}`); }}
                   className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-foreground hover:bg-elevated transition-colors"
                 >
                   <SkipForward className="w-3.5 h-3.5 text-primary" />
-                  <span className="font-medium">Move to Filmed</span>
+                  <span className="font-medium">Move to {stageLabels[nextStage]}</span>
                 </button>
+                )}
                 <div className="h-px bg-border" />
                 <button
                   onClick={() => { setActionDropOpen(false); setConfirmAction("pass"); }}
@@ -202,7 +209,8 @@ export default function Test() {
                   <span>Omit</span>
                 </button>
               </div>
-            )}
+              );
+            })()}
           </div>
 
           {/* Confirmation dialog for Pass/Omit */}
