@@ -209,7 +209,8 @@ export default function Test() {
                   <span>Omit</span>
                 </button>
               </div>
-            )}
+              );
+            })()}
           </div>
 
           {/* Confirmation dialog for Pass/Omit */}
