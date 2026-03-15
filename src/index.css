@@ -318,6 +318,15 @@
   padding-left: 20px;
 }
 
+/* Steps counter circles */
+.yoopta-editor-container [data-yoopta-step-number],
+.yoopta-editor-container [class*="step"] > [class*="number"],
+.yoopta-editor-container [class*="step"] > [class*="counter"] {
+  color: hsl(var(--foreground)) !important;
+  background: hsl(var(--surface)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
 /* Selection */
 .yoopta-editor-container ::selection {
   background: hsl(var(--blue) / 0.25);
