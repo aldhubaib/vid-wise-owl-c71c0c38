@@ -356,7 +356,8 @@ export default function Test() {
                 </button>
               </div>
 
-              <div className="px-5 pt-4">
+              <div className="px-5 pt-4 flex items-center gap-2">
+                <img src={ch1} alt="Abdulaziz" className="w-5 h-5 rounded-full object-cover" />
                 <input
                   type="text"
                   value={titleInput}
