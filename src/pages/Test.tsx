@@ -249,6 +249,18 @@ export default function Test() {
                       </span>
                     </button>
                   </div>
+                  {/* Title input */}
+                  <div className="px-5 pt-3">
+                    <input
+                      type="text"
+                      value={articleTitle}
+                      onChange={(e) => setArticleTitle(e.target.value)}
+                      disabled={aiCleaning}
+                      dir="rtl"
+                      className="w-full px-3 py-2 text-[13px] bg-surface border border-border rounded-lg text-foreground placeholder:text-dim/50 focus:outline-none focus:ring-1 focus:ring-primary/40 text-right font-medium"
+                      placeholder="عنوان المقال..."
+                    />
+                  </div>
                   {/* AI cleaning progress */}
                   {aiCleaning && (
                     <div className="px-5 pt-3">
