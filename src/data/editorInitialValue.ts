@@ -283,7 +283,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 12, depth: 0 },
+    meta: { order: 14, depth: 0 },
   },
   "heading-marks-api": {
     id: "heading-marks-api",
