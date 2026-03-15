@@ -298,6 +298,19 @@
   padding-left: 24px;
 }
 
+.yoopta-editor-container ol {
+  list-style: decimal;
+}
+
+.yoopta-editor-container ol li::marker {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.yoopta-editor-container ul li::marker {
+  color: hsl(var(--muted-foreground));
+}
+
 /* Callout */
 .yoopta-editor-container [data-yoopta-callout] {
   background: hsl(var(--surface));
@@ -316,6 +329,15 @@
 .yoopta-editor-container [data-yoopta-steps] {
   border-left: 2px solid hsl(var(--blue) / 0.3);
   padding-left: 20px;
+}
+
+/* Steps counter circles */
+.yoopta-editor-container [data-yoopta-step-number],
+.yoopta-editor-container [class*="step"] > [class*="number"],
+.yoopta-editor-container [class*="step"] > [class*="counter"] {
+  color: hsl(var(--foreground)) !important;
+  background: hsl(var(--surface)) !important;
+  border: 1px solid hsl(var(--border)) !important;
 }
 
 /* Selection */
