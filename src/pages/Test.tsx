@@ -80,9 +80,6 @@ export default function Test() {
   const [scriptContent, setScriptContent] = useState("");
   const [titleInput, setTitleInput] = useState("");
 
-  // Tags
-  const [tags, setTags] = useState<string[]>([]);
-  const [suggestingTags, setSuggestingTags] = useState(false);
 
   // Channel
   const [selectedChannel, setSelectedChannel] = useState("");
