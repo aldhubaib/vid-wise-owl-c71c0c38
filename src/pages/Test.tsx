@@ -408,6 +408,33 @@ export default function Test() {
             </div>
           </section>
 
+          {/* ─── CONCEPT 1: TABBED PANELS ─── */}
+          <section>
+            <div className="mb-2 flex items-center gap-2">
+              <span className="text-[12px] text-dim font-medium">Concept 1 — Tabbed Panels</span>
+              <span className="text-[10px] text-dim/50 font-mono">Script · Hooks · Notes</span>
+            </div>
+            <ConceptTabbedPanels />
+          </section>
+
+          {/* ─── CONCEPT 2: SPLIT VIEW ─── */}
+          <section>
+            <div className="mb-2 flex items-center gap-2">
+              <span className="text-[12px] text-dim font-medium">Concept 2 — Split View</span>
+              <span className="text-[10px] text-dim/50 font-mono">Editor + Teleprompter</span>
+            </div>
+            <ConceptSplitView />
+          </section>
+
+          {/* ─── CONCEPT 3: OUTLINE → SCRIPT ─── */}
+          <section>
+            <div className="mb-2 flex items-center gap-2">
+              <span className="text-[12px] text-dim font-medium">Concept 3 — Outline First</span>
+              <span className="text-[10px] text-dim/50 font-mono">AI Outline → Full Script</span>
+            </div>
+            <ConceptOutlineWorkflow />
+          </section>
+
 
           {/* ─── EDIT HISTORY MODAL ─── */}
           {historyOpen && (
