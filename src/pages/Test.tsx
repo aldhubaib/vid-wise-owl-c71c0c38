@@ -110,6 +110,8 @@ export default function Test() {
 
   // History
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [actionDropOpen, setActionDropOpen] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<"pass" | "omit" | null>(null);
 
   // Editing
   const [editingField, setEditingField] = useState<string | null>(null);
