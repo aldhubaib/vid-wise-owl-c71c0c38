@@ -17,6 +17,9 @@ import {
   Info,
   X,
   Clock,
+  Ban,
+  EyeOff,
+  SkipForward,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -107,6 +110,8 @@ export default function Test() {
 
   // History
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [actionDropOpen, setActionDropOpen] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<"pass" | "omit" | null>(null);
 
   // Editing
   const [editingField, setEditingField] = useState<string | null>(null);
@@ -164,48 +169,65 @@ export default function Test() {
           >
             <Clock className="w-4 h-4 max-sm:w-3.5 max-sm:h-3.5" />
           </button>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <button className="inline-flex items-center gap-1.5 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-red hover:border-red/40 transition-colors">
-                Pass
-              </button>
-            </AlertDialogTrigger>
+          {/* Actions dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setActionDropOpen(!actionDropOpen)}
+              className="inline-flex items-center gap-1 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
+            >
+              <span className="text-primary font-mono">Scripting</span>
+              <ChevronDown className={`w-3 h-3 text-dim/40 transition-transform ${actionDropOpen ? "rotate-180" : ""}`} />
+            </button>
+            {actionDropOpen && (
+              <div className="absolute z-20 mt-2 right-0 w-48 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
+                <button
+                  onClick={() => { setActionDropOpen(false); toast.success("Moved to Filmed"); }}
+                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-foreground hover:bg-elevated transition-colors"
+                >
+                  <SkipForward className="w-3.5 h-3.5 text-primary" />
+                  <span className="font-medium">Move to Filmed</span>
+                </button>
+                <div className="h-px bg-border" />
+                <button
+                  onClick={() => { setActionDropOpen(false); setConfirmAction("pass"); }}
+                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-dim hover:text-red hover:bg-elevated transition-colors"
+                >
+                  <Ban className="w-3.5 h-3.5" />
+                  <span>Pass</span>
+                </button>
+                <button
+                  onClick={() => { setActionDropOpen(false); setConfirmAction("omit"); }}
+                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-dim hover:text-orange hover:bg-elevated transition-colors"
+                >
+                  <EyeOff className="w-3.5 h-3.5" />
+                  <span>Omit</span>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Confirmation dialog for Pass/Omit */}
+          <AlertDialog open={confirmAction !== null} onOpenChange={(open) => { if (!open) setConfirmAction(null); }}>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Pass on this story?</AlertDialogTitle>
-                <AlertDialogDescription>This story will be removed from the pipeline. You can always bring it back later.</AlertDialogDescription>
+                <AlertDialogTitle>{confirmAction === "pass" ? "Pass on this story?" : "Omit this story?"}</AlertDialogTitle>
+                <AlertDialogDescription>
+                  {confirmAction === "pass"
+                    ? "This story will be removed from the pipeline. You can always bring it back later."
+                    : "This story will be skipped and won't appear in future suggestions."}
+                </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={() => toast.success("Story passed")} className="bg-red text-white hover:bg-red/90">Pass</AlertDialogAction>
+                <AlertDialogAction
+                  onClick={() => { toast.success(confirmAction === "pass" ? "Story passed" : "Story omitted"); setConfirmAction(null); }}
+                  className={confirmAction === "pass" ? "bg-red text-white hover:bg-red/90" : "bg-orange text-white hover:bg-orange/90"}
+                >
+                  {confirmAction === "pass" ? "Pass" : "Omit"}
+                </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <button className="inline-flex items-center gap-1.5 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-orange hover:border-orange/40 transition-colors">
-                Omit
-              </button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Omit this story?</AlertDialogTitle>
-                <AlertDialogDescription>This story will be skipped and won't appear in future suggestions.</AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={() => toast.success("Story omitted")} className="bg-orange text-white hover:bg-orange/90">Omit</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-          <button
-            onClick={() => toast.success("Moved to Filmed")}
-            className="inline-flex items-center gap-1 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
-          >
-            <span className="text-primary font-mono">Scripting</span>
-            <ChevronRight className="w-3 h-3 text-dim/40" />
-            <span className="font-mono">Filmed</span>
-          </button>
           {/* Navigation */}
           <div className="flex items-center gap-0.5 ml-1 max-sm:ml-0">
             <button
