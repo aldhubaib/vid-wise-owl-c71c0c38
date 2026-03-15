@@ -147,7 +147,7 @@ export default function QueryParameterBlock({ parameter, onUpdate, onRemove }: P
   const selectedValues = parameter.values || (parameter.value ? [parameter.value] : []);
 
   return (
-    <div className={`flex items-center gap-0 rounded-lg border ${config.color} overflow-hidden group`}>
+    <div ref={blockRef} className={`flex items-center gap-0 rounded-lg border ${config.color} overflow-hidden group`}>
       {/* Drag handle */}
       <div className="px-2 py-3 opacity-0 group-hover:opacity-40 transition-opacity cursor-grab">
         <GripVertical className="w-3 h-3" />
