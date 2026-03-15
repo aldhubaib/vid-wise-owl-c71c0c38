@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, ChevronRight, Plus, X, Check, AlertCircle, Save } from "lucide-react";
+import { ChevronDown, ChevronRight, Check, AlertCircle, Save } from "lucide-react";
 import { toast } from "sonner";
 
 export interface SectionItem {
@@ -15,6 +15,54 @@ export interface SectionData {
   items: SectionItem[];
 }
 
+// Available fields the user can insert into the editor
+const SECTION_FIELDS: Record<string, { label: string; description: string }[]> = {
+  base: [
+    { label: "Channel Niche", description: "The main topic/niche of the channel" },
+    { label: "Region", description: "Geographic region to search in" },
+    { label: "Language", description: "Content language filter" },
+    { label: "Time Range", description: "How far back to search" },
+    { label: "Result Count", description: "Maximum number of stories" },
+    { label: "Source Type", description: "News, courts, reports, etc." },
+  ],
+  seekTopics: [
+    { label: "Topic", description: "A topic keyword to search for" },
+    { label: "Story Type", description: "Crime, historical, political, etc." },
+    { label: "Sentiment", description: "Dramatic, shocking, mysterious, etc." },
+    { label: "Keyword", description: "Specific keyword to include" },
+    { label: "Trend", description: "Currently trending topic" },
+    { label: "Untouched Story", description: "Reference an untouched story" },
+  ],
+  memoryTier1: [
+    { label: "Top Video", description: "A top performing video to find similar" },
+    { label: "Gap Win", description: "A video that was a gap win" },
+    { label: "High Views", description: "Video with high view count" },
+    { label: "Engagement", description: "Video with high engagement rate" },
+    { label: "Format", description: "Short or long format preference" },
+  ],
+  memoryTier2: [
+    { label: "Competitor Check", description: "Verify competitors haven't covered" },
+    { label: "Source Verify", description: "Ensure reliable sources exist" },
+    { label: "Sentiment Filter", description: "Filter by story tone" },
+    { label: "Freshness", description: "Prioritize recent stories" },
+    { label: "Exclusivity", description: "Prioritize exclusive stories" },
+    { label: "Custom Rule", description: "Custom refinement instruction" },
+  ],
+  inProduction: [
+    { label: "Story Title", description: "Title of story in production" },
+    { label: "Stage", description: "Current production stage" },
+    { label: "Channel", description: "Which channel it's for" },
+    { label: "Format", description: "Short or long format" },
+  ],
+  avoidList: [
+    { label: "Competitor Story", description: "A story covered by competitors" },
+    { label: "Competitor Name", description: "Exclude a specific competitor's topics" },
+    { label: "Topic", description: "Topic to explicitly avoid" },
+    { label: "Keyword", description: "Keyword to exclude" },
+    { label: "Old Story", description: "Previously covered story" },
+  ],
+};
+
 interface Props {
   id: string;
   number: number;
@@ -29,61 +77,61 @@ interface Props {
 }
 
 export default function QuerySection({
+  id,
   number,
   title,
   titleAr,
   color,
   items,
   onUpdate,
-  addPlaceholder = "Type to add...",
-  suggestions = [],
 }: Props) {
   const [expanded, setExpanded] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [editorText, setEditorText] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const enabledCount = items.filter((i) => i.enabled).length;
-  const isFilled = enabledCount > 0;
+  const isFilled = enabledCount > 0 || editorText.trim().length > 0;
 
-  const toggleItem = (id: string) => {
-    onUpdate(items.map((i) => (i.id === id ? { ...i, enabled: !i.enabled } : i)));
-  };
-
-  const removeItem = (id: string) => {
-    onUpdate(items.filter((i) => i.id !== id));
-  };
-
-  const addItem = (text: string) => {
-    if (!text.trim()) return;
-    onUpdate([...items, { id: crypto.randomUUID(), text: text.trim(), enabled: true, source: "manual" }]);
-    setInputValue("");
-    setShowSuggestions(false);
-  };
-
-  // Filter suggestions based on input
-  const filtered = suggestions.filter(
-    (s) =>
-      s.toLowerCase().includes(inputValue.toLowerCase()) &&
-      !items.some((i) => i.text === s)
-  );
-
-  // Show suggestions when input is focused and has matching items
-  const handleInputFocus = () => {
-    setShowSuggestions(true);
-  };
-
-  // Close suggestions on outside click
-  const containerRef = useRef<HTMLDivElement>(null);
+  // Sync items to editor text on first expand
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setShowSuggestions(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
+    if (expanded && !editorText && items.length > 0) {
+      setEditorText(items.map((i) => i.text).join("\n"));
+    }
+  }, [expanded]);
+
+  const fields = SECTION_FIELDS[id] || [];
+
+  const insertField = (label: string) => {
+    const insertion = `[${label}] `;
+    if (textareaRef.current) {
+      const ta = textareaRef.current;
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      const newText = editorText.substring(0, start) + insertion + editorText.substring(end);
+      setEditorText(newText);
+      // Refocus and set cursor
+      setTimeout(() => {
+        ta.focus();
+        ta.selectionStart = ta.selectionEnd = start + insertion.length;
+      }, 0);
+    } else {
+      setEditorText((prev) => prev + insertion);
+    }
+  };
+
+  const handleSave = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Parse editor text into items
+    const lines = editorText.split("\n").filter((l) => l.trim());
+    const newItems: SectionItem[] = lines.map((line) => ({
+      id: crypto.randomUUID(),
+      text: line.trim(),
+      enabled: true,
+      source: "manual" as const,
+    }));
+    onUpdate(newItems);
+    toast.success(`${title} section saved`);
+  };
 
   return (
     <>
@@ -130,117 +178,45 @@ export default function QuerySection({
       {expanded && (
         <tr>
           <td colSpan={5} className="px-4 pb-4 pt-1">
-            <div ref={containerRef} className="rounded-xl border border-border bg-background overflow-hidden">
-              {/* Editor header */}
-              <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-elevated/30">
-                <span className="text-[10px] font-mono text-dim uppercase tracking-widest">{title} Editor</span>
-                <span className="text-[10px] font-mono text-dim">{enabledCount} of {items.length} active</span>
+            <div className="rounded-xl border border-border bg-background overflow-hidden">
+              {/* Text editor */}
+              <div className="p-4 border-b border-border">
+                <textarea
+                  ref={textareaRef}
+                  value={editorText}
+                  onChange={(e) => setEditorText(e.target.value)}
+                  onClick={(e) => e.stopPropagation()}
+                  placeholder={`Write your ${title.toLowerCase()} query here... Use fields below to insert parameters.`}
+                  className="w-full min-h-[100px] px-3 py-2.5 text-[12px] font-mono bg-surface border border-border rounded-lg text-foreground placeholder:text-dim/40 outline-none focus:border-blue/50 transition-colors resize-y"
+                  dir="rtl"
+                />
               </div>
 
-              {/* Formula bar — input with pills */}
-              <div className="px-4 py-3 border-b border-border">
-                <div className="flex flex-wrap items-center gap-1.5 mb-2">
-                  {items.filter((i) => i.enabled).map((item) => (
-                    <span
-                      key={item.id}
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-primary/15 text-primary text-[11px] font-mono"
+              {/* Available fields */}
+              <div className="px-4 py-3">
+                <div className="text-[9px] font-mono text-dim uppercase tracking-widest mb-2">Available Fields — click to insert</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {fields.map((field) => (
+                    <button
+                      key={field.label}
+                      onClick={(e) => { e.stopPropagation(); insertField(field.label); }}
+                      className="group/field inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface border border-border text-[11px] font-mono text-sensor hover:text-foreground hover:border-blue/40 hover:bg-blue/5 transition-colors"
+                      title={field.description}
                     >
-                      {item.text}
-                      <button
-                        onClick={(e) => { e.stopPropagation(); toggleItem(item.id); }}
-                        className="hover:text-destructive transition-colors"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </span>
+                      <span className="text-blue text-[10px]">ƒ</span>
+                      {field.label}
+                    </button>
                   ))}
                 </div>
-                <div className="relative">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => { setInputValue(e.target.value); setShowSuggestions(true); }}
-                    onFocus={handleInputFocus}
-                    onClick={(e) => e.stopPropagation()}
-                    placeholder={addPlaceholder}
-                    className="w-full px-3 py-2 text-[12px] font-mono bg-surface border border-border rounded-lg text-foreground placeholder:text-dim/40 outline-none focus:border-blue/50 transition-colors"
-                    dir="rtl"
-                    onKeyDown={(e) => {
-                      e.stopPropagation();
-                      if (e.key === "Enter" && inputValue.trim()) addItem(inputValue);
-                    }}
-                  />
-                </div>
               </div>
 
-              {/* Suggestions + Items split view */}
-              <div className="flex min-h-[120px] max-h-[280px]">
-                {/* Suggestions panel */}
-                {showSuggestions && filtered.length > 0 && (
-                  <div className="w-[240px] border-r border-border overflow-y-auto bg-elevated/20">
-                    {filtered.map((s) => (
-                      <button
-                        key={s}
-                        onClick={(e) => { e.stopPropagation(); addItem(s); }}
-                        className="w-full text-right px-3 py-2 text-[11px] font-mono text-dim hover:text-foreground hover:bg-surface transition-colors flex items-center gap-2"
-                      >
-                        <Plus className="w-3 h-3 text-blue shrink-0" />
-                        <span className="flex-1 text-right truncate">{s}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {/* Items list */}
-                <div className="flex-1 overflow-y-auto">
-                  {items.length === 0 ? (
-                    <div className="text-[11px] text-dim font-mono text-center py-8">
-                      Type above or pick from suggestions to add items
-                    </div>
-                  ) : (
-                    <div className="divide-y divide-border">
-                      {items.map((item) => (
-                        <div
-                          key={item.id}
-                          className={`flex items-center gap-3 px-4 py-2.5 transition-all ${
-                            item.enabled ? "" : "opacity-35"
-                          }`}
-                        >
-                          <button
-                            onClick={(e) => { e.stopPropagation(); toggleItem(item.id); }}
-                            className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
-                              item.enabled ? "bg-primary border-primary" : "border-dim/30"
-                            }`}
-                          >
-                            {item.enabled && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
-                          </button>
-                          <div className="flex-1 min-w-0 text-[11px] font-mono text-foreground truncate" dir="rtl">
-                            {item.text}
-                          </div>
-                          {item.meta && (
-                            <span className="text-[9px] font-mono text-dim shrink-0">{item.meta}</span>
-                          )}
-                          <button
-                            onClick={(e) => { e.stopPropagation(); removeItem(item.id); }}
-                            className="p-0.5 text-dim hover:text-destructive transition-colors shrink-0"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Footer with save */}
+              {/* Footer */}
               <div className="flex items-center justify-between px-4 py-2 border-t border-border bg-elevated/30">
                 <span className="text-[9px] font-mono text-dim">
-                  Press Enter to add · Click suggestions to insert
+                  Click a field to insert · Write freely in the editor
                 </span>
                 <button
-                  onClick={(e) => { e.stopPropagation(); toast.success(`${title} section saved`); }}
+                  onClick={handleSave}
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue text-blue-foreground text-[10px] font-mono font-medium hover:opacity-90 transition-opacity"
                 >
                   <Save className="w-3 h-3" />
