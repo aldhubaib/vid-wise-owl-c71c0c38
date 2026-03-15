@@ -102,6 +102,7 @@ export default function Pipeline() {
         </div>
       </div>
       </div>
+      </div>
     </div>
   );
 }
