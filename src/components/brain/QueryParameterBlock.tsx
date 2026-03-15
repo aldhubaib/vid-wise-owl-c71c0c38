@@ -255,7 +255,8 @@ export default function QueryParameterBlock({ parameter, onUpdate, onRemove }: P
                 {config.presets.map((preset) => (
                   <button
                     key={preset}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       onUpdate({ ...parameter, value: preset });
                       setValueOpen(false);
                     }}
