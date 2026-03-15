@@ -138,7 +138,7 @@ export default function ScriptEditor({ onChange }: ScriptEditorProps) {
   }, [editor]);
 
   const handleSlashSelect = useCallback(
-    (item: SlashCommandItemType) => {
+    (item: { id: string }) => {
       editor.toggleBlock(item.id, {
         preserveContent: true,
         focus: true,
