@@ -1,21 +1,20 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  ArrowLeft,
   ChevronLeft,
   ChevronRight,
   Wand2,
   RefreshCw,
   Sparkles,
-  Tag,
-  Clock,
   User,
   ChevronDown,
   ChevronUp,
   Check,
-  Pencil,
   Copy,
   ExternalLink,
   FileText,
+  Info,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
@@ -34,10 +33,10 @@ const editHistory = [
 
 function ScoreBar({ label, value, color }: { label: string; value: number; color: string }) {
   return (
-    <div className="flex-1 min-w-0">
-      <div className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1">{label}</div>
-      <div className="text-2xl font-bold font-mono tracking-tight">{value}</div>
-      <div className="h-1 bg-elevated rounded-full overflow-hidden mt-2">
+    <div className="flex-1 min-w-0 px-5 py-4">
+      <div className="text-[11px] text-dim mb-0.5">{label}</div>
+      <div className="text-lg font-semibold font-mono tracking-tight mb-2">{value}</div>
+      <div className="h-1 bg-border rounded-full overflow-hidden">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${value}%` }} />
       </div>
     </div>
@@ -64,7 +63,7 @@ function CopyBtn({ text }: { text: string }) {
 export default function Test() {
   const navigate = useNavigate();
   const stories = storiesMock;
-  const [currentIndex, setCurrentIndex] = useState(2); // Start at story 3
+  const [currentIndex, setCurrentIndex] = useState(2);
   const story = stories[currentIndex];
 
   // Article state
@@ -80,7 +79,6 @@ export default function Test() {
   const [scriptFormat, setScriptFormat] = useState<"short" | "long">("short");
   const [scriptContent, setScriptContent] = useState("");
   const [titleInput, setTitleInput] = useState("");
-  const [hookInput, setHookInput] = useState("");
 
   // Tags
   const [tags, setTags] = useState<string[]>([]);
@@ -137,114 +135,133 @@ export default function Test() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Top bar */}
-      <div className="h-12 flex items-center justify-between px-6 border-b border-border shrink-0 max-lg:px-4">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => navigate("/stories")}
-            className="flex items-center gap-2 text-[13px] text-dim hover:text-foreground transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            AI Intelligence
-          </button>
-          <span className="text-[11px] text-dim font-mono">/</span>
-          <span className="text-[13px] font-medium truncate max-w-[400px]">{story.title}</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-primary/15 text-primary">Scripting</span>
+      {/* Top bar — matches Channel Detail */}
+      <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
+        <button
+          onClick={() => navigate("/stories")}
+          className="flex items-center gap-1.5 text-[13px] text-dim cursor-pointer bg-transparent border-none font-sans hover:text-foreground transition-colors"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          AI Intelligence
+        </button>
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-primary/10 text-primary">
+            Scripting
+          </span>
+          {/* Navigation */}
+          <div className="flex items-center gap-1 ml-3">
+            <button
+              onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
+              disabled={currentIndex === 0}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <span className="text-[11px] font-mono text-dim px-1">
+              {currentIndex + 1}/{stories.length}
+            </span>
+            <button
+              onClick={() => setCurrentIndex(Math.min(stories.length - 1, currentIndex + 1))}
+              disabled={currentIndex === stories.length - 1}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
 
       <div className="flex-1 overflow-auto">
-        {/* Action bar */}
-        <div className="sticky top-0 z-20 bg-surface/80 backdrop-blur-xl border-b border-border">
-          <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-2.5 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              {/* Placeholder for any left actions */}
-            </div>
+        {/* Hero — matches Channel Detail pattern */}
+        <div className="px-6 py-5 max-lg:px-4">
+          <h1 className="text-base font-semibold tracking-tight mb-1" dir="rtl">
+            {story.title}
+          </h1>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-success/10 text-success">
+              <Check className="w-3 h-3" /> Done
+            </span>
+            <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-elevated text-dim">
+              29-01-2022
+            </span>
+            <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-elevated text-dim">
+              الجزيرة نت
+            </span>
+            <a
+              href="#"
+              className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-blue/10 text-blue hover:text-blue/80 transition-colors no-underline"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Read source
+            </a>
+          </div>
+        </div>
 
-            {/* Navigation */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
-                disabled={currentIndex === 0}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] text-dim hover:text-foreground transition-colors disabled:opacity-20"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-                Previous
-              </button>
-              <span className="text-[11px] font-mono text-dim">
-                {currentIndex + 1} / {stories.length}
-              </span>
-              <button
-                onClick={() => setCurrentIndex(Math.min(stories.length - 1, currentIndex + 1))}
-                disabled={currentIndex === stories.length - 1}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] text-dim hover:text-foreground transition-colors disabled:opacity-20"
-              >
-                Next
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
+        {/* Scores row — matches Channel Detail stats grid */}
+        <div className="px-6 max-lg:px-4">
+          <div className="grid grid-cols-4 max-lg:grid-cols-2 rounded-xl overflow-hidden border border-border">
+            <div className="bg-background border-r border-b border-border">
+              <ScoreBar label="Relevance" value={story.relevance} color="bg-purple" />
+            </div>
+            <div className="bg-background border-r border-b border-border">
+              <ScoreBar label="Virality" value={story.virality} color="bg-blue" />
+            </div>
+            <div className="bg-background border-r border-b border-border">
+              <ScoreBar label="First Mover" value={story.firstMover} color="bg-success" />
+            </div>
+            <div className="bg-background border-b border-border px-5 py-4">
+              <div className="text-[11px] text-dim mb-0.5">Total</div>
+              <div className="text-lg font-semibold font-mono tracking-tight">{story.totalScore}</div>
             </div>
           </div>
         </div>
 
-        <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-8 space-y-8">
-          {/* AI cleaning progress - moved inside article section */}
+        <div className="px-6 max-lg:px-4 py-5 pb-16 space-y-5">
+          {/* ─── AI ANALYSIS ─── */}
+          {story.aiAnalysis && (
+            <section>
+              <span className="text-[12px] text-dim font-medium mb-2 block">AI Analysis</span>
+              <div className="rounded-xl bg-background border border-border p-5">
+                <p className="text-[13px] text-sensor leading-relaxed text-right">{story.aiAnalysis}</p>
+              </div>
+            </section>
+          )}
+
           {/* ─── ARTICLE SECTION ─── */}
           <section>
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Original Story</span>
-              </div>
-              <span className="text-[10px] font-mono text-success flex items-center gap-1">
-                <Check className="w-3 h-3" /> Done
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-2xl font-bold text-right leading-relaxed mb-3">
-              سفاح تايمز سكوير - القاتل الأكثر إجراماً في تاريخ أمريكا
-            </h1>
-            <div className="flex items-center justify-end gap-3 mb-6 text-[11px] text-dim font-mono">
-              <span>29-01-2022</span>
-              <span>·</span>
-              <span>الجزيرة نت</span>
-              <button className="inline-flex items-center gap-1 text-blue hover:text-blue/80 transition-colors font-mono">
-                <ExternalLink className="w-3 h-3" />
-                Read source
-              </button>
-            </div>
-
-            {/* Article body with integrated actions */}
-            <div className="rounded-xl bg-surface border border-border overflow-hidden">
+            <span className="text-[12px] text-dim font-medium mb-2 block">Original Story</span>
+            <div className="rounded-xl bg-background border border-border overflow-hidden">
               {/* Action bar at the top */}
-              <div className="px-4 py-3 border-b border-border flex items-center justify-between bg-elevated">
-                <div className="flex items-center gap-2">
+              <div className="px-4 py-2.5 border-b border-border flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
                   <button
                     onClick={handleAiCleanup}
                     disabled={aiCleaning || !articleText.trim()}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-dim hover:text-sensor hover:bg-surface transition-colors disabled:opacity-30"
+                    className="px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border border-border/50 text-dim hover:text-sensor hover:border-border disabled:opacity-30"
                   >
-                    <Wand2 className={`w-3.5 h-3.5 ${aiCleaning ? "animate-spin" : ""}`} />
-                    Clean up with AI
+                    <span className="inline-flex items-center gap-1.5">
+                      <Wand2 className={`w-3.5 h-3.5 ${aiCleaning ? "animate-spin" : ""}`} />
+                      Clean up with AI
+                    </span>
                   </button>
-                  <div className="w-px h-4 bg-border" />
                   <button
                     onClick={() => toast("Re-fetching article…")}
                     disabled={aiCleaning}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-dim hover:text-sensor hover:bg-surface transition-colors disabled:opacity-30"
+                    className="px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border border-border/50 text-dim hover:text-sensor hover:border-border disabled:opacity-30"
                   >
-                    <RefreshCw className="w-3.5 h-3.5" />
-                    Re-fetch article
+                    <span className="inline-flex items-center gap-1.5">
+                      <RefreshCw className="w-3.5 h-3.5" />
+                      Re-fetch
+                    </span>
                   </button>
                 </div>
-                <div className="text-[10px] text-dim font-mono">
+                <span className="text-[11px] opacity-60 font-mono">
                   {articleText.length.toLocaleString()} chars
-                </div>
+                </span>
               </div>
               {/* AI cleaning progress */}
               {aiCleaning && (
-                <div className="px-6 pt-3">
+                <div className="px-5 pt-3">
                   <Progress value={aiProgress} className="h-1 bg-muted" />
                   <div className="text-[10px] font-mono text-dim mt-1 text-center">
                     {aiProgress < 30 ? "Analyzing text…" : aiProgress < 70 ? "Cleaning up…" : aiProgress < 100 ? "Finalizing…" : "Done!"}
@@ -256,244 +273,226 @@ export default function Test() {
                 onChange={(e) => setArticleText(e.target.value)}
                 disabled={aiCleaning}
                 dir="rtl"
-                rows={14}
-                className="w-full px-6 pt-4 pb-6 text-[13px] bg-surface text-foreground placeholder:text-dim/50 focus:outline-none focus:bg-elevated transition-colors text-right leading-[1.9] resize-y disabled:opacity-50"
+                rows={12}
+                className="w-full px-5 pt-4 pb-5 text-[13px] bg-transparent text-foreground placeholder:text-dim/50 focus:outline-none text-right leading-[1.9] resize-y disabled:opacity-50"
                 placeholder="اكتب المقال الكامل هنا..."
               />
             </div>
           </section>
 
           {/* ─── AI WRITER ─── */}
-          <section className="rounded-xl bg-surface border border-border overflow-hidden">
-            <div className="px-6 py-4 flex items-center justify-between border-b border-border">
-              <span className="text-[10px] text-dim font-mono uppercase tracking-widest">AI Writer</span>
-              <div className="flex items-center gap-1 p-0.5 bg-background rounded-full">
+          <section>
+            <span className="text-[12px] text-dim font-medium mb-2 block">AI Writer</span>
+            <div className="rounded-xl bg-background border border-border overflow-hidden">
+              <div className="px-5 py-4 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  {(["short", "long"] as const).map((fmt) => (
+                    <button
+                      key={fmt}
+                      onClick={() => setScriptFormat(fmt)}
+                      className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border ${
+                        scriptFormat === fmt
+                          ? "bg-surface text-foreground border-border"
+                          : "bg-transparent text-dim border-border/50 hover:text-sensor hover:border-border"
+                      }`}
+                    >
+                      {fmt === "short" ? "Short (up to 3 min)" : "Video (3 min – unlimited)"}
+                    </button>
+                  ))}
+                </div>
                 <button
-                  onClick={() => setScriptFormat("short")}
-                  className={`px-4 py-1.5 text-[11px] font-semibold rounded-full transition-all ${
-                    scriptFormat === "short" ? "bg-elevated text-foreground" : "text-dim hover:text-sensor"
-                  }`}
+                  onClick={() => toast("Generating script from article…")}
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue text-blue-foreground text-[12px] font-medium hover:opacity-90 transition-opacity"
                 >
-                  Short (up to 3 min)
-                </button>
-                <button
-                  onClick={() => setScriptFormat("long")}
-                  className={`px-4 py-1.5 text-[11px] font-semibold rounded-full transition-all ${
-                    scriptFormat === "long" ? "bg-elevated text-foreground" : "text-dim hover:text-sensor"
-                  }`}
-                >
-                  Video (3 min – unlimited)
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Generate script
                 </button>
               </div>
-            </div>
-            <div className="px-6 py-4">
-              <button
-                onClick={() => toast("Generating script from article…")}
-                className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-blue text-blue-foreground text-[12px] font-semibold hover:opacity-90 transition-opacity"
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                Generate script from article
-              </button>
             </div>
           </section>
 
           {/* ─── YOUTUBE TAGS ─── */}
-          <section className="rounded-xl bg-surface border border-border overflow-hidden">
-            <div className="px-6 py-4 flex items-center justify-between">
-              <span className="text-[10px] text-dim font-mono uppercase tracking-widest">YouTube Tags</span>
-              <button
-                onClick={handleSuggestTags}
-                disabled={suggestingTags}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-border text-[11px] font-medium text-dim hover:text-sensor transition-colors disabled:opacity-40"
-              >
-                <Sparkles className={`w-3 h-3 ${suggestingTags ? "animate-spin" : ""}`} />
-                Suggest tags
-              </button>
-            </div>
-            {tags.length > 0 ? (
-              <div className="px-6 pb-4 flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1.5 rounded-full bg-elevated text-[11px] font-medium text-sensor">
-                    {tag}
+          <section>
+            <span className="text-[12px] text-dim font-medium mb-2 block">YouTube Tags</span>
+            <div className="rounded-xl bg-background border border-border overflow-hidden">
+              <div className="px-5 py-4 flex items-center justify-between">
+                {tags.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5 flex-1">
+                    {tags.map((tag) => (
+                      <span key={tag} className="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-surface text-sensor">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <span className="text-[12px] text-dim">Get AI-suggested tags for YouTube</span>
+                )}
+                <button
+                  onClick={handleSuggestTags}
+                  disabled={suggestingTags}
+                  className="px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border border-border/50 text-dim hover:text-sensor hover:border-border disabled:opacity-40 shrink-0 ml-3"
+                >
+                  <span className="inline-flex items-center gap-1.5">
+                    <Sparkles className={`w-3 h-3 ${suggestingTags ? "animate-spin" : ""}`} />
+                    Suggest tags
                   </span>
-                ))}
-              </div>
-            ) : (
-              <div className="px-6 pb-4 text-[12px] text-dim text-right">
-                Get AI-suggested tags (min 5) for YouTube. Use after you have a headline or script.
-              </div>
-            )}
-          </section>
-
-          {/* ─── SCORES ─── */}
-          <section className="rounded-xl bg-surface border border-border p-6">
-            <div className="grid grid-cols-4 gap-6">
-              <ScoreBar label="Relevance" value={story.relevance} color="bg-purple" />
-              <ScoreBar label="Virality" value={story.virality} color="bg-blue" />
-              <ScoreBar label="First Mover" value={story.firstMover} color="bg-success" />
-              <div>
-                <div className="text-[10px] text-dim font-mono uppercase tracking-wider mb-1">Total</div>
-                <div className="text-2xl font-bold font-mono tracking-tight">{story.totalScore}</div>
+                </button>
               </div>
             </div>
           </section>
-
-          {/* ─── AI ANALYSIS ─── */}
-          {story.aiAnalysis && (
-            <section className="rounded-xl bg-surface border border-border p-6">
-              <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">AI Analysis</div>
-              <p className="text-[13px] text-sensor leading-relaxed text-right">{story.aiAnalysis}</p>
-            </section>
-          )}
 
           {/* ─── CHANNEL ─── */}
-          <section className="rounded-xl bg-surface border border-border p-6">
-            <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Channel</div>
-            <div className="relative">
-              <button
-                onClick={() => setChannelDropOpen(!channelDropOpen)}
-                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-              >
-                {selectedCh ? (
-                  <>
-                    <img src={selectedCh.avatarImg} alt={selectedCh.name} className="w-10 h-10 rounded-full object-cover" />
-                    <span className="text-[13px] font-medium">{selectedCh.name}</span>
-                  </>
-                ) : (
-                  <>
-                    <div className="w-10 h-10 rounded-full bg-elevated flex items-center justify-center">
-                      <User className="w-4 h-4 text-dim" />
-                    </div>
-                    <span className="text-[13px] text-dim">Assign channel…</span>
-                  </>
+          <section>
+            <span className="text-[12px] text-dim font-medium mb-2 block">Channel</span>
+            <div className="rounded-xl bg-background border border-border overflow-hidden">
+              <div className="px-5 py-4 relative">
+                <button
+                  onClick={() => setChannelDropOpen(!channelDropOpen)}
+                  className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                >
+                  {selectedCh ? (
+                    <>
+                      <img src={selectedCh.avatarImg} alt={selectedCh.name} className="w-8 h-8 rounded-full object-cover" />
+                      <span className="text-[13px] font-medium">{selectedCh.name}</span>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-8 h-8 rounded-full bg-surface flex items-center justify-center">
+                        <User className="w-3.5 h-3.5 text-dim" />
+                      </div>
+                      <span className="text-[13px] text-dim">Assign channel…</span>
+                    </>
+                  )}
+                  <ChevronDown className={`w-4 h-4 text-dim transition-transform ${channelDropOpen ? "rotate-180" : ""}`} />
+                </button>
+                {channelDropOpen && (
+                  <div className="absolute z-10 mt-2 left-5 w-64 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
+                    {ourChannels.map((c) => (
+                      <button
+                        key={c.id}
+                        onClick={() => {
+                          setSelectedChannel(c.id);
+                          setChannelDropOpen(false);
+                        }}
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-[13px] transition-colors hover:bg-elevated ${
+                          selectedChannel === c.id ? "bg-blue/10" : ""
+                        }`}
+                      >
+                        <img src={c.avatarImg} alt={c.name} className="w-7 h-7 rounded-full object-cover" />
+                        <span className="flex-1 text-right font-medium">{c.name}</span>
+                        {selectedChannel === c.id && <Check className="w-3.5 h-3.5 text-blue" />}
+                      </button>
+                    ))}
+                  </div>
                 )}
-                <ChevronDown className={`w-4 h-4 text-dim transition-transform ${channelDropOpen ? "rotate-180" : ""}`} />
+              </div>
+            </div>
+          </section>
+
+          {/* ─── SCRIPT EDITOR ─── */}
+          <section>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[12px] text-dim font-medium">Script</span>
+              <span className="text-[11px] text-dim">
+                Last edited by <span className="text-sensor">Abdulaziz Aldhubaib</span> · less than a minute ago
+              </span>
+            </div>
+            <div className="rounded-xl bg-background border border-border overflow-hidden">
+              {/* Collaborator */}
+              <div className="px-5 py-2.5 flex items-center gap-2 border-b border-border">
+                <div className="w-5 h-5 rounded-full bg-destructive/30 flex items-center justify-center">
+                  <span className="text-[9px] font-bold text-destructive">(</span>
+                </div>
+                <span className="text-[12px] text-sensor">Abdulaziz Aldhubaib</span>
+                <User className="w-3.5 h-3.5 text-dim" />
+              </div>
+
+              {/* Script title */}
+              <div className="px-5 pt-4">
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-[11px] text-dim">Title</label>
+                  {titleInput && editingField !== "title" && <CopyBtn text={titleInput} />}
+                </div>
+                <input
+                  type="text"
+                  value={titleInput}
+                  onChange={(e) => setTitleInput(e.target.value)}
+                  placeholder="عنوان السكريبت..."
+                  dir="rtl"
+                  className="w-full px-4 py-2.5 text-[14px] font-semibold bg-surface border border-border rounded-xl text-foreground placeholder:text-dim/40 focus:outline-none focus:border-blue/40 text-right"
+                />
+              </div>
+
+              {/* Script body */}
+              <div className="px-5 py-4">
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-[11px] text-dim">Content</label>
+                </div>
+                <textarea
+                  value={scriptContent}
+                  onChange={(e) => setScriptContent(e.target.value)}
+                  placeholder="Enter text or type '/' for commands"
+                  dir="rtl"
+                  rows={6}
+                  className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim/40 focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y font-mono"
+                />
+              </div>
+
+              {/* File attachment area */}
+              <div className="px-5 pb-4">
+                <div className="rounded-xl border border-dashed border-border bg-surface/50 px-4 py-3 flex items-center justify-end gap-2 text-dim hover:text-sensor transition-colors cursor-pointer">
+                  <span className="text-[12px]">Add file</span>
+                  <FileText className="w-4 h-4" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ─── EDIT HISTORY ─── */}
+          <section>
+            <div className="rounded-xl bg-background border border-border overflow-hidden">
+              <button
+                onClick={() => setHistoryOpen(!historyOpen)}
+                className="w-full px-5 py-3.5 flex items-center justify-between hover:bg-surface/30 transition-colors"
+              >
+                <div className="flex items-center gap-2">
+                  {historyOpen ? <ChevronUp className="w-4 h-4 text-dim" /> : <ChevronDown className="w-4 h-4 text-dim" />}
+                  <span className="text-[12px] text-dim font-medium">Edit History</span>
+                </div>
+                <span className="text-[11px] text-dim font-mono">{editHistory.length} edits</span>
               </button>
-              {channelDropOpen && (
-                <div className="absolute z-10 mt-2 w-64 rounded-xl bg-elevated border border-border overflow-hidden shadow-lg">
-                  {ourChannels.map((c) => (
-                    <button
-                      key={c.id}
-                      onClick={() => {
-                        setSelectedChannel(c.id);
-                        setChannelDropOpen(false);
-                      }}
-                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-[13px] transition-colors hover:bg-surface ${
-                        selectedChannel === c.id ? "bg-blue/10" : ""
-                      }`}
-                    >
-                      <img src={c.avatarImg} alt={c.name} className="w-7 h-7 rounded-full object-cover" />
-                      <span className="flex-1 text-right font-medium">{c.name}</span>
-                      {selectedChannel === c.id && <Check className="w-3.5 h-3.5 text-blue" />}
-                    </button>
+              {historyOpen && (
+                <div className="px-5 pb-4 space-y-0">
+                  {editHistory.map((entry) => (
+                    <div key={entry.id} className="flex items-center justify-between py-3 border-b border-border last:border-b-0">
+                      <div className="flex items-center gap-3">
+                        <div className="w-0.5 h-8 bg-blue/30 rounded-full" />
+                        <div>
+                          <div className="text-[12px] text-dim">
+                            <span className="text-sensor">{entry.time}</span>
+                            <span className="mx-2">{entry.action}</span>
+                            <span className="text-dim font-mono">{entry.type}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-[12px] font-medium text-sensor">{entry.user}</span>
+                        <img src={entry.avatar} alt={entry.user} className="w-8 h-8 rounded-full object-cover" />
+                      </div>
+                    </div>
                   ))}
                 </div>
               )}
             </div>
           </section>
 
-          {/* ─── SCRIPT EDITOR ─── */}
-          <section className="rounded-xl bg-surface border border-border overflow-hidden">
-            <div className="px-6 py-4 flex items-center justify-between border-b border-border">
-              <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Script</span>
-              <div className="text-[11px] text-dim">
-                Last edited by <span className="text-sensor">Abdulaziz Aldhubaib</span> · less than a minute ago
-              </div>
-            </div>
-
-            {/* Collaborator */}
-            <div className="px-6 py-3 flex items-center gap-2 border-b border-border">
-              <div className="w-5 h-5 rounded-full bg-destructive/30 flex items-center justify-center">
-                <span className="text-[9px] font-bold text-destructive">(</span>
-              </div>
-              <span className="text-[12px] text-sensor">Abdulaziz Aldhubaib</span>
-              <User className="w-3.5 h-3.5 text-dim" />
-            </div>
-
-            {/* Script title */}
-            <div className="px-6 pt-4">
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-[10px] text-dim font-mono uppercase tracking-wider">Title</label>
-                {titleInput && editingField !== "title" && <CopyBtn text={titleInput} />}
-              </div>
-              <input
-                type="text"
-                value={titleInput}
-                onChange={(e) => setTitleInput(e.target.value)}
-                placeholder="عنوان السكريبت..."
-                dir="rtl"
-                className="w-full px-4 py-2.5 text-[14px] font-semibold bg-background border border-border rounded-xl text-foreground placeholder:text-dim/40 focus:outline-none focus:border-blue/40 text-right"
-              />
-            </div>
-
-            {/* Script body */}
-            <div className="px-6 py-4">
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-[10px] text-dim font-mono uppercase tracking-wider">Content</label>
-              </div>
-              <textarea
-                value={scriptContent}
-                onChange={(e) => setScriptContent(e.target.value)}
-                placeholder="Enter text or type '/' for commands"
-                dir="rtl"
-                rows={6}
-                className="w-full px-4 py-3 text-[13px] bg-background border border-border rounded-xl text-foreground placeholder:text-dim/40 focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y font-mono"
-              />
-            </div>
-
-            {/* File attachment area */}
-            <div className="px-6 pb-4">
-              <div className="rounded-xl border border-dashed border-border bg-background/50 px-4 py-3 flex items-center justify-end gap-2 text-dim hover:text-sensor transition-colors cursor-pointer">
-                <span className="text-[12px]">Add file</span>
-                <FileText className="w-4 h-4" />
-              </div>
-            </div>
-          </section>
-
-          {/* ─── EDIT HISTORY ─── */}
-          <section className="rounded-xl bg-surface border border-border overflow-hidden">
-            <button
-              onClick={() => setHistoryOpen(!historyOpen)}
-              className="w-full px-6 py-4 flex items-center justify-between hover:bg-elevated/30 transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                {historyOpen ? <ChevronUp className="w-4 h-4 text-dim" /> : <ChevronDown className="w-4 h-4 text-dim" />}
-              </div>
-              <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Edit History</span>
-            </button>
-            {historyOpen && (
-              <div className="px-6 pb-4 space-y-0">
-                {editHistory.map((entry) => (
-                  <div key={entry.id} className="flex items-center justify-between py-3 border-b border-border last:border-b-0">
-                    <div className="flex items-center gap-3">
-                      <div className="w-0.5 h-8 bg-blue/30 rounded-full" />
-                      <div>
-                        <div className="text-[12px] text-dim">
-                          <span className="text-sensor">{entry.time}</span>
-                          <span className="mx-2">{entry.action}</span>
-                          <span className="text-dim font-mono">{entry.type}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-[12px] font-medium text-sensor">{entry.user}</span>
-                      <img src={entry.avatar} alt={entry.user} className="w-8 h-8 rounded-full object-cover" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-
           {/* ─── MAIN ACTION ─── */}
           <button
             onClick={() => toast.success("Marked as Filmed")}
-            className="w-full py-3.5 text-[14px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
+            className="w-full py-3 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
           >
             + Mark as Filmed
           </button>
-
-          <div className="h-8" />
         </div>
       </div>
     </div>
