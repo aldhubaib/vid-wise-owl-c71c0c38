@@ -355,6 +355,7 @@ export default function Test() {
 
 
           {/* ─── SCRIPT EDITOR ─── */}
+          {story.stage !== "suggestion" && story.stage !== "liked" && (
           <section>
             <div className="mb-2">
               <span className="text-[12px] text-dim font-medium">Script</span>
@@ -472,6 +473,7 @@ export default function Test() {
               </div>
             </div>
           </section>
+          )}
 
 
 
