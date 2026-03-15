@@ -91,6 +91,7 @@ export default function Test() {
   // Channel
   const [selectedChannel, setSelectedChannel] = useState("");
   const [channelDropOpen, setChannelDropOpen] = useState(false);
+  const canGenerate = !!selectedChannel;
 
   // History
   const [historyOpen, setHistoryOpen] = useState(false);
