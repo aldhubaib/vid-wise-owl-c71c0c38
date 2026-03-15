@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown, Sparkles, Pencil, RefreshCw } from "lucide-react";
+import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, Sparkles, Pencil, RefreshCw, Wand2, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { storiesMock, Story } from "@/data/storiesMock";
 import { channels } from "@/data/mock";
+import { Progress } from "@/components/ui/progress";
 
 type Stage = "suggestion" | "liked" | "approved" | "filmed" | "publish" | "done";
 
@@ -59,9 +60,47 @@ export default function StoryDetail() {
   const [hookEndInput, setHookEndInput] = useState("");
   const [scriptInput, setScriptInput] = useState("");
   const [editingYoutubeUrl, setEditingYoutubeUrl] = useState(false);
+  const [aiCleaning, setAiCleaning] = useState(false);
+  const [aiProgress, setAiProgress] = useState(0);
 
   const story = stories.find((s) => s.id === id);
+  const [articleText, setArticleText] = useState(story?.aiAnalysis || "");
   const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
+
+  const storyIndex = stories.findIndex((s) => s.id === id);
+  const prevStory = storyIndex > 0 ? stories[storyIndex - 1] : null;
+  const nextStory = storyIndex < stories.length - 1 ? stories[storyIndex + 1] : null;
+
+  const handleAiCleanup = useCallback(() => {
+    if (aiCleaning || !articleText.trim()) return;
+    setAiCleaning(true);
+    setAiProgress(0);
+
+    // Simulate AI progress
+    const duration = 3000;
+    const interval = 50;
+    let elapsed = 0;
+    const timer = setInterval(() => {
+      elapsed += interval;
+      const progress = Math.min((elapsed / duration) * 100, 95);
+      setAiProgress(progress);
+      if (elapsed >= duration) {
+        clearInterval(timer);
+        // Simulate cleaned text
+        const cleaned = articleText
+          .replace(/\s{2,}/g, " ")
+          .trim();
+        const enhanced = `${cleaned}\n\n— تم تنظيف وتحسين النص بواسطة الذكاء الاصطناعي`;
+        setArticleText(enhanced);
+        setAiProgress(100);
+        setTimeout(() => {
+          setAiCleaning(false);
+          setAiProgress(0);
+          toast.success("Article cleaned up by AI");
+        }, 400);
+      }
+    }, interval);
+  }, [aiCleaning, articleText]);
 
   if (!story) {
     return (
@@ -99,6 +138,23 @@ export default function StoryDetail() {
           <span className="text-[13px] font-medium truncate max-w-[400px]">{story.title}</span>
         </div>
         <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => prevStory && navigate(`/story/${prevStory.id}`)}
+              disabled={!prevStory}
+              className="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-border text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+            </button>
+            <span className="text-[10px] font-mono text-dim px-1">{storyIndex + 1}/{stories.length}</span>
+            <button
+              onClick={() => nextStory && navigate(`/story/${nextStory.id}`)}
+              disabled={!nextStory}
+              className="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-border text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
+            >
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
           <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-primary/15 text-primary">
             {stages.find((s) => s.key === activeStage)?.label}
           </span>
@@ -138,6 +194,46 @@ export default function StoryDetail() {
               <p className="text-[13px] text-sensor leading-relaxed text-right">{story.aiAnalysis}</p>
             </div>
           )}
+
+          {/* Full Article Box */}
+          <div className="rounded-xl bg-background border border-border overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-border">
+              <div className="flex items-center gap-2">
+                <FileText className="w-4 h-4 text-dim" />
+                <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Article</span>
+              </div>
+              <button
+                onClick={handleAiCleanup}
+                disabled={aiCleaning || !articleText.trim()}
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-[11px] font-semibold hover:bg-primary/90 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <Wand2 className={`w-3 h-3 ${aiCleaning ? "animate-spin" : ""}`} />
+                {aiCleaning ? "Cleaning…" : "AI Clean Up"}
+              </button>
+            </div>
+
+            {/* Progress bar */}
+            {aiCleaning && (
+              <div className="px-5 pt-3">
+                <Progress value={aiProgress} className="h-1.5 bg-muted" />
+                <div className="text-[10px] font-mono text-dim mt-1.5 text-center">
+                  {aiProgress < 30 ? "Analyzing text…" : aiProgress < 70 ? "Cleaning up…" : aiProgress < 100 ? "Finalizing…" : "Done!"}
+                </div>
+              </div>
+            )}
+
+            <div className="p-5">
+              <textarea
+                value={articleText}
+                onChange={(e) => setArticleText(e.target.value)}
+                disabled={aiCleaning}
+                placeholder="اكتب المقال الكامل هنا..."
+                rows={10}
+                dir="rtl"
+                className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim/50 focus:outline-none focus:border-primary/40 text-right leading-relaxed resize-y disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+              />
+            </div>
+          </div>
 
           {/* Stage-specific content */}
           <div className="space-y-5">
