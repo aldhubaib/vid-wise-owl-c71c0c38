@@ -187,7 +187,7 @@ export default function Test() {
             <Clock className="w-4 h-4 max-sm:w-3.5 max-sm:h-3.5" />
           </button>
           {/* Actions dropdown */}
-          <div className="relative">
+          <div className="relative" ref={actionDropRef}>
             <button
               onClick={() => setActionDropOpen(!actionDropOpen)}
               className="inline-flex items-center gap-1 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
