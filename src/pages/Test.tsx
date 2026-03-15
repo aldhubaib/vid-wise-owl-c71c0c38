@@ -328,9 +328,7 @@ export default function Test() {
           <section>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-[12px] text-dim font-medium">Script</span>
-              <div className="w-5 h-5 rounded-full bg-destructive/30 flex items-center justify-center ml-auto">
-                <span className="text-[9px] font-bold text-destructive">(</span>
-              </div>
+              <img src={ch1} alt="Abdulaziz" className="w-5 h-5 rounded-full object-cover ml-auto" />
             </div>
             <div className="rounded-xl bg-background border border-border overflow-hidden">
               {/* AI Writer controls */}
