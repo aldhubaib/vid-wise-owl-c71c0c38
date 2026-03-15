@@ -1,6 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronDown, ChevronRight, Check, AlertCircle, Save } from "lucide-react";
 import { toast } from "sonner";
+import { useCreateBlockNote } from "@blocknote/react";
+import { BlockNoteView } from "@blocknote/mantine";
+import "@blocknote/core/fonts/inter.css";
+import "@blocknote/mantine/style.css";
 
 export interface SectionItem {
   id: string;
@@ -86,57 +90,67 @@ export default function QuerySection({
   onUpdate,
 }: Props) {
   const [expanded, setExpanded] = useState(false);
-  const [editorText, setEditorText] = useState("");
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [editorReady, setEditorReady] = useState(false);
 
   const enabledCount = items.filter((i) => i.enabled).length;
-  const isFilled = enabledCount > 0 || editorText.trim().length > 0;
 
-  // Sync items to editor text on first expand
-  useEffect(() => {
-    if (expanded && !editorText && items.length > 0) {
-      setEditorText(items.map((i) => i.text).join("\n"));
+  // Build initial blocks from items
+  const initialContent = useMemo(() => {
+    if (items.length === 0) return undefined;
+    return items.map((item) => ({
+      type: "paragraph" as const,
+      content: item.text,
+    }));
+  }, []);
+
+  const editor = useCreateBlockNote({
+    initialContent: initialContent,
+  });
+
+  const isFilled = enabledCount > 0 || (editorReady && editor.document.length > 0 && editor.document.some((block: any) => {
+    const content = block.content;
+    if (Array.isArray(content)) {
+      return content.some((c: any) => c.text && c.text.trim().length > 0);
     }
-  }, [expanded]);
+    return false;
+  }));
 
   const fields = SECTION_FIELDS[id] || [];
 
   const insertField = (label: string) => {
     const insertion = `[${label}] `;
-    if (textareaRef.current) {
-      const ta = textareaRef.current;
-      const start = ta.selectionStart;
-      const end = ta.selectionEnd;
-      const newText = editorText.substring(0, start) + insertion + editorText.substring(end);
-      setEditorText(newText);
-      // Refocus and set cursor
-      setTimeout(() => {
-        ta.focus();
-        ta.selectionStart = ta.selectionEnd = start + insertion.length;
-      }, 0);
-    } else {
-      setEditorText((prev) => prev + insertion);
-    }
+    const currentBlock = editor.getTextCursorPosition().block;
+    editor.insertInlineContent([{ type: "text", text: insertion, styles: { bold: true } }]);
+  };
+
+  const getEditorText = (): string => {
+    return editor.document
+      .map((block: any) => {
+        const content = block.content;
+        if (Array.isArray(content)) {
+          return content.map((c: any) => c.text || "").join("");
+        }
+        return "";
+      })
+      .filter((line) => line.trim())
+      .join("\n");
   };
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const trimmed = editorText.trim();
+    const trimmed = getEditorText().trim();
 
-    // Validate: must not be empty
     if (!trimmed) {
       toast.error(`${title} section is empty — add content before saving.`);
       return;
     }
 
-    // Validate: check for empty field placeholders like [Topic] with no value
     const emptyFields = trimmed.match(/\[[^\]]+\]\s*(?=\[|$|\n)/g);
     if (emptyFields) {
       toast.error(`Fill in the field values — found empty placeholders: ${emptyFields.slice(0, 3).join(", ")}`);
       return;
     }
 
-    // Parse editor text into items
     const lines = trimmed.split("\n").filter((l) => l.trim());
     const newItems: SectionItem[] = lines.map((line) => ({
       id: crypto.randomUUID(),
@@ -147,6 +161,12 @@ export default function QuerySection({
     onUpdate(newItems);
     toast.success(`${title} section saved`);
   };
+
+  useEffect(() => {
+    if (expanded) {
+      setEditorReady(true);
+    }
+  }, [expanded]);
 
   return (
     <>
@@ -192,17 +212,15 @@ export default function QuerySection({
         <tr>
           <td colSpan={5} className="px-4 pb-4 pt-1">
             <div className="rounded-xl border border-border bg-background overflow-hidden">
-              {/* Text editor */}
-              <div className="p-4 border-b border-border">
-                <textarea
-                  ref={textareaRef}
-                  value={editorText}
-                  onChange={(e) => setEditorText(e.target.value)}
-                  onClick={(e) => e.stopPropagation()}
-                  placeholder={`Write your ${title.toLowerCase()} query here... Use fields below to insert parameters.`}
-                  className="w-full min-h-[100px] px-3 py-2.5 text-[12px] font-mono bg-surface border border-border rounded-lg text-foreground placeholder:text-dim/40 outline-none focus:border-blue/50 transition-colors resize-y"
-                  dir="rtl"
-                />
+              {/* BlockNote editor */}
+              <div className="p-4 border-b border-border bn-container" onClick={(e) => e.stopPropagation()}>
+                <div className="min-h-[150px] rounded-lg border border-border overflow-hidden bg-surface">
+                  <BlockNoteView
+                    editor={editor}
+                    theme="dark"
+                    data-theming-css-variables-demo
+                  />
+                </div>
               </div>
 
               {/* Available fields */}
@@ -226,7 +244,7 @@ export default function QuerySection({
               {/* Footer */}
               <div className="flex items-center justify-between px-4 py-2 border-t border-border bg-elevated/30">
                 <span className="text-[9px] font-mono text-dim">
-                  Click a field to insert · Write freely in the editor
+                  Full rich-text editor · Click fields to insert · Use / for block commands
                 </span>
                 <button
                   onClick={handleSave}
