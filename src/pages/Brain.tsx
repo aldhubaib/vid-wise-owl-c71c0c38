@@ -192,34 +192,22 @@ export default function Brain() {
                   </thead>
                   <tbody className="divide-y divide-border">
                     <QuerySection id="base" number={1} title="Base" titleAr="الأساس"
-                      color="bg-blue/15" items={sections.base} onUpdate={updateSection("base")}
-                      addPlaceholder="أضف معيار أساسي..."
-                      suggestions={["الجريمة والقضايا الحقيقية", "السعودية والخليج", "مصر", "العراق", "آخر 7 أيام", "آخر 14 يوم", "آخر 30 يوم", "8 قصص كحد أقصى", "10 قصص كحد أقصى", "العربية", "English"]} />
+                      color="bg-blue/15" items={sections.base} onUpdate={updateSection("base")} />
 
                     <QuerySection id="seekTopics" number={2} title="Seek Topics" titleAr="المواضيع المطلوبة"
-                      color="bg-success/15" items={sections.seekTopics} onUpdate={updateSection("seekTopics")}
-                      addPlaceholder="أضف موضوع للبحث..."
-                      suggestions={["جريمة حقيقية", "هروب من سجن", "سرقة بنك", "قضايا مخدرات", "اغتيال", "تحقيق جنائي", "اختفاء", "مافيا", "فضيحة سياسية", "عملية عسكرية"]} />
+                      color="bg-success/15" items={sections.seekTopics} onUpdate={updateSection("seekTopics")} />
 
                     <QuerySection id="memoryTier1" number={3} title="Memory Tier 1" titleAr="الذاكرة ١"
-                      color="bg-purple/15" items={sections.memoryTier1} onUpdate={updateSection("memoryTier1")}
-                      addPlaceholder="أضف فيديو مرجعي..."
-                      suggestions={publishedVideos.map((v) => v.title)} />
+                      color="bg-purple/15" items={sections.memoryTier1} onUpdate={updateSection("memoryTier1")} />
 
                     <QuerySection id="memoryTier2" number={4} title="Memory Tier 2" titleAr="الذاكرة ٢"
-                      color="bg-orange/15" items={sections.memoryTier2} onUpdate={updateSection("memoryTier2")}
-                      addPlaceholder="أضف قاعدة تنقيح..."
-                      suggestions={["تأكد أن القصص لم يغطها أي من المنافسين", "أولوية للقصص ذات الطابع الدرامي", "تأكد من وجود مصادر موثوقة", "استبعد القصص القديمة", "أولوية للقصص الحصرية"]} />
+                      color="bg-orange/15" items={sections.memoryTier2} onUpdate={updateSection("memoryTier2")} />
 
                     <QuerySection id="inProduction" number={5} title="In Production" titleAr="قيد الإنتاج"
-                      color="bg-primary/15" items={sections.inProduction} onUpdate={updateSection("inProduction")}
-                      addPlaceholder="أضف قصة قيد الإنتاج..."
-                      suggestions={storiesMock.map((s) => s.title)} />
+                      color="bg-primary/15" items={sections.inProduction} onUpdate={updateSection("inProduction")} />
 
                     <QuerySection id="avoidList" number={6} title="Avoid List" titleAr="قائمة التجنب"
-                      color="bg-destructive/15" items={sections.avoidList} onUpdate={updateSection("avoidList")}
-                      addPlaceholder="أضف قصة للتجنب..."
-                      suggestions={competitorStories.map((s) => s.title)} />
+                      color="bg-destructive/15" items={sections.avoidList} onUpdate={updateSection("avoidList")} />
                   </tbody>
                 </table>
               </div>
