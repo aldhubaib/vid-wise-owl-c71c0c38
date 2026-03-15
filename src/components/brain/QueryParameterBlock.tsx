@@ -172,7 +172,8 @@ export default function QueryParameterBlock({ parameter, onUpdate, onRemove }: P
             {config.operators.map((op) => (
               <button
                 key={op}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   onUpdate({ ...parameter, operator: op });
                   setOperatorOpen(false);
                 }}
