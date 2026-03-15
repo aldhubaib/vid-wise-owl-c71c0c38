@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RotateCcw, Save, FolderOpen, Compass, Search, Brain as BrainIcon, RefreshCw, Factory, ShieldOff, Pencil } from "lucide-react";
+import { RotateCcw, Save, FolderOpen, Compass, Search, Brain as BrainIcon, RefreshCw, Factory, ShieldOff, Pencil, ChevronDown, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import QuerySection, { type SectionItem } from "@/components/brain/QuerySection";
 import QueryPreview, { type QuerySections } from "@/components/brain/QueryPreview";
@@ -43,6 +43,7 @@ function buildInitialSections(): QuerySections {
 export default function Brain() {
   const [queryName, setQueryName] = useState("Weekly Story Hunt");
   const [editingName, setEditingName] = useState(false);
+  const [queryExpanded, setQueryExpanded] = useState(false);
   const [sections, setSections] = useState<QuerySections>(buildInitialSections);
   const [savedQueries, setSavedQueries] = useState<{ name: string; sections: QuerySections }[]>([]);
   const [saveMenuOpen, setSaveMenuOpen] = useState(false);
@@ -78,6 +79,8 @@ export default function Brain() {
     (sum, items) => sum + items.filter((i) => i.enabled).length, 0
   );
 
+  const filledSections = Object.values(sections).filter((s) => s.some((i) => i.enabled)).length;
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Top bar */}
@@ -89,33 +92,27 @@ export default function Brain() {
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
-            <button
-              onClick={() => { setSaveMenuOpen(!saveMenuOpen); setLoadMenuOpen(false); }}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-[11px] text-dim font-medium hover:text-sensor transition-colors"
-            >
+            <button onClick={() => { setSaveMenuOpen(!saveMenuOpen); setLoadMenuOpen(false); }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-[11px] text-dim font-medium hover:text-sensor transition-colors">
               <Save className="w-3 h-3" /> Save
             </button>
             {saveMenuOpen && (
-              <div className="absolute top-full right-0 mt-1 z-50 bg-elevated border border-border rounded-lg shadow-xl p-3 min-w-[220px]">
+              <div className="absolute top-full right-0 mt-1 z-50 bg-elevated border border-border rounded-xl shadow-xl p-3 min-w-[220px]">
                 <input type="text" value={saveName} onChange={(e) => setSaveName(e.target.value)}
                   placeholder={queryName} className="w-full px-3 py-2 text-[11px] font-mono bg-surface border border-border rounded-lg text-foreground placeholder:text-dim/50 outline-none mb-2"
                   onKeyDown={(e) => e.key === "Enter" && handleSave()} />
-                <button onClick={handleSave} className="w-full px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[11px] font-semibold">
-                  Save Query
-                </button>
+                <button onClick={handleSave} className="w-full px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[11px] font-semibold">Save Query</button>
               </div>
             )}
           </div>
           <div className="relative">
-            <button
-              onClick={() => { setLoadMenuOpen(!loadMenuOpen); setSaveMenuOpen(false); }}
+            <button onClick={() => { setLoadMenuOpen(!loadMenuOpen); setSaveMenuOpen(false); }}
               disabled={savedQueries.length === 0}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-[11px] text-dim font-medium hover:text-sensor transition-colors disabled:opacity-30"
-            >
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-[11px] text-dim font-medium hover:text-sensor transition-colors disabled:opacity-30">
               <FolderOpen className="w-3 h-3" /> Load ({savedQueries.length})
             </button>
             {loadMenuOpen && savedQueries.length > 0 && (
-              <div className="absolute top-full right-0 mt-1 z-50 bg-elevated border border-border rounded-lg shadow-xl min-w-[200px] py-1">
+              <div className="absolute top-full right-0 mt-1 z-50 bg-elevated border border-border rounded-xl shadow-xl min-w-[200px] py-1">
                 {savedQueries.map((sq, i) => (
                   <button key={i} onClick={() => handleLoad(sq)} className="w-full text-left px-3 py-2 text-[11px] font-mono text-dim hover:text-foreground hover:bg-surface transition-colors">
                     {sq.name}
@@ -133,11 +130,14 @@ export default function Brain() {
       <div className="flex-1 relative overflow-auto">
         <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-6 space-y-5">
 
-          {/* === Single Query Box === */}
-          <div className="rounded-xl border border-border bg-surface">
-            {/* Query Name Header */}
-            <div className="flex items-center gap-3 px-5 py-4 border-b border-border">
-              <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center">
+          {/* === Query Box === */}
+          <div className="rounded-xl border border-border bg-surface overflow-hidden">
+            {/* Collapsed header — click to expand */}
+            <button
+              onClick={() => setQueryExpanded(!queryExpanded)}
+              className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-elevated/30 transition-colors"
+            >
+              <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
                 <BrainIcon className="w-4 h-4 text-primary" />
               </div>
               <div className="flex-1 min-w-0">
@@ -147,60 +147,77 @@ export default function Brain() {
                     value={queryName}
                     onChange={(e) => setQueryName(e.target.value)}
                     onBlur={() => setEditingName(false)}
-                    onKeyDown={(e) => e.key === "Enter" && setEditingName(false)}
+                    onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") setEditingName(false); }}
+                    onClick={(e) => e.stopPropagation()}
                     autoFocus
                     className="text-[14px] font-semibold bg-transparent outline-none border-b border-primary text-foreground w-full"
                   />
                 ) : (
-                  <button onClick={() => setEditingName(true)} className="flex items-center gap-2 group">
+                  <div className="flex items-center gap-2">
                     <span className="text-[14px] font-semibold text-foreground">{queryName}</span>
-                    <Pencil className="w-3 h-3 text-dim opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setEditingName(true); }}
+                      className="opacity-0 group-hover:opacity-100"
+                    >
+                      <Pencil className="w-3 h-3 text-dim hover:text-sensor transition-colors" />
+                    </button>
+                  </div>
                 )}
                 <div className="text-[10px] font-mono text-dim mt-0.5">
-                  {totalEnabled} items active across 6 sections
+                  {totalEnabled} items · {filledSections}/6 sections filled
                 </div>
               </div>
-            </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${
+                  filledSections === 6 ? "bg-success/15 text-success" : "bg-orange/15 text-orange"
+                }`}>
+                  {filledSections === 6 ? "Ready" : `${6 - filledSections} incomplete`}
+                </span>
+                {queryExpanded ? <ChevronDown className="w-4 h-4 text-dim" /> : <ChevronRight className="w-4 h-4 text-dim" />}
+              </div>
+            </button>
 
-            {/* All Sections */}
-            <div className="divide-y divide-border">
-              <QuerySection id="base" number={1} title="Base" titleAr="الأساس"
-                description="Channel niche, region, language, time range"
-                icon={<Compass className="w-4 h-4" />} color="bg-blue/15"
-                items={sections.base} onUpdate={updateSection("base")}
-                addPlaceholder="Add base parameter..." />
+            {/* Expanded: sections table */}
+            {queryExpanded && (
+              <div className="border-t border-border">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="px-4 py-2 text-left text-[9px] font-mono text-dim uppercase tracking-widest w-10">#</th>
+                      <th className="py-2 pr-3 text-left text-[9px] font-mono text-dim uppercase tracking-widest">Section</th>
+                      <th className="py-2 px-3 text-right text-[9px] font-mono text-dim uppercase tracking-widest">Items</th>
+                      <th className="py-2 px-3 text-right text-[9px] font-mono text-dim uppercase tracking-widest">Status</th>
+                      <th className="py-2 px-4 w-8"></th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    <QuerySection id="base" number={1} title="Base" titleAr="الأساس"
+                      color="bg-blue/15" items={sections.base} onUpdate={updateSection("base")}
+                      addPlaceholder="Add base parameter..." />
 
-              <QuerySection id="seekTopics" number={2} title="Seek Topics" titleAr="المواضيع المطلوبة"
-                description="Stories and topics the AI should find"
-                icon={<Search className="w-4 h-4" />} color="bg-success/15"
-                items={sections.seekTopics} onUpdate={updateSection("seekTopics")}
-                addPlaceholder="Add topic to search for..." />
+                    <QuerySection id="seekTopics" number={2} title="Seek Topics" titleAr="المواضيع المطلوبة"
+                      color="bg-success/15" items={sections.seekTopics} onUpdate={updateSection("seekTopics")}
+                      addPlaceholder="Add topic..." />
 
-              <QuerySection id="memoryTier1" number={3} title="Memory Tier 1" titleAr="الذاكرة ١"
-                description="Top performing videos — find similar stories"
-                icon={<BrainIcon className="w-4 h-4" />} color="bg-purple/15"
-                items={sections.memoryTier1} onUpdate={updateSection("memoryTier1")}
-                addPlaceholder="Add reference video..." />
+                    <QuerySection id="memoryTier1" number={3} title="Memory Tier 1" titleAr="الذاكرة ١"
+                      color="bg-purple/15" items={sections.memoryTier1} onUpdate={updateSection("memoryTier1")}
+                      addPlaceholder="Add reference video..." />
 
-              <QuerySection id="memoryTier2" number={4} title="Memory Tier 2" titleAr="الذاكرة ٢"
-                description="Refinement rules — filter and verify results"
-                icon={<RefreshCw className="w-4 h-4" />} color="bg-orange/15"
-                items={sections.memoryTier2} onUpdate={updateSection("memoryTier2")}
-                addPlaceholder="Add refinement rule..." />
+                    <QuerySection id="memoryTier2" number={4} title="Memory Tier 2" titleAr="الذاكرة ٢"
+                      color="bg-orange/15" items={sections.memoryTier2} onUpdate={updateSection("memoryTier2")}
+                      addPlaceholder="Add refinement rule..." />
 
-              <QuerySection id="inProduction" number={5} title="In Production" titleAr="قيد الإنتاج"
-                description="Currently producing — avoid duplicating"
-                icon={<Factory className="w-4 h-4" />} color="bg-primary/15"
-                items={sections.inProduction} onUpdate={updateSection("inProduction")}
-                addPlaceholder="Add production item..." />
+                    <QuerySection id="inProduction" number={5} title="In Production" titleAr="قيد الإنتاج"
+                      color="bg-primary/15" items={sections.inProduction} onUpdate={updateSection("inProduction")}
+                      addPlaceholder="Add production item..." />
 
-              <QuerySection id="avoidList" number={6} title="Avoid List" titleAr="قائمة التجنب"
-                description="Competitor-covered stories to exclude"
-                icon={<ShieldOff className="w-4 h-4" />} color="bg-destructive/15"
-                items={sections.avoidList} onUpdate={updateSection("avoidList")}
-                addPlaceholder="Add story to avoid..." />
-            </div>
+                    <QuerySection id="avoidList" number={6} title="Avoid List" titleAr="قائمة التجنب"
+                      color="bg-destructive/15" items={sections.avoidList} onUpdate={updateSection("avoidList")}
+                      addPlaceholder="Add story to avoid..." />
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
 
           {/* Generated Preview */}
