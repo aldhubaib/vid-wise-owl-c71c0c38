@@ -284,7 +284,6 @@ export default function Test() {
                       placeholder="اكتب المقال الكامل هنا..."
                     />
                   </div>
-                  />
                 </>
               )}
             </div>
