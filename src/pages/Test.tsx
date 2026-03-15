@@ -166,10 +166,7 @@ export default function Test() {
 
       <div className="flex-1 overflow-auto">
         {/* Hero — matches Channel Detail pattern */}
-        <div className="px-6 py-5 max-lg:px-4">
-          <h1 className="text-base font-semibold tracking-tight mb-1" dir="rtl">
-            {story.title}
-          </h1>
+        <div className="px-6 pt-5 max-lg:px-4">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-success/10 text-success">
               <Check className="w-3 h-3" /> Done
