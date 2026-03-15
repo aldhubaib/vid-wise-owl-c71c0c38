@@ -114,6 +114,24 @@ export default function Test() {
   const [actionDropOpen, setActionDropOpen] = useState(false);
   const [confirmAction, setConfirmAction] = useState<"pass" | "omit" | null>(null);
 
+  const actionDropRef = useRef<HTMLDivElement>(null);
+  const channelDropRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (actionDropOpen && actionDropRef.current && !actionDropRef.current.contains(e.target as Node)) {
+        setActionDropOpen(false);
+      }
+      if (channelDropOpen && channelDropRef.current && !channelDropRef.current.contains(e.target as Node)) {
+        setChannelDropOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [actionDropOpen, channelDropOpen]);
+  const [confirmAction, setConfirmAction] = useState<"pass" | "omit" | null>(null);
+
   // Editing
   const [editingField, setEditingField] = useState<string | null>(null);
 
