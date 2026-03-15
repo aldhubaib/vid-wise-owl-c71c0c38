@@ -1,6 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronDown, ChevronRight, Check, AlertCircle, Save } from "lucide-react";
 import { toast } from "sonner";
+import { useCreateBlockNote } from "@blocknote/react";
+import { BlockNoteView } from "@blocknote/mantine";
+import "@blocknote/core/fonts/inter.css";
+import "@blocknote/mantine/style.css";
 
 export interface SectionItem {
   id: string;
