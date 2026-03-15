@@ -370,7 +370,7 @@ export default function Test() {
                           setScriptDuration(Math.max(3, val));
                         }
                       }}
-                      className="w-12 px-1.5 py-1 text-[12px] font-mono bg-surface border border-border rounded-md text-foreground text-center focus:outline-none focus:border-blue [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      className="w-12 px-1.5 py-1 text-[12px] font-mono bg-surface border border-border rounded-full text-foreground text-center focus:outline-none focus:border-blue [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                       min={scriptFormat === "short" ? 1 : 3}
                       max={scriptFormat === "short" ? 3 : undefined}
                     />
