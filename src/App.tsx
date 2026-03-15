@@ -36,6 +36,7 @@ const App = () => (
             <Route path="/stories" element={<Stories />} />
             <Route path="/brain" element={<Brain />} />
             <Route path="/story/:id" element={<StoryDetail />} />
+            <Route path="/test" element={<Test />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
           <Route path="*" element={<NotFound />} />

@@ -11,6 +11,7 @@ const navItems = [
   { icon: TrendingUp, label: "Analytics", path: "/analytics" },
   { icon: Sparkles, label: "AI Intelligence", path: "/stories" },
   { icon: CircleDot, label: "Brain", path: "/brain" },
+  { icon: FlaskConical, label: "Test", path: "/test" },
   { icon: Settings, label: "Settings", path: "/settings" },
 ];
 
