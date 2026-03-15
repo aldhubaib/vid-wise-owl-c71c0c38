@@ -121,8 +121,23 @@ export default function QuerySection({
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
+    const trimmed = editorText.trim();
+
+    // Validate: must not be empty
+    if (!trimmed) {
+      toast.error(`${title} section is empty — add content before saving.`);
+      return;
+    }
+
+    // Validate: check for empty field placeholders like [Topic] with no value
+    const emptyFields = trimmed.match(/\[[^\]]+\]\s*(?=\[|$|\n)/g);
+    if (emptyFields) {
+      toast.error(`Fill in the field values — found empty placeholders: ${emptyFields.slice(0, 3).join(", ")}`);
+      return;
+    }
+
     // Parse editor text into items
-    const lines = editorText.split("\n").filter((l) => l.trim());
+    const lines = trimmed.split("\n").filter((l) => l.trim());
     const newItems: SectionItem[] = lines.map((line) => ({
       id: crypto.randomUUID(),
       text: line.trim(),
