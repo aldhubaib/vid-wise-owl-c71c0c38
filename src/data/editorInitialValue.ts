@@ -422,7 +422,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "void" },
       },
     ],
-    meta: { order: 22, depth: 0 },
+    meta: { order: 24, depth: 0 },
   },
   "blockquote-end": {
     id: "blockquote-end",
