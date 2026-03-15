@@ -156,6 +156,13 @@ export default function Test() {
           <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-primary/10 text-primary">
             Scripting
           </span>
+          <button
+            onClick={() => toast.success("Moved to Filmed")}
+            className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium bg-surface border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
+          >
+            <ChevronRight className="w-3 h-3" />
+            Move to Filmed
+          </button>
           {/* Navigation */}
           <div className="flex items-center gap-1 ml-3">
             <button
