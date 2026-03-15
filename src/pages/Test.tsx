@@ -154,6 +154,18 @@ export default function Test() {
             <Clock className="w-4 h-4" />
           </button>
           <button
+            onClick={() => toast.warning("Are you sure you want to pass on this story?")}
+            className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-red hover:border-red/40 transition-colors"
+          >
+            Pass
+          </button>
+          <button
+            onClick={() => toast.warning("Are you sure you want to omit this story?")}
+            className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-orange hover:border-orange/40 transition-colors"
+          >
+            Omit
+          </button>
+          <button
             onClick={() => toast.success("Moved to Filmed")}
             className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
           >
