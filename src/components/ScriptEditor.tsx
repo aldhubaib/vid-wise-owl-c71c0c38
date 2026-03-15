@@ -127,7 +127,7 @@ export default function ScriptEditor({ onChange }: ScriptEditorProps) {
     [onChange]
   );
 
-  const slashItems = useMemo<SlashCommandItemType[]>(() => {
+  const slashItems = useMemo(() => {
     return Object.entries(editor.plugins).map(([type, plugin]) => ({
       id: type,
       title: plugin.options?.display?.title ?? type,
