@@ -90,33 +90,14 @@ export default function QuerySection({
 
   const enabledCount = items.filter((i) => i.enabled).length;
 
-  // Build initial blocks from items
-  const initialContent = useMemo(() => {
-    if (items.length === 0) return undefined;
-    return items.map((item) => ({
-      type: "paragraph" as const,
-      content: item.text,
-    }));
-  }, []);
+  const [editorText, setEditorText] = useState(() => items.map(i => i.text).join("\n"));
 
-  const editor = useCreateBlockNote({
-    initialContent: initialContent,
-  });
-
-  const isFilled = enabledCount > 0 || (editorReady && editor.document.length > 0 && editor.document.some((block: any) => {
-    const content = block.content;
-    if (Array.isArray(content)) {
-      return content.some((c: any) => c.text && c.text.trim().length > 0);
-    }
-    return false;
-  }));
+  const isFilled = enabledCount > 0 || editorText.trim().length > 0;
 
   const fields = SECTION_FIELDS[id] || [];
 
   const insertField = (label: string) => {
-    const insertion = `[${label}] `;
-    const currentBlock = editor.getTextCursorPosition().block;
-    editor.insertInlineContent([{ type: "text", text: insertion, styles: { bold: true } }]);
+    setEditorText(prev => prev + `[${label}] `);
   };
 
   const getEditorText = (): string => {
