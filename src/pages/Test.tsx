@@ -357,17 +357,8 @@ export default function Test() {
                 </button>
               </div>
 
-              <div className="px-5 pt-4 flex items-center gap-2">
-                <img src={ch1} alt="Abdulaziz" className="w-5 h-5 rounded-full object-cover" />
-                <input
-                  type="text"
-                  value={titleInput}
-                  onChange={(e) => setTitleInput(e.target.value)}
-                  placeholder="عنوان السكريبت..."
-                  dir="rtl"
-                  className="w-full px-4 py-2.5 text-[14px] font-semibold bg-surface border border-border rounded-xl text-foreground placeholder:text-dim/40 focus:outline-none focus:border-blue/40 text-right"
-                />
-              </div>
+
+
 
               <div className="px-5 py-4">
                 <ScriptEditor />
