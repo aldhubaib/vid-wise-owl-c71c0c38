@@ -249,15 +249,16 @@ export default function Test() {
                       </span>
                     </button>
                   </div>
-                  {/* Title input */}
-                  <div className="px-5 pt-3">
+                  {/* Title */}
+                  <div className="px-5 pt-4">
+                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right">العنوان</label>
                     <input
                       type="text"
                       value={articleTitle}
                       onChange={(e) => setArticleTitle(e.target.value)}
                       disabled={aiCleaning}
                       dir="rtl"
-                      className="w-full px-3 py-2 text-[13px] bg-surface border border-border rounded-lg text-foreground placeholder:text-dim/50 focus:outline-none focus:ring-1 focus:ring-primary/40 text-right font-medium"
+                      className="w-full px-3 py-2.5 text-[14px] bg-transparent border-0 border-b border-border rounded-none text-foreground placeholder:text-dim/50 focus:outline-none focus:border-primary/40 text-right font-medium"
                       placeholder="عنوان المقال..."
                     />
                   </div>
@@ -270,14 +271,19 @@ export default function Test() {
                       </div>
                     </div>
                   )}
-                  <textarea
-                    value={articleText}
-                    onChange={(e) => setArticleText(e.target.value)}
-                    disabled={aiCleaning}
-                    dir="rtl"
-                    rows={12}
-                    className="w-full px-5 pt-4 pb-5 text-[13px] bg-transparent text-foreground placeholder:text-dim/50 focus:outline-none text-right leading-[1.9] resize-y disabled:opacity-50"
-                    placeholder="اكتب المقال الكامل هنا..."
+                  {/* Content */}
+                  <div className="px-5 pt-4 pb-5">
+                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right">المحتوى</label>
+                    <textarea
+                      value={articleText}
+                      onChange={(e) => setArticleText(e.target.value)}
+                      disabled={aiCleaning}
+                      dir="rtl"
+                      rows={12}
+                      className="w-full text-[14px] bg-transparent text-foreground placeholder:text-dim/50 focus:outline-none text-right leading-[1.9] resize-y disabled:opacity-50"
+                      placeholder="اكتب المقال الكامل هنا..."
+                    />
+                  </div>
                   />
                 </>
               )}
