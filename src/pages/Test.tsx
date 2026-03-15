@@ -87,9 +87,6 @@ export default function Test() {
 
   const [titleInput, setTitleInput] = useState("");
 
-  // Derive if generate button should be active
-  const canGenerate = !!selectedChannel && !!scriptFormat;
-
 
   // Channel
   const [selectedChannel, setSelectedChannel] = useState("");
