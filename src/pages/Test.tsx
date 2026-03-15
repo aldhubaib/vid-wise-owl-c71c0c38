@@ -130,7 +130,6 @@ export default function Test() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [actionDropOpen, channelDropOpen]);
-  const [confirmAction, setConfirmAction] = useState<"pass" | "omit" | null>(null);
 
   // Editing
   const [editingField, setEditingField] = useState<string | null>(null);
