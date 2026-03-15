@@ -90,18 +90,30 @@ export default function QuerySection({
   onUpdate,
 }: Props) {
   const [expanded, setExpanded] = useState(false);
-  const [editorText, setEditorText] = useState("");
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [editorReady, setEditorReady] = useState(false);
 
   const enabledCount = items.filter((i) => i.enabled).length;
-  const isFilled = enabledCount > 0 || editorText.trim().length > 0;
 
-  // Sync items to editor text on first expand
-  useEffect(() => {
-    if (expanded && !editorText && items.length > 0) {
-      setEditorText(items.map((i) => i.text).join("\n"));
+  // Build initial blocks from items
+  const initialContent = useMemo(() => {
+    if (items.length === 0) return undefined;
+    return items.map((item) => ({
+      type: "paragraph" as const,
+      content: item.text,
+    }));
+  }, []);
+
+  const editor = useCreateBlockNote({
+    initialContent: initialContent,
+  });
+
+  const isFilled = enabledCount > 0 || (editorReady && editor.document.length > 0 && editor.document.some((block: any) => {
+    const content = block.content;
+    if (Array.isArray(content)) {
+      return content.some((c: any) => c.text && c.text.trim().length > 0);
     }
-  }, [expanded]);
+    return false;
+  }));
 
   const fields = SECTION_FIELDS[id] || [];
 
