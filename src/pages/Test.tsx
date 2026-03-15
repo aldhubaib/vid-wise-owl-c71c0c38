@@ -191,7 +191,7 @@ export default function Test() {
                   </div>
                   <span className="w-px h-3 bg-border" />
                   <span className="text-[11px] text-dim font-mono">2 days ago</span>
-                  <span className="text-[11px] text-dim font-mono">{articleText.length.toLocaleString()} chars</span>
+                  
                 </div>
               </button>
               {articleOpen && (
@@ -249,7 +249,7 @@ export default function Test() {
                   )}
                   {/* Content */}
                   <div className="px-5 pt-4 pb-5">
-                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right">Content</label>
+                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right">Content ({articleText.length.toLocaleString()})</label>
                     <textarea
                       value={articleText}
                       onChange={(e) => setArticleText(e.target.value)}
