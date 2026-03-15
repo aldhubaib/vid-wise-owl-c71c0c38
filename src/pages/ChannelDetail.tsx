@@ -42,15 +42,16 @@ export default function ChannelDetail() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-surface p-3 max-sm:p-0">
+      <div className="flex flex-col flex-1 bg-background rounded-xl max-sm:rounded-none overflow-hidden">
       {/* Top bar */}
-      <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
+      <div className="flex items-center justify-between px-6 max-sm:px-3 border-b border-[#151619] shrink-0 max-lg:px-4 py-2.5">
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-1.5 text-[13px] text-dim cursor-pointer bg-transparent border-none font-sans hover:text-foreground transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          Channels
+          <span className="max-sm:hidden">Channels</span>
         </button>
         <div className="flex items-center gap-2">
           <button
@@ -159,6 +160,7 @@ export default function ChannelDetail() {
 
         {/* Popover panel */}
         <ChannelRightPanel channel={channel} visible={panelVisible} onClose={closePanel} videoCount={channelVideos.filter(v => v.type === "video").length} shortCount={channelVideos.filter(v => v.type === "short").length} onTypeChange={setChannelType} />
+      </div>
       </div>
     </div>
   );
