@@ -281,53 +281,7 @@ export default function Test() {
 
 
 
-          {/* ─── CHANNEL ─── */}
-          <section>
-            <span className="text-[12px] text-dim font-medium mb-2 block">Channel</span>
-            <div className="rounded-xl bg-background border border-border overflow-hidden">
-              <div className="px-5 py-4 relative">
-                <button
-                  onClick={() => setChannelDropOpen(!channelDropOpen)}
-                  className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-                >
-                  {selectedCh ? (
-                    <>
-                      <img src={selectedCh.avatarImg} alt={selectedCh.name} className="w-8 h-8 rounded-full object-cover" />
-                      <span className="text-[13px] font-medium">{selectedCh.name}</span>
-                    </>
-                  ) : (
-                    <>
-                      <div className="w-8 h-8 rounded-full bg-surface flex items-center justify-center">
-                        <User className="w-3.5 h-3.5 text-dim" />
-                      </div>
-                      <span className="text-[13px] text-dim">Assign channel…</span>
-                    </>
-                  )}
-                  <ChevronDown className={`w-4 h-4 text-dim transition-transform ${channelDropOpen ? "rotate-180" : ""}`} />
-                </button>
-                {channelDropOpen && (
-                  <div className="absolute z-10 mt-2 left-5 w-64 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
-                    {ourChannels.map((c) => (
-                      <button
-                        key={c.id}
-                        onClick={() => {
-                          setSelectedChannel(c.id);
-                          setChannelDropOpen(false);
-                        }}
-                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-[13px] transition-colors hover:bg-elevated ${
-                          selectedChannel === c.id ? "bg-blue/10" : ""
-                        }`}
-                      >
-                        <img src={c.avatarImg} alt={c.name} className="w-7 h-7 rounded-full object-cover" />
-                        <span className="flex-1 text-right font-medium">{c.name}</span>
-                        {selectedChannel === c.id && <Check className="w-3.5 h-3.5 text-blue" />}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
+
 
           {/* ─── SCRIPT EDITOR ─── */}
           <section>
@@ -338,6 +292,46 @@ export default function Test() {
               {/* AI Writer controls */}
               <div className="px-5 py-3 flex items-center justify-between border-b border-border">
                 <div className="flex items-center gap-3">
+                  {/* Channel picker */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setChannelDropOpen(!channelDropOpen)}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/50 hover:border-border transition-colors"
+                    >
+                      {selectedCh ? (
+                        <>
+                          <img src={selectedCh.avatarImg} alt={selectedCh.name} className="w-5 h-5 rounded-full object-cover" />
+                          <span className="text-[12px] font-medium">{selectedCh.name}</span>
+                        </>
+                      ) : (
+                        <>
+                          <User className="w-3.5 h-3.5 text-dim" />
+                          <span className="text-[12px] text-dim">Channel</span>
+                        </>
+                      )}
+                      <ChevronDown className={`w-3 h-3 text-dim transition-transform ${channelDropOpen ? "rotate-180" : ""}`} />
+                    </button>
+                    {channelDropOpen && (
+                      <div className="absolute z-10 mt-2 left-0 w-64 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
+                        {ourChannels.map((c) => (
+                          <button
+                            key={c.id}
+                            onClick={() => {
+                              setSelectedChannel(c.id);
+                              setChannelDropOpen(false);
+                            }}
+                            className={`w-full flex items-center gap-3 px-4 py-2.5 text-[13px] transition-colors hover:bg-elevated ${
+                              selectedChannel === c.id ? "bg-blue/10" : ""
+                            }`}
+                          >
+                            <img src={c.avatarImg} alt={c.name} className="w-7 h-7 rounded-full object-cover" />
+                            <span className="flex-1 text-right font-medium">{c.name}</span>
+                            {selectedChannel === c.id && <Check className="w-3.5 h-3.5 text-blue" />}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <div className="flex items-center gap-1.5">
                     {(["short", "long"] as const).map((fmt) => (
                       <button
