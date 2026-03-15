@@ -217,26 +217,8 @@ export default function Test() {
 
             {/* Article body with integrated actions */}
             <div className="rounded-xl bg-surface border border-border overflow-hidden">
-              <textarea
-                value={articleText}
-                onChange={(e) => setArticleText(e.target.value)}
-                disabled={aiCleaning}
-                dir="rtl"
-                rows={14}
-                className="w-full px-6 pt-6 pb-4 text-[13px] bg-surface text-foreground placeholder:text-dim/50 focus:outline-none focus:bg-elevated transition-colors text-right leading-[1.9] resize-y disabled:opacity-50"
-                placeholder="اكتب المقال الكامل هنا..."
-              />
-              {/* AI cleaning progress inside textarea */}
-              {aiCleaning && (
-                <div className="px-6 pb-2">
-                  <Progress value={aiProgress} className="h-1 bg-muted" />
-                  <div className="text-[10px] font-mono text-dim mt-1 text-center">
-                    {aiProgress < 30 ? "Analyzing text…" : aiProgress < 70 ? "Cleaning up…" : aiProgress < 100 ? "Finalizing…" : "Done!"}
-                  </div>
-                </div>
-              )}
-              {/* Action bar inside the text box */}
-              <div className="px-4 py-3 border-t border-border flex items-center justify-between bg-elevated">
+              {/* Action bar at the top */}
+              <div className="px-4 py-3 border-b border-border flex items-center justify-between bg-elevated">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleAiCleanup}
@@ -260,6 +242,24 @@ export default function Test() {
                   {articleText.length.toLocaleString()} chars
                 </div>
               </div>
+              {/* AI cleaning progress */}
+              {aiCleaning && (
+                <div className="px-6 pt-3">
+                  <Progress value={aiProgress} className="h-1 bg-muted" />
+                  <div className="text-[10px] font-mono text-dim mt-1 text-center">
+                    {aiProgress < 30 ? "Analyzing text…" : aiProgress < 70 ? "Cleaning up…" : aiProgress < 100 ? "Finalizing…" : "Done!"}
+                  </div>
+                </div>
+              )}
+              <textarea
+                value={articleText}
+                onChange={(e) => setArticleText(e.target.value)}
+                disabled={aiCleaning}
+                dir="rtl"
+                rows={14}
+                className="w-full px-6 pt-4 pb-6 text-[13px] bg-surface text-foreground placeholder:text-dim/50 focus:outline-none focus:bg-elevated transition-colors text-right leading-[1.9] resize-y disabled:opacity-50"
+                placeholder="اكتب المقال الكامل هنا..."
+              />
             </div>
           </section>
 
