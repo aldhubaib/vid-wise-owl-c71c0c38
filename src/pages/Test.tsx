@@ -275,14 +275,42 @@ export default function Test() {
                 </div>
                 <div className="flex items-center gap-2.5 max-sm:gap-1.5">
                   <div className="flex items-center gap-1.5 max-sm:gap-1">
-                    <span className="text-[10px] text-dim font-mono">R</span>
-                    <span className="text-[10px] font-mono font-semibold text-purple">{story.relevance}</span>
-                    <span className="text-[10px] text-dim font-mono">V</span>
-                    <span className="text-[10px] font-mono font-semibold text-blue">{story.virality}</span>
-                    <span className="text-[10px] text-dim font-mono max-sm:hidden">F</span>
-                    <span className="text-[10px] font-mono font-semibold text-success max-sm:hidden">{story.firstMover}</span>
-                    <span className="text-[10px] text-dim font-mono">T</span>
-                    <span className="text-[10px] font-mono font-semibold text-foreground">{story.totalScore}</span>
+                    <Tooltip delayDuration={200}>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex items-center gap-1 cursor-default">
+                          <span className="text-[10px] text-dim font-mono">R</span>
+                          <span className="text-[10px] font-mono font-semibold text-purple">{story.relevance}</span>
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>Relevance</TooltipContent>
+                    </Tooltip>
+                    <Tooltip delayDuration={200}>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex items-center gap-1 cursor-default">
+                          <span className="text-[10px] text-dim font-mono">V</span>
+                          <span className="text-[10px] font-mono font-semibold text-blue">{story.virality}</span>
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>Virality</TooltipContent>
+                    </Tooltip>
+                    <Tooltip delayDuration={200}>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex items-center gap-1 cursor-default max-sm:hidden">
+                          <span className="text-[10px] text-dim font-mono">F</span>
+                          <span className="text-[10px] font-mono font-semibold text-success">{story.firstMover}</span>
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>First Mover</TooltipContent>
+                    </Tooltip>
+                    <Tooltip delayDuration={200}>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex items-center gap-1 cursor-default">
+                          <span className="text-[10px] text-dim font-mono">T</span>
+                          <span className="text-[10px] font-mono font-semibold text-foreground">{story.totalScore}</span>
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>Total Score</TooltipContent>
+                    </Tooltip>
                   </div>
                   <span className="w-px h-3 bg-border max-sm:hidden" />
                   <span className="text-[11px] text-dim font-mono max-sm:hidden">2 days ago</span>
