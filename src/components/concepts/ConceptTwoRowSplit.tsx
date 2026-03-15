@@ -116,9 +116,7 @@ export default function ConceptTwoRowSplit() {
         </button>
       </div>
 
-      <div className="px-5 py-4">
-        <ScriptEditor />
-      </div>
+      <div className="px-5 py-6 text-center text-[12px] text-dim/40 font-mono">Script editor area</div>
     </div>
   );
 }
