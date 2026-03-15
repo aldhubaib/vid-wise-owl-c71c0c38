@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, Plus, X, Check, AlertCircle } from "lucide-react";
+import { ChevronDown, ChevronRight, Plus, X, Check, AlertCircle, Save } from "lucide-react";
+import { toast } from "sonner";
 
 export interface SectionItem {
   id: string;
