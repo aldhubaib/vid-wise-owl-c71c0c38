@@ -216,14 +216,14 @@ export default function Test() {
             </div>
 
             {/* Article body with integrated actions */}
-            <div className="rounded-xl bg-background border border-border overflow-hidden">
+            <div className="rounded-xl bg-surface border border-border overflow-hidden">
               <textarea
                 value={articleText}
                 onChange={(e) => setArticleText(e.target.value)}
                 disabled={aiCleaning}
                 dir="rtl"
                 rows={14}
-                className="w-full px-6 pt-6 pb-4 text-[13px] bg-transparent text-foreground placeholder:text-dim/50 focus:outline-none text-right leading-[1.9] resize-y disabled:opacity-50 transition-opacity"
+                className="w-full px-6 pt-6 pb-4 text-[13px] bg-surface text-foreground placeholder:text-dim/50 focus:outline-none focus:bg-elevated transition-colors text-right leading-[1.9] resize-y disabled:opacity-50"
                 placeholder="اكتب المقال الكامل هنا..."
               />
               {/* AI cleaning progress inside textarea */}
@@ -236,12 +236,12 @@ export default function Test() {
                 </div>
               )}
               {/* Action bar inside the text box */}
-              <div className="px-4 py-3 border-t border-border flex items-center justify-between bg-surface/30">
+              <div className="px-4 py-3 border-t border-border flex items-center justify-between bg-elevated">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleAiCleanup}
                     disabled={aiCleaning || !articleText.trim()}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-dim hover:text-sensor hover:bg-elevated transition-colors disabled:opacity-30"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-dim hover:text-sensor hover:bg-surface transition-colors disabled:opacity-30"
                   >
                     <Wand2 className={`w-3.5 h-3.5 ${aiCleaning ? "animate-spin" : ""}`} />
                     Clean up with AI
@@ -250,7 +250,7 @@ export default function Test() {
                   <button
                     onClick={() => toast("Re-fetching article…")}
                     disabled={aiCleaning}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-dim hover:text-sensor hover:bg-elevated transition-colors disabled:opacity-30"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-dim hover:text-sensor hover:bg-surface transition-colors disabled:opacity-30"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                     Re-fetch article
