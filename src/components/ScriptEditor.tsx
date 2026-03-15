@@ -22,7 +22,12 @@ import Steps from "@yoopta/steps";
 import TableOfContents from "@yoopta/table-of-contents";
 import { Bold, Italic, Underline, Strike, CodeMark, Highlight } from "@yoopta/marks";
 import { applyTheme } from "@yoopta/themes-shadcn";
-import { SlashCommandMenu, FloatingToolbar, FloatingBlockActions, BlockOptions } from "@yoopta/ui";
+import {
+  SlashCommandMenu,
+  FloatingToolbar,
+  FloatingBlockActions,
+  BlockOptions,
+} from "@yoopta/ui";
 import { PLAYGROUND_INIT_VALUE } from "@/data/editorInitialValue";
 
 const YImage = Image.extend({
@@ -122,6 +127,27 @@ export default function ScriptEditor({ onChange }: ScriptEditorProps) {
     [onChange]
   );
 
+  const slashItems = useMemo(() => {
+    return Object.entries(editor.plugins).map(([type, plugin]) => ({
+      id: type,
+      title: plugin.options?.display?.title ?? type,
+      description: plugin.options?.display?.description,
+      icon: plugin.options?.display?.icon,
+      keywords: [type, plugin.options?.display?.title].filter(Boolean) as string[],
+    }));
+  }, [editor]);
+
+  const handleSlashSelect = useCallback(
+    (item: { id: string }) => {
+      editor.toggleBlock(item.id, {
+        preserveContent: true,
+        focus: true,
+        at: editor.path.current,
+      });
+    },
+    [editor]
+  );
+
   return (
     <div ref={containerRef} className="yoopta-editor-container">
       <YooptaEditor
@@ -134,7 +160,7 @@ export default function ScriptEditor({ onChange }: ScriptEditorProps) {
         <FloatingBlockActions>
           <BlockOptions />
         </FloatingBlockActions>
-        <SlashCommandMenu />
+        <SlashCommandMenu items={slashItems} trigger="/" onSelect={handleSlashSelect} />
       </YooptaEditor>
     </div>
   );
