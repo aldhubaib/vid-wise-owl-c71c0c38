@@ -83,8 +83,12 @@ export default function Test() {
 
   // Script state
   const [scriptFormat, setScriptFormat] = useState<"short" | "long">("short");
+  const [scriptDuration, setScriptDuration] = useState(3); // minutes
 
   const [titleInput, setTitleInput] = useState("");
+
+  // Derive if generate button should be active
+  const canGenerate = !!selectedChannel && !!scriptFormat;
 
 
   // Channel
