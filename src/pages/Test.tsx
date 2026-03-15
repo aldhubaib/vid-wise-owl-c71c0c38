@@ -175,7 +175,7 @@ export default function Test() {
               <Check className="w-3 h-3" /> Done
             </span>
             <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-elevated text-dim">
-              29-01-2022
+              2 days ago
             </span>
           </div>
         </div>
