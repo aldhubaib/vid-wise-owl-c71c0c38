@@ -128,7 +128,21 @@ interface Props {
 export default function QueryParameterBlock({ parameter, onUpdate, onRemove }: Props) {
   const [operatorOpen, setOperatorOpen] = useState(false);
   const [valueOpen, setValueOpen] = useState(false);
+  const blockRef = useRef<HTMLDivElement>(null);
   const config = PARAMETER_CONFIG[parameter.type];
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (blockRef.current && !blockRef.current.contains(e.target as Node)) {
+        setOperatorOpen(false);
+        setValueOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
 
   const selectedValues = parameter.values || (parameter.value ? [parameter.value] : []);
 
