@@ -94,6 +94,9 @@ export default function Test() {
   // Editing
   const [editingField, setEditingField] = useState<string | null>(null);
 
+  // Article collapsible
+  const [articleOpen, setArticleOpen] = useState(true);
+
   const handleAiCleanup = useCallback(() => {
     if (aiCleaning || !articleText.trim()) return;
     setAiCleaning(true);
@@ -229,54 +232,62 @@ export default function Test() {
 
           {/* ─── ARTICLE SECTION ─── */}
           <section>
-            <span className="text-[12px] text-dim font-medium mb-2 block">Original Story</span>
             <div className="rounded-xl bg-background border border-border overflow-hidden">
-              {/* Action bar at the top */}
-              <div className="px-4 py-2.5 border-b border-border flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  <button
-                    onClick={handleAiCleanup}
-                    disabled={aiCleaning || !articleText.trim()}
-                    className="px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border border-border/50 text-dim hover:text-sensor hover:border-border disabled:opacity-30"
-                  >
-                    <span className="inline-flex items-center gap-1.5">
-                      <Wand2 className={`w-3.5 h-3.5 ${aiCleaning ? "animate-spin" : ""}`} />
-                      Clean up with AI
-                    </span>
-                  </button>
-                  <button
-                    onClick={() => toast("Re-fetching article…")}
-                    disabled={aiCleaning}
-                    className="px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border border-border/50 text-dim hover:text-sensor hover:border-border disabled:opacity-30"
-                  >
-                    <span className="inline-flex items-center gap-1.5">
-                      <RefreshCw className="w-3.5 h-3.5" />
-                      Re-fetch
-                    </span>
-                  </button>
+              <button
+                onClick={() => setArticleOpen(!articleOpen)}
+                className="w-full px-5 py-3.5 flex items-center justify-between hover:bg-surface/30 transition-colors"
+              >
+                <div className="flex items-center gap-2">
+                  {articleOpen ? <ChevronUp className="w-4 h-4 text-dim" /> : <ChevronDown className="w-4 h-4 text-dim" />}
+                  <span className="text-[12px] text-dim font-medium">Original Story</span>
                 </div>
-                <span className="text-[11px] opacity-60 font-mono">
-                  {articleText.length.toLocaleString()} chars
-                </span>
-              </div>
-              {/* AI cleaning progress */}
-              {aiCleaning && (
-                <div className="px-5 pt-3">
-                  <Progress value={aiProgress} className="h-1 bg-muted" />
-                  <div className="text-[10px] font-mono text-dim mt-1 text-center">
-                    {aiProgress < 30 ? "Analyzing text…" : aiProgress < 70 ? "Cleaning up…" : aiProgress < 100 ? "Finalizing…" : "Done!"}
+                <span className="text-[11px] text-dim font-mono">{articleText.length.toLocaleString()} chars</span>
+              </button>
+              {articleOpen && (
+                <>
+                  {/* Action bar */}
+                  <div className="px-4 py-2.5 border-t border-border flex items-center gap-1.5">
+                    <button
+                      onClick={handleAiCleanup}
+                      disabled={aiCleaning || !articleText.trim()}
+                      className="px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border border-border/50 text-dim hover:text-sensor hover:border-border disabled:opacity-30"
+                    >
+                      <span className="inline-flex items-center gap-1.5">
+                        <Wand2 className={`w-3.5 h-3.5 ${aiCleaning ? "animate-spin" : ""}`} />
+                        Clean up with AI
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => toast("Re-fetching article…")}
+                      disabled={aiCleaning}
+                      className="px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border border-border/50 text-dim hover:text-sensor hover:border-border disabled:opacity-30"
+                    >
+                      <span className="inline-flex items-center gap-1.5">
+                        <RefreshCw className="w-3.5 h-3.5" />
+                        Re-fetch
+                      </span>
+                    </button>
                   </div>
-                </div>
+                  {/* AI cleaning progress */}
+                  {aiCleaning && (
+                    <div className="px-5 pt-3">
+                      <Progress value={aiProgress} className="h-1 bg-muted" />
+                      <div className="text-[10px] font-mono text-dim mt-1 text-center">
+                        {aiProgress < 30 ? "Analyzing text…" : aiProgress < 70 ? "Cleaning up…" : aiProgress < 100 ? "Finalizing…" : "Done!"}
+                      </div>
+                    </div>
+                  )}
+                  <textarea
+                    value={articleText}
+                    onChange={(e) => setArticleText(e.target.value)}
+                    disabled={aiCleaning}
+                    dir="rtl"
+                    rows={12}
+                    className="w-full px-5 pt-4 pb-5 text-[13px] bg-transparent text-foreground placeholder:text-dim/50 focus:outline-none text-right leading-[1.9] resize-y disabled:opacity-50"
+                    placeholder="اكتب المقال الكامل هنا..."
+                  />
+                </>
               )}
-              <textarea
-                value={articleText}
-                onChange={(e) => setArticleText(e.target.value)}
-                disabled={aiCleaning}
-                dir="rtl"
-                rows={12}
-                className="w-full px-5 pt-4 pb-5 text-[13px] bg-transparent text-foreground placeholder:text-dim/50 focus:outline-none text-right leading-[1.9] resize-y disabled:opacity-50"
-                placeholder="اكتب المقال الكامل هنا..."
-              />
             </div>
           </section>
 
