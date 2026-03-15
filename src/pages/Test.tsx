@@ -26,8 +26,6 @@ import ch1 from "@/assets/avatars/ch1.jpg";
 import ch2 from "@/assets/avatars/ch2.jpg";
 import ch3 from "@/assets/avatars/ch3.jpg";
 import ScriptEditor from "@/components/ScriptEditor";
-import ConceptSegmentedToolbar from "@/components/concepts/ConceptSegmentedToolbar";
-import ConceptTwoRowSplit from "@/components/concepts/ConceptTwoRowSplit";
 import ConceptCommandBar from "@/components/concepts/ConceptCommandBar";
 
 // Mock edit history
@@ -402,20 +400,10 @@ export default function Test() {
                 </div>
               </div>
 
-          {/* ─── CONCEPT 1: SEGMENTED TOOLBAR ─── */}
-          <section>
-            <div className="mb-2 flex items-center gap-2">
-              <span className="text-[12px] text-dim font-medium">Concept 1 — Segmented Toolbar</span>
+              <div className="px-5 py-4">
+                <ScriptEditor />
+              </div>
             </div>
-            <ConceptSegmentedToolbar />
-          </section>
-
-          {/* ─── CONCEPT 2: TWO-ROW SPLIT ─── */}
-          <section>
-            <div className="mb-2 flex items-center gap-2">
-              <span className="text-[12px] text-dim font-medium">Concept 2 — Two-Row Split</span>
-            </div>
-            <ConceptTwoRowSplit />
           </section>
 
           {/* ─── CONCEPT 3: COMPACT COMMAND BAR ─── */}
@@ -424,13 +412,6 @@ export default function Test() {
               <span className="text-[12px] text-dim font-medium">Concept 3 — Command Bar</span>
             </div>
             <ConceptCommandBar />
-          </section>
-
-
-              <div className="px-5 py-4">
-                <ScriptEditor />
-              </div>
-            </div>
           </section>
 
 
