@@ -114,15 +114,150 @@
   animation: scroll-down 30s linear infinite;
 }
 
-/* BlockNote dark theme overrides */
-.bn-container .bn-editor {
-  background: transparent;
+/* Yoopta Editor dark theme overrides */
+.yoopta-editor-container {
+  --yoopta-bg: transparent;
+  --yoopta-text: hsl(var(--foreground));
+  --yoopta-border: hsl(var(--border));
+  --yoopta-accent: hsl(var(--blue));
+}
+
+.yoopta-editor-container [data-yoopta-editor] {
   color: hsl(var(--foreground));
+  font-size: 14px;
+  line-height: 1.7;
+  font-family: inherit;
+}
+
+/* Slash command menu styling */
+.yoopta-editor-container [data-yoopta-action-menu],
+.yoopta-editor-container [data-yoopta-slash-menu],
+.yoopta-editor-container [role="dialog"],
+.yoopta-editor-container [data-radix-popper-content-wrapper] {
+  z-index: 50;
+}
+
+/* Toolbar & menus */
+.yoopta-editor-container .yoopta-toolbar,
+.yoopta-editor-container [data-yoopta-floating-toolbar] {
+  background: hsl(var(--surface)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+.yoopta-editor-container button[data-active="true"] {
+  background: hsl(var(--blue) / 0.15) !important;
+  color: hsl(var(--blue)) !important;
+}
+
+/* Block actions */
+.yoopta-editor-container [data-yoopta-block-actions] button {
+  color: hsl(var(--dim));
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.yoopta-editor-container [data-yoopta-block]:hover [data-yoopta-block-actions] button {
+  opacity: 1;
+}
+.yoopta-editor-container [data-yoopta-block-actions] button:hover {
+  color: hsl(var(--foreground));
+  background: hsl(var(--elevated));
+}
+
+/* Placeholder */
+.yoopta-editor-container [data-placeholder]::before {
+  color: hsl(var(--dim)) !important;
+  opacity: 0.5;
+}
+
+/* Table styling */
+.yoopta-editor-container table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.yoopta-editor-container td,
+.yoopta-editor-container th {
+  border: 1px solid hsl(var(--border));
+  padding: 8px 12px;
   font-size: 13px;
 }
-.bn-container .bn-block-group {
-  padding: 0;
+
+/* Headings */
+.yoopta-editor-container h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
 }
-.bn-container [data-node-type="blockContainer"] {
-  margin: 0;
+.yoopta-editor-container h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+.yoopta-editor-container h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+/* Code blocks */
+.yoopta-editor-container pre {
+  background: hsl(var(--surface)) !important;
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+/* Blockquote */
+.yoopta-editor-container blockquote {
+  border-left: 3px solid hsl(var(--blue));
+  padding-left: 16px;
+  color: hsl(var(--sensor));
+  font-style: italic;
+}
+
+/* Lists */
+.yoopta-editor-container ul,
+.yoopta-editor-container ol {
+  padding-left: 24px;
+}
+
+/* Callout */
+.yoopta-editor-container [data-yoopta-callout] {
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+/* Divider */
+.yoopta-editor-container hr {
+  border-color: hsl(var(--border));
+  margin: 16px 0;
+}
+
+/* Steps */
+.yoopta-editor-container [data-yoopta-steps] {
+  border-left: 2px solid hsl(var(--blue) / 0.3);
+  padding-left: 20px;
+}
+
+/* Selection */
+.yoopta-editor-container ::selection {
+  background: hsl(var(--blue) / 0.25);
+}
+
+/* Accordion */
+.yoopta-editor-container [data-yoopta-accordion] {
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* shadcn theme overrides for yoopta */
+.yoopta-editor-container .yoopta-button,
+.yoopta-editor-container [data-yoopta-trigger] {
+  font-family: inherit;
 }

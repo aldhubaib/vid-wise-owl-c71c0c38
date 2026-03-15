@@ -23,6 +23,7 @@ import { Progress } from "@/components/ui/progress";
 import { storiesMock } from "@/data/storiesMock";
 import { channels } from "@/data/mock";
 import ch1 from "@/assets/avatars/ch1.jpg";
+import ScriptEditor from "@/components/ScriptEditor";
 
 // Mock edit history
 const editHistory = [
@@ -80,7 +81,7 @@ export default function Test() {
 
   // Script state
   const [scriptFormat, setScriptFormat] = useState<"short" | "long">("short");
-  const [scriptContent, setScriptContent] = useState("");
+
   const [titleInput, setTitleInput] = useState("");
 
 
@@ -369,14 +370,7 @@ export default function Test() {
               </div>
 
               <div className="px-5 py-4">
-                <textarea
-                  value={scriptContent}
-                  onChange={(e) => setScriptContent(e.target.value)}
-                  placeholder="Enter text or type '/' for commands"
-                  dir="rtl"
-                  rows={6}
-                  className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim/40 focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y font-mono"
-                />
+                <ScriptEditor />
               </div>
             </div>
           </section>

@@ -1,10 +1,6 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, ChevronRight, Check, AlertCircle, Save } from "lucide-react";
 import { toast } from "sonner";
-import { useCreateBlockNote } from "@blocknote/react";
-import { BlockNoteView } from "@blocknote/mantine";
-import "@blocknote/core/fonts/inter.css";
-import "@blocknote/mantine/style.css";
 
 export interface SectionItem {
   id: string;
@@ -94,47 +90,17 @@ export default function QuerySection({
 
   const enabledCount = items.filter((i) => i.enabled).length;
 
-  // Build initial blocks from items
-  const initialContent = useMemo(() => {
-    if (items.length === 0) return undefined;
-    return items.map((item) => ({
-      type: "paragraph" as const,
-      content: item.text,
-    }));
-  }, []);
+  const [editorText, setEditorText] = useState(() => items.map(i => i.text).join("\n"));
 
-  const editor = useCreateBlockNote({
-    initialContent: initialContent,
-  });
-
-  const isFilled = enabledCount > 0 || (editorReady && editor.document.length > 0 && editor.document.some((block: any) => {
-    const content = block.content;
-    if (Array.isArray(content)) {
-      return content.some((c: any) => c.text && c.text.trim().length > 0);
-    }
-    return false;
-  }));
+  const isFilled = enabledCount > 0 || editorText.trim().length > 0;
 
   const fields = SECTION_FIELDS[id] || [];
 
   const insertField = (label: string) => {
-    const insertion = `[${label}] `;
-    const currentBlock = editor.getTextCursorPosition().block;
-    editor.insertInlineContent([{ type: "text", text: insertion, styles: { bold: true } }]);
+    setEditorText(prev => prev + `[${label}] `);
   };
 
-  const getEditorText = (): string => {
-    return editor.document
-      .map((block: any) => {
-        const content = block.content;
-        if (Array.isArray(content)) {
-          return content.map((c: any) => c.text || "").join("");
-        }
-        return "";
-      })
-      .filter((line) => line.trim())
-      .join("\n");
-  };
+  const getEditorText = (): string => editorText;
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -212,13 +178,13 @@ export default function QuerySection({
         <tr>
           <td colSpan={5} className="px-4 pb-4 pt-1">
             <div className="rounded-xl border border-border bg-background overflow-hidden">
-              {/* BlockNote editor */}
-              <div className="p-4 border-b border-border bn-container" onClick={(e) => e.stopPropagation()}>
+               <div className="p-4 border-b border-border" onClick={(e) => e.stopPropagation()}>
                 <div className="min-h-[150px] rounded-lg border border-border overflow-hidden bg-surface">
-                  <BlockNoteView
-                    editor={editor}
-                    theme="dark"
-                    data-theming-css-variables-demo
+                  <textarea
+                    value={editorText}
+                    onChange={(e) => setEditorText(e.target.value)}
+                    className="w-full h-full min-h-[150px] p-3 bg-transparent text-foreground text-sm resize-y focus:outline-none"
+                    placeholder="Type here…"
                   />
                 </div>
               </div>
