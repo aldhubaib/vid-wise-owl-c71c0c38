@@ -190,7 +190,7 @@ export default function Test() {
                 <div className="h-px bg-border" />
                 <button
                   onClick={() => { setActionDropOpen(false); setConfirmAction("pass"); }}
-                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-dim hover:text-red hover:bg-elevated transition-colors"
+                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-dim hover:text-orange hover:bg-elevated transition-colors"
                 >
                   <Ban className="w-3.5 h-3.5" />
                   <span>Pass</span>
