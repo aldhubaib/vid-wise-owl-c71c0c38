@@ -81,7 +81,7 @@ export default function Test() {
 
   // Script state
   const [scriptFormat, setScriptFormat] = useState<"short" | "long">("short");
-  const [scriptContent, setScriptContent] = useState("");
+
   const [titleInput, setTitleInput] = useState("");
 
 
