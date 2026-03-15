@@ -129,12 +129,16 @@
   font-family: inherit;
 }
 
-/* Slash command menu styling */
+/* Slash command menu layering */
+[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
+}
+
 .yoopta-editor-container [data-yoopta-action-menu],
 .yoopta-editor-container [data-yoopta-slash-menu],
 .yoopta-editor-container [role="dialog"],
 .yoopta-editor-container [data-radix-popper-content-wrapper] {
-  z-index: 50;
+  z-index: 9999 !important;
 }
 
 /* Toolbar & menus */
