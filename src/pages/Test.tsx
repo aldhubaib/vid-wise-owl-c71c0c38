@@ -197,7 +197,7 @@ export default function Test() {
                 </button>
                 <button
                   onClick={() => { setActionDropOpen(false); setConfirmAction("omit"); }}
-                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-dim hover:text-orange hover:bg-elevated transition-colors"
+                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-dim hover:text-destructive hover:bg-elevated transition-colors"
                 >
                   <EyeOff className="w-3.5 h-3.5" />
                   <span>Omit</span>
