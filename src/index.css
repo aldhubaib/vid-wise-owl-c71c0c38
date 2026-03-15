@@ -113,3 +113,16 @@
 .animate-scroll-down {
   animation: scroll-down 30s linear infinite;
 }
+
+/* BlockNote dark theme overrides */
+.bn-container .bn-editor {
+  background: transparent;
+  color: hsl(var(--foreground));
+  font-size: 13px;
+}
+.bn-container .bn-block-group {
+  padding: 0;
+}
+.bn-container [data-node-type="blockContainer"] {
+  margin: 0;
+}
