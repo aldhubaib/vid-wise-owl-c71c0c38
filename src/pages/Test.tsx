@@ -387,23 +387,34 @@ export default function Test() {
             </div>
           </section>
 
-          {/* ─── EDIT HISTORY ─── */}
-          <section>
-            <div className="rounded-xl bg-background border border-border overflow-hidden">
-              <button
-                onClick={() => setHistoryOpen(!historyOpen)}
-                className="w-full px-5 py-3.5 flex items-center justify-between hover:bg-surface/30 transition-colors"
+          {/* ─── EDIT HISTORY TRIGGER ─── */}
+          <button
+            onClick={() => setHistoryOpen(true)}
+            className="w-full rounded-xl bg-background border border-border px-5 py-3.5 flex items-center justify-between hover:bg-surface/30 transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-dim" />
+              <span className="text-[12px] text-dim font-medium">Edit History</span>
+            </div>
+            <span className="text-[11px] text-dim font-mono">{editHistory.length} edits</span>
+          </button>
+
+          {/* ─── EDIT HISTORY MODAL ─── */}
+          {historyOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setHistoryOpen(false)}>
+              <div
+                className="w-full max-w-lg rounded-xl bg-background border border-border overflow-hidden shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
               >
-                <div className="flex items-center gap-2">
-                  {historyOpen ? <ChevronUp className="w-4 h-4 text-dim" /> : <ChevronDown className="w-4 h-4 text-dim" />}
-                  <span className="text-[12px] text-dim font-medium">Edit History</span>
+                <div className="px-5 py-4 flex items-center justify-between border-b border-border">
+                  <span className="text-[13px] font-medium">Edit History</span>
+                  <button onClick={() => setHistoryOpen(false)} className="text-dim hover:text-foreground transition-colors">
+                    <X className="w-4 h-4" />
+                  </button>
                 </div>
-                <span className="text-[11px] text-dim font-mono">{editHistory.length} edits</span>
-              </button>
-              {historyOpen && (
-                <div className="px-5 pb-4 space-y-0">
+                <div className="max-h-[400px] overflow-y-auto">
                   {editHistory.map((entry) => (
-                    <div key={entry.id} className="flex items-center justify-between py-3 border-b border-border last:border-b-0">
+                    <div key={entry.id} className="flex items-center justify-between px-5 py-3 border-b border-border last:border-b-0">
                       <div className="flex items-center gap-3">
                         <div className="w-0.5 h-8 bg-blue/30 rounded-full" />
                         <div>
@@ -421,9 +432,9 @@ export default function Test() {
                     </div>
                   ))}
                 </div>
-              )}
+              </div>
             </div>
-          </section>
+          )}
 
           {/* ─── MAIN ACTION ─── */}
           <button
