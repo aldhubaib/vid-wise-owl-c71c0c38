@@ -173,14 +173,12 @@ export default function QuerySection({
         </td>
         <td className="py-3 px-3 text-right">
           {isFilled ? (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success/15 text-success text-[10px] font-mono">
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-success/15 text-success">
               <Check className="w-3 h-3" />
-              {enabledCount}
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-destructive/15 text-destructive text-[10px] font-mono">
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-destructive/15 text-destructive">
               <AlertCircle className="w-3 h-3" />
-              Empty
             </span>
           )}
         </td>
