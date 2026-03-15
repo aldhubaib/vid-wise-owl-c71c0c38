@@ -127,7 +127,8 @@ export default function Test() {
   const selectedCh = ourChannels.find((c) => c.id === selectedChannel);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-surface p-3">
+      <div className="flex flex-col flex-1 bg-background rounded-xl overflow-hidden">
       {/* Top bar — matches Channel Detail */}
       <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
         <button
@@ -450,6 +451,7 @@ export default function Test() {
             + Mark as Filmed
           </button>
         </div>
+      </div>
       </div>
     </div>
   );
