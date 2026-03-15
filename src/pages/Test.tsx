@@ -160,21 +160,7 @@ export default function Test() {
         <div className="sticky top-0 z-20 bg-surface/80 backdrop-blur-xl border-b border-border">
           <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <button
-                onClick={handleAiCleanup}
-                disabled={aiCleaning || !articleText.trim()}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[11px] font-medium text-dim hover:text-sensor border border-border hover:border-foreground/20 transition-colors disabled:opacity-30"
-              >
-                <Wand2 className={`w-3.5 h-3.5 ${aiCleaning ? "animate-spin" : ""}`} />
-                Clean up with AI
-              </button>
-              <button
-                onClick={() => toast("Re-fetching article…")}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[11px] font-medium text-dim hover:text-sensor border border-border hover:border-foreground/20 transition-colors"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-                Re-fetch article
-              </button>
+              {/* Placeholder for any left actions */}
             </div>
 
             {/* Navigation */}
@@ -202,17 +188,8 @@ export default function Test() {
           </div>
         </div>
 
-        {/* AI cleaning progress */}
-        {aiCleaning && (
-          <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 pt-3">
-            <Progress value={aiProgress} className="h-1 bg-muted" />
-            <div className="text-[10px] font-mono text-dim mt-1 text-center">
-              {aiProgress < 30 ? "Analyzing text…" : aiProgress < 70 ? "Cleaning up…" : aiProgress < 100 ? "Finalizing…" : "Done!"}
-            </div>
-          </div>
-        )}
-
         <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-8 space-y-8">
+          {/* AI cleaning progress - moved inside article section */}
           {/* ─── ARTICLE SECTION ─── */}
           <section>
             <div className="flex items-center justify-between mb-4">
@@ -238,17 +215,51 @@ export default function Test() {
               </button>
             </div>
 
-            {/* Article body */}
-            <div className="rounded-xl bg-background p-6">
+            {/* Article body with integrated actions */}
+            <div className="rounded-xl bg-background border border-border overflow-hidden">
               <textarea
                 value={articleText}
                 onChange={(e) => setArticleText(e.target.value)}
                 disabled={aiCleaning}
                 dir="rtl"
                 rows={14}
-                className="w-full text-[13px] bg-transparent text-foreground placeholder:text-dim/50 focus:outline-none text-right leading-[1.9] resize-y disabled:opacity-50 transition-opacity"
+                className="w-full px-6 pt-6 pb-4 text-[13px] bg-transparent text-foreground placeholder:text-dim/50 focus:outline-none text-right leading-[1.9] resize-y disabled:opacity-50 transition-opacity"
                 placeholder="اكتب المقال الكامل هنا..."
               />
+              {/* AI cleaning progress inside textarea */}
+              {aiCleaning && (
+                <div className="px-6 pb-2">
+                  <Progress value={aiProgress} className="h-1 bg-muted" />
+                  <div className="text-[10px] font-mono text-dim mt-1 text-center">
+                    {aiProgress < 30 ? "Analyzing text…" : aiProgress < 70 ? "Cleaning up…" : aiProgress < 100 ? "Finalizing…" : "Done!"}
+                  </div>
+                </div>
+              )}
+              {/* Action bar inside the text box */}
+              <div className="px-4 py-3 border-t border-border flex items-center justify-between bg-surface/30">
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleAiCleanup}
+                    disabled={aiCleaning || !articleText.trim()}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-dim hover:text-sensor hover:bg-elevated transition-colors disabled:opacity-30"
+                  >
+                    <Wand2 className={`w-3.5 h-3.5 ${aiCleaning ? "animate-spin" : ""}`} />
+                    Clean up with AI
+                  </button>
+                  <div className="w-px h-4 bg-border" />
+                  <button
+                    onClick={() => toast("Re-fetching article…")}
+                    disabled={aiCleaning}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-dim hover:text-sensor hover:bg-elevated transition-colors disabled:opacity-30"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                    Re-fetch article
+                  </button>
+                </div>
+                <div className="text-[10px] text-dim font-mono">
+                  {articleText.length.toLocaleString()} chars
+                </div>
+              </div>
             </div>
           </section>
 
