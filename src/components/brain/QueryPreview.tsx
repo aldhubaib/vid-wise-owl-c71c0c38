@@ -1,103 +1,90 @@
 import { useState } from "react";
 import { Copy, Check, Wand2 } from "lucide-react";
 import { toast } from "sonner";
-import type { QueryGroup } from "./QueryGroupBlock";
-import { PARAMETER_CONFIG, OPERATOR_LABELS } from "./QueryParameterBlock";
+import type { SectionItem } from "./QuerySection";
 
-function buildQueryText(group: QueryGroup, depth = 0): string {
-  const parts: string[] = [];
-
-  for (const param of group.parameters) {
-    const config = PARAMETER_CONFIG[param.type];
-    const value = param.values?.length ? param.values.join("، ") : param.value;
-    if (!value) continue;
-
-    switch (param.type) {
-      case "topic":
-        if (param.operator === "not_contains") {
-          parts.push(`تجنب القصص المتعلقة بـ: "${value}"`);
-        } else {
-          parts.push(`ابحث عن قصص تتعلق بـ: "${value}"`);
-        }
-        break;
-      case "region":
-        if (param.operator === "is_not") {
-          parts.push(`استبعد القصص من: ${value}`);
-        } else {
-          parts.push(`المنطقة: ${value}`);
-        }
-        break;
-      case "time_range":
-        parts.push(`الفترة الزمنية: آخر ${value}`);
-        break;
-      case "story_type":
-        if (param.operator === "is_not") {
-          parts.push(`استبعد نوع: ${value}`);
-        } else {
-          parts.push(`نوع القصة: ${value}`);
-        }
-        break;
-      case "competitor_filter":
-        if (param.operator === "exclude_all") {
-          parts.push(`تجنب تماماً أي قصص غطاها أي من المنافسين`);
-        } else if (param.operator === "not_covered_by") {
-          parts.push(`تجنب القصص التي غطاها: ${value}`);
-        } else {
-          parts.push(`القصص التي غطاها: ${value}`);
-        }
-        break;
-      case "min_views":
-        parts.push(`إمكانية المشاهدات: ${OPERATOR_LABELS[param.operator]} ${value}`);
-        break;
-      case "language":
-        parts.push(`اللغة: ${value}`);
-        break;
-      case "sentiment":
-        parts.push(`طابع القصة: ${value}`);
-        break;
-      case "source_type":
-        if (param.operator === "is_not") {
-          parts.push(`استبعد مصادر: ${value}`);
-        } else {
-          parts.push(`نوع المصدر: ${value}`);
-        }
-        break;
-      case "custom":
-        parts.push(value);
-        break;
-    }
-  }
-
-  // Process sub-groups
-  for (const subGroup of group.groups) {
-    const subText = buildQueryText(subGroup, depth + 1);
-    if (subText) {
-      parts.push(`(${subText})`);
-    }
-  }
-
-  const connector = group.logic === "AND" ? "\n" : "\nأو: ";
-  return parts.join(connector);
+export interface QuerySections {
+  base: SectionItem[];
+  seekTopics: SectionItem[];
+  memoryTier1: SectionItem[];
+  memoryTier2: SectionItem[];
+  inProduction: SectionItem[];
+  avoidList: SectionItem[];
 }
 
-function buildFullPrompt(group: QueryGroup): string {
-  const queryBody = buildQueryText(group);
-  if (!queryBody.trim()) return "";
+function buildFullPrompt(sections: QuerySections): string {
+  const base = sections.base.filter((i) => i.enabled);
+  const seek = sections.seekTopics.filter((i) => i.enabled);
+  const mem1 = sections.memoryTier1.filter((i) => i.enabled);
+  const mem2 = sections.memoryTier2.filter((i) => i.enabled);
+  const prod = sections.inProduction.filter((i) => i.enabled);
+  const avoid = sections.avoidList.filter((i) => i.enabled);
 
-  return `أعطني أبرز القضايا والأخبار بناءً على المعايير التالية:
+  const parts: string[] = [];
 
-${queryBody}
+  // Section 1 — Base
+  if (base.length > 0) {
+    const baseText = base.map((i) => i.text).join("، ");
+    parts.push(`أعطني أبرز القضايا والأخبار: ${baseText}`);
+  }
 
-لكل قصة: العنوان، ملخص جملتين، رابط المصدر، وهل غطاها أحد من المنافسين؟`;
+  // Section 2 — Seek Topics
+  if (seek.length > 0) {
+    parts.push(`\nأولوية: ابحث عن تطورات جديدة في:`);
+    seek.forEach((i) => parts.push(`• ${i.text}`));
+  }
+
+  // Section 3 — Memory Tier 1
+  if (mem1.length > 0) {
+    parts.push(`\nابحث عن قصص مشابهة في النوع والشعور لـ:`);
+    mem1.forEach((i) => parts.push(`• "${i.text}" ${i.meta ? `(${i.meta})` : ""}`));
+  }
+
+  // Section 4 — Memory Tier 2
+  if (mem2.length > 0) {
+    parts.push(`\nراجع النتائج وتأكد من توافقها مع:`);
+    mem2.forEach((i) => parts.push(`• ${i.text}`));
+  }
+
+  // Section 5 — In Production
+  if (prod.length > 0) {
+    parts.push(`\nتجنب اقتراح قصص مشابهة لهذه (قيد الإنتاج حالياً):`);
+    prod.forEach((i) => parts.push(`• "${i.text}"`));
+  }
+
+  // Section 6 — Avoid List
+  if (avoid.length > 0) {
+    parts.push(`\nتجنب تماماً أي قصص مشابهة لـ:`);
+    avoid.forEach((i) => parts.push(`• "${i.text}"`));
+  }
+
+  // Footer
+  if (parts.length > 0) {
+    parts.push(`\nلكل قصة: العنوان، ملخص جملتين، رابط المصدر، وهل غطاها أحد من المنافسين؟`);
+  }
+
+  return parts.join("\n");
+}
+
+function isQueryComplete(sections: QuerySections): boolean {
+  return (
+    sections.base.some((i) => i.enabled) &&
+    sections.seekTopics.some((i) => i.enabled) &&
+    sections.memoryTier1.some((i) => i.enabled) &&
+    sections.memoryTier2.some((i) => i.enabled) &&
+    sections.inProduction.some((i) => i.enabled) &&
+    sections.avoidList.some((i) => i.enabled)
+  );
 }
 
 interface Props {
-  group: QueryGroup;
+  sections: QuerySections;
 }
 
-export default function QueryPreview({ group }: Props) {
+export default function QueryPreview({ sections }: Props) {
   const [copied, setCopied] = useState(false);
-  const prompt = buildFullPrompt(group);
+  const prompt = buildFullPrompt(sections);
+  const complete = isQueryComplete(sections);
 
   const handleCopy = () => {
     if (!prompt) return;
@@ -108,24 +95,34 @@ export default function QueryPreview({ group }: Props) {
   };
 
   const handleSendToAI = () => {
-    if (!prompt) return;
+    if (!prompt || !complete) return;
     toast.success("Query sent to AI for story discovery");
   };
 
-  const isEmpty = !prompt.trim();
+  const filledCount = [
+    sections.base, sections.seekTopics, sections.memoryTier1,
+    sections.memoryTier2, sections.inProduction, sections.avoidList,
+  ].filter((s) => s.some((i) => i.enabled)).length;
 
   return (
     <div className="rounded-xl bg-background border border-border">
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-3 border-b border-border">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-success" />
-          <span className="text-[10px] font-mono uppercase tracking-widest text-dim">Generated Query Preview</span>
+          <span className={`w-2 h-2 rounded-full ${complete ? "bg-success animate-pulse" : "bg-orange"}`} />
+          <span className="text-[10px] font-mono uppercase tracking-widest text-dim">
+            Generated Query
+          </span>
+          <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${
+            complete ? "bg-success/15 text-success" : "bg-orange/15 text-orange"
+          }`}>
+            {filledCount}/6 sections
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={handleCopy}
-            disabled={isEmpty}
+            disabled={!prompt.trim()}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-[11px] text-dim font-mono hover:text-sensor transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
             {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
@@ -133,7 +130,7 @@ export default function QueryPreview({ group }: Props) {
           </button>
           <button
             onClick={handleSendToAI}
-            disabled={isEmpty}
+            disabled={!complete}
             className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-[11px] font-semibold hover:bg-primary/90 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <Wand2 className="w-3 h-3" />
@@ -144,18 +141,25 @@ export default function QueryPreview({ group }: Props) {
 
       {/* Preview */}
       <div className="p-5">
-        {isEmpty ? (
+        {!prompt.trim() ? (
           <div className="text-[12px] text-dim font-mono text-center py-8">
-            Add parameters above to build your query...
+            Fill all 6 sections to generate the query...
           </div>
         ) : (
-          <pre className="text-[12px] text-sensor font-mono leading-relaxed whitespace-pre-wrap text-right" dir="rtl">
-            {prompt}
-          </pre>
+          <div>
+            {!complete && (
+              <div className="text-[10px] font-mono text-orange bg-orange/10 rounded-lg px-3 py-2 mb-3">
+                ⚠ Complete all sections to enable "Send to Perplexity"
+              </div>
+            )}
+            <pre className="text-[12px] text-sensor font-mono leading-relaxed whitespace-pre-wrap text-right" dir="rtl">
+              {prompt}
+            </pre>
+          </div>
         )}
       </div>
     </div>
   );
 }
 
-export { buildFullPrompt };
+export { buildFullPrompt, isQueryComplete };

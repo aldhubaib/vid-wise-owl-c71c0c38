@@ -1,46 +1,105 @@
-import { useState } from "react";
-import { RotateCcw, Save, FolderOpen } from "lucide-react";
+import { useState, useMemo } from "react";
+import { RotateCcw, Save, FolderOpen, Compass, Search, Brain as BrainIcon, RefreshCw, Factory, ShieldOff } from "lucide-react";
 import { toast } from "sonner";
-import QueryGroupBlock, { type QueryGroup } from "@/components/brain/QueryGroupBlock";
-import QueryPreview from "@/components/brain/QueryPreview";
-import QueryPresets from "@/components/brain/QueryPresets";
+import QuerySection, { type SectionItem } from "@/components/brain/QuerySection";
+import QueryPreview, { type QuerySections } from "@/components/brain/QueryPreview";
+import { untouchedStories, publishedVideos, competitorStories, competitorChannels } from "@/data/brainMock";
+import { storiesMock } from "@/data/storiesMock";
 
-const DEFAULT_GROUP: QueryGroup = {
-  id: "root",
-  logic: "AND",
-  parameters: [],
-  groups: [],
-};
+// Auto-populate from mock data
+function buildInitialSections(): QuerySections {
+  return {
+    // Section 1 — Base: channel niche, region, time range
+    base: [
+      { id: "b1", text: "الجريمة والقضايا الحقيقية", enabled: true, source: "auto", meta: "Channel niche" },
+      { id: "b2", text: "السعودية والخليج", enabled: true, source: "auto", meta: "Region" },
+      { id: "b3", text: "آخر 7 أيام", enabled: true, source: "auto", meta: "Time range" },
+      { id: "b4", text: "8 قصص كحد أقصى", enabled: true, source: "auto", meta: "Result count" },
+      { id: "b5", text: "العربية", enabled: true, source: "auto", meta: "Language" },
+    ],
+
+    // Section 2 — Seek Topics: untouched stories to prioritize
+    seekTopics: untouchedStories.map((s) => ({
+      id: `seek-${s.id}`,
+      text: s.title,
+      enabled: true,
+      source: "auto" as const,
+      meta: `Open since ${s.date}`,
+    })),
+
+    // Section 3 — Memory Tier 1: top performing published videos (find similar)
+    memoryTier1: publishedVideos
+      .filter((v) => v.result === "gap_win")
+      .map((v) => ({
+        id: `mem1-${v.id}`,
+        text: v.title,
+        enabled: true,
+        source: "auto" as const,
+        meta: `${v.views} views · Gap Win`,
+      })),
+
+    // Section 4 — Memory Tier 2: refinement criteria
+    memoryTier2: [
+      { id: "mem2-1", text: "تأكد أن القصص لم يغطها أي من المنافسين", enabled: true, source: "auto", meta: "Competitor check" },
+      { id: "mem2-2", text: "أولوية للقصص ذات الطابع الدرامي والمثير", enabled: true, source: "auto", meta: "Sentiment filter" },
+      { id: "mem2-3", text: "تأكد من وجود مصادر موثوقة لكل قصة", enabled: true, source: "auto", meta: "Source verification" },
+    ],
+
+    // Section 5 — In Production: stories currently being worked on
+    inProduction: storiesMock
+      .filter((s) => ["approved", "filmed", "publish"].includes(s.stage))
+      .map((s) => ({
+        id: `prod-${s.id}`,
+        text: s.title,
+        enabled: true,
+        source: "auto" as const,
+        meta: `Stage: ${s.stage}`,
+      })),
+
+    // Section 6 — Avoid List: competitor stories already covered
+    avoidList: competitorStories.slice(0, 6).map((s) => ({
+      id: `avoid-${s.id}`,
+      text: s.title,
+      enabled: true,
+      source: "auto" as const,
+      meta: `${s.competitors.map((c) => c.name).join(", ")} · ${s.totalViews}`,
+    })),
+  };
+}
 
 export default function Brain() {
-  const [queryGroup, setQueryGroup] = useState<QueryGroup>(DEFAULT_GROUP);
-  const [savedQueries, setSavedQueries] = useState<{ name: string; group: QueryGroup }[]>([]);
+  const [sections, setSections] = useState<QuerySections>(buildInitialSections);
+  const [savedQueries, setSavedQueries] = useState<{ name: string; sections: QuerySections }[]>([]);
   const [saveMenuOpen, setSaveMenuOpen] = useState(false);
   const [loadMenuOpen, setLoadMenuOpen] = useState(false);
   const [saveName, setSaveName] = useState("");
 
+  const updateSection = (key: keyof QuerySections) => (items: SectionItem[]) => {
+    setSections((prev) => ({ ...prev, [key]: items }));
+  };
+
   const handleReset = () => {
-    setQueryGroup({ ...DEFAULT_GROUP, id: crypto.randomUUID(), parameters: [], groups: [] });
-    toast.success("Query cleared");
+    setSections(buildInitialSections());
+    toast.success("Query reset to defaults");
   };
 
   const handleSave = () => {
     if (!saveName.trim()) return;
-    setSavedQueries((prev) => [...prev, { name: saveName, group: JSON.parse(JSON.stringify(queryGroup)) }]);
+    setSavedQueries((prev) => [...prev, { name: saveName, sections: JSON.parse(JSON.stringify(sections)) }]);
     toast.success(`Query "${saveName}" saved`);
     setSaveName("");
     setSaveMenuOpen(false);
   };
 
-  const handleLoad = (saved: { name: string; group: QueryGroup }) => {
-    const clone: QueryGroup = JSON.parse(JSON.stringify(saved.group));
-    clone.id = crypto.randomUUID();
-    setQueryGroup(clone);
+  const handleLoad = (saved: { name: string; sections: QuerySections }) => {
+    setSections(JSON.parse(JSON.stringify(saved.sections)));
     setLoadMenuOpen(false);
     toast.success(`Loaded "${saved.name}"`);
   };
 
-  const paramCount = countParams(queryGroup);
+  const totalEnabled = Object.values(sections).reduce(
+    (sum, items) => sum + items.filter((i) => i.enabled).length, 0
+  );
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -49,10 +108,10 @@ export default function Brain() {
         <div className="flex items-center gap-3">
           <h1 className="text-sm font-semibold">Channel Brain</h1>
           <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-          <span className="text-[11px] text-dim font-mono">Advanced Query Builder</span>
-          {paramCount > 0 && (
+          <span className="text-[11px] text-dim font-mono">Query Builder</span>
+          {totalEnabled > 0 && (
             <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/15 text-primary">
-              {paramCount} parameter{paramCount !== 1 ? "s" : ""}
+              {totalEnabled} items active
             </span>
           )}
         </div>
@@ -124,32 +183,100 @@ export default function Brain() {
       </div>
 
       <div className="flex-1 relative overflow-auto">
-        <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-6 space-y-5">
-          {/* Presets */}
-          <div>
-            <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Quick Presets</div>
-            <QueryPresets onApply={setQueryGroup} />
-          </div>
+        <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-6 space-y-3">
+          {/* Section 1 — Base */}
+          <QuerySection
+            id="base"
+            number={1}
+            title="Base"
+            titleAr="الأساس"
+            description="Channel niche, region, language, time range — the foundation of your query"
+            icon={<Compass className="w-4 h-4" />}
+            color="bg-blue/15"
+            items={sections.base}
+            onUpdate={updateSection("base")}
+            addPlaceholder="Add base parameter..."
+          />
 
-          {/* Query Builder */}
-          <div>
-            <div className="text-[10px] text-dim font-mono uppercase tracking-widest mb-3">Query Builder</div>
-            <QueryGroupBlock group={queryGroup} onUpdate={setQueryGroup} />
-          </div>
+          {/* Section 2 — Seek Topics */}
+          <QuerySection
+            id="seekTopics"
+            number={2}
+            title="Seek Topics"
+            titleAr="المواضيع المطلوبة"
+            description="Stories and topics you want the AI to find — auto-filled from untouched stories"
+            icon={<Search className="w-4 h-4" />}
+            color="bg-success/15"
+            items={sections.seekTopics}
+            onUpdate={updateSection("seekTopics")}
+            addPlaceholder="Add topic to search for..."
+          />
+
+          {/* Section 3 — Memory Tier 1 */}
+          <QuerySection
+            id="memoryTier1"
+            number={3}
+            title="Memory Tier 1"
+            titleAr="الذاكرة — المستوى الأول"
+            description="Top performing videos — AI finds similar stories in tone and type"
+            icon={<BrainIcon className="w-4 h-4" />}
+            color="bg-purple/15"
+            items={sections.memoryTier1}
+            onUpdate={updateSection("memoryTier1")}
+            addPlaceholder="Add reference video..."
+          />
+
+          {/* Section 4 — Memory Tier 2 */}
+          <QuerySection
+            id="memoryTier2"
+            number={4}
+            title="Memory Tier 2"
+            titleAr="الذاكرة — المستوى الثاني"
+            description="Refinement criteria — results from Tier 1 are filtered through these rules"
+            icon={<RefreshCw className="w-4 h-4" />}
+            color="bg-orange/15"
+            items={sections.memoryTier2}
+            onUpdate={updateSection("memoryTier2")}
+            addPlaceholder="Add refinement rule..."
+          />
+
+          {/* Section 5 — In Production */}
+          <QuerySection
+            id="inProduction"
+            number={5}
+            title="In Production"
+            titleAr="قيد الإنتاج"
+            description="Stories currently being produced — AI avoids suggesting duplicates"
+            icon={<Factory className="w-4 h-4" />}
+            color="bg-primary/15"
+            items={sections.inProduction}
+            onUpdate={updateSection("inProduction")}
+            addPlaceholder="Add production item..."
+          />
+
+          {/* Section 6 — Avoid List */}
+          <QuerySection
+            id="avoidList"
+            number={6}
+            title="Avoid List"
+            titleAr="قائمة التجنب"
+            description="Competitor-covered stories — AI excludes anything similar to these"
+            icon={<ShieldOff className="w-4 h-4" />}
+            color="bg-destructive/15"
+            items={sections.avoidList}
+            onUpdate={updateSection("avoidList")}
+            addPlaceholder="Add story to avoid..."
+          />
 
           {/* Generated Preview */}
-          <QueryPreview group={queryGroup} />
+          <QueryPreview sections={sections} />
 
           {/* Footer */}
           <div className="text-[11px] text-dim font-mono text-center pb-4">
-            Build your query visually · Send to AI for story discovery
+            All 6 sections must have active items · Query is sent to AI for story discovery
           </div>
         </div>
       </div>
     </div>
   );
-}
-
-function countParams(group: QueryGroup): number {
-  return group.parameters.length + group.groups.reduce((sum, g) => sum + countParams(g), 0);
 }
