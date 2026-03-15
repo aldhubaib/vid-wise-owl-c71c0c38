@@ -266,36 +266,6 @@ export default function Test() {
             </div>
           </section>
 
-          {/* ─── AI WRITER ─── */}
-          <section>
-            <span className="text-[12px] text-dim font-medium mb-2 block">AI Writer</span>
-            <div className="rounded-xl bg-background border border-border overflow-hidden">
-              <div className="px-5 py-4 flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  {(["short", "long"] as const).map((fmt) => (
-                    <button
-                      key={fmt}
-                      onClick={() => setScriptFormat(fmt)}
-                      className={`px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border ${
-                        scriptFormat === fmt
-                          ? "bg-surface text-foreground border-border"
-                          : "bg-transparent text-dim border-border/50 hover:text-sensor hover:border-border"
-                      }`}
-                    >
-                      {fmt === "short" ? "Short (up to 3 min)" : "Video (3 min – unlimited)"}
-                    </button>
-                  ))}
-                </div>
-                <button
-                  onClick={() => toast("Generating script from article…")}
-                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue text-blue-foreground text-[12px] font-medium hover:opacity-90 transition-opacity"
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  Generate script
-                </button>
-              </div>
-            </div>
-          </section>
 
 
           {/* ─── CHANNEL ─── */}
