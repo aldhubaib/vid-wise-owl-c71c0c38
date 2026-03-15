@@ -218,7 +218,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 7, depth: 0 },
+    meta: { order: 9, depth: 0 },
   },
   "callout-tip": {
     id: "callout-tip",
