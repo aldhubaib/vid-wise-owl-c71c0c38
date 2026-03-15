@@ -513,6 +513,6 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 25, depth: 0 },
+    meta: { order: 27, depth: 0 },
   },
 } as any;
