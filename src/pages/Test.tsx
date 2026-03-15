@@ -400,8 +400,11 @@ export default function Test() {
                 </div>
               </div>
 
+              <div className="px-5 py-4">
+                <ScriptEditor />
+              </div>
+            </div>
           </section>
-
 
           {/* ─── CONCEPT 3: COMPACT COMMAND BAR ─── */}
           <section>
@@ -409,13 +412,6 @@ export default function Test() {
               <span className="text-[12px] text-dim font-medium">Concept 3 — Command Bar</span>
             </div>
             <ConceptCommandBar />
-          </section>
-
-
-              <div className="px-5 py-4">
-                <ScriptEditor />
-              </div>
-            </div>
           </section>
 
 
