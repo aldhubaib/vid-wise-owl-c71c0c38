@@ -431,13 +431,6 @@ export default function Test() {
             </div>
           )}
 
-          {/* ─── MAIN ACTION ─── */}
-          <button
-            onClick={() => toast.success("Marked as Filmed")}
-            className="w-full py-3 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
-          >
-            + Mark as Filmed
-          </button>
         </div>
       </div>
       </div>
