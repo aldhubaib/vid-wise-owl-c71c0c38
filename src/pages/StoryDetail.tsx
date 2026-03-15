@@ -60,16 +60,16 @@ export default function StoryDetail() {
   const [hookEndInput, setHookEndInput] = useState("");
   const [scriptInput, setScriptInput] = useState("");
   const [editingYoutubeUrl, setEditingYoutubeUrl] = useState(false);
-  const [articleText, setArticleText] = useState(story?.aiAnalysis || "");
   const [aiCleaning, setAiCleaning] = useState(false);
   const [aiProgress, setAiProgress] = useState(0);
+
+  const story = stories.find((s) => s.id === id);
+  const [articleText, setArticleText] = useState(story?.aiAnalysis || "");
+  const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
 
   const storyIndex = stories.findIndex((s) => s.id === id);
   const prevStory = storyIndex > 0 ? stories[storyIndex - 1] : null;
   const nextStory = storyIndex < stories.length - 1 ? stories[storyIndex + 1] : null;
-
-  const story = stories.find((s) => s.id === id);
-  const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
 
   const handleAiCleanup = useCallback(() => {
     if (aiCleaning || !articleText.trim()) return;
