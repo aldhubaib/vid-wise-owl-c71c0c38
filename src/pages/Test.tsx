@@ -178,7 +178,18 @@ export default function Test() {
                   {articleOpen ? <ChevronUp className="w-4 h-4 text-dim" /> : <ChevronDown className="w-4 h-4 text-dim" />}
                   <span className="text-[12px] text-dim font-medium">Original Story</span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] text-dim font-mono">R</span>
+                    <span className="text-[10px] font-mono font-semibold text-purple">{story.relevance}</span>
+                    <span className="text-[10px] text-dim font-mono">V</span>
+                    <span className="text-[10px] font-mono font-semibold text-blue">{story.virality}</span>
+                    <span className="text-[10px] text-dim font-mono">F</span>
+                    <span className="text-[10px] font-mono font-semibold text-success">{story.firstMover}</span>
+                    <span className="text-[10px] text-dim font-mono">T</span>
+                    <span className="text-[10px] font-mono font-semibold text-foreground">{story.totalScore}</span>
+                  </div>
+                  <span className="w-px h-3 bg-border" />
                   <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[10px] font-mono font-medium bg-success/10 text-success">
                     <Check className="w-3 h-3" /> Done
                   </span>
