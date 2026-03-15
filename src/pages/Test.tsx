@@ -146,27 +146,27 @@ export default function Test() {
   const selectedCh = ourChannels.find((c) => c.id === selectedChannel);
 
   return (
-    <div className="flex flex-col min-h-screen bg-surface p-3">
-      <div className="flex flex-col flex-1 bg-background rounded-xl overflow-hidden">
-      {/* Top bar — matches Channel Detail */}
-      <div className="h-12 flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4">
+    <div className="flex flex-col min-h-screen bg-surface p-3 max-sm:p-0">
+      <div className="flex flex-col flex-1 bg-background rounded-xl max-sm:rounded-none overflow-hidden">
+      {/* Top bar */}
+      <div className="flex items-center justify-between px-6 max-sm:px-3 border-b border-[#151619] shrink-0 max-lg:px-4 py-2.5">
         <button
           onClick={() => navigate("/stories")}
           className="flex items-center gap-1.5 text-[13px] text-dim cursor-pointer bg-transparent border-none font-sans hover:text-foreground transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          AI Intelligence
+          <span className="max-sm:hidden">AI Intelligence</span>
         </button>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 max-sm:gap-1 flex-wrap justify-end">
           <button
             onClick={() => setHistoryOpen(true)}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
+            className="w-8 h-8 max-sm:w-7 max-sm:h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
           >
-            <Clock className="w-4 h-4" />
+            <Clock className="w-4 h-4 max-sm:w-3.5 max-sm:h-3.5" />
           </button>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <button className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-red hover:border-red/40 transition-colors">
+              <button className="inline-flex items-center gap-1.5 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-red hover:border-red/40 transition-colors">
                 Pass
               </button>
             </AlertDialogTrigger>
@@ -183,7 +183,7 @@ export default function Test() {
           </AlertDialog>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <button className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-orange hover:border-orange/40 transition-colors">
+              <button className="inline-flex items-center gap-1.5 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-orange hover:border-orange/40 transition-colors">
                 Omit
               </button>
             </AlertDialogTrigger>
@@ -200,28 +200,28 @@ export default function Test() {
           </AlertDialog>
           <button
             onClick={() => toast.success("Moved to Filmed")}
-            className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
+            className="inline-flex items-center gap-1 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
           >
             <span className="text-primary font-mono">Scripting</span>
             <ChevronRight className="w-3 h-3 text-dim/40" />
             <span className="font-mono">Filmed</span>
           </button>
           {/* Navigation */}
-          <div className="flex items-center gap-1 ml-3">
+          <div className="flex items-center gap-0.5 ml-1 max-sm:ml-0">
             <button
               onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
               disabled={currentIndex === 0}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
+              className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="text-[11px] font-mono text-dim px-1">
+            <span className="text-[10px] font-mono text-dim px-0.5">
               {currentIndex + 1}/{stories.length}
             </span>
             <button
               onClick={() => setCurrentIndex(Math.min(stories.length - 1, currentIndex + 1))}
               disabled={currentIndex === stories.length - 1}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
+              className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -230,33 +230,32 @@ export default function Test() {
       </div>
 
       <div className="flex-1 overflow-auto">
-        <div className="px-6 max-lg:px-4 py-5 pb-16 space-y-5">
+        <div className="px-6 max-lg:px-4 max-sm:px-3 py-5 pb-16 space-y-5">
 
           {/* ─── ARTICLE SECTION ─── */}
           <section>
             <div className="rounded-xl bg-background border border-border overflow-hidden">
               <button
                 onClick={() => setArticleOpen(!articleOpen)}
-                className="w-full px-5 py-3.5 flex items-center justify-between hover:bg-surface/30 transition-colors"
+                className="w-full px-5 max-sm:px-3 py-3.5 flex items-center justify-between hover:bg-surface/30 transition-colors"
               >
                 <div className="flex items-center gap-2">
                   {articleOpen ? <ChevronUp className="w-4 h-4 text-dim" /> : <ChevronDown className="w-4 h-4 text-dim" />}
                   <span className="text-[12px] text-dim font-medium">Original Story</span>
                 </div>
-                <div className="flex items-center gap-2.5">
-                  <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2.5 max-sm:gap-1.5">
+                  <div className="flex items-center gap-1.5 max-sm:gap-1">
                     <span className="text-[10px] text-dim font-mono">R</span>
                     <span className="text-[10px] font-mono font-semibold text-purple">{story.relevance}</span>
                     <span className="text-[10px] text-dim font-mono">V</span>
                     <span className="text-[10px] font-mono font-semibold text-blue">{story.virality}</span>
-                    <span className="text-[10px] text-dim font-mono">F</span>
-                    <span className="text-[10px] font-mono font-semibold text-success">{story.firstMover}</span>
+                    <span className="text-[10px] text-dim font-mono max-sm:hidden">F</span>
+                    <span className="text-[10px] font-mono font-semibold text-success max-sm:hidden">{story.firstMover}</span>
                     <span className="text-[10px] text-dim font-mono">T</span>
                     <span className="text-[10px] font-mono font-semibold text-foreground">{story.totalScore}</span>
                   </div>
-                  <span className="w-px h-3 bg-border" />
-                  <span className="text-[11px] text-dim font-mono">2 days ago</span>
-                  
+                  <span className="w-px h-3 bg-border max-sm:hidden" />
+                  <span className="text-[11px] text-dim font-mono max-sm:hidden">2 days ago</span>
                 </div>
               </button>
               {articleOpen && (
@@ -341,10 +340,10 @@ export default function Test() {
             </div>
             <div className="rounded-xl bg-background border border-border overflow-hidden">
               {/* Command bar — capsule style */}
-              <div className="px-4 py-3 flex items-center justify-between border-b border-border">
+              <div className="px-4 max-sm:px-3 py-3 flex items-center justify-between border-b border-border flex-wrap gap-2">
                 <div className="flex items-center gap-3 flex-1">
                   {/* The capsule */}
-                  <div className="inline-flex items-center bg-surface rounded-full border border-border overflow-hidden">
+                  <div className="inline-flex items-center bg-surface rounded-full border border-border overflow-hidden flex-wrap">
                     {/* Channel */}
                     <div className="relative">
                       <button
@@ -435,8 +434,8 @@ export default function Test() {
                   </div>
                 </div>
 
-                {/* Collaborators */}
-                <div className="flex items-center -space-x-2">
+                {/* Collaborators — hidden on mobile */}
+                <div className="flex items-center -space-x-2 max-sm:hidden">
                   {[ch1, ch2, ch3].map((avatar, i) => (
                     <div key={i} className="relative">
                       <img src={avatar} alt={`Collaborator ${i + 1}`} className="w-7 h-7 rounded-full object-cover border-2 border-background" />
@@ -447,7 +446,7 @@ export default function Test() {
                 </div>
               </div>
 
-              <div className="px-5 py-4">
+              <div className="px-5 max-sm:px-3 py-4">
                 <ScriptEditor />
               </div>
             </div>
