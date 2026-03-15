@@ -177,13 +177,6 @@ export default function Test() {
             <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-elevated text-dim">
               29-01-2022
             </span>
-            <a
-              href="#"
-              className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-blue/10 text-blue hover:text-blue/80 transition-colors no-underline"
-            >
-              <ExternalLink className="w-3 h-3" />
-              Read source
-            </a>
           </div>
         </div>
 
@@ -248,7 +241,13 @@ export default function Test() {
                   </div>
                   {/* Title */}
                   <div className="px-5 pt-4">
-                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right">Title</label>
+                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right flex items-center justify-between">
+                      <span>Title</span>
+                      <a href="#" className="inline-flex items-center gap-1 text-[10px] font-mono font-medium text-blue hover:text-blue/80 transition-colors no-underline">
+                        <ExternalLink className="w-3 h-3" />
+                        Read source
+                      </a>
+                    </label>
                     <input
                       type="text"
                       value={articleTitle}
