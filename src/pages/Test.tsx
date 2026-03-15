@@ -82,7 +82,7 @@ function CopyBtn({ text }: { text: string }) {
 
 export default function Test() {
   const navigate = useNavigate();
-  const stories = storiesMock;
+  const [stories, setStories] = useState(storiesMock);
   const [currentIndex, setCurrentIndex] = useState(2);
   const story = stories[currentIndex];
 
@@ -174,13 +174,13 @@ export default function Test() {
               onClick={() => setActionDropOpen(!actionDropOpen)}
               className="inline-flex items-center gap-1 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
             >
-              <span className="text-primary font-mono">Scripting</span>
+              <span className="text-primary font-mono">{story.stage === "suggestion" ? "Suggestion" : story.stage === "liked" ? "Liked" : story.stage === "approved" ? "Scripting" : story.stage === "filmed" ? "Filmed" : story.stage === "publish" ? "Publish" : "Done"}</span>
               <ChevronDown className={`w-3 h-3 text-dim/40 transition-transform ${actionDropOpen ? "rotate-180" : ""}`} />
             </button>
             {actionDropOpen && (
               <div className="absolute z-20 mt-2 right-0 w-48 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
                 <button
-                  onClick={() => { setActionDropOpen(false); toast.success("Moved to Filmed"); }}
+                  onClick={() => { setActionDropOpen(false); setStories(prev => prev.map((s, i) => i === currentIndex ? { ...s, stage: "filmed" as const } : s)); toast.success("Moved to Filmed"); }}
                   className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-foreground hover:bg-elevated transition-colors"
                 >
                   <SkipForward className="w-3.5 h-3.5 text-primary" />
