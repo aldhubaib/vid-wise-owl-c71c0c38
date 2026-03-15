@@ -134,7 +134,7 @@ export default function Brain() {
         <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-6 space-y-5">
 
           {/* === Single Query Box === */}
-          <div className="rounded-xl border border-border bg-surface/30">
+          <div className="rounded-xl border border-border bg-surface">
             {/* Query Name Header */}
             <div className="flex items-center gap-3 px-5 py-4 border-b border-border">
               <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center">
