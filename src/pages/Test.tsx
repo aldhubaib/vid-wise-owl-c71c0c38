@@ -180,7 +180,7 @@ export default function Test() {
             {actionDropOpen && (
               <div className="absolute z-20 mt-2 right-0 w-48 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
                 <button
-                  onClick={() => { setActionDropOpen(false); toast.success("Moved to Filmed"); }}
+                  onClick={() => { setActionDropOpen(false); setStories(prev => prev.map((s, i) => i === currentIndex ? { ...s, stage: "filmed" as const } : s)); toast.success("Moved to Filmed"); }}
                   className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-foreground hover:bg-elevated transition-colors"
                 >
                   <SkipForward className="w-3.5 h-3.5 text-primary" />
