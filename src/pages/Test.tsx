@@ -177,13 +177,6 @@ export default function Test() {
             <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-elevated text-dim">
               29-01-2022
             </span>
-            <a
-              href="#"
-              className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-blue/10 text-blue hover:text-blue/80 transition-colors no-underline"
-            >
-              <ExternalLink className="w-3 h-3" />
-              Read source
-            </a>
           </div>
         </div>
 
