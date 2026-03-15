@@ -361,8 +361,24 @@
 }
 
 /* Image */
-.yoopta-editor-container [data-yoopta-image] img {
-  border-radius: 12px;
+.yoopta-editor-container img {
+  border-radius: 12px !important;
+}
+
+.yoopta-editor-container [data-yoopta-image],
+.yoopta-editor-container [data-yoopta-image] > div {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+/* Links */
+.yoopta-editor-container a {
+  color: hsl(var(--blue)) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.yoopta-editor-container a:hover {
+  opacity: 0.8;
 }
 
 .yoopta-editor-container [data-yoopta-file] {

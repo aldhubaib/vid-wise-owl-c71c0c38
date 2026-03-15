@@ -27,6 +27,25 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
     ],
     meta: { order: 1, depth: 0 },
   },
+  "sample-image": {
+    id: "sample-image",
+    type: "Image",
+    value: [
+      {
+        id: "img-el",
+        type: "image",
+        children: [{ text: "" }],
+        props: {
+          nodeType: "void",
+          src: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&q=80",
+          alt: "Technology workspace",
+          fit: "cover",
+          sizes: { width: 800, height: 450 },
+        },
+      },
+    ],
+    meta: { order: 2, depth: 0 },
+  },
   "intro-paragraph": {
     id: "intro-paragraph",
     type: "Paragraph",
@@ -46,7 +65,26 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 2, depth: 0 },
+    meta: { order: 3, depth: 0 },
+  },
+  "links-paragraph": {
+    id: "links-paragraph",
+    type: "Paragraph",
+    value: [
+      {
+        id: "lp-el",
+        type: "paragraph",
+        children: [
+          { text: "Links: " },
+          { text: "Documentation", bold: true },
+          { text: " · " },
+          { text: "GitHub", bold: true },
+          { text: " — get started and star the repo!" },
+        ],
+        props: { nodeType: "block" },
+      },
+    ],
+    meta: { order: 4, depth: 0 },
   },
   "heading-marks": {
     id: "heading-marks",
@@ -59,7 +97,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 3, depth: 0 },
+    meta: { order: 5, depth: 0 },
   },
   "marks-demo": {
     id: "marks-demo",
@@ -86,7 +124,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 4, depth: 0 },
+    meta: { order: 6, depth: 0 },
   },
   "heading-plugins": {
     id: "heading-plugins",
@@ -99,7 +137,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 5, depth: 0 },
+    meta: { order: 7, depth: 0 },
   },
   "plugins-table": {
     id: "plugins-table",
@@ -167,7 +205,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block", headerRow: true, headerColumn: false },
       },
     ],
-    meta: { order: 6, depth: 0 },
+    meta: { order: 8, depth: 0 },
   },
   "heading-blocks-api": {
     id: "heading-blocks-api",
@@ -180,7 +218,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 7, depth: 0 },
+    meta: { order: 9, depth: 0 },
   },
   "callout-tip": {
     id: "callout-tip",
@@ -193,7 +231,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 8, depth: 0 },
+    meta: { order: 10, depth: 0 },
   },
   "heading-elements": {
     id: "heading-elements",
@@ -206,7 +244,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 9, depth: 0 },
+    meta: { order: 11, depth: 0 },
   },
   "elements-list": {
     id: "elements-list",
@@ -219,7 +257,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 10, depth: 0 },
+    meta: { order: 12, depth: 0 },
   },
   "elements-list-2": {
     id: "elements-list-2",
@@ -232,7 +270,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 11, depth: 0 },
+    meta: { order: 13, depth: 0 },
   },
   "elements-list-3": {
     id: "elements-list-3",
@@ -245,7 +283,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 12, depth: 0 },
+    meta: { order: 14, depth: 0 },
   },
   "heading-marks-api": {
     id: "heading-marks-api",
@@ -258,7 +296,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 13, depth: 0 },
+    meta: { order: 15, depth: 0 },
   },
   "marks-numbered-1": {
     id: "marks-numbered-1",
@@ -274,7 +312,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 14, depth: 0 },
+    meta: { order: 16, depth: 0 },
   },
   "marks-numbered-2": {
     id: "marks-numbered-2",
@@ -290,7 +328,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 15, depth: 0 },
+    meta: { order: 17, depth: 0 },
   },
   "marks-numbered-3": {
     id: "marks-numbered-3",
@@ -306,7 +344,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 16, depth: 0 },
+    meta: { order: 18, depth: 0 },
   },
   "heading-coming": {
     id: "heading-coming",
@@ -319,7 +357,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 17, depth: 0 },
+    meta: { order: 19, depth: 0 },
   },
   "todo-1": {
     id: "todo-1",
@@ -332,7 +370,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block", checked: true },
       },
     ],
-    meta: { order: 18, depth: 0 },
+    meta: { order: 20, depth: 0 },
   },
   "todo-2": {
     id: "todo-2",
@@ -345,7 +383,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block", checked: true },
       },
     ],
-    meta: { order: 19, depth: 0 },
+    meta: { order: 21, depth: 0 },
   },
   "todo-3": {
     id: "todo-3",
@@ -358,7 +396,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block", checked: false },
       },
     ],
-    meta: { order: 20, depth: 0 },
+    meta: { order: 22, depth: 0 },
   },
   "todo-4": {
     id: "todo-4",
@@ -371,7 +409,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block", checked: false },
       },
     ],
-    meta: { order: 21, depth: 0 },
+    meta: { order: 23, depth: 0 },
   },
   "divider-end": {
     id: "divider-end",
@@ -384,7 +422,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "void" },
       },
     ],
-    meta: { order: 22, depth: 0 },
+    meta: { order: 24, depth: 0 },
   },
   "blockquote-end": {
     id: "blockquote-end",
@@ -397,7 +435,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 23, depth: 0 },
+    meta: { order: 25, depth: 0 },
   },
   "steps-block": {
     id: "steps-block",
@@ -462,7 +500,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 24, depth: 0 },
+    meta: { order: 26, depth: 0 },
   },
   "end-paragraph": {
     id: "end-paragraph",
@@ -475,6 +513,6 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block" },
       },
     ],
-    meta: { order: 25, depth: 0 },
+    meta: { order: 27, depth: 0 },
   },
 } as any;
