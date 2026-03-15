@@ -410,6 +410,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
           {
             id: "step-i-1",
             type: "step-list-item",
+            props: { order: 1 },
             children: [
               {
                 id: "step-h-1",
@@ -426,6 +427,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
           {
             id: "step-i-2",
             type: "step-list-item",
+            props: { order: 2 },
             children: [
               {
                 id: "step-h-2",
@@ -442,6 +444,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
           {
             id: "step-i-3",
             type: "step-list-item",
+            props: { order: 3 },
             children: [
               {
                 id: "step-h-3",
