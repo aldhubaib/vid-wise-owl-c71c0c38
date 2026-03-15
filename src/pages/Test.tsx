@@ -326,9 +326,8 @@ export default function Test() {
 
           {/* ─── SCRIPT EDITOR ─── */}
           <section>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="mb-2">
               <span className="text-[12px] text-dim font-medium">Script</span>
-              <img src={ch1} alt="Abdulaziz" className="w-5 h-5 rounded-full object-cover ml-auto" />
             </div>
             <div className="rounded-xl bg-background border border-border overflow-hidden">
               {/* AI Writer controls */}
@@ -357,7 +356,8 @@ export default function Test() {
                 </button>
               </div>
 
-              <div className="px-5 pt-4">
+              <div className="px-5 pt-4 flex items-center gap-2">
+                <img src={ch1} alt="Abdulaziz" className="w-5 h-5 rounded-full object-cover" />
                 <input
                   type="text"
                   value={titleInput}
