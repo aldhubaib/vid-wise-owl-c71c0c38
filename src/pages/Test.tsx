@@ -151,10 +151,9 @@ export default function Test() {
   const selectedCh = ourChannels.find((c) => c.id === selectedChannel);
 
   return (
-    <div className="flex flex-col min-h-screen bg-surface p-3 max-sm:p-0">
-      <div className="flex flex-col flex-1 bg-background rounded-xl max-sm:rounded-none overflow-hidden">
+    <div className="flex flex-col min-h-screen">
       {/* Top bar */}
-      <div className="flex items-center justify-between px-6 max-sm:px-3 border-b border-border shrink-0 max-lg:px-4 py-2.5">
+      <div className="h-auto min-h-[48px] flex items-center justify-between px-6 border-b border-[#151619] shrink-0 max-lg:px-4 max-sm:flex-wrap max-sm:gap-2 max-sm:py-2">
         <button
           onClick={() => navigate("/stories")}
           className="flex items-center gap-1.5 text-[13px] text-dim cursor-pointer bg-transparent border-none font-sans hover:text-foreground transition-colors"
