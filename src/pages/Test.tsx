@@ -250,17 +250,15 @@ export default function Test() {
                   {/* Content */}
                   <div className="px-5 pt-4 pb-5">
                     <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right">Content ({articleText.length.toLocaleString()})</label>
-                    <div className="rounded-lg border border-border bg-surface p-3">
-                      <textarea
-                        value={articleText}
-                        onChange={(e) => setArticleText(e.target.value)}
-                        disabled={aiCleaning}
-                        dir="rtl"
-                        rows={12}
-                        className="w-full text-[14px] bg-transparent text-foreground placeholder:text-dim/50 focus:outline-none text-right leading-[1.9] resize-y disabled:opacity-50"
-                        placeholder="اكتب المقال الكامل هنا..."
-                      />
-                    </div>
+                    <textarea
+                      value={articleText}
+                      onChange={(e) => setArticleText(e.target.value)}
+                      disabled={aiCleaning}
+                      dir="rtl"
+                      rows={12}
+                      className="w-full text-[14px] bg-transparent text-foreground placeholder:text-dim/50 focus:outline-none text-right leading-[1.9] resize-y disabled:opacity-50"
+                      placeholder="اكتب المقال الكامل هنا..."
+                    />
                   </div>
                 </>
               )}
