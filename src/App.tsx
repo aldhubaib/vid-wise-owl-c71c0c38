@@ -14,6 +14,7 @@ import Settings from "./pages/Settings";
 import Stories from "./pages/Stories";
 import Brain from "./pages/Brain";
 import StoryDetail from "./pages/StoryDetail";
+import Test from "./pages/Test";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/stories" element={<Stories />} />
             <Route path="/brain" element={<Brain />} />
             <Route path="/story/:id" element={<StoryDetail />} />
+            <Route path="/test" element={<Test />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
           <Route path="*" element={<NotFound />} />
