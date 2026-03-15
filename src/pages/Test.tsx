@@ -393,17 +393,6 @@ export default function Test() {
             </div>
           </section>
 
-          {/* ─── EDIT HISTORY TRIGGER ─── */}
-          <button
-            onClick={() => setHistoryOpen(true)}
-            className="w-full rounded-xl bg-background border border-border px-5 py-3.5 flex items-center justify-between hover:bg-surface/30 transition-colors"
-          >
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-dim" />
-              <span className="text-[12px] text-dim font-medium">Edit History</span>
-            </div>
-            <span className="text-[11px] text-dim font-mono">{editHistory.length} edits</span>
-          </button>
 
           {/* ─── EDIT HISTORY MODAL ─── */}
           {historyOpen && (
