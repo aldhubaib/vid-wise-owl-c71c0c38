@@ -165,25 +165,6 @@ export default function Test() {
       </div>
 
       <div className="flex-1 overflow-auto">
-        {/* Scores row — matches Channel Detail stats grid */}
-        <div className="px-6 max-lg:px-4">
-          <div className="grid grid-cols-4 max-lg:grid-cols-2 rounded-xl overflow-hidden border border-border">
-            <div className="bg-background border-r border-b border-border">
-              <ScoreBar label="Relevance" value={story.relevance} color="bg-purple" />
-            </div>
-            <div className="bg-background border-r border-b border-border">
-              <ScoreBar label="Virality" value={story.virality} color="bg-blue" />
-            </div>
-            <div className="bg-background border-r border-b border-border">
-              <ScoreBar label="First Mover" value={story.firstMover} color="bg-success" />
-            </div>
-            <div className="bg-background border-b border-border px-5 py-4">
-              <div className="text-[11px] text-dim mb-0.5">Total</div>
-              <div className="text-lg font-semibold font-mono tracking-tight">{story.totalScore}</div>
-            </div>
-          </div>
-        </div>
-
         <div className="px-6 max-lg:px-4 py-5 pb-16 space-y-5">
 
           {/* ─── ARTICLE SECTION ─── */}
