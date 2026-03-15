@@ -106,7 +106,7 @@ export default function QuerySection({
       {expanded && (
         <tr>
           <td colSpan={5} className="px-4 pb-4 pt-0">
-            <div className="bg-background rounded-lg border border-border p-3">
+            <div className="bg-elevated/50 rounded-lg border border-border p-3">
               {/* Items list */}
               <div className="space-y-1">
                 {items.length === 0 && (

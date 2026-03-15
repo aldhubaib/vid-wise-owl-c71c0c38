@@ -131,7 +131,7 @@ export default function Brain() {
         <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-6 space-y-5">
 
           {/* === Query Box === */}
-          <div className="rounded-xl border border-border bg-surface overflow-hidden">
+          <div className="rounded-xl border border-border bg-background overflow-hidden">
             {/* Collapsed header — click to expand */}
             <button
               onClick={() => setQueryExpanded(!queryExpanded)}
