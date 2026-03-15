@@ -23,6 +23,8 @@ import { Progress } from "@/components/ui/progress";
 import { storiesMock } from "@/data/storiesMock";
 import { channels } from "@/data/mock";
 import ch1 from "@/assets/avatars/ch1.jpg";
+import ch2 from "@/assets/avatars/ch2.jpg";
+import ch3 from "@/assets/avatars/ch3.jpg";
 import ScriptEditor from "@/components/ScriptEditor";
 
 // Mock edit history
