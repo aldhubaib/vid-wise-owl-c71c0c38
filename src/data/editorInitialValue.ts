@@ -409,7 +409,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block", checked: false },
       },
     ],
-    meta: { order: 21, depth: 0 },
+    meta: { order: 23, depth: 0 },
   },
   "divider-end": {
     id: "divider-end",
