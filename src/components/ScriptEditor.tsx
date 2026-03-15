@@ -453,7 +453,9 @@ export default function ScriptEditor({ onChange }: ScriptEditorProps) {
         style={EDITOR_STYLES}
         placeholder="Type / to open commands…"
         onChange={handleChange}
-      />
+      >
+        <SlashCommandMenu />
+      </YooptaEditor>
     </div>
   );
 }
