@@ -198,6 +198,9 @@ export default function Test() {
                   <span className="text-[12px] text-dim font-medium">Original Story</span>
                 </div>
                 <div className="flex items-center gap-3">
+                  <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[10px] font-mono font-medium bg-success/10 text-success">
+                    <Check className="w-3 h-3" /> Done
+                  </span>
                   <span className="text-[11px] text-dim font-mono">2 days ago</span>
                   <span className="text-[11px] text-dim font-mono">{articleText.length.toLocaleString()} chars</span>
                 </div>
