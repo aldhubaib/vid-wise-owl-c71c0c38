@@ -80,9 +80,6 @@ export default function Test() {
   const [scriptContent, setScriptContent] = useState("");
   const [titleInput, setTitleInput] = useState("");
 
-  // Tags
-  const [tags, setTags] = useState<string[]>([]);
-  const [suggestingTags, setSuggestingTags] = useState(false);
 
   // Channel
   const [selectedChannel, setSelectedChannel] = useState("");
@@ -122,14 +119,6 @@ export default function Test() {
     }, interval);
   }, [aiCleaning, articleText]);
 
-  const handleSuggestTags = () => {
-    setSuggestingTags(true);
-    setTimeout(() => {
-      setTags(["سفاح تايمز سكوير", "جرائم القتل", "وثائقي نتفليكس", "قاتل الجذع", "ريتشارد كوتينغهام", "جرائم حقيقية"]);
-      setSuggestingTags(false);
-      toast.success("Tags suggested");
-    }, 1500);
-  };
 
   if (!story) return null;
 
@@ -313,35 +302,6 @@ export default function Test() {
             </div>
           </section>
 
-          {/* ─── YOUTUBE TAGS ─── */}
-          <section>
-            <span className="text-[12px] text-dim font-medium mb-2 block">YouTube Tags</span>
-            <div className="rounded-xl bg-background border border-border overflow-hidden">
-              <div className="px-5 py-4 flex items-center justify-between">
-                {tags.length > 0 ? (
-                  <div className="flex flex-wrap gap-1.5 flex-1">
-                    {tags.map((tag) => (
-                      <span key={tag} className="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-surface text-sensor">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                ) : (
-                  <span className="text-[12px] text-dim">Get AI-suggested tags for YouTube</span>
-                )}
-                <button
-                  onClick={handleSuggestTags}
-                  disabled={suggestingTags}
-                  className="px-3 py-1.5 text-[12px] font-medium rounded-full transition-colors whitespace-nowrap border border-border/50 text-dim hover:text-sensor hover:border-border disabled:opacity-40 shrink-0 ml-3"
-                >
-                  <span className="inline-flex items-center gap-1.5">
-                    <Sparkles className={`w-3 h-3 ${suggestingTags ? "animate-spin" : ""}`} />
-                    Suggest tags
-                  </span>
-                </button>
-              </div>
-            </div>
-          </section>
 
           {/* ─── CHANNEL ─── */}
           <section>
