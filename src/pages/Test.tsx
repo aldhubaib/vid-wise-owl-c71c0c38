@@ -17,6 +17,9 @@ import {
   Info,
   X,
   Clock,
+  Ban,
+  EyeOff,
+  SkipForward,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
