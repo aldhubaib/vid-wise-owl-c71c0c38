@@ -189,7 +189,7 @@ export default function Test() {
                   onClick={() => { setActionDropOpen(false); setStories(prev => prev.map((s, i) => i === currentIndex ? { ...s, stage: nextStage } : s)); toast.success(`Moved to ${stageLabels[nextStage]}`); }}
                   className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-foreground hover:bg-elevated transition-colors"
                 >
-                  <SkipForward className="w-3.5 h-3.5 text-primary" />
+                  <SkipForward className={`w-3.5 h-3.5 ${nextStage === "liked" ? "text-blue" : nextStage === "approved" ? "text-purple" : nextStage === "filmed" ? "text-success" : nextStage === "publish" ? "text-pink-400" : "text-foreground"}`} />
                   <span className="font-medium">Move to {stageLabels[nextStage]}</span>
                 </button>
                 )}
