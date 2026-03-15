@@ -19,6 +19,17 @@ import {
   Clock,
 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Progress } from "@/components/ui/progress";
 import { storiesMock } from "@/data/storiesMock";
 import { channels } from "@/data/mock";
@@ -153,18 +164,40 @@ export default function Test() {
           >
             <Clock className="w-4 h-4" />
           </button>
-          <button
-            onClick={() => toast.success("Story passed")}
-            className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-red hover:border-red/40 transition-colors"
-          >
-            Pass
-          </button>
-          <button
-            onClick={() => toast.success("Story omitted")}
-            className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-orange hover:border-orange/40 transition-colors"
-          >
-            Omit
-          </button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <button className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-red hover:border-red/40 transition-colors">
+                Pass
+              </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Pass on this story?</AlertDialogTitle>
+                <AlertDialogDescription>This story will be removed from the pipeline. You can always bring it back later.</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={() => toast.success("Story passed")} className="bg-red text-white hover:bg-red/90">Pass</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <button className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-orange hover:border-orange/40 transition-colors">
+                Omit
+              </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Omit this story?</AlertDialogTitle>
+                <AlertDialogDescription>This story will be skipped and won't appear in future suggestions.</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={() => toast.success("Story omitted")} className="bg-orange text-white hover:bg-orange/90">Omit</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <button
             onClick={() => toast.success("Moved to Filmed")}
             className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-[11px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
