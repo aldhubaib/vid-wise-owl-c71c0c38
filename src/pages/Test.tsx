@@ -174,7 +174,7 @@ export default function Test() {
               onClick={() => setActionDropOpen(!actionDropOpen)}
               className="inline-flex items-center gap-1 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
             >
-              <span className="text-primary font-mono">Scripting</span>
+              <span className="text-primary font-mono">{story.stage === "suggestion" ? "Suggestion" : story.stage === "liked" ? "Liked" : story.stage === "approved" ? "Scripting" : story.stage === "filmed" ? "Filmed" : story.stage === "publish" ? "Publish" : "Done"}</span>
               <ChevronDown className={`w-3 h-3 text-dim/40 transition-transform ${actionDropOpen ? "rotate-180" : ""}`} />
             </button>
             {actionDropOpen && (
