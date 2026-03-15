@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown, Sparkles, Pencil, RefreshCw } from "lucide-react";
+import { Copy, Check, ExternalLink, Trophy, Eye, ThumbsUp, MessageSquare, Link2, XCircle, ArrowLeft, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, Sparkles, Pencil, RefreshCw, Wand2, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { storiesMock, Story } from "@/data/storiesMock";
 import { channels } from "@/data/mock";
+import { Progress } from "@/components/ui/progress";
 
 type Stage = "suggestion" | "liked" | "approved" | "filmed" | "publish" | "done";
 
