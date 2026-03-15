@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X, ChevronDown, GripVertical } from "lucide-react";
 
 export type ParameterType =
