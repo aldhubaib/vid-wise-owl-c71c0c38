@@ -383,7 +383,7 @@ export const PLAYGROUND_INIT_VALUE: YooptaContentValue = {
         props: { nodeType: "block", checked: true },
       },
     ],
-    meta: { order: 19, depth: 0 },
+    meta: { order: 21, depth: 0 },
   },
   "todo-3": {
     id: "todo-3",
