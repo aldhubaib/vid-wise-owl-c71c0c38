@@ -138,6 +138,23 @@ export default function StoryDetail() {
           <span className="text-[13px] font-medium truncate max-w-[400px]">{story.title}</span>
         </div>
         <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => prevStory && navigate(`/story/${prevStory.id}`)}
+              disabled={!prevStory}
+              className="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-border text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+            </button>
+            <span className="text-[10px] font-mono text-dim px-1">{storyIndex + 1}/{stories.length}</span>
+            <button
+              onClick={() => nextStory && navigate(`/story/${nextStory.id}`)}
+              disabled={!nextStory}
+              className="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-border text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
+            >
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
           <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-primary/15 text-primary">
             {stages.find((s) => s.key === activeStage)?.label}
           </span>
