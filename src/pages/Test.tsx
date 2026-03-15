@@ -421,7 +421,7 @@ export default function Test() {
                   {/* The capsule */}
                   <div className="inline-flex items-center bg-surface rounded-full border border-border flex-wrap">
                     {/* Channel */}
-                    <div className="relative">
+                    <div className="relative" ref={channelDropRef}>
                       <button
                         onClick={() => setChannelDropOpen(!channelDropOpen)}
                         className="flex items-center gap-1.5 pl-1.5 pr-2.5 py-1.5 hover:bg-elevated transition-colors rounded-l-full"
