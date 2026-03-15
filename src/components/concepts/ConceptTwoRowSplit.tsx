@@ -5,7 +5,7 @@ import { channels } from "@/data/mock";
 import ch1 from "@/assets/avatars/ch1.jpg";
 import ch2 from "@/assets/avatars/ch2.jpg";
 import ch3 from "@/assets/avatars/ch3.jpg";
-import ScriptEditor from "@/components/ScriptEditor";
+
 
 export default function ConceptTwoRowSplit() {
   const ourChannels = channels.filter((c) => c.type === "ours").filter((c, i, arr) => arr.findIndex((x) => x.id === c.id) === i);
@@ -116,9 +116,7 @@ export default function ConceptTwoRowSplit() {
         </button>
       </div>
 
-      <div className="px-5 py-4">
-        <ScriptEditor />
-      </div>
+      <div className="px-5 py-6 text-center text-[12px] text-dim/40 font-mono">Script editor area</div>
     </div>
   );
 }
