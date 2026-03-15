@@ -392,8 +392,8 @@ export default function Test() {
 
             {/* Collaborator */}
             <div className="px-6 py-3 flex items-center gap-2 border-b border-border">
-              <div className="w-5 h-5 rounded-full bg-pink-500/30 flex items-center justify-center">
-                <span className="text-[9px] font-bold text-pink-400">(</span>
+              <div className="w-5 h-5 rounded-full bg-destructive/30 flex items-center justify-center">
+                <span className="text-[9px] font-bold text-destructive">(</span>
               </div>
               <span className="text-[12px] text-sensor">Abdulaziz Aldhubaib</span>
               <User className="w-3.5 h-3.5 text-dim" />
