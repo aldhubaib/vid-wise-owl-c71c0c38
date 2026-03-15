@@ -349,20 +349,22 @@ export default function Test() {
           {/* ─── SCRIPT EDITOR ─── */}
           <section>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[12px] text-dim font-medium">Script</span>
+              <div className="flex items-center gap-3">
+                <span className="text-[12px] text-dim font-medium">Script</span>
+                <span className="w-px h-3 bg-border" />
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 rounded-full bg-destructive/30 flex items-center justify-center">
+                    <span className="text-[9px] font-bold text-destructive">(</span>
+                  </div>
+                  <span className="text-[11px] text-sensor">Abdulaziz Aldhubaib</span>
+                  <User className="w-3.5 h-3.5 text-dim" />
+                </div>
+              </div>
               <span className="text-[11px] text-dim">
                 Last edited by <span className="text-sensor">Abdulaziz Aldhubaib</span> · less than a minute ago
               </span>
             </div>
             <div className="rounded-xl bg-background border border-border overflow-hidden">
-              {/* Collaborator */}
-              <div className="px-5 py-2.5 flex items-center gap-2 border-b border-border">
-                <div className="w-5 h-5 rounded-full bg-destructive/30 flex items-center justify-center">
-                  <span className="text-[9px] font-bold text-destructive">(</span>
-                </div>
-                <span className="text-[12px] text-sensor">Abdulaziz Aldhubaib</span>
-                <User className="w-3.5 h-3.5 text-dim" />
-              </div>
 
               {/* Script title */}
               <div className="px-5 pt-4">
