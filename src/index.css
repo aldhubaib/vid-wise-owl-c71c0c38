@@ -298,6 +298,19 @@
   padding-left: 24px;
 }
 
+.yoopta-editor-container ol {
+  list-style: decimal;
+}
+
+.yoopta-editor-container ol li::marker {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.yoopta-editor-container ul li::marker {
+  color: hsl(var(--muted-foreground));
+}
+
 /* Callout */
 .yoopta-editor-container [data-yoopta-callout] {
   background: hsl(var(--surface));
