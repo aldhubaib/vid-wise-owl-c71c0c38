@@ -165,25 +165,6 @@ export default function Test() {
       </div>
 
       <div className="flex-1 overflow-auto">
-        {/* Scores row — matches Channel Detail stats grid */}
-        <div className="px-6 max-lg:px-4">
-          <div className="grid grid-cols-4 max-lg:grid-cols-2 rounded-xl overflow-hidden border border-border">
-            <div className="bg-background border-r border-b border-border">
-              <ScoreBar label="Relevance" value={story.relevance} color="bg-purple" />
-            </div>
-            <div className="bg-background border-r border-b border-border">
-              <ScoreBar label="Virality" value={story.virality} color="bg-blue" />
-            </div>
-            <div className="bg-background border-r border-b border-border">
-              <ScoreBar label="First Mover" value={story.firstMover} color="bg-success" />
-            </div>
-            <div className="bg-background border-b border-border px-5 py-4">
-              <div className="text-[11px] text-dim mb-0.5">Total</div>
-              <div className="text-lg font-semibold font-mono tracking-tight">{story.totalScore}</div>
-            </div>
-          </div>
-        </div>
-
         <div className="px-6 max-lg:px-4 py-5 pb-16 space-y-5">
 
           {/* ─── ARTICLE SECTION ─── */}
@@ -197,7 +178,18 @@ export default function Test() {
                   {articleOpen ? <ChevronUp className="w-4 h-4 text-dim" /> : <ChevronDown className="w-4 h-4 text-dim" />}
                   <span className="text-[12px] text-dim font-medium">Original Story</span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] text-dim font-mono">R</span>
+                    <span className="text-[10px] font-mono font-semibold text-purple">{story.relevance}</span>
+                    <span className="text-[10px] text-dim font-mono">V</span>
+                    <span className="text-[10px] font-mono font-semibold text-blue">{story.virality}</span>
+                    <span className="text-[10px] text-dim font-mono">F</span>
+                    <span className="text-[10px] font-mono font-semibold text-success">{story.firstMover}</span>
+                    <span className="text-[10px] text-dim font-mono">T</span>
+                    <span className="text-[10px] font-mono font-semibold text-foreground">{story.totalScore}</span>
+                  </div>
+                  <span className="w-px h-3 bg-border" />
                   <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[10px] font-mono font-medium bg-success/10 text-success">
                     <Check className="w-3 h-3" /> Done
                   </span>
