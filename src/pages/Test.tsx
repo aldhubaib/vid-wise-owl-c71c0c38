@@ -220,15 +220,6 @@ export default function Test() {
         </div>
 
         <div className="px-6 max-lg:px-4 py-5 pb-16 space-y-5">
-          {/* ─── AI ANALYSIS ─── */}
-          {story.aiAnalysis && (
-            <section>
-              <span className="text-[12px] text-dim font-medium mb-2 block">AI Analysis</span>
-              <div className="rounded-xl bg-background border border-border p-5">
-                <p className="text-[13px] text-sensor leading-relaxed text-right">{story.aiAnalysis}</p>
-              </div>
-            </section>
-          )}
 
           {/* ─── ARTICLE SECTION ─── */}
           <section>
