@@ -237,7 +237,7 @@ export default function Test() {
             <div className="rounded-xl bg-background border border-border overflow-hidden">
               <button
                 onClick={() => setArticleOpen(!articleOpen)}
-                className="w-full px-5 py-3.5 flex items-center justify-between hover:bg-surface/30 transition-colors"
+                className="w-full px-5 max-sm:px-3 py-3.5 flex items-center justify-between hover:bg-surface/30 transition-colors"
               >
                 <div className="flex items-center gap-2">
                   {articleOpen ? <ChevronUp className="w-4 h-4 text-dim" /> : <ChevronDown className="w-4 h-4 text-dim" />}
