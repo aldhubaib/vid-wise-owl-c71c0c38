@@ -146,16 +146,78 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
 }
 
+.yoopta-editor-container [data-yoopta-floating-toolbar] button {
+  border-radius: 8px !important;
+}
+
 .yoopta-editor-container button[data-active="true"] {
   background: hsl(var(--blue) / 0.15) !important;
   color: hsl(var(--blue)) !important;
+  border-radius: 8px !important;
 }
 
-/* Block actions */
+/* Slash command / action menu */
+.yoopta-editor-container [data-yoopta-action-menu-list],
+.yoopta-editor-container [data-yoopta-slash-command-menu] {
+  background: hsl(var(--surface)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+  overflow: hidden;
+}
+
+.yoopta-editor-container [data-yoopta-action-menu-list] [data-yoopta-action-menu-item],
+.yoopta-editor-container [data-yoopta-slash-command-menu] button,
+.yoopta-editor-container [data-yoopta-slash-command-menu] [role="option"] {
+  border-radius: 8px !important;
+  margin: 2px 4px !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.yoopta-editor-container [data-yoopta-action-menu-list] [data-yoopta-action-menu-item][data-active="true"],
+.yoopta-editor-container [data-yoopta-action-menu-list] [data-yoopta-action-menu-item]:hover,
+.yoopta-editor-container [data-yoopta-slash-command-menu] button:hover,
+.yoopta-editor-container [data-yoopta-slash-command-menu] [role="option"][data-selected="true"],
+.yoopta-editor-container [data-yoopta-slash-command-menu] [role="option"]:hover {
+  background: hsl(var(--elevated)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.yoopta-editor-container [data-yoopta-action-menu-list] input,
+.yoopta-editor-container [data-yoopta-slash-command-menu] input {
+  background: transparent !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-radius: 0 !important;
+}
+
+/* Block options dropdown */
+.yoopta-editor-container [data-yoopta-block-options],
+.yoopta-editor-container [data-yoopta-block-options-menu] {
+  background: hsl(var(--surface)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+  overflow: hidden;
+}
+
+.yoopta-editor-container [data-yoopta-block-options] button,
+.yoopta-editor-container [data-yoopta-block-options-menu] button {
+  border-radius: 8px !important;
+  margin: 2px 4px !important;
+}
+
+.yoopta-editor-container [data-yoopta-block-options] button:hover,
+.yoopta-editor-container [data-yoopta-block-options-menu] button:hover {
+  background: hsl(var(--elevated)) !important;
+}
+
+/* Block actions (+, drag handle) */
 .yoopta-editor-container [data-yoopta-block-actions] button {
   color: hsl(var(--dim));
   opacity: 0;
   transition: opacity 0.15s;
+  border-radius: 8px !important;
 }
 .yoopta-editor-container [data-yoopta-block]:hover [data-yoopta-block-actions] button {
   opacity: 1;
@@ -175,6 +237,8 @@
 .yoopta-editor-container table {
   border-collapse: collapse;
   width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
 }
 .yoopta-editor-container td,
 .yoopta-editor-container th {
@@ -204,9 +268,16 @@
 .yoopta-editor-container pre {
   background: hsl(var(--surface)) !important;
   border: 1px solid hsl(var(--border));
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 12px 16px;
   font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.yoopta-editor-container code {
+  background: hsl(var(--surface));
+  border-radius: 6px;
+  padding: 2px 6px;
   font-size: 12px;
 }
 
@@ -216,6 +287,9 @@
   padding-left: 16px;
   color: hsl(var(--sensor));
   font-style: italic;
+  border-radius: 0 12px 12px 0;
+  background: hsl(var(--surface));
+  padding: 12px 16px;
 }
 
 /* Lists */
@@ -228,7 +302,7 @@
 .yoopta-editor-container [data-yoopta-callout] {
   background: hsl(var(--surface));
   border: 1px solid hsl(var(--border));
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 12px 16px;
 }
 
@@ -252,12 +326,43 @@
 /* Accordion */
 .yoopta-editor-container [data-yoopta-accordion] {
   border: 1px solid hsl(var(--border));
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
+}
+
+/* Table of contents */
+.yoopta-editor-container [data-yoopta-table-of-contents] {
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* Image */
+.yoopta-editor-container [data-yoopta-image] img {
+  border-radius: 12px;
+}
+
+.yoopta-editor-container [data-yoopta-file] {
+  border-radius: 12px !important;
+  border: 1px solid hsl(var(--border)) !important;
+  background: hsl(var(--surface)) !important;
+}
+
+/* Todo checkbox */
+.yoopta-editor-container [data-yoopta-todo] input[type="checkbox"] {
+  border-radius: 50% !important;
+  accent-color: hsl(var(--blue));
 }
 
 /* shadcn theme overrides for yoopta */
 .yoopta-editor-container .yoopta-button,
 .yoopta-editor-container [data-yoopta-trigger] {
   font-family: inherit;
+  border-radius: 8px !important;
+}
+
+/* All popover/portal menus from yoopta */
+[data-radix-popper-content-wrapper] {
+  z-index: 50 !important;
 }
