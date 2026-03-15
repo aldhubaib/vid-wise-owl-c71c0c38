@@ -67,6 +67,7 @@ export default function Test() {
   const story = stories[currentIndex];
 
   // Article state
+  const [articleTitle, setArticleTitle] = useState("فضيحة تسريب بيانات 50 مليون مستخدم عاب من تطبيق مشهور");
   const [articleText, setArticleText] = useState(
     story?.aiAnalysis
       ? `قتل 80 امرأة ووصف جرائمه بأنها "مجرد لعبة".. تعرف على سفاح "تايمز سكوير" يبدو مجرد التفكير بوجود قاتلين متسلسلين ومجرمين يعيشون حولنا شيئاً مرعباً لا يتحمل بعضنا حتى تخيله، ولكن الأكثر رعباً هو وجود هذا النوع من البشر في هيئة أشخاص طبيعيين لديهم عائلات ويبعدون كل البعد عن الشك، ونموذج من هؤلاء: القاتل المتسلسل الأمريكي الذي لُقب بـ"قاتل الجذع" ورُوِّع مدينة نيويورك على مدى سنوات حتى قُبض عليه، وفي أحدث مسلسلاتها الوثائقية "مسرح الجريمة: قاتل في تايمز سكوير".`
@@ -247,6 +248,18 @@ export default function Test() {
                         Re-fetch
                       </span>
                     </button>
+                  </div>
+                  {/* Title input */}
+                  <div className="px-5 pt-3">
+                    <input
+                      type="text"
+                      value={articleTitle}
+                      onChange={(e) => setArticleTitle(e.target.value)}
+                      disabled={aiCleaning}
+                      dir="rtl"
+                      className="w-full px-3 py-2 text-[13px] bg-surface border border-border rounded-lg text-foreground placeholder:text-dim/50 focus:outline-none focus:ring-1 focus:ring-primary/40 text-right font-medium"
+                      placeholder="عنوان المقال..."
+                    />
                   </div>
                   {/* AI cleaning progress */}
                   {aiCleaning && (
