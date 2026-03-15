@@ -360,7 +360,7 @@ export default function Test() {
             <div className="mb-2">
               <span className="text-[12px] text-dim font-medium">Script</span>
             </div>
-            <div className="rounded-xl bg-background border border-border overflow-hidden">
+            <div className="rounded-xl bg-background border border-border overflow-visible">
               {/* Command bar — capsule style */}
               <div className="px-4 max-sm:px-3 py-3 flex items-center justify-between border-b border-border flex-wrap gap-2">
                 <div className="flex items-center gap-3 flex-1">
