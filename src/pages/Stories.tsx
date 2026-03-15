@@ -11,7 +11,7 @@ const stages: { key: Stage; label: string; color: string; sub: string }[] = [
   { key: "liked", label: "Liked", color: "text-blue", sub: "saved for review" },
   { key: "approved", label: "Scripting", color: "text-purple", sub: "brief generation ready" },
   { key: "filmed", label: "Filmed", color: "text-success", sub: "waiting for URL" },
-  { key: "publish", label: "Publish", color: "text-primary", sub: "final details needed" },
+  { key: "publish", label: "Publish", color: "text-pink-400", sub: "final details needed" },
   { key: "done", label: "Done", color: "text-foreground", sub: "published all time" },
 ];
 
