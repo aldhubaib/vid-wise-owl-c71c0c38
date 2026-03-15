@@ -446,7 +446,7 @@ export default function Test() {
                 </div>
               </div>
 
-              <div className="px-5 py-4">
+              <div className="px-5 max-sm:px-3 py-4">
                 <ScriptEditor />
               </div>
             </div>
