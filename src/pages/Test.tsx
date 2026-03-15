@@ -343,7 +343,7 @@ export default function Test() {
               <div className="px-4 max-sm:px-3 py-3 flex items-center justify-between border-b border-border flex-wrap gap-2">
                 <div className="flex items-center gap-3 flex-1">
                   {/* The capsule */}
-                  <div className="inline-flex items-center bg-surface rounded-full border border-border overflow-hidden">
+                  <div className="inline-flex items-center bg-surface rounded-full border border-border overflow-hidden flex-wrap">
                     {/* Channel */}
                     <div className="relative">
                       <button
