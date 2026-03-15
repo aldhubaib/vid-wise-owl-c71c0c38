@@ -134,11 +134,6 @@ export default function QuerySection({
                     {item.meta && (
                       <span className="text-[9px] font-mono text-dim shrink-0">{item.meta}</span>
                     )}
-                    <span className={`text-[8px] font-mono px-1.5 py-0.5 rounded-full shrink-0 ${
-                      item.source === "auto" ? "bg-blue/10 text-blue" : "bg-orange/10 text-orange"
-                    }`}>
-                      {item.source === "auto" ? "AUTO" : "MANUAL"}
-                    </span>
                     <button
                       onClick={(e) => { e.stopPropagation(); removeItem(item.id); }}
                       className="p-0.5 text-dim hover:text-destructive transition-colors shrink-0"
