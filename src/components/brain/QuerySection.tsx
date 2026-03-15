@@ -100,18 +100,7 @@ export default function QuerySection({
     setEditorText(prev => prev + `[${label}] `);
   };
 
-  const getEditorText = (): string => {
-    return editor.document
-      .map((block: any) => {
-        const content = block.content;
-        if (Array.isArray(content)) {
-          return content.map((c: any) => c.text || "").join("");
-        }
-        return "";
-      })
-      .filter((line) => line.trim())
-      .join("\n");
-  };
+  const getEditorText = (): string => editorText;
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
