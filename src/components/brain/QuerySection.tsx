@@ -70,7 +70,7 @@ export default function QuerySection({
   };
 
   return (
-    <div className={`rounded-xl border transition-all ${isFilled ? "border-border bg-background" : "border-destructive/30 bg-destructive/[0.03]"}`}>
+    <div className="transition-all">
       {/* Header */}
       <button
         onClick={() => setExpanded(!expanded)}
