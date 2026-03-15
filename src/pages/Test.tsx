@@ -160,21 +160,7 @@ export default function Test() {
         <div className="sticky top-0 z-20 bg-surface/80 backdrop-blur-xl border-b border-border">
           <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <button
-                onClick={handleAiCleanup}
-                disabled={aiCleaning || !articleText.trim()}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[11px] font-medium text-dim hover:text-sensor border border-border hover:border-foreground/20 transition-colors disabled:opacity-30"
-              >
-                <Wand2 className={`w-3.5 h-3.5 ${aiCleaning ? "animate-spin" : ""}`} />
-                Clean up with AI
-              </button>
-              <button
-                onClick={() => toast("Re-fetching article…")}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[11px] font-medium text-dim hover:text-sensor border border-border hover:border-foreground/20 transition-colors"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-                Re-fetch article
-              </button>
+              {/* Placeholder for any left actions */}
             </div>
 
             {/* Navigation */}
@@ -202,17 +188,8 @@ export default function Test() {
           </div>
         </div>
 
-        {/* AI cleaning progress */}
-        {aiCleaning && (
-          <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 pt-3">
-            <Progress value={aiProgress} className="h-1 bg-muted" />
-            <div className="text-[10px] font-mono text-dim mt-1 text-center">
-              {aiProgress < 30 ? "Analyzing text…" : aiProgress < 70 ? "Cleaning up…" : aiProgress < 100 ? "Finalizing…" : "Done!"}
-            </div>
-          </div>
-        )}
-
         <div className="max-w-[960px] mx-auto px-6 max-lg:px-4 py-8 space-y-8">
+          {/* AI cleaning progress - moved inside article section */}
           {/* ─── ARTICLE SECTION ─── */}
           <section>
             <div className="flex items-center justify-between mb-4">
