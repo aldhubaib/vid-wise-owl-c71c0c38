@@ -15,6 +15,8 @@ import {
   ExternalLink,
   FileText,
   Info,
+  X,
+  Clock,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
