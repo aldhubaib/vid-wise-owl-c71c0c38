@@ -23,17 +23,6 @@ import TableOfContents from "@yoopta/table-of-contents";
 import { Bold, Italic, Underline, Strike, CodeMark, Highlight } from "@yoopta/marks";
 import { applyTheme } from "@yoopta/themes-shadcn";
 
-// @ts-ignore
-import { SlashCommandMenu } from "@yoopta/ui/slash-command-menu";
-// @ts-ignore
-import { FloatingToolbar } from "@yoopta/ui/floating-toolbar";
-// @ts-ignore
-import { FloatingBlockActions } from "@yoopta/ui/floating-block-actions";
-// @ts-ignore
-import { SelectionBox } from "@yoopta/ui/selection-box";
-// @ts-ignore
-import { BlockDndContext, SortableBlock } from "@yoopta/ui/block-dnd";
-
 const YImage = Image.extend({
   options: {
     upload: async (file: globalThis.File) => ({
@@ -46,7 +35,7 @@ const YImage = Image.extend({
   },
 });
 
-const PLUGINS = [
+const PLUGINS: any[] = [
   TableOfContents,
   File.extend({
     options: {
@@ -99,8 +88,8 @@ const PLUGINS = [
 
 const MARKS = [Bold, Italic, Underline, Strike, CodeMark, Highlight];
 
-// Same data as the collaboration example
-const INITIAL_VALUE: YooptaContentValue = {
+// Same data as the yoopta collaboration example
+const INITIAL_VALUE: any = {
   "block-1": {
     id: "block-1",
     type: "NumberedList",
@@ -456,13 +445,6 @@ export default function ScriptEditor({ onChange }: ScriptEditorProps) {
     [onChange]
   );
 
-  const renderBlock = useCallback(
-    ({ children, blockId }: any) => (
-      <SortableBlock blockId={blockId}>{children}</SortableBlock>
-    ),
-    []
-  );
-
   return (
     <div ref={containerRef} className="yoopta-editor-container">
       <YooptaEditor
@@ -470,14 +452,7 @@ export default function ScriptEditor({ onChange }: ScriptEditorProps) {
         style={EDITOR_STYLES}
         placeholder="Type / to open commands…"
         onChange={handleChange}
-        renderBlock={renderBlock}
-      >
-        <FloatingToolbar />
-        <FloatingBlockActions />
-        <SlashCommandMenu />
-        <SelectionBox />
-        <BlockDndContext />
-      </YooptaEditor>
+      />
     </div>
   );
 }
