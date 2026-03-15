@@ -60,9 +60,47 @@ export default function StoryDetail() {
   const [hookEndInput, setHookEndInput] = useState("");
   const [scriptInput, setScriptInput] = useState("");
   const [editingYoutubeUrl, setEditingYoutubeUrl] = useState(false);
+  const [articleText, setArticleText] = useState(story?.aiAnalysis || "");
+  const [aiCleaning, setAiCleaning] = useState(false);
+  const [aiProgress, setAiProgress] = useState(0);
+
+  const storyIndex = stories.findIndex((s) => s.id === id);
+  const prevStory = storyIndex > 0 ? stories[storyIndex - 1] : null;
+  const nextStory = storyIndex < stories.length - 1 ? stories[storyIndex + 1] : null;
 
   const story = stories.find((s) => s.id === id);
   const likedStories = stories.filter((s) => s.stage === "liked").sort((a, b) => b.totalScore - a.totalScore);
+
+  const handleAiCleanup = useCallback(() => {
+    if (aiCleaning || !articleText.trim()) return;
+    setAiCleaning(true);
+    setAiProgress(0);
+
+    // Simulate AI progress
+    const duration = 3000;
+    const interval = 50;
+    let elapsed = 0;
+    const timer = setInterval(() => {
+      elapsed += interval;
+      const progress = Math.min((elapsed / duration) * 100, 95);
+      setAiProgress(progress);
+      if (elapsed >= duration) {
+        clearInterval(timer);
+        // Simulate cleaned text
+        const cleaned = articleText
+          .replace(/\s{2,}/g, " ")
+          .trim();
+        const enhanced = `${cleaned}\n\n— تم تنظيف وتحسين النص بواسطة الذكاء الاصطناعي`;
+        setArticleText(enhanced);
+        setAiProgress(100);
+        setTimeout(() => {
+          setAiCleaning(false);
+          setAiProgress(0);
+          toast.success("Article cleaned up by AI");
+        }, 400);
+      }
+    }, interval);
+  }, [aiCleaning, articleText]);
 
   if (!story) {
     return (
