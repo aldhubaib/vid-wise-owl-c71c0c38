@@ -402,7 +402,29 @@ export default function Test() {
                 </div>
               </div>
 
+          {/* ─── CONCEPT 1: SEGMENTED TOOLBAR ─── */}
+          <section>
+            <div className="mb-2 flex items-center gap-2">
+              <span className="text-[12px] text-dim font-medium">Concept 1 — Segmented Toolbar</span>
+            </div>
+            <ConceptSegmentedToolbar />
+          </section>
 
+          {/* ─── CONCEPT 2: TWO-ROW SPLIT ─── */}
+          <section>
+            <div className="mb-2 flex items-center gap-2">
+              <span className="text-[12px] text-dim font-medium">Concept 2 — Two-Row Split</span>
+            </div>
+            <ConceptTwoRowSplit />
+          </section>
+
+          {/* ─── CONCEPT 3: COMPACT COMMAND BAR ─── */}
+          <section>
+            <div className="mb-2 flex items-center gap-2">
+              <span className="text-[12px] text-dim font-medium">Concept 3 — Command Bar</span>
+            </div>
+            <ConceptCommandBar />
+          </section>
 
 
               <div className="px-5 py-4">
