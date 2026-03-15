@@ -251,7 +251,7 @@ export default function Test() {
                   </div>
                   {/* Title */}
                   <div className="px-5 pt-4">
-                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right">العنوان</label>
+                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right">Title</label>
                     <input
                       type="text"
                       value={articleTitle}
@@ -273,7 +273,7 @@ export default function Test() {
                   )}
                   {/* Content */}
                   <div className="px-5 pt-4 pb-5">
-                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right">المحتوى</label>
+                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right">Content</label>
                     <textarea
                       value={articleText}
                       onChange={(e) => setArticleText(e.target.value)}
