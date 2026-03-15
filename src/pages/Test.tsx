@@ -26,7 +26,7 @@ import ch1 from "@/assets/avatars/ch1.jpg";
 import ch2 from "@/assets/avatars/ch2.jpg";
 import ch3 from "@/assets/avatars/ch3.jpg";
 import ScriptEditor from "@/components/ScriptEditor";
-import ConceptCommandBar from "@/components/concepts/ConceptCommandBar";
+
 
 // Mock edit history
 const editHistory = [
