@@ -191,7 +191,7 @@ export default function Test() {
                   </div>
                   <span className="w-px h-3 bg-border" />
                   <span className="text-[11px] text-dim font-mono">2 days ago</span>
-                  <span className="text-[11px] text-dim font-mono">{articleText.length.toLocaleString()} chars</span>
+                  
                 </div>
               </button>
               {articleOpen && (
