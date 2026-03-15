@@ -22,7 +22,13 @@ import Steps from "@yoopta/steps";
 import TableOfContents from "@yoopta/table-of-contents";
 import { Bold, Italic, Underline, Strike, CodeMark, Highlight } from "@yoopta/marks";
 import { applyTheme } from "@yoopta/themes-shadcn";
-import { SlashCommandMenu, FloatingToolbar, FloatingBlockActions, BlockOptions } from "@yoopta/ui";
+import {
+  SlashCommandMenu,
+  FloatingToolbar,
+  FloatingBlockActions,
+  BlockOptions,
+  type SlashCommandItemType,
+} from "@yoopta/ui";
 import { PLAYGROUND_INIT_VALUE } from "@/data/editorInitialValue";
 
 const YImage = Image.extend({
