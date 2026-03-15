@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import {
@@ -114,6 +114,23 @@ export default function Test() {
   const [actionDropOpen, setActionDropOpen] = useState(false);
   const [confirmAction, setConfirmAction] = useState<"pass" | "omit" | null>(null);
 
+  const actionDropRef = useRef<HTMLDivElement>(null);
+  const channelDropRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (actionDropOpen && actionDropRef.current && !actionDropRef.current.contains(e.target as Node)) {
+        setActionDropOpen(false);
+      }
+      if (channelDropOpen && channelDropRef.current && !channelDropRef.current.contains(e.target as Node)) {
+        setChannelDropOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [actionDropOpen, channelDropOpen]);
+
   // Editing
   const [editingField, setEditingField] = useState<string | null>(null);
 
@@ -170,7 +187,7 @@ export default function Test() {
             <Clock className="w-4 h-4 max-sm:w-3.5 max-sm:h-3.5" />
           </button>
           {/* Actions dropdown */}
-          <div className="relative">
+          <div className="relative" ref={actionDropRef}>
             <button
               onClick={() => setActionDropOpen(!actionDropOpen)}
               className="inline-flex items-center gap-1 py-1 px-2.5 max-sm:px-2 rounded-full text-[11px] max-sm:text-[10px] font-medium border border-border text-dim hover:text-foreground hover:border-primary/40 transition-colors"
@@ -404,7 +421,7 @@ export default function Test() {
                   {/* The capsule */}
                   <div className="inline-flex items-center bg-surface rounded-full border border-border flex-wrap">
                     {/* Channel */}
-                    <div className="relative">
+                    <div className="relative" ref={channelDropRef}>
                       <button
                         onClick={() => setChannelDropOpen(!channelDropOpen)}
                         className="flex items-center gap-1.5 pl-1.5 pr-2.5 py-1.5 hover:bg-elevated transition-colors rounded-l-full"
