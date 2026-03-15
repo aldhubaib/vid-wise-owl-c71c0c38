@@ -27,7 +27,6 @@ import {
   FloatingToolbar,
   FloatingBlockActions,
   BlockOptions,
-  type SlashCommandItemType,
 } from "@yoopta/ui";
 import { PLAYGROUND_INIT_VALUE } from "@/data/editorInitialValue";
 
