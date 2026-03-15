@@ -206,7 +206,10 @@ export default function Test() {
                   {articleOpen ? <ChevronUp className="w-4 h-4 text-dim" /> : <ChevronDown className="w-4 h-4 text-dim" />}
                   <span className="text-[12px] text-dim font-medium">Original Story</span>
                 </div>
-                <span className="text-[11px] text-dim font-mono">{articleText.length.toLocaleString()} chars</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-[11px] text-dim font-mono">2 days ago</span>
+                  <span className="text-[11px] text-dim font-mono">{articleText.length.toLocaleString()} chars</span>
+                </div>
               </button>
               {articleOpen && (
                 <>
