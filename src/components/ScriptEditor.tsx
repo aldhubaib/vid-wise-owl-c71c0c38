@@ -22,6 +22,7 @@ import Steps from "@yoopta/steps";
 import TableOfContents from "@yoopta/table-of-contents";
 import { Bold, Italic, Underline, Strike, CodeMark, Highlight } from "@yoopta/marks";
 import { applyTheme } from "@yoopta/themes-shadcn";
+import { SlashCommandMenu } from "@yoopta/ui";
 
 const YImage = Image.extend({
   options: {
