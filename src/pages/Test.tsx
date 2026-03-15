@@ -141,6 +141,12 @@ export default function Test() {
           AI Intelligence
         </button>
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => setHistoryOpen(true)}
+            className="w-8 h-8 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors"
+          >
+            <Clock className="w-4 h-4" />
+          </button>
           <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-primary/10 text-primary">
             Scripting
           </span>
@@ -387,17 +393,6 @@ export default function Test() {
             </div>
           </section>
 
-          {/* ─── EDIT HISTORY TRIGGER ─── */}
-          <button
-            onClick={() => setHistoryOpen(true)}
-            className="w-full rounded-xl bg-background border border-border px-5 py-3.5 flex items-center justify-between hover:bg-surface/30 transition-colors"
-          >
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-dim" />
-              <span className="text-[12px] text-dim font-medium">Edit History</span>
-            </div>
-            <span className="text-[11px] text-dim font-mono">{editHistory.length} edits</span>
-          </button>
 
           {/* ─── EDIT HISTORY MODAL ─── */}
           {historyOpen && (
