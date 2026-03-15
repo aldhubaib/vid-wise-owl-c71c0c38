@@ -101,7 +101,7 @@ export default function Test() {
   const [editingField, setEditingField] = useState<string | null>(null);
 
   // Article collapsible
-  const [articleOpen, setArticleOpen] = useState(true);
+  const [articleOpen, setArticleOpen] = useState(false);
 
   const handleAiCleanup = useCallback(() => {
     if (aiCleaning || !articleText.trim()) return;
