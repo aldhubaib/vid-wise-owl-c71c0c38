@@ -299,10 +299,7 @@ export default function Test() {
                       className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/50 hover:border-border transition-colors"
                     >
                       {selectedCh ? (
-                        <>
-                          <img src={selectedCh.avatarImg} alt={selectedCh.name} className="w-5 h-5 rounded-full object-cover" />
-                          <span className="text-[12px] font-medium">{selectedCh.name}</span>
-                        </>
+                        <img src={selectedCh.avatarImg} alt={selectedCh.name} className="w-5 h-5 rounded-full object-cover" />
                       ) : (
                         <>
                           <User className="w-3.5 h-3.5 text-dim" />
