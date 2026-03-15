@@ -356,7 +356,6 @@ export default function Test() {
                       </button>
                     ))}
                   </div>
-                  {/* Duration input */}
                   <div className="flex items-center gap-1.5 text-[12px] text-dim">
                     <Clock className="w-3.5 h-3.5" />
                     <input
@@ -379,24 +378,6 @@ export default function Test() {
                       {scriptFormat === "short" ? "(max 3)" : "(min 3)"}
                     </span>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  {/* Live collaborators */}
-                  <div className="flex items-center -space-x-2">
-                    {[ch1, ch2, ch3].map((avatar, i) => (
-                      <div key={i} className="relative">
-                        <img
-                          src={avatar}
-                          alt={`Collaborator ${i + 1}`}
-                          className="w-7 h-7 rounded-full object-cover border-2 border-background"
-                        />
-                        <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-success border border-background" />
-                      </div>
-                    ))}
-                    <div className="w-7 h-7 rounded-full bg-surface border-2 border-background flex items-center justify-center text-[10px] text-muted-foreground font-medium">
-                      +2
-                    </div>
-                  </div>
                   <button
                     onClick={() => canGenerate ? toast("Generating script from article…") : toast.error("Please assign a channel first")}
                     disabled={!canGenerate}
@@ -409,6 +390,21 @@ export default function Test() {
                     <Sparkles className="w-3.5 h-3.5" />
                     Generate script
                   </button>
+                </div>
+                <div className="flex items-center -space-x-2">
+                  {[ch1, ch2, ch3].map((avatar, i) => (
+                    <div key={i} className="relative">
+                      <img
+                        src={avatar}
+                        alt={`Collaborator ${i + 1}`}
+                        className="w-7 h-7 rounded-full object-cover border-2 border-background"
+                      />
+                      <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-success border border-background" />
+                    </div>
+                  ))}
+                  <div className="w-7 h-7 rounded-full bg-surface border-2 border-background flex items-center justify-center text-[10px] text-muted-foreground font-medium">
+                    +2
+                  </div>
                 </div>
               </div>
 
