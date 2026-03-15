@@ -26,6 +26,9 @@ import ch1 from "@/assets/avatars/ch1.jpg";
 import ch2 from "@/assets/avatars/ch2.jpg";
 import ch3 from "@/assets/avatars/ch3.jpg";
 import ScriptEditor from "@/components/ScriptEditor";
+import ConceptTabbedPanels from "@/components/concepts/ConceptTabbedPanels";
+import ConceptSplitView from "@/components/concepts/ConceptSplitView";
+import ConceptOutlineWorkflow from "@/components/concepts/ConceptOutlineWorkflow";
 
 // Mock edit history
 const editHistory = [
