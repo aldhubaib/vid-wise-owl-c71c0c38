@@ -362,10 +362,6 @@ export default function Test() {
               </div>
 
               <div className="px-5 pt-4">
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-[11px] text-dim">Title</label>
-                  {titleInput && editingField !== "title" && <CopyBtn text={titleInput} />}
-                </div>
                 <input
                   type="text"
                   value={titleInput}
@@ -376,11 +372,7 @@ export default function Test() {
                 />
               </div>
 
-              {/* Script body */}
               <div className="px-5 py-4">
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-[11px] text-dim">Content</label>
-                </div>
                 <textarea
                   value={scriptContent}
                   onChange={(e) => setScriptContent(e.target.value)}
@@ -389,14 +381,6 @@ export default function Test() {
                   rows={6}
                   className="w-full px-4 py-3 text-[13px] bg-surface border border-border rounded-xl text-foreground placeholder:text-dim/40 focus:outline-none focus:border-blue/40 text-right leading-relaxed resize-y font-mono"
                 />
-              </div>
-
-              {/* File attachment area */}
-              <div className="px-5 pb-4">
-                <div className="rounded-xl border border-dashed border-border bg-surface/50 px-4 py-3 flex items-center justify-end gap-2 text-dim hover:text-sensor transition-colors cursor-pointer">
-                  <span className="text-[12px]">Add file</span>
-                  <FileText className="w-4 h-4" />
-                </div>
               </div>
             </div>
           </section>
