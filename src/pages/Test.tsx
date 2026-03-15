@@ -232,7 +232,7 @@ export default function Test() {
                   </div>
                   {/* Title */}
                   <div className="px-5 pt-4">
-                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 block text-right flex items-center justify-between">
+                    <label className="text-[11px] text-dim font-mono uppercase tracking-wider mb-2 flex items-center justify-between" dir="rtl">
                       <span>Title</span>
                       <a href="#" className="inline-flex items-center gap-1 text-[10px] font-mono font-medium text-blue hover:text-blue/80 transition-colors no-underline">
                         <ExternalLink className="w-3 h-3" />
