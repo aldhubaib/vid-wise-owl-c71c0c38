@@ -178,13 +178,13 @@ export default function QuerySection({
         <tr>
           <td colSpan={5} className="px-4 pb-4 pt-1">
             <div className="rounded-xl border border-border bg-background overflow-hidden">
-              {/* BlockNote editor */}
-              <div className="p-4 border-b border-border bn-container" onClick={(e) => e.stopPropagation()}>
+               <div className="p-4 border-b border-border" onClick={(e) => e.stopPropagation()}>
                 <div className="min-h-[150px] rounded-lg border border-border overflow-hidden bg-surface">
-                  <BlockNoteView
-                    editor={editor}
-                    theme="dark"
-                    data-theming-css-variables-demo
+                  <textarea
+                    value={editorText}
+                    onChange={(e) => setEditorText(e.target.value)}
+                    className="w-full h-full min-h-[150px] p-3 bg-transparent text-foreground text-sm resize-y focus:outline-none"
+                    placeholder="Type here…"
                   />
                 </div>
               </div>
