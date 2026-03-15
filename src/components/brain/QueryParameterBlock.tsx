@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X, ChevronDown, GripVertical } from "lucide-react";
 
 export type ParameterType =
@@ -128,12 +128,26 @@ interface Props {
 export default function QueryParameterBlock({ parameter, onUpdate, onRemove }: Props) {
   const [operatorOpen, setOperatorOpen] = useState(false);
   const [valueOpen, setValueOpen] = useState(false);
+  const blockRef = useRef<HTMLDivElement>(null);
   const config = PARAMETER_CONFIG[parameter.type];
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (blockRef.current && !blockRef.current.contains(e.target as Node)) {
+        setOperatorOpen(false);
+        setValueOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
 
   const selectedValues = parameter.values || (parameter.value ? [parameter.value] : []);
 
   return (
-    <div className={`flex items-center gap-0 rounded-lg border ${config.color} overflow-hidden group`}>
+    <div ref={blockRef} className={`flex items-center gap-0 rounded-lg border ${config.color} overflow-hidden group`}>
       {/* Drag handle */}
       <div className="px-2 py-3 opacity-0 group-hover:opacity-40 transition-opacity cursor-grab">
         <GripVertical className="w-3 h-3" />
@@ -158,7 +172,8 @@ export default function QueryParameterBlock({ parameter, onUpdate, onRemove }: P
             {config.operators.map((op) => (
               <button
                 key={op}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   onUpdate({ ...parameter, operator: op });
                   setOperatorOpen(false);
                 }}
@@ -201,7 +216,8 @@ export default function QueryParameterBlock({ parameter, onUpdate, onRemove }: P
                   return (
                     <button
                       key={preset}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         const newValues = isSelected
                           ? selectedValues.filter((v) => v !== preset)
                           : [...selectedValues, preset];
@@ -239,7 +255,8 @@ export default function QueryParameterBlock({ parameter, onUpdate, onRemove }: P
                 {config.presets.map((preset) => (
                   <button
                     key={preset}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       onUpdate({ ...parameter, value: preset });
                       setValueOpen(false);
                     }}
