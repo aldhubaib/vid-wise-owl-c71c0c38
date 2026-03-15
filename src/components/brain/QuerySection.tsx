@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, Plus, X, Check, AlertCircle } from "lucide-react";
+import { ChevronDown, ChevronRight, Plus, X, Check, AlertCircle, Save } from "lucide-react";
+import { toast } from "sonner";
 
 export interface SectionItem {
   id: string;
@@ -171,6 +172,17 @@ export default function QuerySection({
                   </button>
                 </div>
               )}
+
+              {/* Save button */}
+              <div className="flex justify-end mt-2">
+                <button
+                  onClick={(e) => { e.stopPropagation(); toast.success(`${title} section saved`); }}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-border text-[10px] text-dim font-mono hover:text-sensor hover:border-dim/40 transition-colors"
+                >
+                  <Save className="w-3 h-3" />
+                  Save
+                </button>
+              </div>
             </div>
           </td>
         </tr>
