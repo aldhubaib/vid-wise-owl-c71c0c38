@@ -82,7 +82,7 @@ function CopyBtn({ text }: { text: string }) {
 
 export default function Test() {
   const navigate = useNavigate();
-  const stories = storiesMock;
+  const [stories, setStories] = useState(storiesMock);
   const [currentIndex, setCurrentIndex] = useState(2);
   const story = stories[currentIndex];
 
