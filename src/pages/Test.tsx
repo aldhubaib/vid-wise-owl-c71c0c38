@@ -165,15 +165,6 @@ export default function Test() {
       </div>
 
       <div className="flex-1 overflow-auto">
-        {/* Hero — matches Channel Detail pattern */}
-        <div className="px-6 pt-5 max-lg:px-4">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-mono font-medium bg-success/10 text-success">
-              <Check className="w-3 h-3" /> Done
-            </span>
-          </div>
-        </div>
-
         {/* Scores row — matches Channel Detail stats grid */}
         <div className="px-6 max-lg:px-4">
           <div className="grid grid-cols-4 max-lg:grid-cols-2 rounded-xl overflow-hidden border border-border">
