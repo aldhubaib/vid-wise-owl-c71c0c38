@@ -184,7 +184,6 @@ export default function QuerySection({
                 </button>
               </div>
             </div>
-            </div>
           </td>
         </tr>
       )}
