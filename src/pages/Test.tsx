@@ -704,6 +704,14 @@ export default function Test() {
                   const label = isShort ? "Short" : "Video";
                   const Icon = isShort ? Smartphone : Monitor;
 
+                  // Extract YouTube video ID for thumbnail
+                  const getYoutubeId = (ytUrl?: string) => {
+                    if (!ytUrl) return null;
+                    const match = ytUrl.match(/(?:v=|shorts\/)([a-zA-Z0-9_-]{11})/);
+                    return match ? match[1] : null;
+                  };
+                  const videoId = getYoutubeId(url);
+
                   return (
                     <div className="rounded-xl bg-background border border-border overflow-hidden">
                       <div className="flex items-center gap-2 px-5 py-3 border-b border-border">
@@ -711,25 +719,22 @@ export default function Test() {
                         <span className="text-[12px] font-semibold">{label}</span>
                       </div>
 
-                      {stats && (
-                        <div className="flex border-b border-border">
-                          {[
-                            { icon: Eye, val: stats.views, label: "Views" },
-                            { icon: ThumbsUp, val: stats.likes, label: "Likes" },
-                            { icon: MessageSquare, val: stats.comments, label: "Comments" },
-                          ].map((m) => (
-                            <div key={m.label} className="flex-1 px-4 py-3 border-r border-border last:border-r-0">
-                              <div className="flex items-center gap-1.5 mb-1">
-                                <m.icon className="w-3 h-3 text-dim" />
-                                <span className="text-[10px] text-dim font-mono uppercase">{m.label}</span>
+                      {/* YouTube Thumbnail + URL */}
+                      <div className="px-5 py-4 border-b border-border">
+                        {videoId && !editing && (
+                          <a href={url} target="_blank" rel="noopener noreferrer" className="block mb-3 group relative rounded-lg overflow-hidden">
+                            <img
+                              src={`https://img.youtube.com/vi/${videoId}/mqdefault.jpg`}
+                              alt={`${label} thumbnail`}
+                              className="w-full aspect-video object-cover rounded-lg group-hover:opacity-80 transition-opacity"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                              <div className="w-12 h-12 rounded-full bg-background/80 flex items-center justify-center">
+                                <ExternalLink className="w-5 h-5 text-foreground" />
                               </div>
-                              <div className="text-lg font-semibold font-mono tracking-tight">{fmt(m.val)}</div>
                             </div>
-                          ))}
-                        </div>
-                      )}
-
-                      <div className="px-5 py-4">
+                          </a>
+                        )}
                         <div className="flex items-center justify-between mb-2">
                           <label className="text-[10px] text-dim font-mono uppercase tracking-widest">YouTube {label} URL</label>
                           <div className="flex items-center gap-2">
@@ -762,6 +767,24 @@ export default function Test() {
                           <div className="rounded-full bg-surface px-5 py-2.5 text-[12px] font-mono text-dim italic">No URL added yet</div>
                         )}
                       </div>
+
+                      {stats && (
+                        <div className="flex">
+                          {[
+                            { icon: Eye, val: stats.views, label: "Views" },
+                            { icon: ThumbsUp, val: stats.likes, label: "Likes" },
+                            { icon: MessageSquare, val: stats.comments, label: "Comments" },
+                          ].map((m) => (
+                            <div key={m.label} className="flex-1 px-4 py-3 border-r border-border last:border-r-0">
+                              <div className="flex items-center gap-1.5 mb-1">
+                                <m.icon className="w-3 h-3 text-dim" />
+                                <span className="text-[10px] text-dim font-mono uppercase">{m.label}</span>
+                              </div>
+                              <div className="text-lg font-semibold font-mono tracking-tight">{fmt(m.val)}</div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   );
                 };
