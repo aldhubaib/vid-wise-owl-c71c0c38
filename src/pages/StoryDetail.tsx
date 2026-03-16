@@ -764,7 +764,7 @@ export default function StoryDetail() {
                                 value={inputVal}
                                 onChange={(e) => setInputVal(e.target.value)}
                                 placeholder={`Paste YouTube ${label} URL...`}
-                                className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40"
+                                className="w-full px-5 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-primary/40"
                               />
                               <button
                                 onClick={() => {
