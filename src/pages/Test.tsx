@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import {
   ArrowLeft,
@@ -21,6 +21,13 @@ import {
   Ban,
   EyeOff,
   SkipForward,
+  Trophy,
+  Eye,
+  ThumbsUp,
+  MessageSquare,
+  Pencil,
+  Smartphone,
+  Monitor,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -82,9 +89,11 @@ function CopyBtn({ text }: { text: string }) {
 }
 
 export default function Test() {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [stories, setStories] = useState(storiesMock);
-  const [currentIndex, setCurrentIndex] = useState(2);
+  const resolvedIndex = id ? stories.findIndex((s) => s.id === id) : -1;
+  const [currentIndex, setCurrentIndex] = useState(resolvedIndex >= 0 ? resolvedIndex : 2);
   const story = stories[currentIndex];
 
   // Article state
@@ -102,6 +111,12 @@ export default function Test() {
   const [scriptDuration, setScriptDuration] = useState(3); // minutes
 
   const [titleInput, setTitleInput] = useState("");
+
+  // Done stage state
+  const [editingShortUrl, setEditingShortUrl] = useState(false);
+  const [editingLongUrl, setEditingLongUrl] = useState(false);
+  const [shortUrlInput, setShortUrlInput] = useState("");
+  const [longUrlInput, setLongUrlInput] = useState("");
 
 
   // Channel
@@ -256,7 +271,7 @@ export default function Test() {
           {/* Navigation */}
           <div className="flex items-center gap-0.5 ml-1 max-sm:ml-0">
             <button
-              onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
+              onClick={() => { const ni = Math.max(0, currentIndex - 1); setCurrentIndex(ni); navigate(`/story/${stories[ni].id}`, { replace: true }); }}
               disabled={currentIndex === 0}
               className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
             >
@@ -266,7 +281,7 @@ export default function Test() {
               {currentIndex + 1}/{stories.length}
             </span>
             <button
-              onClick={() => setCurrentIndex(Math.min(stories.length - 1, currentIndex + 1))}
+              onClick={() => { const ni = Math.min(stories.length - 1, currentIndex + 1); setCurrentIndex(ni); navigate(`/story/${stories[ni].id}`, { replace: true }); }}
               disabled={currentIndex === stories.length - 1}
               className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
             >
@@ -409,7 +424,7 @@ export default function Test() {
 
 
           {/* ─── SCRIPT EDITOR ─── */}
-          {story.stage !== "suggestion" && story.stage !== "liked" && (
+          {story.stage !== "suggestion" && story.stage !== "liked" && story.stage !== "done" && (
           <section>
             <div className="mb-2">
               <span className="text-[12px] text-dim font-medium">Script</span>
@@ -527,6 +542,162 @@ export default function Test() {
               </div>
             </div>
           </section>
+          )}
+
+          {/* ─── DONE STAGE ─── */}
+          {story.stage === "done" && (
+            <section className="space-y-4">
+              {story.gapWin && (
+                <div className="rounded-xl bg-success/10 border border-success/20 px-5 py-4 flex items-center gap-3">
+                  <Trophy className="w-5 h-5 text-success shrink-0" />
+                  <div>
+                    <div className="text-[14px] font-semibold text-success">Gap Win</div>
+                    <div className="text-[12px] text-success/80">You were first and the audience responded!</div>
+                  </div>
+                </div>
+              )}
+
+              {/* Produced format badges */}
+              {story.producedFormats && story.producedFormats.length > 0 && (
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] text-dim font-mono uppercase tracking-widest">Produced</span>
+                  {story.producedFormats.map((f) => (
+                    <span key={f} className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue/15 text-blue flex items-center gap-1">
+                      {f === "short" ? <Smartphone className="w-3 h-3" /> : <Monitor className="w-3 h-3" />}
+                      {f === "short" ? "Short" : "Video"}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Per-format sections */}
+              {(() => {
+                const produced = story.producedFormats || [];
+                const fmt = (n?: number) => !n ? "0" : n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(0)}K` : String(n);
+
+                const FormatCard = ({ format, url, stats, editing, setEditing, input, setInput }: {
+                  format: "short" | "long";
+                  url?: string;
+                  stats?: { views: number; likes: number; comments: number };
+                  editing: boolean;
+                  setEditing: (v: boolean) => void;
+                  input: string;
+                  setInput: (v: string) => void;
+                }) => {
+                  const isShort = format === "short";
+                  const label = isShort ? "Short" : "Video";
+                  const Icon = isShort ? Smartphone : Monitor;
+
+                  return (
+                    <div className="rounded-xl bg-background border border-border overflow-hidden">
+                      <div className="flex items-center gap-2 px-5 py-3 border-b border-border">
+                        <Icon className="w-4 h-4 text-blue" />
+                        <span className="text-[12px] font-semibold">{label}</span>
+                      </div>
+
+                      {stats && (
+                        <div className="flex border-b border-border">
+                          {[
+                            { icon: Eye, val: stats.views, label: "Views" },
+                            { icon: ThumbsUp, val: stats.likes, label: "Likes" },
+                            { icon: MessageSquare, val: stats.comments, label: "Comments" },
+                          ].map((m) => (
+                            <div key={m.label} className="flex-1 px-4 py-3 border-r border-border last:border-r-0">
+                              <div className="flex items-center gap-1.5 mb-1">
+                                <m.icon className="w-3 h-3 text-dim" />
+                                <span className="text-[10px] text-dim font-mono uppercase">{m.label}</span>
+                              </div>
+                              <div className="text-lg font-semibold font-mono tracking-tight">{fmt(m.val)}</div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      <div className="px-5 py-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <label className="text-[10px] text-dim font-mono uppercase tracking-widest">YouTube {label} URL</label>
+                          <div className="flex items-center gap-2">
+                            {!editing && url && (
+                              <>
+                                <a href={url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-[10px] text-blue hover:opacity-80 transition-opacity">
+                                  <ExternalLink className="w-3 h-3" /> Open
+                                </a>
+                                <button onClick={() => { setInput(url || ""); setEditing(true); }} className="flex items-center gap-1 text-[10px] text-dim hover:text-sensor transition-colors">
+                                  <Pencil className="w-3 h-3" /> Edit
+                                </button>
+                              </>
+                            )}
+                            {editing && (
+                              <button onClick={() => {
+                                if (!input.trim()) { toast.error("URL cannot be empty"); return; }
+                                const urlKey = isShort ? "shortYoutubeUrl" : "longYoutubeUrl";
+                                setStories((prev) => prev.map((s) => s.id === story.id ? { ...s, [urlKey]: input.trim() } : s));
+                                setEditing(false);
+                                toast.success("URL updated");
+                              }} className="text-[10px] text-blue hover:text-blue/80 font-medium transition-colors">Done</button>
+                            )}
+                          </div>
+                        </div>
+                        {editing ? (
+                          <input type="url" value={input} onChange={(e) => setInput(e.target.value)} placeholder="https://youtube.com/..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40" />
+                        ) : url ? (
+                          <div className="rounded-xl bg-surface px-4 py-2.5 text-[13px] font-mono text-sensor truncate">{url}</div>
+                        ) : (
+                          <div className="rounded-xl bg-surface px-4 py-2.5 text-[12px] font-mono text-dim italic">No URL added yet</div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                };
+
+                return (
+                  <>
+                    {produced.includes("long") && (
+                      <FormatCard format="long" url={story.longYoutubeUrl} stats={story.longStats} editing={editingLongUrl} setEditing={setEditingLongUrl} input={longUrlInput} setInput={setLongUrlInput} />
+                    )}
+                    {produced.includes("short") && (
+                      <FormatCard format="short" url={story.shortYoutubeUrl} stats={story.shortStats} editing={editingShortUrl} setEditing={setEditingShortUrl} input={shortUrlInput} setInput={setShortUrlInput} />
+                    )}
+
+                    {/* Opposite format input */}
+                    {(() => {
+                      const canAddShort = !produced.includes("short");
+                      const canAddLong = !produced.includes("long");
+                      const missing = canAddShort ? "short" : canAddLong ? "long" : null;
+                      if (!missing) return null;
+                      const isShort = missing === "short";
+                      const label = isShort ? "Short" : "Video";
+                      const Icon = isShort ? Smartphone : Monitor;
+                      const [val, setVal] = isShort ? [shortUrlInput, setShortUrlInput] : [longUrlInput, setLongUrlInput];
+
+                      return (
+                        <div className="rounded-xl bg-background border border-border/50 border-dashed overflow-hidden">
+                          <div className="flex items-center gap-2 px-5 py-3 border-b border-border/50">
+                            <Icon className="w-4 h-4 text-dim" />
+                            <span className="text-[12px] font-medium text-dim">Also produce as {label}?</span>
+                          </div>
+                          <div className="px-5 py-4 space-y-3">
+                            <p className="text-[11px] text-dim leading-relaxed">Add a YouTube {label} URL if you've produced this story in {label.toLowerCase()} format too.</p>
+                            <input type="url" value={val} onChange={(e) => setVal(e.target.value)} placeholder={`Paste YouTube ${label} URL...`} className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40" />
+                            <button
+                              onClick={() => {
+                                if (!val.trim()) { toast.error("Please enter a URL"); return; }
+                                const urlKey = isShort ? "shortYoutubeUrl" : "longYoutubeUrl";
+                                setStories((prev) => prev.map((s) => s.id === story.id ? { ...s, [urlKey]: val.trim(), producedFormats: [...(s.producedFormats || []), missing] } : s));
+                                toast.success(`${label} URL added`);
+                              }}
+                              className="w-full px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
+                            >
+                              Add {label} URL
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </>
+                );
+              })()}
+            </section>
           )}
 
 
