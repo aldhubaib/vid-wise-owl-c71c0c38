@@ -639,11 +639,11 @@ export default function Test() {
                           </div>
                         </div>
                         {editing ? (
-                          <input type="url" value={input} onChange={(e) => setInput(e.target.value)} placeholder="https://youtube.com/..." className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40" />
+                          <input type="url" value={input} onChange={(e) => setInput(e.target.value)} placeholder="https://youtube.com/..." className="w-full px-5 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-primary/40" />
                         ) : url ? (
-                          <div className="rounded-xl bg-surface px-4 py-2.5 text-[13px] font-mono text-sensor truncate">{url}</div>
+                          <div className="rounded-full bg-surface px-5 py-2.5 text-[13px] font-mono text-sensor truncate">{url}</div>
                         ) : (
-                          <div className="rounded-xl bg-surface px-4 py-2.5 text-[12px] font-mono text-dim italic">No URL added yet</div>
+                          <div className="rounded-full bg-surface px-5 py-2.5 text-[12px] font-mono text-dim italic">No URL added yet</div>
                         )}
                       </div>
                     </div>
@@ -678,7 +678,7 @@ export default function Test() {
                           </div>
                           <div className="px-5 py-4 space-y-3">
                             <p className="text-[11px] text-dim leading-relaxed">Add a YouTube {label} URL if you've produced this story in {label.toLowerCase()} format too.</p>
-                            <input type="url" value={val} onChange={(e) => setVal(e.target.value)} placeholder={`Paste YouTube ${label} URL...`} className="w-full px-4 py-2.5 text-[13px] bg-surface border border-border rounded-xl text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-blue/40" />
+                            <input type="url" value={val} onChange={(e) => setVal(e.target.value)} placeholder={`Paste YouTube ${label} URL...`} className="w-full px-5 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-primary/40" />
                             <button
                               onClick={() => {
                                 if (!val.trim()) { toast.error("Please enter a URL"); return; }
