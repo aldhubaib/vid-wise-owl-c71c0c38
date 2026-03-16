@@ -218,7 +218,7 @@ export default function Test() {
               const currentStageIdx = stageOrder.indexOf(story.stage);
               const nextStage = currentStageIdx < stageOrder.length - 1 ? stageOrder[currentStageIdx + 1] : null;
               return (
-              <div className="absolute z-20 mt-2 right-0 w-48 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
+              <div className="absolute z-20 mt-2 right-0 w-52 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
                 {nextStage && (
                 <button
                   onClick={() => { setActionDropOpen(false); setStories(prev => prev.map((s, i) => i === currentIndex ? { ...s, stage: nextStage } : s)); toast.success(`Moved to ${stageLabels[nextStage]}`); }}
@@ -228,6 +228,25 @@ export default function Test() {
                   <span className="font-medium">Move to {stageLabels[nextStage]}</span>
                 </button>
                 )}
+                {/* Produce as opposite format — only in Done stage */}
+                {story.stage === "done" && (() => {
+                  const produced = story.producedFormats || [];
+                  const canAddShort = !produced.includes("short");
+                  const canAddLong = !produced.includes("long");
+                  const missing = canAddShort ? "short" : canAddLong ? "long" : null;
+                  if (!missing) return null;
+                  const label = missing === "short" ? "Short" : "Video";
+                  const Icon = missing === "short" ? Smartphone : Monitor;
+                  return (
+                    <button
+                      onClick={() => { setActionDropOpen(false); setConfirmAction("produce_other"); }}
+                      className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-foreground hover:bg-elevated transition-colors"
+                    >
+                      <Icon className="w-3.5 h-3.5 text-blue" />
+                      <span className="font-medium">Produce as {label}</span>
+                    </button>
+                  );
+                })()}
                 <div className="h-px bg-border" />
                 <button
                   onClick={() => { setActionDropOpen(false); setConfirmAction("pass"); }}
