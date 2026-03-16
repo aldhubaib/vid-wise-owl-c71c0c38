@@ -28,6 +28,7 @@ import {
   Pencil,
   Smartphone,
   Monitor,
+  Link2,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -117,6 +118,7 @@ export default function Test() {
   const [editingLongUrl, setEditingLongUrl] = useState(false);
   const [shortUrlInput, setShortUrlInput] = useState("");
   const [longUrlInput, setLongUrlInput] = useState("");
+  const [youtubeInput, setYoutubeInput] = useState("");
 
 
   // Channel
@@ -542,6 +544,80 @@ export default function Test() {
               </div>
             </div>
           </section>
+          )}
+
+          {/* ─── FILMED STAGE ─── */}
+          {story.stage === "filmed" && (
+            <section>
+              <div className="mb-2">
+                <span className="text-[12px] text-dim font-medium">Delivery</span>
+              </div>
+              <div className="rounded-xl bg-background border border-border overflow-hidden">
+                <div className="px-5 py-4 space-y-3">
+                  <div className="text-[10px] text-dim font-mono uppercase tracking-widest">
+                    {scriptFormat === "short" ? "Add YouTube Short URL" : "Add YouTube Video URL"}
+                  </div>
+                  <p className="text-[11px] text-dim leading-relaxed">
+                    Paste the published {scriptFormat === "short" ? "short" : "video"} URL to record performance and check Brain coverage.
+                  </p>
+                  <div className="flex items-center gap-2.5">
+                    <div className="relative flex-1">
+                      <Link2 className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-dim" />
+                      <input
+                        type="url"
+                        value={youtubeInput}
+                        onChange={(e) => setYoutubeInput(e.target.value)}
+                        placeholder={scriptFormat === "short" ? "https://youtube.com/shorts/..." : "https://youtube.com/watch?v=..."}
+                        className="w-full pl-10 pr-4 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-primary/40"
+                      />
+                    </div>
+                    <button
+                      onClick={() => {
+                        if (!youtubeInput.trim()) { toast.error("Please paste a YouTube URL"); return; }
+                        const currentFormats = story.producedFormats || [];
+                        const newFormat: "short" | "long" = scriptFormat;
+                        const updatedFormats = currentFormats.includes(newFormat) ? currentFormats : [...currentFormats, newFormat];
+                        const urlKey = newFormat === "short" ? "shortYoutubeUrl" : "longYoutubeUrl";
+                        setStories((prev) => prev.map((s) => s.id === story.id ? {
+                          ...s,
+                          youtubeUrl: youtubeInput.trim(),
+                          [urlKey]: youtubeInput.trim(),
+                          stage: "done" as const,
+                          views: 0, likes: 0, comments: 0,
+                          [`${newFormat}Stats`]: { views: 0, likes: 0, comments: 0 },
+                          producedFormats: updatedFormats,
+                        } : s));
+                        setYoutubeInput("");
+                        toast.success("Moved to Done");
+                      }}
+                      className="px-5 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity whitespace-nowrap"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* ─── PUBLISH STAGE ─── */}
+          {story.stage === "publish" && (
+            <section>
+              <div className="mb-2">
+                <span className="text-[12px] text-dim font-medium">Publish</span>
+              </div>
+              <div className="rounded-xl bg-background border border-border overflow-hidden">
+                <div className="px-5 py-4 space-y-3">
+                  <p className="text-[11px] text-dim font-mono leading-relaxed">Final details to confirm before marking done.</p>
+                  <button
+                    onClick={() => setStories((prev) => prev.map((s) => s.id === story.id ? { ...s, stage: "done" as const } : s))}
+                    className="w-full px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
+                  >
+                    Mark as Done
+                  </button>
+                </div>
+              </div>
+            </section>
           )}
 
           {/* ─── DONE STAGE ─── */}
