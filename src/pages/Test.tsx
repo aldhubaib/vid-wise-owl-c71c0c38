@@ -28,6 +28,7 @@ import {
   Pencil,
   Smartphone,
   Monitor,
+  Link2,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
