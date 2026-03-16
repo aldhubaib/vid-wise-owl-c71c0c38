@@ -129,7 +129,7 @@ export default function Test() {
   // History
   const [historyOpen, setHistoryOpen] = useState(false);
   const [actionDropOpen, setActionDropOpen] = useState(false);
-  const [confirmAction, setConfirmAction] = useState<"pass" | "omit" | null>(null);
+  const [confirmAction, setConfirmAction] = useState<"pass" | "omit" | "produce_other" | null>(null);
 
   const actionDropRef = useRef<HTMLDivElement>(null);
   const channelDropRef = useRef<HTMLDivElement>(null);
