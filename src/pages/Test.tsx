@@ -21,6 +21,13 @@ import {
   Ban,
   EyeOff,
   SkipForward,
+  Trophy,
+  Eye,
+  ThumbsUp,
+  MessageSquare,
+  Pencil,
+  Smartphone,
+  Monitor,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
