@@ -24,6 +24,10 @@ export interface Story {
   rank?: number;
   channelId?: string;
   producedFormats?: ("short" | "long")[];
+  shortYoutubeUrl?: string;
+  longYoutubeUrl?: string;
+  shortStats?: { views: number; likes: number; comments: number };
+  longStats?: { views: number; likes: number; comments: number };
 }
 
 export const storiesMock: Story[] = [
@@ -185,5 +189,7 @@ export const storiesMock: Story[] = [
     openingHook: "ثلاثة سياح دخلوا الصحراء... ولم يعد أي منهم.",
     endingHook: "هل تجرؤ على زيارة هذا المكان؟ اكتب رأيك.",
     producedFormats: ["long"],
+    longYoutubeUrl: "https://youtube.com/watch?v=abc123",
+    longStats: { views: 1400000, likes: 61000, comments: 9000 },
   },
 ];
