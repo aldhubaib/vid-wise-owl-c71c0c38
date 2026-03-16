@@ -60,6 +60,10 @@ export default function StoryDetail() {
   const [hookEndInput, setHookEndInput] = useState("");
   const [scriptInput, setScriptInput] = useState("");
   const [editingYoutubeUrl, setEditingYoutubeUrl] = useState(false);
+  const [editingShortUrl, setEditingShortUrl] = useState(false);
+  const [editingLongUrl, setEditingLongUrl] = useState(false);
+  const [shortUrlInput, setShortUrlInput] = useState("");
+  const [longUrlInput, setLongUrlInput] = useState("");
   const [aiCleaning, setAiCleaning] = useState(false);
   const [aiProgress, setAiProgress] = useState(0);
 
