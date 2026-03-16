@@ -118,6 +118,7 @@ export default function Test() {
   const [editingLongUrl, setEditingLongUrl] = useState(false);
   const [shortUrlInput, setShortUrlInput] = useState("");
   const [longUrlInput, setLongUrlInput] = useState("");
+  const [youtubeInput, setYoutubeInput] = useState("");
 
 
   // Channel
