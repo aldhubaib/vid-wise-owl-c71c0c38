@@ -281,7 +281,7 @@ export default function Test() {
               {currentIndex + 1}/{stories.length}
             </span>
             <button
-              onClick={() => setCurrentIndex(Math.min(stories.length - 1, currentIndex + 1))}
+              onClick={() => { const ni = Math.min(stories.length - 1, currentIndex + 1); setCurrentIndex(ni); navigate(`/story/${stories[ni].id}`, { replace: true }); }}
               disabled={currentIndex === stories.length - 1}
               className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
             >
