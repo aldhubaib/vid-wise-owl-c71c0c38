@@ -112,6 +112,12 @@ export default function Test() {
 
   const [titleInput, setTitleInput] = useState("");
 
+  // Done stage state
+  const [editingShortUrl, setEditingShortUrl] = useState(false);
+  const [editingLongUrl, setEditingLongUrl] = useState(false);
+  const [shortUrlInput, setShortUrlInput] = useState("");
+  const [longUrlInput, setLongUrlInput] = useState("");
+
 
   // Channel
   const [selectedChannel, setSelectedChannel] = useState("");
