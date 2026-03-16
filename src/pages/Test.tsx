@@ -129,7 +129,7 @@ export default function Test() {
   // History
   const [historyOpen, setHistoryOpen] = useState(false);
   const [actionDropOpen, setActionDropOpen] = useState(false);
-  const [confirmAction, setConfirmAction] = useState<"pass" | "omit" | null>(null);
+  const [confirmAction, setConfirmAction] = useState<"pass" | "omit" | "produce_other" | null>(null);
 
   const actionDropRef = useRef<HTMLDivElement>(null);
   const channelDropRef = useRef<HTMLDivElement>(null);
@@ -218,7 +218,7 @@ export default function Test() {
               const currentStageIdx = stageOrder.indexOf(story.stage);
               const nextStage = currentStageIdx < stageOrder.length - 1 ? stageOrder[currentStageIdx + 1] : null;
               return (
-              <div className="absolute z-20 mt-2 right-0 w-48 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
+              <div className="absolute z-20 mt-2 right-0 w-52 rounded-xl bg-surface border border-border overflow-hidden shadow-lg">
                 {nextStage && (
                 <button
                   onClick={() => { setActionDropOpen(false); setStories(prev => prev.map((s, i) => i === currentIndex ? { ...s, stage: nextStage } : s)); toast.success(`Moved to ${stageLabels[nextStage]}`); }}
@@ -228,6 +228,25 @@ export default function Test() {
                   <span className="font-medium">Move to {stageLabels[nextStage]}</span>
                 </button>
                 )}
+                {/* Produce as opposite format — only in Done stage */}
+                {story.stage === "done" && (() => {
+                  const produced = story.producedFormats || [];
+                  const canAddShort = !produced.includes("short");
+                  const canAddLong = !produced.includes("long");
+                  const missing = canAddShort ? "short" : canAddLong ? "long" : null;
+                  if (!missing) return null;
+                  const label = missing === "short" ? "Short" : "Video";
+                  const Icon = missing === "short" ? Smartphone : Monitor;
+                  return (
+                    <button
+                      onClick={() => { setActionDropOpen(false); setConfirmAction("produce_other"); }}
+                      className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[12px] text-foreground hover:bg-elevated transition-colors"
+                    >
+                      <Icon className="w-3.5 h-3.5 text-blue" />
+                      <span className="font-medium">Produce as {label}</span>
+                    </button>
+                  );
+                })()}
                 <div className="h-px bg-border" />
                 <button
                   onClick={() => { setActionDropOpen(false); setConfirmAction("pass"); }}
@@ -252,20 +271,41 @@ export default function Test() {
           <AlertDialog open={confirmAction !== null} onOpenChange={(open) => { if (!open) setConfirmAction(null); }}>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>{confirmAction === "pass" ? "Pass on this story?" : "Omit this story?"}</AlertDialogTitle>
+                <AlertDialogTitle>
+                  {confirmAction === "pass" ? "Pass on this story?" : confirmAction === "omit" ? "Omit this story?" : "Produce in another format?"}
+                </AlertDialogTitle>
                 <AlertDialogDescription>
                   {confirmAction === "pass"
                     ? "This story will be removed from the pipeline. You can always bring it back later."
-                    : "This story will be skipped and won't appear in future suggestions."}
+                    : confirmAction === "omit"
+                    ? "This story will be skipped and won't appear in future suggestions."
+                    : `This will restart the pipeline from the Scripting stage to produce this story as a ${
+                        !(story.producedFormats || []).includes("short") ? "Short" : "Video"
+                      }. The existing version will be preserved.`}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction
-                  onClick={() => { toast.success(confirmAction === "pass" ? "Story passed" : "Story omitted"); setConfirmAction(null); }}
-                  className={confirmAction === "pass" ? "bg-red text-white hover:bg-red/90" : "bg-orange text-white hover:bg-orange/90"}
+                  onClick={() => {
+                    if (confirmAction === "produce_other") {
+                      const produced = story.producedFormats || [];
+                      const missing = !produced.includes("short") ? "short" : "long";
+                      setStories((prev) => prev.map((s) => s.id === story.id ? { ...s, stage: "approved" as const } : s));
+                      setScriptFormat(missing === "short" ? "short" : "long");
+                      toast.success(`Restarting pipeline for ${missing === "short" ? "Short" : "Video"} format`);
+                    } else {
+                      toast.success(confirmAction === "pass" ? "Story passed" : "Story omitted");
+                    }
+                    setConfirmAction(null);
+                  }}
+                  className={
+                    confirmAction === "pass" ? "bg-orange text-white hover:bg-orange/90"
+                    : confirmAction === "omit" ? "bg-destructive text-white hover:bg-destructive/90"
+                    : "bg-blue text-white hover:bg-blue/90"
+                  }
                 >
-                  {confirmAction === "pass" ? "Pass" : "Omit"}
+                  {confirmAction === "pass" ? "Pass" : confirmAction === "omit" ? "Omit" : "Restart Pipeline"}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -735,34 +775,6 @@ export default function Test() {
                       <FormatCard format="short" url={story.shortYoutubeUrl} stats={story.shortStats} editing={editingShortUrl} setEditing={setEditingShortUrl} input={shortUrlInput} setInput={setShortUrlInput} />
                     )}
 
-                    {/* Produce in opposite format */}
-                    {(() => {
-                      const canAddShort = !produced.includes("short");
-                      const canAddLong = !produced.includes("long");
-                      const missing = canAddShort ? "short" : canAddLong ? "long" : null;
-                      if (!missing) return null;
-                      const isShort = missing === "short";
-                      const label = isShort ? "Short" : "Video";
-                      const Icon = isShort ? Smartphone : Monitor;
-
-                      return (
-                        <button
-                          onClick={() => {
-                            setStories((prev) => prev.map((s) => s.id === story.id ? {
-                              ...s,
-                              stage: "approved" as const,
-                            } : s));
-                            setScriptFormat(isShort ? "short" : "long");
-                            toast.success(`Restarting pipeline for ${label} format`);
-                          }}
-                          className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 text-[13px] font-semibold rounded-full border border-dashed border-border text-dim hover:text-foreground hover:border-primary/40 hover:bg-surface/50 transition-all"
-                        >
-                          <Icon className="w-4 h-4" />
-                          Produce as {label}
-                          <RefreshCw className="w-3.5 h-3.5 text-dim" />
-                        </button>
-                      );
-                    })()}
                   </>
                 );
               })()}
