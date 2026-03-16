@@ -775,34 +775,6 @@ export default function Test() {
                       <FormatCard format="short" url={story.shortYoutubeUrl} stats={story.shortStats} editing={editingShortUrl} setEditing={setEditingShortUrl} input={shortUrlInput} setInput={setShortUrlInput} />
                     )}
 
-                    {/* Produce in opposite format */}
-                    {(() => {
-                      const canAddShort = !produced.includes("short");
-                      const canAddLong = !produced.includes("long");
-                      const missing = canAddShort ? "short" : canAddLong ? "long" : null;
-                      if (!missing) return null;
-                      const isShort = missing === "short";
-                      const label = isShort ? "Short" : "Video";
-                      const Icon = isShort ? Smartphone : Monitor;
-
-                      return (
-                        <button
-                          onClick={() => {
-                            setStories((prev) => prev.map((s) => s.id === story.id ? {
-                              ...s,
-                              stage: "approved" as const,
-                            } : s));
-                            setScriptFormat(isShort ? "short" : "long");
-                            toast.success(`Restarting pipeline for ${label} format`);
-                          }}
-                          className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 text-[13px] font-semibold rounded-full border border-dashed border-border text-dim hover:text-foreground hover:border-primary/40 hover:bg-surface/50 transition-all"
-                        >
-                          <Icon className="w-4 h-4" />
-                          Produce as {label}
-                          <RefreshCw className="w-3.5 h-3.5 text-dim" />
-                        </button>
-                      );
-                    })()}
                   </>
                 );
               })()}
