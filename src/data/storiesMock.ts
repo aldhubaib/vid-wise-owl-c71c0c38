@@ -24,6 +24,10 @@ export interface Story {
   rank?: number;
   channelId?: string;
   producedFormats?: ("short" | "long")[];
+  shortYoutubeUrl?: string;
+  longYoutubeUrl?: string;
+  shortStats?: { views: number; likes: number; comments: number };
+  longStats?: { views: number; likes: number; comments: number };
 }
 
 export const storiesMock: Story[] = [
