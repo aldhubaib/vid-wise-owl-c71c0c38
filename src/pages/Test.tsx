@@ -659,7 +659,7 @@ export default function Test() {
                       <FormatCard format="short" url={story.shortYoutubeUrl} stats={story.shortStats} editing={editingShortUrl} setEditing={setEditingShortUrl} input={shortUrlInput} setInput={setShortUrlInput} />
                     )}
 
-                    {/* Opposite format input */}
+                    {/* Produce in opposite format */}
                     {(() => {
                       const canAddShort = !produced.includes("short");
                       const canAddLong = !produced.includes("long");
@@ -668,30 +668,23 @@ export default function Test() {
                       const isShort = missing === "short";
                       const label = isShort ? "Short" : "Video";
                       const Icon = isShort ? Smartphone : Monitor;
-                      const [val, setVal] = isShort ? [shortUrlInput, setShortUrlInput] : [longUrlInput, setLongUrlInput];
 
                       return (
-                        <div className="rounded-xl bg-background border border-border/50 border-dashed overflow-hidden">
-                          <div className="flex items-center gap-2 px-5 py-3 border-b border-border/50">
-                            <Icon className="w-4 h-4 text-dim" />
-                            <span className="text-[12px] font-medium text-dim">Also produce as {label}?</span>
-                          </div>
-                          <div className="px-5 py-4 space-y-3">
-                            <p className="text-[11px] text-dim leading-relaxed">Add a YouTube {label} URL if you've produced this story in {label.toLowerCase()} format too.</p>
-                            <input type="url" value={val} onChange={(e) => setVal(e.target.value)} placeholder={`Paste YouTube ${label} URL...`} className="w-full px-5 py-2.5 text-[13px] bg-surface border border-border rounded-full text-foreground font-mono placeholder:text-dim focus:outline-none focus:border-primary/40" />
-                            <button
-                              onClick={() => {
-                                if (!val.trim()) { toast.error("Please enter a URL"); return; }
-                                const urlKey = isShort ? "shortYoutubeUrl" : "longYoutubeUrl";
-                                setStories((prev) => prev.map((s) => s.id === story.id ? { ...s, [urlKey]: val.trim(), producedFormats: [...(s.producedFormats || []), missing] } : s));
-                                toast.success(`${label} URL added`);
-                              }}
-                              className="w-full px-4 py-2.5 text-[13px] font-semibold bg-blue text-blue-foreground rounded-full hover:opacity-90 transition-opacity"
-                            >
-                              Add {label} URL
-                            </button>
-                          </div>
-                        </div>
+                        <button
+                          onClick={() => {
+                            setStories((prev) => prev.map((s) => s.id === story.id ? {
+                              ...s,
+                              stage: "approved" as const,
+                            } : s));
+                            setScriptFormat(isShort ? "short" : "long");
+                            toast.success(`Restarting pipeline for ${label} format`);
+                          }}
+                          className="w-full flex items-center justify-center gap-2.5 px-5 py-3.5 text-[13px] font-semibold rounded-full border border-dashed border-border text-dim hover:text-foreground hover:border-primary/40 hover:bg-surface/50 transition-all"
+                        >
+                          <Icon className="w-4 h-4" />
+                          Produce as {label}
+                          <RefreshCw className="w-3.5 h-3.5 text-dim" />
+                        </button>
                       );
                     })()}
                   </>
