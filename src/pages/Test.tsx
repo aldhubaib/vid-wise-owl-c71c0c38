@@ -271,20 +271,41 @@ export default function Test() {
           <AlertDialog open={confirmAction !== null} onOpenChange={(open) => { if (!open) setConfirmAction(null); }}>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>{confirmAction === "pass" ? "Pass on this story?" : "Omit this story?"}</AlertDialogTitle>
+                <AlertDialogTitle>
+                  {confirmAction === "pass" ? "Pass on this story?" : confirmAction === "omit" ? "Omit this story?" : "Produce in another format?"}
+                </AlertDialogTitle>
                 <AlertDialogDescription>
                   {confirmAction === "pass"
                     ? "This story will be removed from the pipeline. You can always bring it back later."
-                    : "This story will be skipped and won't appear in future suggestions."}
+                    : confirmAction === "omit"
+                    ? "This story will be skipped and won't appear in future suggestions."
+                    : `This will restart the pipeline from the Scripting stage to produce this story as a ${
+                        !(story.producedFormats || []).includes("short") ? "Short" : "Video"
+                      }. The existing version will be preserved.`}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction
-                  onClick={() => { toast.success(confirmAction === "pass" ? "Story passed" : "Story omitted"); setConfirmAction(null); }}
-                  className={confirmAction === "pass" ? "bg-red text-white hover:bg-red/90" : "bg-orange text-white hover:bg-orange/90"}
+                  onClick={() => {
+                    if (confirmAction === "produce_other") {
+                      const produced = story.producedFormats || [];
+                      const missing = !produced.includes("short") ? "short" : "long";
+                      setStories((prev) => prev.map((s) => s.id === story.id ? { ...s, stage: "approved" as const } : s));
+                      setScriptFormat(missing === "short" ? "short" : "long");
+                      toast.success(`Restarting pipeline for ${missing === "short" ? "Short" : "Video"} format`);
+                    } else {
+                      toast.success(confirmAction === "pass" ? "Story passed" : "Story omitted");
+                    }
+                    setConfirmAction(null);
+                  }}
+                  className={
+                    confirmAction === "pass" ? "bg-orange text-white hover:bg-orange/90"
+                    : confirmAction === "omit" ? "bg-destructive text-white hover:bg-destructive/90"
+                    : "bg-blue text-white hover:bg-blue/90"
+                  }
                 >
-                  {confirmAction === "pass" ? "Pass" : "Omit"}
+                  {confirmAction === "pass" ? "Pass" : confirmAction === "omit" ? "Omit" : "Restart Pipeline"}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
