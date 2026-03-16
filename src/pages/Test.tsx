@@ -82,9 +82,11 @@ function CopyBtn({ text }: { text: string }) {
 }
 
 export default function Test() {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [stories, setStories] = useState(storiesMock);
-  const [currentIndex, setCurrentIndex] = useState(2);
+  const resolvedIndex = id ? stories.findIndex((s) => s.id === id) : -1;
+  const [currentIndex, setCurrentIndex] = useState(resolvedIndex >= 0 ? resolvedIndex : 2);
   const story = stories[currentIndex];
 
   // Article state
