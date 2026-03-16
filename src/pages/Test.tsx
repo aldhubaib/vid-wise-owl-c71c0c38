@@ -271,7 +271,7 @@ export default function Test() {
           {/* Navigation */}
           <div className="flex items-center gap-0.5 ml-1 max-sm:ml-0">
             <button
-              onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
+              onClick={() => { const ni = Math.max(0, currentIndex - 1); setCurrentIndex(ni); navigate(`/story/${stories[ni].id}`, { replace: true }); }}
               disabled={currentIndex === 0}
               className="w-7 h-7 rounded-full flex items-center justify-center text-dim hover:text-foreground hover:bg-elevated transition-colors disabled:opacity-20"
             >
